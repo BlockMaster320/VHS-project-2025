@@ -12,7 +12,7 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 2		// shots/damage amount per second
+		attackSpeed = 5		// shots/damage amount per second
 	
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -20,7 +20,7 @@ function WeaponsInit()
 		{
 			// Modifiable attributes
 			damage = 10
-			projectileSpeed = 4
+			projectileSpeed = 2
 			targetKnockback = 5
 			effect = PROJECTILE_EFFECT.nothing
 	
@@ -37,4 +37,11 @@ function WeaponsInit()
 		update = genericWeaponUpdate
 		draw = genericWeaponDraw
 	}
+	
+	global.weaponListJSON = array_create(WEAPON_AMOUNT)
+	for (var i = 0; i < WEAPON_AMOUNT; i++)
+		global.weaponListJSON[i] = json_stringify(global.weaponList[i], false)
+	
+	// show_debug_message(json_stringify(global.weaponList, true))
+	//show_debug_message(global.weaponListJSON[0])
 }

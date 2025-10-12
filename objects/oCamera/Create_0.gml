@@ -13,7 +13,7 @@ y = oPlayer.y - (viewH / 2)
 
 lerpSpd = 0.4
 
-mouseViewOffsetMult = 0.04
+mouseViewOffsetMult = 0.07
 
 currentShakeAmount = 0
 screenShakeRotAmount = 0

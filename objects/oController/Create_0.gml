@@ -6,7 +6,8 @@ global.gameSpeed = 1
 
 global.inputState = INPUT_STATE.playing
 
+projectilePool = []
+
 WeaponsInit()
-//global.projectilePool = ds_list_create()
 
 room_goto(rmTest)

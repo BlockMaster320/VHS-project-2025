@@ -21,7 +21,7 @@ tilemap = layer_tilemap_get_id("LevelTiles")
 
 #macro INVENTORY_SIZE 3
 weaponInventory = array_create(INVENTORY_SIZE, noone)
-weaponInventory[0] = global.weaponList[0]
+weaponInventory[0] = json_parse(global.weaponListJSON[0])
 weaponInventory[0].active = true
 
 

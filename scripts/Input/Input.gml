@@ -5,6 +5,11 @@ function Input(inputState)
 	left = 0
 	right = 0
 	
+	aimDir = 0
+	
+	primaryButton = 0
+	secondaryButton = 0
+	
 	for (var i = 0; i < INVENTORY_SIZE; i++)
 		selectSlot[i] = 0
 	scrollSlot = 0
@@ -20,6 +25,12 @@ function Input(inputState)
 			down = keyboard_check(vk_down) or keyboard_check(ord("S")) or gamepad_button_check(0,gp_padd)
 			left = keyboard_check(vk_left) or keyboard_check(ord("A")) or gamepad_button_check(0,gp_padl)
 			right = keyboard_check(vk_right) or keyboard_check(ord("D")) or gamepad_button_check(0,gp_padr)
+			
+			// Weapon usage
+			primaryButton = mouse_check_button(mb_left)
+			secondaryButton = mouse_check_button(mb_right)
+			
+			aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
 	
 			// Weapon slots
 			for (var i = 0; i < INVENTORY_SIZE; i++)
@@ -32,6 +43,8 @@ function Input(inputState)
 		case INPUT_STATE.menu:
 			break
 	}
+	
+	
 
 	escapeButton = keyboard_check_pressed(vk_escape)
 }

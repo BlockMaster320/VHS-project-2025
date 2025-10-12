@@ -14,6 +14,7 @@ function Projectile() constructor
 {	
 	// Modifiable attributes
 	damage = 10
+	damageMultiplier = 1
 	projectileSpeed = 4
 	targetKnockback = 5
 	effect = PROJECTILE_EFFECT.nothing
@@ -21,10 +22,6 @@ function Projectile() constructor
 	// Generic attributes
 	type = PROJECTILE_TYPE.ranged
 	sprite = sPlaceholderProjectile
-	
-	// Scene attributes
-	xPos = 0
-	yPos = 0
 }
 
 function Weapon() constructor
@@ -50,33 +47,99 @@ function Weapon() constructor
 	secondaryAction = noone
 	
 	// Weapon functions
-	update = genericWeaponUpdate
-	draw = genericWeaponDraw
+	update = genericWeaponUpdate	// Runs every frame
+	draw = genericWeaponDraw		// Runs when weapon is held
 }
 
 function genericWeaponUpdate()
 {
 	xPos = oPlayer.x
 	yPos = oPlayer.y
+	
+	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
+	
+	if (oPlayer.primaryButton and primaryActionCooldown <= 0)
+	{
+		primaryActionCooldown = 60 / (attackSpeed * global.gameSpeed)
+		primaryAction()
+	}
 }
 
 function genericWeaponDraw()
 {
-	if (active)
-	{
-		draw_sprite(sprite, 0, xPos, yPos)
-	}
+	draw_sprite(sprite, 0, xPos, yPos)
 }
 
+// Shooting behaviour
 
 function rangedWeaponShoot()
 {
+	var bullet = new ShotProjectile(projectile)
+	bullet.xPos = xPos
+	bullet.yPos = yPos
+	bullet.dir = point_direction(xPos, yPos, mouse_x, mouse_y)
+	
+	array_push(oController.projectilePool, bullet)
 	show_debug_message("Boom!")
 }
 
+// Scene projectiles
 
+function ShotProjectile(projectileData) constructor
+{	
+	// Modifiable attributes
+	damage = projectileData.damage
+	damageMultiplier = projectileData.damageMultiplier
+	projectileSpeed = projectileData.projectileSpeed
+	targetKnockback = projectileData.targetKnockback
+	effect = projectileData.effect
+	
+	// Generic attributes
+	type = projectileData.type
+	sprite = projectileData.sprite
+	
+	// Scene attributes (set by the object spawning this projectile)
+	lifetime = (2 * 60) / global.gameSpeed
+	xPos = 0
+	yPos = 0
+	dir = 0
+	color = c_white
+	
+	// Decide scene behaviour
+	switch (type)
+	{
+		case PROJECTILE_TYPE.melee:
+			update = genericMeleeHitUpdate
+			break
+		
+		case PROJECTILE_TYPE.ranged:
+			update = genericBulletUpdate
+			break
+			
+		default:
+			update = noone
+			show_message("Projectile update is not defined!")
+			break
+	}
+	draw = genericProjectileDraw
+}
 
+function genericProjectileDraw()
+{
+	draw_sprite(sprite, 0, xPos, yPos)
+}
 
+function genericBulletUpdate(instanceID)
+{
+	if (lifetime <= 0) array_delete(oController.projectilePool, instanceID, 1)
+	lifetime--
+	xPos += lengthdir_x(projectileSpeed, dir)
+	yPos += lengthdir_y(projectileSpeed, dir)
+}
+
+function genericMeleeHitUpdate()
+{
+}
 
 
 
