@@ -17,7 +17,15 @@ vsp = 0		// Total horizontal speed
 tilemap = layer_tilemap_get_id("LevelTiles")
 
 
-// Other ---------------------------------
+// Weapon inventory --------------------------
+
+#macro INVENTORY_SIZE 3
+weaponInventory = array_create(INVENTORY_SIZE, noone)
+weaponInventory[0] = global.weaponList[0]
+weaponInventory[0].active = true
+
+
+// Misc ---------------------------------
 
 window_set_cursor(cr_cross)
 //cursor_sprite = sCursor

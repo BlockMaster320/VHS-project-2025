@@ -11,7 +11,7 @@ offsetY = 0
 x = oPlayer.x - (viewW / 2)
 y = oPlayer.y - (viewH / 2)
 
-lerpSpd = 0.3
+lerpSpd = 0.4
 
 mouseViewOffsetMult = 0.04
 

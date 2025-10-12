@@ -4,6 +4,7 @@ var centeredX = oPlayer.x - (viewW / 2)
 var centeredY = oPlayer.y - (viewH / 2)
 
 // Follow mouse cursor (target position)
+
 var xMouseOff = (device_mouse_x_to_gui(0) - display_get_gui_width()/2) * mouseViewOffsetMult
 var yMouseOff = (device_mouse_y_to_gui(0) - display_get_gui_height()/2) * mouseViewOffsetMult
 

@@ -1,14 +1,13 @@
 // Get input variables
+Input(global.inputState)
 
-Input()
-
-var dt = delta_time / 1000000 * 60;
+//var dt = delta_time / 1000000 * 60;
 
 #region Walking
 
 var walkDir = point_direction(0, 0, right - left, down - up)
-whsp = lengthdir_x(walkSpd, walkDir) * sign(right + left)
-wvsp = lengthdir_y(walkSpd, walkDir) * sign(down + up)
+whsp = lengthdir_x(walkSpd * global.gameSpeed, walkDir) * sign(right + left)
+wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(down + up)
 
 #endregion
 
@@ -39,6 +38,14 @@ if (place_meeting(x, y + vsp, tilemap))
 	vsp = 0;
 }
 y += vsp
+
+#endregion
+
+
+#region Weapon Inventory
+
+for (var i = 0; i < INVENTORY_SIZE; i++)
+	weaponInventory[0].update()
 
 #endregion
 
