@@ -12,7 +12,8 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 5		// shots/damage amount per second
+		attackSpeed = 400		// shots/damage amount per second
+		spread = 360				// weapon accuracy in degrees
 	
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()

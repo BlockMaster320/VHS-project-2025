@@ -11,3 +11,5 @@ projectilePool = []
 WeaponsInit()
 
 room_goto(rmTest)
+
+show_debug_overlay(true)

@@ -29,6 +29,7 @@ function Weapon() constructor
 	// Modifiable attributes
 	projectile = noone
 	attackSpeed = 2		// shots/damage amount per second
+	spread = 0			// weapon accuracy in degrees
 	
 	// Generic attributes
 	sprite = sPlaceholderGun
@@ -56,12 +57,21 @@ function genericWeaponUpdate()
 	xPos = oPlayer.x
 	yPos = oPlayer.y
 	
-	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
+	primaryActionCooldown--
 	
 	if (oPlayer.primaryButton and primaryActionCooldown <= 0)
 	{
-		primaryActionCooldown = 60 / (attackSpeed * global.gameSpeed)
-		primaryAction()
+		var i = 0
+		while (primaryActionCooldown <= 0)
+		{
+			i++
+			primaryActionCooldown += 60 / (attackSpeed * global.gameSpeed)
+			primaryAction()
+		}
+		show_debug_message(i)
+		
+			
+		//repeat (1 / primaryActionCooldown) primaryAction()
 	}
 }
 
@@ -78,9 +88,9 @@ function rangedWeaponShoot()
 	bullet.xPos = xPos
 	bullet.yPos = yPos
 	bullet.dir = point_direction(xPos, yPos, mouse_x, mouse_y)
+	bullet.dir += random_range(-spread/2, spread/2)
 	
 	array_push(oController.projectilePool, bullet)
-	show_debug_message("Boom!")
 }
 
 // Scene projectiles
