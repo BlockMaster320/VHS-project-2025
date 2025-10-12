@@ -1,4 +1,4 @@
-scrConstants()
+Constants()
 
 global.gameSpeed = 1
 //game_set_speed(120, gamespeed_fps)
@@ -10,6 +10,6 @@ projectilePool = []
 
 WeaponsInit()
 
-room_goto(rmTest)
+room_goto(rmGame)
 
 show_debug_overlay(true)

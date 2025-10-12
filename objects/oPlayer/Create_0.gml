@@ -14,7 +14,7 @@ vsp = 0		// Total horizontal speed
 
 // Collision ----------------------------------
 
-tilemap = layer_tilemap_get_id("LevelTiles")
+tilemap = layer_tilemap_get_id("TilesWall")
 
 
 // Weapon inventory --------------------------

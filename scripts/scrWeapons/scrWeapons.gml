@@ -12,8 +12,8 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 400		// shots/damage amount per second
-		spread = 360				// weapon accuracy in degrees
+		attackSpeed = 4			// shots/damage amount per second
+		spread = 60				// weapon accuracy in degrees
 	
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -21,7 +21,7 @@ function WeaponsInit()
 		{
 			// Modifiable attributes
 			damage = 10
-			projectileSpeed = 2
+			projectileSpeed = 3
 			targetKnockback = 5
 			effect = PROJECTILE_EFFECT.nothing
 	

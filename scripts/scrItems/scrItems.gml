@@ -57,7 +57,7 @@ function genericWeaponUpdate()
 	xPos = oPlayer.x
 	yPos = oPlayer.y
 	
-	primaryActionCooldown--
+	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
 	
 	if (oPlayer.primaryButton and primaryActionCooldown <= 0)
 	{
@@ -90,7 +90,9 @@ function rangedWeaponShoot()
 	bullet.dir = point_direction(xPos, yPos, mouse_x, mouse_y)
 	bullet.dir += random_range(-spread/2, spread/2)
 	
-	array_push(oController.projectilePool, bullet)
+	var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
+	
+	//array_push(oController.projectilePool, bullet)
 }
 
 // Scene projectiles
@@ -141,10 +143,11 @@ function genericProjectileDraw()
 
 function genericBulletUpdate(instanceID)
 {
-	if (lifetime <= 0) array_delete(oController.projectilePool, instanceID, 1)
+	//if (lifetime <= 0) array_delete(oController.projectilePool, instanceID, 1)
+	if (lifetime <= 0) instance_destroy()
 	lifetime--
-	xPos += lengthdir_x(projectileSpeed, dir)
-	yPos += lengthdir_y(projectileSpeed, dir)
+	x += lengthdir_x(projectileSpeed, dir)
+	y += lengthdir_y(projectileSpeed, dir)
 }
 
 function genericMeleeHitUpdate()

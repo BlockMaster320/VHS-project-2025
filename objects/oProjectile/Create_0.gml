@@ -1,0 +1,2 @@
+x = xPos
+y = yPos
