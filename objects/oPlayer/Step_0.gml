@@ -1,7 +1,7 @@
 // Get input variables
 Input(global.inputState)
 
-//var dt = delta_time / 1000000 * 60;
+//var dt = delta_time / 1000000 * 60
 
 #region Walking
 

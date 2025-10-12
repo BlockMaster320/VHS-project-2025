@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"Input",
+  "%Name":"scrConstants",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Input",
+  "name":"scrConstants",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

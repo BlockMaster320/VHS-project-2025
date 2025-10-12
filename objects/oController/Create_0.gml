@@ -1,4 +1,4 @@
-Constants()
+scrConstants()
 
 global.gameSpeed = 1
 //game_set_speed(120, gamespeed_fps)

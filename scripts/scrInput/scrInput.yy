@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"Weapons",
+  "%Name":"scrInput",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Weapons",
+  "name":"scrInput",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",
