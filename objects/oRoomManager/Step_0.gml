@@ -12,7 +12,7 @@ playerRoomY = floor(playerTileY / ROOM_SIZE);
 if (playerRoomX != playerRoomXPrev || playerRoomY != playerRoomYPrev)
     currentRoom = rooms[? string([playerRoomX, playerRoomY])];
 if (!currentRoom.discovered) {    // make the room close after the player steps deeper into the room so the door won't make him stuck
-    if (playerTileX > (playerRoomX * ROOM_SIZE + 1) &&
+    if (playerTileX > (playerRoomX * ROOM_SIZE) &&
         playerTileX < ((playerRoomX + 1) * ROOM_SIZE - 2) &&
         playerTileY > (playerRoomY * ROOM_SIZE + 1) &&
         playerTileY < ((playerRoomY + 1) * ROOM_SIZE - 1))

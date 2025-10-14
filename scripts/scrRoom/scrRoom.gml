@@ -90,17 +90,46 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	
 	// Renders the room (and its adjacent room) on the minimap
 	RenderMinimap = function(_surf) {
-		var _playerMinimapX = (oPlayer.x - FLOOR_CENTER_X) * (MINIMAP_ROOM_SIZE / (ROOM_SIZE * TILE_SIZE));
-		var _playerMinimapY = (oPlayer.y - FLOOR_CENTER_Y) * (MINIMAP_ROOM_SIZE / (ROOM_SIZE * TILE_SIZE));
+		if (!discovered) return;
+		
+		var _playerMinimapX = (oPlayer.x - FLOOR_CENTER_X) * ((MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING) / (ROOM_SIZE * TILE_SIZE));
+		var _playerMinimapY = (oPlayer.y - FLOOR_CENTER_Y) * ((MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING) / (ROOM_SIZE * TILE_SIZE));
 		var _centerX = MINIMAP_SURF_W * 0.5 - _playerMinimapX;
 		var _centerY = MINIMAP_SURF_H * 0.5 - _playerMinimapY;
 		var _x = _centerX + roomX * (MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING);
 		var _y = _centerY + roomY * (MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING);
+		
 		draw_rectangle_color(_x - MINIMAP_ROOM_SIZE * 0.5, _y - MINIMAP_ROOM_SIZE * 0.5,
 							 _x + MINIMAP_ROOM_SIZE * 0.5, _y + MINIMAP_ROOM_SIZE * 0.5,
 							 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+		
+		// Draw bridges between the rooms
+		if (entrySides[0]) {
+			draw_rectangle_color(_x,
+								 _y - MINIMAP_BRIDGE_SIZE * 0.5,
+								 _x + (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+								 _y + MINIMAP_BRIDGE_SIZE * 0.5,
+								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+		}
+		if (entrySides[1]) {
+			draw_rectangle_color(_x,
+								 _y - MINIMAP_BRIDGE_SIZE * 0.5,
+								 _x - (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+								 _y + MINIMAP_BRIDGE_SIZE * 0.5,
+								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+		}
+		if (entrySides[2]) {
+			draw_rectangle_color(_x - MINIMAP_BRIDGE_SIZE * 0.5, _y,
+								 _x + MINIMAP_BRIDGE_SIZE * 0.5, _y + (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+		}
+		if (entrySides[3]) {
+			draw_rectangle_color(_x - MINIMAP_BRIDGE_SIZE * 0.5, _y,
+								 _x + MINIMAP_BRIDGE_SIZE * 0.5, _y - (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+		}
 
-		draw_circle_color(_centerX + _playerMinimapX, _centerY + _playerMinimapY, 5, c_red, c_red, false);
+		draw_circle_color(MINIMAP_SURF_W * 0.5,  MINIMAP_SURF_H * 0.5, 5, c_red, c_red, false);
 		
 		for (var _i = 0; _i < ds_list_size(nextRooms); _i++) {
 			nextRooms[| _i].RenderMinimap(_surf);
@@ -134,8 +163,6 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		repeat(5) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
-			show_debug_message("pX: " + string(oPlayer.x));
-			show_debug_message("eX: " + string(_enemyX));
 			var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
 			ds_list_add(enemies, _enemy);
 		}
