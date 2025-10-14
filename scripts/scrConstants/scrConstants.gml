@@ -17,7 +17,8 @@ function Constants()
 	//#macro ROOM_SPACING 3
 
 	// Minimap rendering settings
-	#macro MINIMAP_ROOM_SIZE 70
+	#macro MINIMAP_ROOM_SIZE 35
+	#macro MINIMAP_BRIDGE_SIZE 15
 	#macro MINIMAP_ROOM_SPACING 6
 	#macro MINIMAP_SURF_W 300
 	#macro MINIMAP_SURF_H 200

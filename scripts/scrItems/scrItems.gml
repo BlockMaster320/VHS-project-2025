@@ -68,7 +68,7 @@ function genericWeaponUpdate()
 			primaryActionCooldown += 60 / (attackSpeed * global.gameSpeed)
 			primaryAction()
 		}
-		show_debug_message(i)
+		//show_debug_message(i)
 		
 			
 		//repeat (1 / primaryActionCooldown) primaryAction()
