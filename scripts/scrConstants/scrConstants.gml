@@ -3,7 +3,8 @@ function Constants()
 	enum INPUT_STATE
 	{
 		playing,
-		menu
+		menu,
+		dialogue
 	}
 	
 	// Map generation settings

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrRoom",
+  "%Name":"scrWeaponTemplate",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrRoom",
+  "name":"scrWeaponTemplate",
   "parent":{
-    "name":"Generation",
-    "path":"folders/Objects/Systems/Generation.yy",
+    "name":"Items",
+    "path":"folders/Objects/Items.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

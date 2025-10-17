@@ -1,5 +1,5 @@
 // Get input variables
-Input(global.inputState)
+Input()
 
 //var dt = delta_time / 1000000 * 60
 
@@ -21,9 +21,9 @@ vsp = wvsp
 /// Tilemap collisions
 
 // Horizontal
-if (place_meeting(x + hsp, y, tilemap))
+if (place_meeting(x + hsp, y, global.tilemapCollision))
 {
-	while (!place_meeting(x + sign(hsp), y, tilemap)) x += sign(hsp)
+	while (!place_meeting(x + sign(hsp), y, global.tilemapCollision)) x += sign(hsp)
 	x = round(x)
 	hsp = 0;
 }
@@ -31,9 +31,9 @@ x += hsp
 
 
 // Vertical
-if (place_meeting(x, y + vsp, tilemap))
+if (place_meeting(x, y + vsp, global.tilemapCollision))
 {
-	while (!place_meeting(x, y + sign(vsp), tilemap)) y += sign(vsp)
+	while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
 	y = round(y)
 	vsp = 0;
 }

@@ -12,11 +12,6 @@ hsp = 0		// Total horizontal speed
 vsp = 0		// Total horizontal speed
 
 
-// Collision ----------------------------------
-
-tilemap = layer_tilemap_get_id("TilesWall")
-
-
 // Weapon inventory --------------------------
 
 #macro INVENTORY_SIZE 3

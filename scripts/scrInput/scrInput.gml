@@ -1,22 +1,18 @@
-function Input(inputState)
+function Input()
 {
 	up = 0
 	down = 0
 	left = 0
 	right = 0
-	
 	aimDir = 0
-	
 	primaryButton = 0
 	secondaryButton = 0
-	
-	for (var i = 0; i < INVENTORY_SIZE; i++)
-		selectSlot[i] = 0
+	for (var i = 0; i < INVENTORY_SIZE; i++) selectSlot[i] = 0
 	scrollSlot = 0
-	
 	escapeButton = 0
 	
-	switch (inputState)
+
+	switch (global.inputState)
 	{
 		case INPUT_STATE.playing:
 		
@@ -29,8 +25,6 @@ function Input(inputState)
 			// Weapon usage
 			primaryButton = mouse_check_button(mb_left)
 			secondaryButton = mouse_check_button(mb_right)
-			
-			aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
 	
 			// Weapon slots
 			for (var i = 0; i < INVENTORY_SIZE; i++)
@@ -38,13 +32,21 @@ function Input(inputState)
 				
 			scrollSlot = mouse_wheel_up() - mouse_wheel_down()
 			
+			interact = keyboard_check_pressed(ord("E"))
+			
 			break
 			
+			
 		case INPUT_STATE.menu:
+		
+			break
+			
+			
+		case INPUT_STATE.dialogue:
+			
 			break
 	}
 	
-	
-
+	menuInteraction = mouse_check_button(mb_left)
 	escapeButton = keyboard_check_pressed(vk_escape)
 }

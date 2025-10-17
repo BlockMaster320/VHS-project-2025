@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"oEnemy",
+  "%Name":"oNPC",
   "eventList":[],
   "managed":true,
-  "name":"oEnemy",
+  "name":"oNPC",
   "overriddenProperties":[],
   "parent":{
     "name":"Characters",
@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sEnemy",
-    "path":"sprites/sEnemy/sEnemy.yy",
+    "name":"sNPC",
+    "path":"sprites/sNPC/sNPC.yy",
   },
   "spriteMaskId":null,
   "visible":true,
