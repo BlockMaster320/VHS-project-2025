@@ -58,6 +58,7 @@
     {"id":{"name":"sCursor","path":"sprites/sCursor/sCursor.yy",},},
     {"id":{"name":"sEnemy","path":"sprites/sEnemy/sEnemy.yy",},},
     {"id":{"name":"sNPC","path":"sprites/sNPC/sNPC.yy",},},
+    {"id":{"name":"sNPCPortrait","path":"sprites/sNPCPortrait/sNPCPortrait.yy",},},
     {"id":{"name":"sPlaceholderGun","path":"sprites/sPlaceholderGun/sPlaceholderGun.yy",},},
     {"id":{"name":"sPlaceholderProjectile","path":"sprites/sPlaceholderProjectile/sPlaceholderProjectile.yy",},},
     {"id":{"name":"sPlayer_1","path":"sprites/sPlayer_1/sPlayer_1.yy",},},

@@ -1,1 +1,2 @@
 name = ""
+portrait = sNPC
