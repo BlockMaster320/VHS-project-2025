@@ -3,8 +3,9 @@ Input()
 if (!interact) exit
 
 with (oPlayer){
-	closest_NPC = instance_place(x, y, oNPC)
-	if (closest_NPC == noone) exit
-	
-	show_debug_message(closest_NPC.name)
+	other.closest_NPC = instance_place(x, y, oNPC)
+	if (other.closest_NPC == noone) exit
 }
+
+dialogues.StartDialogue(closest_NPC.name)
+show_debug_message(dialogues.GetLine(0).text)

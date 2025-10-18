@@ -46,6 +46,8 @@
     {"id":{"name":"rmMenu","path":"rooms/rmMenu/rmMenu.yy",},},
     {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"id":{"name":"scrConstants","path":"scripts/scrConstants/scrConstants.yy",},},
+    {"id":{"name":"scrDialogue","path":"scripts/scrDialogue/scrDialogue.yy",},},
+    {"id":{"name":"scrDialogues","path":"scripts/scrDialogues/scrDialogues.yy",},},
     {"id":{"name":"scrInput","path":"scripts/scrInput/scrInput.yy",},},
     {"id":{"name":"scrProjectileFunctions","path":"scripts/scrProjectileFunctions/scrProjectileFunctions.yy",},},
     {"id":{"name":"scrRoom","path":"scripts/scrRoom/scrRoom.yy",},},
