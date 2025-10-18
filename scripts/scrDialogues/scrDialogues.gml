@@ -2,7 +2,7 @@ function Dialogues() constructor
 {
 	static dlgs = ds_map_create()
 	ds_map_add(dlgs, "Franta", [new Dialogue([new DialogueLine("Čau kámo", [], []) ])])
-	current_dialogue = noone
+	static current_dialogue = noone
 	
 	static StartDialogue = function(_NPCName)
 	{

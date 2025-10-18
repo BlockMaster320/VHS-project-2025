@@ -8,4 +8,5 @@ with (oPlayer){
 }
 
 dialogues.StartDialogue(closest_NPC.name)
-show_debug_message(dialogues.GetLine(0).text)
+talking = true
+current_line = dialogues.GetLine(0)

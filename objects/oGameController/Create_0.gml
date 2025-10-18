@@ -13,3 +13,5 @@ WeaponsInit()
 room_goto(rmGame)
 
 show_debug_overlay(true)
+
+draw_set_font(Font1)
