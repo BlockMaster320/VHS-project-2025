@@ -43,7 +43,7 @@ function Input()
 			
 			
 		case INPUT_STATE.dialogue:
-			
+			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E"))
 			break
 	}
 	
