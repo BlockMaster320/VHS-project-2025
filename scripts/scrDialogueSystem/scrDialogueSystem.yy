@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrDialogues",
+  "%Name":"scrDialogueSystem",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrDialogues",
+  "name":"scrDialogueSystem",
   "parent":{
-    "name":"Systems",
-    "path":"folders/Objects/Systems.yy",
+    "name":"Dialogues",
+    "path":"folders/Objects/Systems/Dialogues.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
