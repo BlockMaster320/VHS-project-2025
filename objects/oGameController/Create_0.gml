@@ -6,10 +6,9 @@ global.gameSpeed = 1
 
 global.inputState = INPUT_STATE.playing
 
+
 projectilePool = []
 
 WeaponsInit()
-
-room_goto(rmGame)
 
 show_debug_overlay(true)
