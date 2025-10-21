@@ -12,3 +12,7 @@ projectilePool = []
 WeaponsInit()
 
 show_debug_overlay(true)
+
+draw_set_font(Font1)
+
+room_goto(rmGame)

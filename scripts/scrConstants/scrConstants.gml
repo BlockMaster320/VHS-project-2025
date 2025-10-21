@@ -4,7 +4,8 @@ function Constants()
 	{
 		playing,
 		menu,
-		dialogue
+		dialogue,
+		dialogueMenu
 	}
 	
 	// Map generation settings
