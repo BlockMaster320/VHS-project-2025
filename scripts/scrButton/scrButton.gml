@@ -1,5 +1,5 @@
 /// @function   Button(string:name, real:x, real:y)
-function Button(_name, _group, _text, _x, _y, _onClick, _buttonSprites, _anchor = Anchor.Center) : GUIElement() constructor {
+function Button(_name, _group, _text = "", _x = 0, _y = 0, _onClick = function() {}, _buttonSprites = ButtonSprites(), _anchor = Anchor.Center) : GUIElement() constructor {
 
     // passed-in vars
     x           = _x;

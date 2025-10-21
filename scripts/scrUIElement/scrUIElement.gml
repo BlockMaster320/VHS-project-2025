@@ -69,6 +69,7 @@ function GUIElement() constructor {
 
     static destroy = function() {
         // remove from controller's list of elements
+		setVisibility(ElementState.HIDDEN)
         ds_list_delete(controller.elements,
             ds_list_find_index(controller.elements, self)
         );

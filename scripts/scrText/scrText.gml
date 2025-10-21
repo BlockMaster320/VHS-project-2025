@@ -1,4 +1,4 @@
-function Text(_name, _group, _text, _x, _y, _anchor = Anchor.Center) : GUIElement() constructor {
+function Text(_name, _group, _text = "", _x = 0, _y = 0, _anchor = Anchor.Center) : GUIElement() constructor {
 
     // passed-in vars
     x           = _x;

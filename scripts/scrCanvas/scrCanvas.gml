@@ -1,4 +1,4 @@
-function Canvas(_name, _group, _x, _y, _width, _height, _sprite = undefined, _anchor = Anchor.Center) : GUIElement() constructor {
+function Canvas(_name, _group, _x, _y, _width, _height, _sprite = sCanvas, _anchor = Anchor.Center) : GUIElement() constructor {
 
     // passed-in vars
     x           = _x;
