@@ -1,5 +1,3 @@
-if (keyboard_check_pressed(ord("R"))) game_restart();
-
 // Update player position
 playerTileX = (oPlayer.x - FLOOR_CENTER_X) div TILE_SIZE + ROOM_SIZE * 0.5;
 playerTileY = (oPlayer.y - FLOOR_CENTER_Y) div TILE_SIZE + ROOM_SIZE * 0.5;

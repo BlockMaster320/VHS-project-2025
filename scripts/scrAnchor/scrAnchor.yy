@@ -6,7 +6,7 @@
   "name":"scrAnchor",
   "parent":{
     "name":"Extensions",
-    "path":"folders/Scripts/UI/Extensions.yy",
+    "path":"folders/Objects/UI/Scripts/Extensions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

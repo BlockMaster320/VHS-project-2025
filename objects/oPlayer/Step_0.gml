@@ -1,13 +1,10 @@
-// Get input variables
-Input()
-
 //var dt = delta_time / 1000000 * 60
 
 #region Walking
 
-var walkDir = point_direction(0, 0, right - left, down - up)
-whsp = lengthdir_x(walkSpd * global.gameSpeed, walkDir) * sign(right + left)
-wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(down + up)
+var walkDir = point_direction(0, 0, oController.right - oController.left, oController.down - oController.up)
+whsp = lengthdir_x(walkSpd * global.gameSpeed, walkDir) * sign(oController.right + oController.left)
+wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(oController.down + oController.up)
 
 #endregion
 
@@ -51,5 +48,4 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 
 
 // Debug
-if (escapeButton) game_end()
 if (keyboard_check(ord("R"))) game_restart()

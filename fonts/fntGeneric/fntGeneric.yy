@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"Font1",
+  "%Name":"fntGeneric",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":23,
@@ -288,10 +288,10 @@
   "last":0,
   "lineHeight":29,
   "maintainGms1Font":false,
-  "name":"Font1",
+  "name":"fntGeneric",
   "parent":{
-    "name":"vhs-project",
-    "path":"vhs-project.yyp",
+    "name":"Fonts",
+    "path":"folders/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -325,7 +325,10 @@
   "sdfSpread":8,
   "size":12.0,
   "styleName":"Regular",
-  "textureGroupId":null,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
   "TTFName":"",
   "usesSDF":false,
 }

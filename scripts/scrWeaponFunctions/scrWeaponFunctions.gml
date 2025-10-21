@@ -23,7 +23,7 @@ function genericWeaponUpdate()
 	
 	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
 	
-	if (oPlayer.primaryButton and primaryActionCooldown <= 0)
+	if (oController.primaryButton and primaryActionCooldown <= 0)
 	{
 		var i = 0
 		while (primaryActionCooldown <= 0)

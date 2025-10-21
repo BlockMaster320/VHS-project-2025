@@ -46,11 +46,11 @@ function GUIElement() constructor {
 
             case ClickState.HOVERED:
                 if (!is_hover) clickState = ClickState.DEFAULT;
-                else if (mouse_check_button_pressed(mb_left)) clickState = ClickState.PRESSED;
+                else if (oController.menuInteractionPress) clickState = ClickState.PRESSED;
                 break;
 
             case ClickState.PRESSED:
-                if (!mouse_check_button(mb_left)) {
+                if (!oController.menuInteraction) {
                     // Mouse released → clicked up
                     if (is_hover) click();
                     clickState = is_hover ? ClickState.HOVERED : ClickState.DEFAULT;

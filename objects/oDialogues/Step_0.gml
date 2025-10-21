@@ -1,6 +1,5 @@
-Input()
 if (!talking) {
-	if (!interact) exit
+	if (!oController.interact) exit
 
 	with (oPlayer){
 		other.closest_NPC = instance_place(x, y, oNPC)
@@ -10,7 +9,7 @@ if (!talking) {
 	talking = true
 	current_line = dialogues.StartDialogue(closest_NPC.name)
 } else if (!waiting_for_answer){
-	if (!next) exit
+	if (!oController.next) exit
 	
 	if (!array_length(current_line.next)) {
 		talking = false

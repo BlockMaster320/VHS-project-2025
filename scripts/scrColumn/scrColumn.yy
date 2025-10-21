@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scrColumn",
   "parent":{
-    "name":"UI",
-    "path":"folders/Scripts/UI.yy",
+    "name":"Scripts",
+    "path":"folders/Objects/UI/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

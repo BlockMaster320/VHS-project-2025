@@ -86,7 +86,6 @@ function DynamicColumn(_name, _group, _x, _y, _spacing, _elements, _anchor = und
 	}
 	
 	static draw = function() {
-		show_debug_message(anchor == Anchor.Center)
 		startPositionY = function() {
 			if (array_length(elements) <= 0) return y
 

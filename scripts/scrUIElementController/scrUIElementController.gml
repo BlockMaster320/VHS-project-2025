@@ -17,7 +17,7 @@ function GUIElementController() constructor {
 
     /// @function   step()
     static step = function() {
-        if (mouse_check_button_pressed(mb_left)) element_in_focus = undefined;
+        if (oController.menuInteractionPress) element_in_focus = undefined;
         can_click = true;
 
 

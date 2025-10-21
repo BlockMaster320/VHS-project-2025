@@ -10,6 +10,10 @@ function Input()
 	for (var i = 0; i < INVENTORY_SIZE; i++) selectSlot[i] = 0
 	scrollSlot = 0
 	escapeButton = 0
+	next = 0
+	menuInteraction = 0
+	menuInteractionPress = 0
+	pause = 0
 	
 
 	switch (global.inputState)
@@ -39,6 +43,9 @@ function Input()
 			
 		case INPUT_STATE.menu:
 		
+			menuInteraction = mouse_check_button(mb_left)
+			menuInteractionPress = mouse_check_button_pressed(mb_left)
+		
 			break
 			
 			
@@ -50,11 +57,9 @@ function Input()
 		
 		case INPUT_STATE.dialogueMenu:
 		
-			
 		
 			break
 	}
 	
-	menuInteraction = mouse_check_button(mb_left)
-	escapeButton = keyboard_check_pressed(vk_escape)
+	pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
 }
