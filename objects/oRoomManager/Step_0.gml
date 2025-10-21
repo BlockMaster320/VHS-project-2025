@@ -29,6 +29,7 @@ currentRoom.CheckCleared();
 
 if (keyboard_check_pressed(ord("C")))    // clear all enemies
     with (oEnemy) oRoomManager.currentRoom.KillEnemy(id);
+   
 
 /*
 show_debug_message("playerRoomX: " + string(playerRoomX));
