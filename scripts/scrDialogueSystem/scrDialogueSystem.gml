@@ -20,7 +20,7 @@ function DialogueSystem() constructor
 									[
 										new DialogueLine("Čau kámo.", [], [1]),
 										new DialogueLine("Pěkné plíce.", [], [2]),
-										new DialogueLine("Lidské.", [], [3]),
+										new DialogueLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", [], [3]),
 										new DialogueLine("Půjčíš mi svou botu?", ["Jasně, tady ji máš.", "Ne."], [4, 5]),
 										new DialogueLine("Dík moc, jsi frajer", [], []),
 										new DialogueLine("Tak doufám, že se ti rozvážou tkaničky.", [], [])
