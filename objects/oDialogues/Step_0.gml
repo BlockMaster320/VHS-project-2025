@@ -19,14 +19,23 @@ if (!talking) {
 		current_line = dialogues.GetLine(current_line.next[0])
 	}
 } else {
-	if (!oController.next) exit
 	var _x = device_mouse_x_to_gui(0)
 	var _y = device_mouse_y_to_gui(0)
 
-	for (var i = 0; i < array_length(current_line.answers); ++i){
-		if (options[i].isClicked(_x, _y)){
-			current_line = dialogues.GetLine(current_line.next[i])
-			break
+	if (oController.next){
+		for (var i = 0; i < array_length(current_line.answers); ++i){
+			if (options[i].isClicked(_x, _y)){
+				current_line = dialogues.GetLine(current_line.next[i])
+				break
+			}
+		}
+	} else {
+		for (var i = 0; i < array_length(current_line.answers); ++i){
+			if (options[i].isClicked(_x, _y)){
+				options[i].selected = true
+			} else {
+				options[i].selected = false
+			}
 		}
 	}
 }
@@ -46,5 +55,4 @@ if (!array_length(current_line.answers)) {
 		options[i].active = true
 		options[i].text = current_line.answers[i]
 	}
-	options[0].selected = true
 }
