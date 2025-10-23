@@ -37,6 +37,7 @@ if (!talking) {
 				options[i].selected = false
 			}
 		}
+		exit
 	}
 }
 
