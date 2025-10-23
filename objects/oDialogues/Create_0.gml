@@ -7,6 +7,7 @@ talking = false
 // textbox
 waiting_for_answer = false
 current_line = noone
+timer = 0
 
 // options - maximum of 2 options just to give the illusion of choice
 highlighted = 0
