@@ -19,14 +19,23 @@ if (!talking) {
 		current_line = dialogues.GetLine(current_line.next[0])
 	}
 } else {
-	
+	if (!oController.next) exit
+	var _x = device_mouse_x_to_gui(0)
+	var _y = device_mouse_y_to_gui(0)
+
+	for (var i = 0; i < array_length(current_line.answers); ++i){
+		if (options[i].isClicked(_x, _y)){
+			current_line = dialogues.GetLine(current_line.next[i])
+			break
+		}
+	}
 }
 
 if (!array_length(current_line.answers)) {
 	waiting_for_answer = false
 	global.inputState = INPUT_STATE.dialogue
 	
-	for (var i = 0; i < array_length(current_line.answers); ++i){
+	for (var i = 0; i < array_length(options); ++i){
 		options[i].active = false
 	}
 } else {
