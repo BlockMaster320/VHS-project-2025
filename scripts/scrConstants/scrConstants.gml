@@ -5,7 +5,6 @@ function Constants()
 		playing,
 		menu,
 		dialogue,
-		dialogueMenu
 	}
 	
 	// Map generation settings
