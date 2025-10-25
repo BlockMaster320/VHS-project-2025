@@ -11,10 +11,12 @@ function Input()
 	scrollSlot = 0
 	escapeButton = 0
 	next = 0
-	menuInteraction = 0
-	menuInteractionPress = 0
 	pause = 0
 	
+	// UI
+	gui_x = 0
+	gui_y = 0
+	gui_pressed = 0
 
 	switch (global.inputState)
 	{
@@ -42,10 +44,11 @@ function Input()
 			
 			
 		case INPUT_STATE.menu:
-		
-			menuInteraction = mouse_check_button(mb_left)
-			menuInteractionPress = mouse_check_button_pressed(mb_left)
-		
+			gui_x = device_mouse_x_to_gui(0)
+			gui_y = device_mouse_y_to_gui(0)
+			gui_pressed = mouse_check_button_pressed(mb_left)
+			
+	
 			break
 			
 			

@@ -1,9 +1,16 @@
-/// @function  Column(real, real, real, list of UIElements)
-///		Takes elements, forces first position specified in x, y and then each element is
-///		passed under last one. gap is space between elements, included height of each element.
-function Row(_x, _y, _spacing, _elements, _anchor = Anchor.Left, _elementsAnchor = undefined) {
+/// @param {string} _name - Row identifier
+/// @param {any} _group - UI group
+/// @param {real} _x - X position of the row
+/// @param {real} _y - Y position of the row
+/// @param {real} _spacing - Horizontal spacing between elements
+/// @param {array<GUIElement>} _elements - Array of elements to arrange
+/// @param {Anchor} [_anchor=Anchor.Left] - Anchor for the row itself
+/// @param {Anchor|undefined} [_elementsAnchor=undefined] - Optional override for child alignment
+function Row(_name, _group, _x, _y, _spacing, _elements, _anchor = Anchor.Left, _elementsAnchor = undefined) {
 
     // passed-in vars
+	name		= _name;
+	group		= _group;
     x           = _x;
     y           = _y;
 	spacing		= _spacing;
@@ -85,7 +92,7 @@ function DynamicRow(_name, _group, _x, _y, _spacing, _elements, _anchor = undefi
 		}
 	}
 	
-	static draw = function() {
+	draw = function() {
 		startPositionX = function() {
 			if (array_length(elements) <= 0) return x
 

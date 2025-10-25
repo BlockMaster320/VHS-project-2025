@@ -1,9 +1,16 @@
-/// @function  Column(real, real, real, list of UIElements)
-///		Takes elements, forces first position specified in x, y and then each element is
-///		passed under last one. gap is space between elements, included height of each element.
-function Column(_x, _y, _spacing, _elements, _anchor = Anchor.Top, _elementsAnchor = undefined) {
+/// @param {string} _name - Column identifier
+/// @param {any} _group - UI group
+/// @param {real} _x - X position of the column
+/// @param {real} _y - Y position of the column
+/// @param {real} _spacing - Vertical space between elements
+/// @param {array<GUIElement>} _elements - Elements contained in the column
+/// @param {Anchor} [_anchor=Anchor.Top] - Anchor for the column
+/// @param {Anchor|undefined} [_elementsAnchor=undefined] - Optional override for child alignment
+function Column(_name, _group, _x, _y, _spacing, _elements, _anchor = Anchor.Top, _elementsAnchor = undefined) {
 
     // passed-in vars
+	name		= _name;
+	group		= _group;
     x           = _x;
     y           = _y;
 	spacing		= _spacing;
@@ -85,7 +92,7 @@ function DynamicColumn(_name, _group, _x, _y, _spacing, _elements, _anchor = und
 		}
 	}
 	
-	static draw = function() {
+	draw = function() {
 		startPositionY = function() {
 			if (array_length(elements) <= 0) return y
 

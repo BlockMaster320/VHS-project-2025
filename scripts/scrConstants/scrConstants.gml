@@ -27,4 +27,7 @@ function Constants()
 	
 	#macro FLOOR_CENTER_X room_width / 2
 	#macro FLOOR_CENTER_Y room_height / 2
+	
+	// Debug levels
+	#macro SHOW_STACKTRACE false
 }

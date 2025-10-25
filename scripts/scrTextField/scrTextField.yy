@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrScreen",
+  "%Name":"scrTextField",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrScreen",
+  "name":"scrTextField",
   "parent":{
-    "name":"Extensions",
-    "path":"folders/Objects/UI/Scripts/Extensions.yy",
+    "name":"Scripts",
+    "path":"folders/Objects/UI/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

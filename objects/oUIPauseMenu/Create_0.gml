@@ -20,7 +20,16 @@ exit_button = new Button(
 	game_end,
 ); 
 
+//text_input = new TextField(
+//	"text_input",
+//	UIGroups.PAUSE,
+//	0, 0,
+//	"default text"
+//);
+
 Column(
+	"column",
+	UIGroups.PAUSE,
 	screen.middle.x,
 	screen.middle.y,
 	40,

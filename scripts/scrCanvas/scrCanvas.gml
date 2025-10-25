@@ -1,3 +1,11 @@
+/// @param {string} _name - Canvas identifier
+/// @param {any} _group - UI group
+/// @param {real} _x - X position
+/// @param {real} _y - Y position
+/// @param {real} _width - Canvas width
+/// @param {real} _height - Canvas height
+/// @param {sprite} [_sprite=sCanvas] - Background sprite for the canvas
+/// @param {Anchor} [_anchor=Anchor.Center] - Anchor alignment
 function Canvas(_name, _group, _x, _y, _width, _height, _sprite = sCanvas, _anchor = Anchor.Center) : GUIElement() constructor {
 
     // passed-in vars
@@ -9,14 +17,10 @@ function Canvas(_name, _group, _x, _y, _width, _height, _sprite = sCanvas, _anch
 	sprite		= _sprite;
 	width		= _width;
 	height		= _height;
-	
-    /// @function   click()
-    static click = function() {
-        set_focus();
-	}
+
 
     /// @function   draw()
-    static draw = function() {
+    draw = function() {
 		var old_color = draw_get_color();
 		
 		// get text size

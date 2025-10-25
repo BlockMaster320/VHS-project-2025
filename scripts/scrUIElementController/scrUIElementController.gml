@@ -17,7 +17,7 @@ function GUIElementController() constructor {
 
     /// @function   step()
     static step = function() {
-        if (oController.menuInteractionPress) element_in_focus = undefined;
+        if (oController.gui_pressed) element_in_focus = undefined;
         can_click = true;
 
 
@@ -30,9 +30,7 @@ function GUIElementController() constructor {
 	        try {
 	            elem.step();
 	        } catch (e) {
-	            var elem_name = (variable_instance_exists(elem, "name") && !is_undefined(elem.name)) ? elem.name : "<unnamed>";
-	            show_debug_message("⚠️ Error in element step(): " + string(elem_name));
-	            show_debug_message("↳ Details: " + string(e));
+	            showErrorMessage(elem, e, "step()")
 	        }
 		}
 
@@ -47,11 +45,15 @@ function GUIElementController() constructor {
 		    draw_set_valign(fa_middle);
 		    draw_set_color(c_white);
 
-		    // call `draw` function on all elements in reverse-creation order
+		    // call `draw` function on all elements in reverse-creation order - impact overdraw
 		    for(var i = ds_list_size(elements)-1; i>=0; i--) {
 				var elem = elements[| i]
 				if (elem.elementState == ElementState.HIDDEN) continue
-				elem.draw();
+				try {	
+					elem.draw();
+				} catch (e) {
+					showErrorMessage(elem, e, "draw()")
+				}
 			}
 		})
     }
@@ -94,4 +96,25 @@ function GUIElementController() constructor {
 			}
         }
     }
+	
+	showErrorMessage = function(element, exception, method_name) {
+		var elem_name = (variable_instance_exists(element, "name") && !is_undefined(element.name)) ? element.name : "<unnamed>";
+		var location = "Script: " + (variable_struct_exists(exception, "script")
+			? string(exception.script)
+			: "<unknown>");
+		location += " on line " +( variable_struct_exists(exception, "line")
+			? string(exception.line)	
+			: "<unknown>"); 
+		var reason = "Reason: " + (variable_struct_exists(exception, "message")
+			? string(exception.message)
+			: "<unknown>");
+		var detail = "Details: " + (SHOW_STACKTRACE
+			? string(exception.message)
+			: "<disabled>");
+		
+	    show_debug_message("⚠️Error in element: " + string(elem_name) + "." + method_name);
+		show_debug_message("		↳ " + location)
+		show_debug_message("		↳ " + reason)
+		show_debug_message("		↳ " + detail);
+	}
 }

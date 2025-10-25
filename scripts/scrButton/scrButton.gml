@@ -1,18 +1,25 @@
-/// @function   Button(string:name, real:x, real:y)
-function Button(_name, _group, _text = "", _x = 0, _y = 0, _onClick = function() {}, _buttonSprites = ButtonSprites(), _anchor = Anchor.Center) : GUIElement() constructor {
+/// @param {string} _name - The button name
+/// @param {any} _group - UI group
+/// @param {real} [_x=0] - The X position
+/// @param {real} [_y=0] - The Y position
+/// @param {string} [_text="Button"] - The button text
+/// @param {function} [_onClick=function() {}] - Callback when clicked
+/// @param {ButtonSprites} [_buttonSprites=ButtonSprites()] - Sprite set for button states
+/// @param {Anchor} [_anchor=Anchor.Center] - Anchor position
+function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = function() {}, _buttonSprites = ButtonSprites(), _anchor = Anchor.Center) : GUIInteractable() constructor {
 
     // passed-in vars
+	name        = _name;
+	group		= _group;
     x           = _x;
     y           = _y;
-    name        = _name;
-	group		= _group;
 	text		= _text;
 	anchor		= _anchor;
 	onClick		= _onClick;
 	buttonSprites  = _buttonSprites;
 	
     /// @function   click()
-    static click = function() {
+    click = function() {
         set_focus();
         if (is_callable(onClick)) {
             onClick();
@@ -20,7 +27,7 @@ function Button(_name, _group, _text = "", _x = 0, _y = 0, _onClick = function()
 	}
 
     /// @function   draw()
-    static draw = function() {
+    draw = function() {
 		safeDraw(function() {
 			// get text size
 	        draw_set_halign(fa_center);
