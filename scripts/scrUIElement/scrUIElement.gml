@@ -9,7 +9,7 @@ function GUIElement() constructor {
 	group		= undefined; // group connect same UI elements
     name		= undefined; // unique name
 
-	elementState = ElementState.ACTIVE
+	static elementState = ElementState.ACTIVE
 	
 	static controller	= ElementController()
 	ds_list_add(controller.elements, self); 
@@ -17,30 +17,30 @@ function GUIElement() constructor {
     // dimensions
 	x		 = 0;
 	y		 = 0;
-    width    = 200;
-    height   = 32;
-    padding  = 16;
-	anchor	 = Anchor.Center
+    static width    = 200;
+    static height   = 32;
+    static padding  = 16;
+	static anchor	 = Anchor.Center
 
     // focus-related
-    has_focus = function() {
+    static has_focus = function() {
 		return controller.element_in_focus == self;
 	}
-    set_focus = function() {
+    static set_focus = function() {
         controller.element_in_focus = self; 
     }
-    remove_focus = function() {
+    static remove_focus = function() {
         controller.element_in_focus = undefined;
     }
 
     // interaction
     step = function() {}
-    listen = function() { }
+    static listen = function() { }
 
     // drawing
-    draw = function() { }
+    static draw = function() { }
 
-    destroy = function() {
+    static destroy = function() {
         // remove from controller's list of elements
 		setVisibility(ElementState.HIDDEN)
         ds_list_delete(controller.elements,
@@ -52,7 +52,7 @@ function GUIElement() constructor {
 		return applyAnchor(anchor, x, y, width, height)
 	}
 	
-	setVisibility = function(_elementState) {
+	static setVisibility = function(_elementState) {
 		elementState = _elementState
 	}
 }

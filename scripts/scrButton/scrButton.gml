@@ -19,7 +19,7 @@ function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = func
 	buttonSprites  = _buttonSprites;
 	
     /// @function   click()
-    click = function() {
+    static click = function() {
         set_focus();
         if (is_callable(onClick)) {
             onClick();
@@ -27,7 +27,7 @@ function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = func
 	}
 
     /// @function   draw()
-    draw = function() {
+    static draw = function() {
 		safeDraw(function() {
 			// get text size
 	        draw_set_halign(fa_center);

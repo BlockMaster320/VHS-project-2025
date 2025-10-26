@@ -17,7 +17,10 @@ function GUIElementController() constructor {
 
     /// @function   step()
     static step = function() {
-        if (oController.gui_pressed) element_in_focus = undefined;
+        if (oController.gui_pressed && element_in_focus != undefined) {
+			element_in_focus.remove_focus()
+			element_in_focus = undefined;
+		}
         can_click = true;
 
         // call `step` function in all elements

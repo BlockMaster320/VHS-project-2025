@@ -3,8 +3,8 @@ var screen = new ScreenDefaults()
 resume_button = new Button(
 	"resume_game_button",
 	UIGroups.PAUSE,
-	"Resume", 
 	0, 0,
+	"Resume", 
 	function() {
 		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
 		global.gameSpeed = 1
@@ -15,26 +15,10 @@ resume_button = new Button(
 exit_button = new Button(
 	"exit_game_button",
 	UIGroups.PAUSE,
-	"Exit Game", 
 	0, 0,
+	"Exit Game", 
 	game_end,
 ); 
-
-//text_input = new TextField(
-//	"text_input",
-//	UIGroups.PAUSE,
-//	0, 0,
-//	"default text"
-//);
-
-Column(
-	"column",
-	UIGroups.PAUSE,
-	screen.middle.x,
-	screen.middle.y,
-	40,
-	[resume_button, exit_button]
-)
 
 my_canvas = new Canvas(
 	"pause_canvas",

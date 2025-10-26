@@ -7,13 +7,13 @@
 function GUIInteractable() : GUIElement() constructor {
 
     // passed-in vars
-	onClick		= function () {};
+	static onClick		= function () {};
 
 	// defaults
-	clickState	= ClickState.DEFAULT
+	static clickState	= ClickState.DEFAULT
 	
     /// @function   click()
-    click = function() {
+    static click = function() {
         set_focus();
         if (is_callable(onClick)) {
             onClick();
