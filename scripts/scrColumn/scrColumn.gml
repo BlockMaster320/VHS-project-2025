@@ -3,9 +3,9 @@
 /// @param {real} _x - X position of the column
 /// @param {real} _y - Y position of the column
 /// @param {real} _spacing - Vertical space between elements
-/// @param {array<GUIElement>} _elements - Elements contained in the column
-/// @param {Anchor} [_anchor=Anchor.Top] - Anchor for the column
-/// @param {Anchor|undefined} [_elementsAnchor=undefined] - Optional override for child alignment
+/// @param {array} _elements - Array of GUIElements contained in the column
+/// @param {Constant.Anchor} [_anchor=Anchor.Top] - Anchor for the column
+/// @param {Constant.Anchor|undefined} [_elementsAnchor=undefined] - Optional override for child alignment
 function Column(_name, _group, _x, _y, _spacing, _elements, _anchor = Anchor.Top, _elementsAnchor = undefined) {
 
     // passed-in vars

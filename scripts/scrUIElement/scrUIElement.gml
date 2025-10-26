@@ -1,3 +1,8 @@
+/**
+ * @function GUIElement
+ * @description Base struct for all GUI elements.
+ * @returns {struct.GUIElement}
+ */
 function GUIElement() constructor {
 
     // int, string, or bool based on type

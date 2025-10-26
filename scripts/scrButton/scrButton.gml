@@ -4,8 +4,8 @@
 /// @param {real} [_y=0] - The Y position
 /// @param {string} [_text="Button"] - The button text
 /// @param {function} [_onClick=function() {}] - Callback when clicked
-/// @param {ButtonSprites} [_buttonSprites=ButtonSprites()] - Sprite set for button states
-/// @param {Anchor} [_anchor=Anchor.Center] - Anchor position
+/// @param {struct.ButtonSprites} [_buttonSprites=ButtonSprites()] - Sprite set for button states
+/// @param {Constant.Anchor} [_anchor=Anchor.Center] - Anchor position
 function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = function() {}, _buttonSprites = ButtonSprites(), _anchor = Anchor.Center) : GUIInteractable() constructor {
 
     // passed-in vars

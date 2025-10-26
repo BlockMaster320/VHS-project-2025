@@ -3,9 +3,9 @@
 /// @param {real} _x - X position of the row
 /// @param {real} _y - Y position of the row
 /// @param {real} _spacing - Horizontal spacing between elements
-/// @param {array<GUIElement>} _elements - Array of elements to arrange
-/// @param {Anchor} [_anchor=Anchor.Left] - Anchor for the row itself
-/// @param {Anchor|undefined} [_elementsAnchor=undefined] - Optional override for child alignment
+/// @param {array} _elements - Array of GUIElement elements to arrange
+/// @param {Constant.Anchor} [_anchor=Anchor.Left] - Anchor for the row itself
+/// @param {Constant.Anchor|undefined} [_elementsAnchor=undefined] - Optional override for child alignment
 function Row(_name, _group, _x, _y, _spacing, _elements, _anchor = Anchor.Left, _elementsAnchor = undefined) {
 
     // passed-in vars

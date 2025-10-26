@@ -4,8 +4,8 @@
 /// @param {real} _y - Y position
 /// @param {real} _width - Canvas width
 /// @param {real} _height - Canvas height
-/// @param {sprite} [_sprite=sCanvas] - Background sprite for the canvas
-/// @param {Anchor} [_anchor=Anchor.Center] - Anchor alignment
+/// @param {Asset.GMSprite} [_sprite=sCanvas] - Background sprite for the canvas
+/// @param {Constant.Anchor} [_anchor=Anchor.Center] - Anchor alignment
 function Canvas(_name, _group, _x, _y, _width, _height, _sprite = sCanvas, _anchor = Anchor.Center) : GUIElement() constructor {
 
     // passed-in vars

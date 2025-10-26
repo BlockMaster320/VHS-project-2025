@@ -1,4 +1,9 @@
-/// @function   Button(string:name, real:x, real:y)
+/**
+ * @function GUIInteractable
+ * @description Base struct for all interactable GUI elements.
+ * @extends {GUIElement}
+ * @returns {struct.GUIInteractable}
+ */
 function GUIInteractable() : GUIElement() constructor {
 
     // passed-in vars

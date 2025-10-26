@@ -20,7 +20,6 @@ function GUIElementController() constructor {
         if (oController.gui_pressed) element_in_focus = undefined;
         can_click = true;
 
-
         // call `step` function in all elements
         var count = ds_list_size(elements);
         for(var i = 0; i < count; i++) {
@@ -33,7 +32,6 @@ function GUIElementController() constructor {
 	            showErrorMessage(elem, e, "step()")
 	        }
 		}
-
     }
 	
 	static gui_surface = undefined;
