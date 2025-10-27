@@ -1,9 +1,8 @@
 if (!active) exit
 
-var left = 2 * PADDING_H
-var right = left + string_width(text) + 2 * PADDING_OPTION
-var top = display_get_gui_height() - PADDING_V - TEXTBOX_HEIGHT/2 + idx*(string_height("L") + PADDING_OPTION)
-var bottom = top + string_height("L")
+right = left + string_width(text) + 2 * PADDING_OPTION
+top = display_get_gui_height() - PADDING_V - TEXTBOX_HEIGHT/2 + idx*(string_height("L") + PADDING_OPTION)
+bottom = top + string_height("L")
 
 if (selected)
 {
@@ -14,3 +13,4 @@ if (selected)
 	draw_set_alpha(0.25)
 	draw_text(left, top, text)
 }
+draw_set_alpha(1)

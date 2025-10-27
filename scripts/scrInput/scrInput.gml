@@ -11,6 +11,9 @@ function Input()
 	scrollSlot = 0
 	escapeButton = 0
 	next = 0
+	clicked = 0
+	menuInteraction = 0
+	menuInteractionPress = 0
 	pause = 0
 	
 	// UI
@@ -54,13 +57,9 @@ function Input()
 			
 		case INPUT_STATE.dialogue:
 		
-			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E"))
+			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left)
+			clicked = mouse_check_button_pressed(mb_left)
 			
-			break
-		
-		case INPUT_STATE.dialogueMenu:
-		
-		
 			break
 	}
 	
