@@ -15,6 +15,8 @@ wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(oController.down 
 hsp = whsp
 vsp = wvsp
 
+if (y < 120) room_goto(rmGame)
+
 /// Tilemap collisions
 
 // Horizontal
