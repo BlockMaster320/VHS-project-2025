@@ -43,6 +43,8 @@ function Input()
 			
 			interact = keyboard_check_pressed(ord("E"))
 			
+			aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
+			
 			break
 			
 			
@@ -62,6 +64,6 @@ function Input()
 			
 			break
 	}
-	
+
 	pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
 }
