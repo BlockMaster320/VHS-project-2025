@@ -11,8 +11,8 @@
   "name":"oPlayer",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Characters",
+    "path":"folders/Objects/Characters.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -37,10 +37,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sPlayer",
-    "path":"sprites/sPlayer/sPlayer.yy",
+  "spriteId":null,
+  "spriteMaskId":{
+    "name":"sCharacters",
+    "path":"sprites/sCharacters/sCharacters.yy",
   },
-  "spriteMaskId":null,
   "visible":true,
 }

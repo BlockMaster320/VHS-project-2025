@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrScreen",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrScreen",
+  "parent":{
+    "name":"Extensions",
+    "path":"folders/Objects/UI/Scripts/Extensions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

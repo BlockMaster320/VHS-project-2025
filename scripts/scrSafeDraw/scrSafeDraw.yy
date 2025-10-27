@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrSafeDraw",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrSafeDraw",
+  "parent":{
+    "name":"Extensions",
+    "path":"folders/Objects/UI/Scripts/Extensions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

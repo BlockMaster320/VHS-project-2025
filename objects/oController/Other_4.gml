@@ -1,0 +1,1 @@
+global.tilemapCollision = layer_tilemap_get_id("TilesWall")

@@ -12,11 +12,6 @@ hsp = 0		// Total horizontal speed
 vsp = 0		// Total horizontal speed
 
 
-// Collision ----------------------------------
-
-tilemap = layer_tilemap_get_id("TilesWall")
-
-
 // Weapon inventory --------------------------
 
 #macro INVENTORY_SIZE 3
@@ -30,3 +25,6 @@ weaponInventory[0].active = true
 window_set_cursor(cr_cross)
 //cursor_sprite = sCursor
 //game_set_speed(60, gamespeed_fps)
+
+// Player draw logic
+playerController = new CharacterController(self, new CharacterAnimation(PlayerAnimation))

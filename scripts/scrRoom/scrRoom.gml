@@ -160,10 +160,19 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		}
 		
 		// Spawn enemies
+		
 		repeat(5) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
+			
+			var mapWidth  = tilemap_get_width(global.tilemapCollision);
+			var mapHeight = tilemap_get_height(global.tilemapCollision);
+			var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
+			var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
+			var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
+			if (tileId != 0) _enemy.controller.setState(CharacterState.Dead)
+			
 			ds_list_add(enemies, _enemy);
 		}
 	}

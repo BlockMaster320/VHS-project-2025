@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scrConstants",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Globals",
+    "path":"folders/Objects/Globals.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

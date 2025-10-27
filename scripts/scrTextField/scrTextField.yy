@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrTextField",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrTextField",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Objects/UI/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

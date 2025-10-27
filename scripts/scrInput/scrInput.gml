@@ -1,22 +1,27 @@
-function Input(inputState)
+function Input()
 {
 	up = 0
 	down = 0
 	left = 0
 	right = 0
-	
 	aimDir = 0
-	
 	primaryButton = 0
 	secondaryButton = 0
-	
-	for (var i = 0; i < INVENTORY_SIZE; i++)
-		selectSlot[i] = 0
+	for (var i = 0; i < INVENTORY_SIZE; i++) selectSlot[i] = 0
 	scrollSlot = 0
-	
 	escapeButton = 0
+	next = 0
+	clicked = 0
+	menuInteraction = 0
+	menuInteractionPress = 0
+	pause = 0
 	
-	switch (inputState)
+	// UI
+	gui_x = 0
+	gui_y = 0
+	gui_pressed = 0
+
+	switch (global.inputState)
 	{
 		case INPUT_STATE.playing:
 		
@@ -29,8 +34,6 @@ function Input(inputState)
 			// Weapon usage
 			primaryButton = mouse_check_button(mb_left)
 			secondaryButton = mouse_check_button(mb_right)
-			
-			aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
 	
 			// Weapon slots
 			for (var i = 0; i < INVENTORY_SIZE; i++)
@@ -38,13 +41,29 @@ function Input(inputState)
 				
 			scrollSlot = mouse_wheel_up() - mouse_wheel_down()
 			
+			interact = keyboard_check_pressed(ord("E"))
+			
+			aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
+			
 			break
 			
+			
 		case INPUT_STATE.menu:
+			gui_x = device_mouse_x_to_gui(0)
+			gui_y = device_mouse_y_to_gui(0)
+			gui_pressed = mouse_check_button_pressed(mb_left)
+			
+	
+			break
+			
+			
+		case INPUT_STATE.dialogue:
+		
+			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left)
+			clicked = mouse_check_button_pressed(mb_left)
+			
 			break
 	}
-	
-	
 
-	escapeButton = keyboard_check_pressed(vk_escape)
+	pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
 }

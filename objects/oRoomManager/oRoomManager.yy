@@ -10,8 +10,8 @@
   "name":"oRoomManager",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Generation",
+    "path":"folders/Objects/Systems/Generation.yy",
   },
   "parentObjectId":null,
   "persistent":true,

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrAnchor",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrAnchor",
+  "parent":{
+    "name":"Extensions",
+    "path":"folders/Objects/UI/Scripts/Extensions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

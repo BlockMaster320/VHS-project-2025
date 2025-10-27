@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrColumn",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrColumn",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Objects/UI/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

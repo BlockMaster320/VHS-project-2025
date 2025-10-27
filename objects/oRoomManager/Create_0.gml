@@ -1,3 +1,8 @@
+// TEMP: spawn NPC for testing
+var _test_NPC = instance_create_layer(FLOOR_CENTER_X + 60, FLOOR_CENTER_Y, "Instances", oNPC)
+_test_NPC.name = "Franta"
+_test_NPC.portrait = sNPCPortrait
+
 // Minimap
 minimapSurf = surface_create(MINIMAP_SURF_W, MINIMAP_SURF_H);
 
