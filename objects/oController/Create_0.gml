@@ -10,7 +10,6 @@ projectilePool = []
 
 WeaponsInit()
 
-room_goto(rmGraphicsTesting)
 show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
