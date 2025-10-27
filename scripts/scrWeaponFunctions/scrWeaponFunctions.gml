@@ -44,5 +44,9 @@ function genericWeaponUpdate()
 
 function genericWeaponDraw()
 {
-	draw_sprite(sprite, 0, xPos, yPos)
+	var dir = oController.aimDir;
+    var flip = (dir > 90 && dir < 270) ? -0.7 : 0.7;
+	if (flip < 0) dir += 180;
+	
+	draw_sprite_ext(sprite, 0, xPos, yPos, flip, 1, dir, c_white, 1)
 }

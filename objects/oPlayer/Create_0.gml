@@ -25,3 +25,6 @@ weaponInventory[0].active = true
 window_set_cursor(cr_cross)
 //cursor_sprite = sCursor
 //game_set_speed(60, gamespeed_fps)
+
+// Player draw logic
+playerController = new CharacterController(self, new CharacterAnimation(PlayerAnimation))

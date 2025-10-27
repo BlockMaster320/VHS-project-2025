@@ -38,7 +38,6 @@ y += vsp
 
 #endregion
 
-
 #region Weapon Inventory
 
 for (var i = 0; i < INVENTORY_SIZE; i++)
@@ -49,3 +48,5 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 
 // Debug
 if (keyboard_check(ord("R"))) game_restart()
+
+playerController.step()
