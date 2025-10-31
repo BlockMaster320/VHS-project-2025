@@ -82,7 +82,7 @@ function CharacterController(_object, _characterAnimation) constructor {
 		dir = (oController.aimDir > 90 and oController.aimDir < 270) ? 1 : -1
 		var color = characterState == CharacterState.Harm ? c_red : c_white;
 		
-		draw_sprite_ext(sprite_index, sprite_frame, x, y, dir, 1, 0, color, 1)
+		draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, color, 1)
 	}
 }
 

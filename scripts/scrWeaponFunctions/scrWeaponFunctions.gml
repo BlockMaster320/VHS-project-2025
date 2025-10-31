@@ -51,5 +51,5 @@ function genericWeaponUpdate()
 
 function genericWeaponDraw()
 {	
-	draw_sprite_ext(sprite, 0, xPos, yPos, flip, 1, dir, c_white, 1)
+	draw_sprite_ext(sprite, 0, roundPixelPos(xPos), roundPixelPos(yPos), flip, 1, dir, c_white, 1)
 }

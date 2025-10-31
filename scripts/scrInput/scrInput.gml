@@ -40,7 +40,7 @@ function Input()
 			//for (var i = 1; i <= INVENTORY_SIZE; i++)
 			//	if (keyboard_check_pressed(ord(string(i))))
 			//		selectSlot = i
-			swapSlot = keyboard_check_pressed(ord("Q"))
+			swapSlot = keyboard_check_pressed(vk_space)
 				
 			scrollSlot = mouse_wheel_up() - mouse_wheel_down()
 			

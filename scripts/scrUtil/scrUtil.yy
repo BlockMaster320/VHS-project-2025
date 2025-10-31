@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrWeaponFunctions",
+  "%Name":"scrUtil",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrWeaponFunctions",
+  "name":"scrUtil",
   "parent":{
-    "name":"Content",
-    "path":"folders/Objects/Content.yy",
+    "name":"Systems",
+    "path":"folders/Objects/Systems.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

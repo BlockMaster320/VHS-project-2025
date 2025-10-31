@@ -1,15 +1,3 @@
-enum PROJECTILE_TYPE
-{
-	melee,
-	ranged,
-	special
-}
-
-enum PROJECTILE_EFFECT
-{
-	nothing
-}
-
 function Projectile() constructor
 {	
 	// Modifiable attributes

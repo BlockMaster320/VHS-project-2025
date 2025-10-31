@@ -11,7 +11,6 @@ wvsp = 0	// Vertical walking speed
 hsp = 0		// Total horizontal speed
 vsp = 0		// Total horizontal speed
 
-
 // Weapon inventory --------------------------
 
 #macro INVENTORY_SIZE 2

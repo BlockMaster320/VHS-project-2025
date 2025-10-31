@@ -44,7 +44,7 @@ y += vsp
 #region Weapon Inventory
 
 // Swap active weapon
-if (oController.swapSlot)
+if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	weaponInventory[activeWeaponSlot].active = false
 	activeWeaponSlot = !activeWeaponSlot

@@ -1,3 +1,13 @@
+enum PROJECTILE_TYPE
+{
+	melee, ranged, special
+}
+
+enum PROJECTILE_EFFECT
+{
+	nothing
+}
+
 function WeaponsInit()
 {
 	#macro WEAPON_AMOUNT 2
@@ -86,13 +96,13 @@ function WeaponsInit()
 		draw = nothingFunction
 	}
 	
+	// ----------------------------------------------------------
+	
+	// Compile into JSON for easy copying
 	global.weaponListJSON = array_create(WEAPON_AMOUNT)
 	for (var i = 0; i < WEAPON_AMOUNT; i++)
 	{
 		weaponList[i].index = i
 		global.weaponListJSON[i] = json_stringify(weaponList[i], false)
 	}
-	
-	// show_debug_message(json_stringify(global.weaponList, true))
-	//show_debug_message(global.weaponListJSON[0])
 }
