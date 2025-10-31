@@ -40,10 +40,20 @@ y += vsp
 
 #endregion
 
+
 #region Weapon Inventory
 
+// Swap active weapon
+if (oController.swapSlot)
+{
+	weaponInventory[activeWeaponSlot].active = false
+	activeWeaponSlot = !activeWeaponSlot
+	weaponInventory[activeWeaponSlot].active = true
+}
+
+// Update weapons
 for (var i = 0; i < INVENTORY_SIZE; i++)
-	weaponInventory[0].update()
+	weaponInventory[i].update()
 
 #endregion
 

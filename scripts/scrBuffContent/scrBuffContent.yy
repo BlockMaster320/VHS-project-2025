@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrBuffContent",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrBuffContent",
+  "parent":{
+    "name":"Content",
+    "path":"folders/Objects/Content.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

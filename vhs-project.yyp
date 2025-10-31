@@ -58,6 +58,8 @@
     {"id":{"name":"rmMenu","path":"rooms/rmMenu/rmMenu.yy",},},
     {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"id":{"name":"scrAnchor","path":"scripts/scrAnchor/scrAnchor.yy",},},
+    {"id":{"name":"scrBuffContent","path":"scripts/scrBuffContent/scrBuffContent.yy",},},
+    {"id":{"name":"scrBuffTemplate","path":"scripts/scrBuffTemplate/scrBuffTemplate.yy",},},
     {"id":{"name":"scrButton","path":"scripts/scrButton/scrButton.yy",},},
     {"id":{"name":"scrCanvas","path":"scripts/scrCanvas/scrCanvas.yy",},},
     {"id":{"name":"scrCharacterAnimation","path":"scripts/scrCharacterAnimation/scrCharacterAnimation.yy",},},

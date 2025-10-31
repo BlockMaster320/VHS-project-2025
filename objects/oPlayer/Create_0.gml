@@ -14,11 +14,12 @@ vsp = 0		// Total horizontal speed
 
 // Weapon inventory --------------------------
 
-#macro INVENTORY_SIZE 3
+#macro INVENTORY_SIZE 2
 weaponInventory = array_create(INVENTORY_SIZE, noone)
 weaponInventory[0] = json_parse(global.weaponListJSON[0])
-weaponInventory[0].active = true
-
+weaponInventory[1] = json_parse(global.weaponListJSON[1]) // Fists
+activeWeaponSlot = 0
+weaponInventory[activeWeaponSlot].active = true
 
 // Misc ---------------------------------
 

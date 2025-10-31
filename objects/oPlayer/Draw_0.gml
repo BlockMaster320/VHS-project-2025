@@ -5,4 +5,4 @@
 // Draw current weapon
 playerController.draw()
 
-weaponInventory[0].draw()
+weaponInventory[activeWeaponSlot].draw()
