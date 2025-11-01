@@ -15,8 +15,8 @@ function Buff() constructor
 	descriptionDebuff = "Default debuff text"
 	rarity = RARITY.common
 	
-	buffRandomize = show_debug_message("Buff initiazation and randomization is undefined!")
-	buffActivate = show_debug_message("Buff function is undefined!")
+	buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
+	buffActivate = function(){ show_debug_message("Buff function is undefined!") }
 }
 
 function GetBuffIndex(rarity)

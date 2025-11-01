@@ -43,12 +43,32 @@ y += vsp
 
 #region Weapon Inventory
 
-// Swap active weapon
+// Swap active inventory slot
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
-	weaponInventory[activeWeaponSlot].active = false
-	activeWeaponSlot = !activeWeaponSlot
-	weaponInventory[activeWeaponSlot].active = true
+	weaponInventory[activeInventorySlot].active = false
+	activeInventorySlot = !activeInventorySlot
+	weaponInventory[activeInventorySlot].active = true
+}
+
+if (oController.interact)
+{
+	// Weapon pickup
+	var weaponPickup = instance_place(x, y, oWeaponPickup)
+	if (weaponPickup and weaponPickup.myWeapon != -1)
+	{
+		weaponInventory[activeInventorySlot] = weaponPickup.myWeapon
+		weaponInventory[activeInventorySlot].active = true
+		instance_destroy(weaponPickup)
+	}
+	
+	// Buff pickup
+	var buffPickup = instance_place(x, y, oBuffPickup)
+	if (buffPickup and buffPickup.myBuff != -1)
+	{
+		array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
+		instance_destroy(buffPickup)
+	}
 }
 
 // Update weapons

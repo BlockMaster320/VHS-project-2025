@@ -9,6 +9,7 @@ function updateUpscaleFactor()
 	// Get nearest integer multiple of camera width
 	var smallestError = infinity
 	var targetW = window_get_width()
+	var safetyMargin = 30
 
 	for (var mult = 1; mult < 10; mult++) // Set a limit, just to be safe
 	{
@@ -17,11 +18,13 @@ function updateUpscaleFactor()
 	
 		if (error < smallestError) smallestError = error*/
 		
-		if (targetW < cameraW * mult)
+		if (targetW < cameraW * mult + safetyMargin)
 		{
 			oController.upscaleMult = mult
 			surface_resize(application_surface, cameraW * oController.upscaleMult, cameraH * oController.upscaleMult)
 			break
 		}
 	}
+	
+	show_debug_message($"Resized application surface to {cameraW * oController.upscaleMult}x{cameraH * oController.upscaleMult}")
 }

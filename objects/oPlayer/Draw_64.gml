@@ -19,6 +19,6 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 	
 	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, windowToGui, windowToGui, 0, c_white, 1)
 	
-	if (activeWeaponSlot == i)
+	if (activeInventorySlot == i)
 		draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
 }

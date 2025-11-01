@@ -17,7 +17,26 @@ function BuffsInit()
 	
 	with (buffList[0])
 	{
+		rarity = RARITY.common
 		dmgMultRange = new Range(5, 7)
+		
+		buffRandomize = function()
+		{
+			dmgMultRange.rndmize()
+			descriptionBuff = $"deal {dmgMultRange.value}% damage"
+			descriptionDebuff = $"Amogus"
+		}
+		
+		buffActivate = function(weapon)
+		{
+			weapon.damageMultiplier = dmgMultRange.value
+		}
+	}
+	
+	with (buffList[1])
+	{
+		rarity = RARITY.rare
+		dmgMultRange = new Range(10, 15)
 		
 		buffRandomize = function()
 		{
@@ -34,8 +53,9 @@ function BuffsInit()
 	
 	// -----------------------------------------------------------
 	
-	// common common common rare rare -> rarityIndexes[common] = 3
-	// At least one of each rarity must exist!!!
+	// Rarity system:
+	//     common common common rare rare -> rarityIndexes[common] = 3
+	//     At least one of each rarity must exist for this to work!
 	array_sort(buffList, function(a, b){ return a.rarity - b.rarity })
 	rarityIndexes = []
 	for (var i = 0; i < array_length(buffList)-1; i++)

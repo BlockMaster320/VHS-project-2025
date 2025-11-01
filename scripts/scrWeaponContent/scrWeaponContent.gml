@@ -50,7 +50,7 @@ function WeaponsInit()
 	
 		// Weapon actions
 		primaryAction = rangedWeaponShoot
-		secondaryAction = show_debug_message("Secondary function is undefined!")
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
 	
 		// Weapon functions
 		update = genericWeaponUpdate
@@ -62,7 +62,7 @@ function WeaponsInit()
 	with (weaponList[1]) // Empty weapon slot (fist?)
 	{
 		// Generic attributes
-		sprite = sPlaceholderGun
+		sprite = sFists
 		name = "Probably fists"
 		description = "We will see"
 	
