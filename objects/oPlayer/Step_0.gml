@@ -48,7 +48,6 @@ if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	weaponInventory[activeInventorySlot].active = false
 	activeInventorySlot = !activeInventorySlot
-	weaponInventory[activeInventorySlot].active = true
 }
 
 if (oController.interact)
@@ -58,7 +57,6 @@ if (oController.interact)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
 		weaponInventory[activeInventorySlot] = weaponPickup.myWeapon
-		weaponInventory[activeInventorySlot].active = true
 		instance_destroy(weaponPickup)
 	}
 	
@@ -67,6 +65,7 @@ if (oController.interact)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
 		array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
+		EvaluateBuffEffects(activeInventorySlot)
 		instance_destroy(buffPickup)
 	}
 }

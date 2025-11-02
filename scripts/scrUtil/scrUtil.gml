@@ -1,3 +1,19 @@
+// Struct deep copy, doesn't recursively copy inside structs!
+function structCopy(src)
+{
+    var copy = {}
+    var keys = variable_struct_get_names(src)
+	var key = 0
+    for (var i = 0; i < array_length(keys); i++)
+    {
+        key = keys[i];
+        copy[$ key] = src[$ key];
+    }
+    return copy
+}
+
+// Pixel art upscaling -----------------------------------------------------------
+
 function roundPixelPos(pos)
 {
 	// Align to grid for nice pixel art upscaling

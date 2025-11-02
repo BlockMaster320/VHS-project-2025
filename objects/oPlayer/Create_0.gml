@@ -19,12 +19,14 @@ activeInventorySlot = 0
 
 // Weapons
 weaponInventory = array_create(INVENTORY_SIZE, noone)
-weaponInventory[0] = json_parse(global.weaponListJSON[1]) // Fists
-weaponInventory[1] = json_parse(global.weaponListJSON[1]) // Fists
-weaponInventory[activeInventorySlot].active = true
+weaponInventory[0] = json_parse(global.weaponDatabaseJSON[1]) // Fists
+weaponInventory[1] = json_parse(global.weaponDatabaseJSON[1]) // Fists
+weaponInventory[1].active = false
 
 // Buffs
 buffsInventory = array_create(INVENTORY_SIZE)
+for (var i = 0; i < array_length(buffsInventory); i++)
+	buffsInventory[i] = array_create(0)
 
 // Misc ---------------------------------
 

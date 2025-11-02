@@ -8,7 +8,7 @@ function setupBuffPickupRarity(rarity)
 
 function setupBuffPickupID(buffID)
 {
-	myBuff = json_parse(global.buffsJSON[buffID])
-	//myBuff.buffRandomize() // Crashes the game for now
+	myBuff = structCopy(global.buffDatabase[buffID])
+	myBuff.buffRandomize()
 	sprite_index = myBuff.sprite
 }

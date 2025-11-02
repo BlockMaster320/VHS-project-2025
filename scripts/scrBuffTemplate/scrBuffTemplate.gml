@@ -26,3 +26,17 @@ function GetBuffIndex(rarity)
 	var end_ = oController.rarityIndexes[rarity] - 1
 	return random_range(start_, end_)
 }
+
+function EvaluateBuffEffects(slotID)
+{
+	with (oPlayer)
+	{
+		var myWeaponID = weaponInventory[slotID].index
+		weaponInventory[slotID] = json_parse(global.weaponDatabaseJSON[myWeaponID])
+		
+		for (var i = 0; i < array_length(buffsInventory[slotID]); i++)
+		{
+			buffsInventory[slotID][i].buffActivate(weaponInventory[slotID])
+		}
+	}
+}

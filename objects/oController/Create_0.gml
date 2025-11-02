@@ -6,7 +6,7 @@ global.gameSpeed = 1
 
 global.inputState = INPUT_STATE.playing
 
-projectilePool = []
+//projectilePool = []
 
 WeaponsInit()
 BuffsInit()

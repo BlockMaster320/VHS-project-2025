@@ -28,7 +28,7 @@ function Weapon() constructor
 	
 	// Scene attributes
 	index = 0	// Index in the global weapon database
-	active = false
+	active = true
 	aimDirection = 0 // Update aim direction from the point of the gun
 	xPos = 0
 	yPos = 0

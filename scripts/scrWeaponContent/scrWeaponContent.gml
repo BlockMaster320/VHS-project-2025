@@ -12,15 +12,15 @@ function WeaponsInit()
 {
 	#macro WEAPON_AMOUNT 2
 	
-	var weaponList = array_create(WEAPON_AMOUNT, new Weapon())
+	var weaponDatabase = array_create(WEAPON_AMOUNT, new Weapon())
 	
-	weaponList = array_create(WEAPON_AMOUNT)
+	weaponDatabase = array_create(WEAPON_AMOUNT)
 	for (var i = 0; i < WEAPON_AMOUNT; i++)
-		weaponList[i] = new Weapon()
+		weaponDatabase[i] = new Weapon()
 		
 	// -----------------------------------------------------------------------------
 
-	with (weaponList[0])
+	with (weaponDatabase[0])
 	{
 		// Generic attributes
 		sprite = sPlaceholderGun
@@ -59,7 +59,7 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 	
-	with (weaponList[1]) // Empty weapon slot (fist?)
+	with (weaponDatabase[1]) // Empty weapon slot (fist?)
 	{
 		// Generic attributes
 		sprite = sFists
@@ -99,10 +99,10 @@ function WeaponsInit()
 	// ----------------------------------------------------------
 	
 	// Compile into JSON for easy copying
-	global.weaponListJSON = array_create(WEAPON_AMOUNT)
+	global.weaponDatabaseJSON = array_create(WEAPON_AMOUNT)
 	for (var i = 0; i < WEAPON_AMOUNT; i++)
 	{
-		weaponList[i].index = i
-		global.weaponListJSON[i] = json_stringify(weaponList[i], false)
+		weaponDatabase[i].index = i
+		global.weaponDatabaseJSON[i] = json_stringify(weaponDatabase[i], false)
 	}
 }
