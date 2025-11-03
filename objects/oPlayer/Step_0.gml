@@ -48,6 +48,7 @@ if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	weaponInventory[activeInventorySlot].active = false
 	activeInventorySlot = !activeInventorySlot
+	weaponInventory[activeInventorySlot].active = true
 }
 
 if (oController.interact)
