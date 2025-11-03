@@ -9,38 +9,6 @@ wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(oController.down 
 #endregion
 
 
-#region Evaluate collisions and position
-
-// Evaluate momentum
-hsp = whsp
-vsp = wvsp
-
-if (y < 120) room_goto(rmGame)
-
-/// Tilemap collisions
-
-// Horizontal
-if (place_meeting(x + hsp, y, global.tilemapCollision))
-{
-	while (!place_meeting(x + sign(hsp), y, global.tilemapCollision)) x += sign(hsp)
-	x = round(x)
-	hsp = 0;
-}
-x += hsp
-
-
-// Vertical
-if (place_meeting(x, y + vsp, global.tilemapCollision))
-{
-	while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
-	y = round(y)
-	vsp = 0;
-}
-y += vsp
-
-#endregion
-
-
 #region Weapon Inventory
 
 // Swap active inventory slot
@@ -77,6 +45,9 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 	weaponInventory[i].update()
 
 #endregion
+
+
+event_inherited()
 
 
 // Debug
