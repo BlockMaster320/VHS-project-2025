@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrTweenController",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrTweenController",
+  "parent":{
+    "name":"Controllers",
+    "path":"folders/Objects/CutScenes/Tween/Controllers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
