@@ -9,6 +9,10 @@ wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(oController.down 
 #endregion
 
 
+// Evaluate generic character movement
+event_inherited()
+
+
 #region Weapon Inventory
 
 // Swap active inventory slot
@@ -45,9 +49,6 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 	weaponInventory[i].update()
 
 #endregion
-
-
-event_inherited()
 
 
 // Debug
