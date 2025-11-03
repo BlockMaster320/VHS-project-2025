@@ -1,7 +1,9 @@
 cam = view_camera[0]
 
-viewW = camera_get_view_width(cam)
-viewH = camera_get_view_height(cam)
+viewW = cameraW
+viewH = cameraH
+
+//window_set_size(cameraW*2, cameraH*2)
 
 targetOffsetX = 0
 targetOffsetY = 0

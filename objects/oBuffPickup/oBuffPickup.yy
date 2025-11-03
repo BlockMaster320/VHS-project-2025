@@ -1,22 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"oEnemy",
+  "%Name":"oBuffPickup",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oEnemy",
+  "name":"oBuffPickup",
   "overriddenProperties":[],
   "parent":{
-    "name":"Characters",
-    "path":"folders/Objects/Characters.yy",
+    "name":"Items",
+    "path":"folders/Objects/Items.yy",
   },
-  "parentObjectId":{
-    "name":"oCharacterParent",
-    "path":"objects/oCharacterParent/oCharacterParent.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -35,12 +30,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sEnemy",
-    "path":"sprites/sEnemy/sEnemy.yy",
+    "name":"sPlaceholderBuff",
+    "path":"sprites/sPlaceholderBuff/sPlaceholderBuff.yy",
   },
-  "spriteMaskId":{
-    "name":"sCharacters",
-    "path":"sprites/sCharacters/sCharacters.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }

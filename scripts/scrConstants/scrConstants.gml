@@ -27,6 +27,14 @@ function Constants()
 	#macro FLOOR_CENTER_X room_width / 2
 	#macro FLOOR_CENTER_Y room_height / 2
 	
+	// GUI
+	#macro cameraW 480
+	#macro cameraH 270
+	
+	#macro guiW display_get_gui_width()
+	#macro guiH display_get_gui_height()
+	#macro windowToGui guiW / cameraW
+	
 	// Debug levels
 	#macro SHOW_STACKTRACE false
 }

@@ -1,41 +1,62 @@
+function nothingFunction() {}
+
+function acquireWeapon(weapon, owner, active_ = true)
+{
+	var newWeapon;
+	if (is_struct(weapon)) newWeapon = weapon
+	else newWeapon = json_parse(global.weaponDatabaseJSON[weapon])
+	newWeapon.active = active_
+	newWeapon.projectile.ownerID = owner
+	return newWeapon
+}
+
 // Weapon actions ------------------------------------
 
 function rangedWeaponShoot()
 {
-	var bullet = new ShotProjectile(projectile)
-	bullet.xPos = xPos
-	bullet.yPos = yPos
-	bullet.dir = point_direction(xPos, yPos, mouse_x, mouse_y)
-	bullet.dir += random_range(-spread/2, spread/2)
+	repeat (projectileAmount)
+	{
+		var bullet = new ShotProjectile(projectile)
+		bullet.xPos = xPos
+		bullet.yPos = yPos
+		bullet.dir = aimDirection
+		bullet.dir += random_range(-spread/2, spread/2)
 	
-	var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
-	
-	//array_push(oController.projectilePool, bullet)
+		var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
+	}
 }
 
 
 // Weapon update ------------------------------------
 
+function weaponUpdatePosition()	// Called by every weapon
+{
+	if (projectile.ownerID.object_index == oPlayer)
+	{
+		dir = oController.aimDir;
+		flip = (dir > 90 && dir < 270) ? -1 : 1;
+		if (flip < 0) dir += 180;
+	
+		xPos = oPlayer.x + (drawOffsetX * flip)
+		yPos = oPlayer.y + drawOffsetY
+	
+		aimDirection = point_direction(xPos, yPos, mouse_x, mouse_y)
+	}
+}
+
 function genericWeaponUpdate()
 {
-	xPos = oPlayer.x
-	yPos = oPlayer.y
+	weaponUpdatePosition() // All weapons should call this
 	
 	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
 	
-	if (oController.primaryButton and primaryActionCooldown <= 0)
+	if (active and oController.primaryButton and primaryActionCooldown <= 0)
 	{
-		var i = 0
 		while (primaryActionCooldown <= 0)
 		{
-			i++
 			primaryActionCooldown += 60 / (attackSpeed * global.gameSpeed)
 			primaryAction()
 		}
-		//show_debug_message(i)
-		
-			
-		//repeat (1 / primaryActionCooldown) primaryAction()
 	}
 }
 
@@ -43,10 +64,6 @@ function genericWeaponUpdate()
 // Weapon draw ----------------------------------------
 
 function genericWeaponDraw()
-{
-	var dir = oController.aimDir;
-    var flip = (dir > 90 && dir < 270) ? -0.7 : 0.7;
-	if (flip < 0) dir += 180;
-	
-	draw_sprite_ext(sprite, 0, xPos, yPos, flip, 1, dir, c_white, 1)
+{	
+	draw_sprite_ext(sprite, 0, roundPixelPos(xPos), roundPixelPos(yPos), flip, 1, dir, c_white, 1)
 }

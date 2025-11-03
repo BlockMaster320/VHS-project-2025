@@ -6,8 +6,9 @@ function Input()
 	right = 0
 	aimDir = 0
 	primaryButton = 0
-	secondaryButton = 0
-	for (var i = 0; i < INVENTORY_SIZE; i++) selectSlot[i] = 0
+	secondaryButton = 0	
+	selectSlot = 0
+	swapSlot = 0
 	scrollSlot = 0
 	escapeButton = 0
 	next = 0
@@ -36,8 +37,10 @@ function Input()
 			secondaryButton = mouse_check_button(mb_right)
 	
 			// Weapon slots
-			for (var i = 0; i < INVENTORY_SIZE; i++)
-				selectSlot[i] = keyboard_check_pressed(ord(string(i+1)))
+			//for (var i = 1; i <= INVENTORY_SIZE; i++)
+			//	if (keyboard_check_pressed(ord(string(i))))
+			//		selectSlot = i
+			swapSlot = keyboard_check_pressed(vk_space)
 				
 			scrollSlot = mouse_wheel_up() - mouse_wheel_down()
 			
