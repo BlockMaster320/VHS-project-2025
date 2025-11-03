@@ -25,7 +25,7 @@ for (var i = 0; i < array_length(buffsInventory); i++)
 window_set_cursor(cr_cross)
 //window_set_cursor(cr_none)
 //cursor_sprite = sCursor
-display_set_timing_method(tm_sleep)		// Turn off vsync
+//display_set_timing_method(tm_sleep)		// Turn off vsync
 
 
 // Player draw logic
