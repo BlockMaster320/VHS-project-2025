@@ -30,7 +30,7 @@ function rangedWeaponShoot()
 
 function weaponUpdatePosition()	// Called by every weapon
 {
-	if (instance_id_get(projectile.ownerID) == oPlayer)
+	if (projectile.ownerID.object_index == oPlayer)
 	{
 		dir = oController.aimDir;
 		flip = (dir > 90 && dir < 270) ? -1 : 1;

@@ -57,6 +57,7 @@ if (oController.interact)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
 		weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
+		EvaluateBuffEffects(activeInventorySlot)
 		instance_destroy(weaponPickup)
 	}
 	

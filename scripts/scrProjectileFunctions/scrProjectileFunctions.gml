@@ -10,7 +10,7 @@ function bulletHitDetection()
 		if (projectile.projectileAuthority == PROJECTILE_AUTHORITY.self and
 			character != projectile.ownerID)
 		{
-			character.GetHit(projectile)
+			GetHit(character, projectile)
 			instance_destroy()
 		}
 	}

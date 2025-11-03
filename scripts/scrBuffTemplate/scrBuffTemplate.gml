@@ -32,7 +32,7 @@ function EvaluateBuffEffects(slotID)
 	with (oPlayer)
 	{
 		var myWeaponID = weaponInventory[slotID].index
-		weaponInventory[slotID] = json_parse(global.weaponDatabaseJSON[myWeaponID])
+		weaponInventory[slotID] = acquireWeapon(myWeaponID, id)
 		
 		for (var i = 0; i < array_length(buffsInventory[slotID]); i++)
 		{
