@@ -54,7 +54,7 @@
     {"id":{"name":"oUIMainMenu","path":"objects/oUIMainMenu/oUIMainMenu.yy",},},
     {"id":{"name":"oUIPauseMenu","path":"objects/oUIPauseMenu/oUIPauseMenu.yy",},},
     {"id":{"name":"rmGame","path":"rooms/rmGame/rmGame.yy",},},
-    {"id":{"name":"rmGraphicsTesting","path":"rooms/rmGraphicsTesting/rmGraphicsTesting.yy",},},
+    {"id":{"name":"rmLobby","path":"rooms/rmLobby/rmLobby.yy",},},
     {"id":{"name":"rmMenu","path":"rooms/rmMenu/rmMenu.yy",},},
     {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"id":{"name":"scrAnchor","path":"scripts/scrAnchor/scrAnchor.yy",},},
@@ -117,7 +117,7 @@
     {"roomId":{"name":"rmMenu","path":"rooms/rmMenu/rmMenu.yy",},},
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"roomId":{"name":"rmGame","path":"rooms/rmGame/rmGame.yy",},},
-    {"roomId":{"name":"rmGraphicsTesting","path":"rooms/rmGraphicsTesting/rmGraphicsTesting.yy",},},
+    {"roomId":{"name":"rmLobby","path":"rooms/rmLobby/rmLobby.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
