@@ -7,8 +7,13 @@ _test_NPC.portrait = sNPCPortrait
 minimapSurf = surface_create(MINIMAP_SURF_W, MINIMAP_SURF_H);
 
 // Get the tilemap
-var _layerId = layer_get_id("TilesWall");
-mapId = layer_tilemap_get_id(_layerId);
+var _layerWall = layer_get_id("TilesWall");
+var _layerDec1 = layer_get_id("TilesDec1");
+var _layerDec2 = layer_get_id("TilesDec2");
+tileMapWall = layer_tilemap_get_id(_layerWall);
+tileMapDec1 = layer_tilemap_get_id(_layerDec1);
+tileMapDec2 = layer_tilemap_get_id(_layerDec2);
+
 roomTypes = array_create(ROOM_COUNT);
 
 // Randomize the game seed
@@ -29,12 +34,15 @@ playerRoomYPrev = 0;
 var _roomX = ROOM_SCAN_X;
 var _roomY = ROOM_SCAN_Y;
 for (var _room = 0; _room < ROOM_COUNT; _room++) {
+	
     var _tiles = array_create(ROOM_SIZE * ROOM_SIZE);
     for (var _y = 0; _y < ROOM_SIZE; _y++) {
         for (var _x = 0; _x < ROOM_SIZE; _x++) {
 
-            var _data = tilemap_get(mapId, _roomX + _x, _roomY + _y);
-            _tiles[_y * ROOM_SIZE + _x] = _data;
+            var _dataWall = tilemap_get(tileMapWall, _roomX + _x, _roomY + _y);
+            var _dataDec1 = tilemap_get(tileMapDec1, _roomX + _x, _roomY + _y);
+            var _dataDec2 = tilemap_get(tileMapDec2, _roomX + _x, _roomY + _y);
+            _tiles[_y * ROOM_SIZE + _x] = new tile(_dataWall, _dataDec1, _dataDec2);
         }
     }
 
