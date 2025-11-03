@@ -14,7 +14,10 @@
     "name":"Characters",
     "path":"folders/Objects/Characters.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oCharacterParent",
+    "path":"objects/oCharacterParent/oCharacterParent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -37,7 +40,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"sPlayer",
+    "path":"sprites/sPlayer/sPlayer.yy",
+  },
   "spriteMaskId":{
     "name":"sCharacters",
     "path":"sprites/sCharacters/sCharacters.yy",

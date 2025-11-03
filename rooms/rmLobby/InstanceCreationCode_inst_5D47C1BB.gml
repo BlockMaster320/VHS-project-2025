@@ -1,0 +1,1 @@
+setupWeaponPickup(0)

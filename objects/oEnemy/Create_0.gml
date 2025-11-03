@@ -1,3 +1,4 @@
+event_inherited()
 
 controller = new CharacterController(self, new CharacterAnimation(EnemyAnimation))
 

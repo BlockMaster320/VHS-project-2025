@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrWeaponFunctions",
+  "%Name":"scrBuffTemplate",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrWeaponFunctions",
+  "name":"scrBuffTemplate",
   "parent":{
-    "name":"Content",
-    "path":"folders/Objects/Content.yy",
+    "name":"Items",
+    "path":"folders/Objects/Items.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,7 +1,7 @@
 // Center around player (fixed position)
 
-var centeredX = oPlayer.x - (viewW / 2)
-var centeredY = oPlayer.y - (viewH / 2)
+var centeredX = roundPixelPos(oPlayer.x) - (viewW / 2)
+var centeredY = roundPixelPos(oPlayer.y) - (viewH / 2)
 
 // Follow mouse cursor (target position)
 
@@ -34,5 +34,5 @@ y = clamp(y, 0, room_height - viewH)
 // Update camera
 
 camera_set_view_size(cam, viewW, viewH)
-camera_set_view_pos(cam, x, y)
+camera_set_view_pos(cam, roundPixelPos(x), roundPixelPos(y))
 camera_set_view_angle(cam, camRot)

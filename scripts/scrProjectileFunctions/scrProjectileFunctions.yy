@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scrProjectileFunctions",
   "parent":{
-    "name":"Items",
-    "path":"folders/Objects/Items.yy",
+    "name":"Content",
+    "path":"folders/Objects/Content.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

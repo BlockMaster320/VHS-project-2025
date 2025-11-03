@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrWeaponFunctions",
+  "%Name":"scrBuffContent",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrWeaponFunctions",
+  "name":"scrBuffContent",
   "parent":{
     "name":"Content",
     "path":"folders/Objects/Content.yy",
