@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrDrawGuiController",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrDrawGuiController",
+  "parent":{
+    "name":"Controllers",
+    "path":"folders/Objects/CutScenes/Tween/Controllers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
