@@ -1,5 +1,15 @@
 function nothingFunction() {}
 
+function acquireWeapon(weapon, owner, active_ = true)
+{
+	var newWeapon;
+	if (is_struct(weapon)) newWeapon = weapon
+	else newWeapon = json_parse(global.weaponDatabaseJSON[weapon])
+	newWeapon.active = active_
+	newWeapon.projectile.ownerID = owner
+	return newWeapon
+}
+
 // Weapon actions ------------------------------------
 
 function rangedWeaponShoot()
@@ -20,14 +30,17 @@ function rangedWeaponShoot()
 
 function weaponUpdatePosition()	// Called by every weapon
 {
-	dir = oController.aimDir;
-	flip = (dir > 90 && dir < 270) ? -1 : 1;
-	if (flip < 0) dir += 180;
+	if (instance_id_get(projectile.ownerID) == oPlayer)
+	{
+		dir = oController.aimDir;
+		flip = (dir > 90 && dir < 270) ? -1 : 1;
+		if (flip < 0) dir += 180;
 	
-	xPos = oPlayer.x + (drawOffsetX * flip)
-	yPos = oPlayer.y + drawOffsetY
+		xPos = oPlayer.x + (drawOffsetX * flip)
+		yPos = oPlayer.y + drawOffsetY
 	
-	aimDirection = point_direction(xPos, yPos, mouse_x, mouse_y)
+		aimDirection = point_direction(xPos, yPos, mouse_x, mouse_y)
+	}
 }
 
 function genericWeaponUpdate()

@@ -7,8 +7,6 @@ function BuffsInit()
 {
 	#macro BUFF_AMOUNT 2
 	
-	global.buffDatabase = array_create(BUFF_AMOUNT, new Weapon())
-	
 	global.buffDatabase = array_create(BUFF_AMOUNT)
 	for (var i = 0; i < BUFF_AMOUNT; i++)
 		global.buffDatabase[i] = new Buff()

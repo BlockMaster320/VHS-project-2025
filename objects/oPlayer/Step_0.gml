@@ -56,7 +56,7 @@ if (oController.interact)
 	var weaponPickup = instance_place(x, y, oWeaponPickup)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
-		weaponInventory[activeInventorySlot] = weaponPickup.myWeapon
+		weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
 		instance_destroy(weaponPickup)
 	}
 	

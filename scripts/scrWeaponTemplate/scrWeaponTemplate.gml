@@ -10,6 +10,8 @@ function Projectile() constructor
 	// Generic attributes
 	type = PROJECTILE_TYPE.ranged
 	sprite = sPlaceholderProjectile
+	projectileAuthority = PROJECTILE_AUTHORITY.self
+	ownerID = -1
 }
 
 function Weapon() constructor

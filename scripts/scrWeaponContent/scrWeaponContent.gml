@@ -3,6 +3,12 @@ enum PROJECTILE_TYPE
 	melee, ranged, special
 }
 
+enum PROJECTILE_AUTHORITY
+{
+	self,		// Damages all characters other then himself
+	monster
+}
+
 enum PROJECTILE_EFFECT
 {
 	nothing

@@ -1,16 +1,9 @@
-// Player variables ----------------------------------
+event_inherited()
+
+// Player attributes ------------------------
 
 walkSpd = 2
-
-
-// Momentum ----------------------------------
-
-whsp = 0	// Horizontal walking speed
-wvsp = 0	// Vertical walking speed
-
-hsp = 0		// Total horizontal speed
-vsp = 0		// Total horizontal speed
-
+hp = 10
 
 // Inventory --------------------------
 
@@ -19,9 +12,8 @@ activeInventorySlot = 0
 
 // Weapons
 weaponInventory = array_create(INVENTORY_SIZE, noone)
-weaponInventory[0] = json_parse(global.weaponDatabaseJSON[1]) // Fists
-weaponInventory[1] = json_parse(global.weaponDatabaseJSON[1]) // Fists
-weaponInventory[1].active = false
+weaponInventory[0] = acquireWeapon(1, id) // Fists
+weaponInventory[1] = acquireWeapon(1, id, false) // Fists
 
 // Buffs
 buffsInventory = array_create(INVENTORY_SIZE)
@@ -31,8 +23,9 @@ for (var i = 0; i < array_length(buffsInventory); i++)
 // Misc ---------------------------------
 
 window_set_cursor(cr_cross)
+//window_set_cursor(cr_none)
 //cursor_sprite = sCursor
-//game_set_speed(60, gamespeed_fps)
+display_set_timing_method(tm_sleep)		// Turn off vsync
 
 
 // Player draw logic
