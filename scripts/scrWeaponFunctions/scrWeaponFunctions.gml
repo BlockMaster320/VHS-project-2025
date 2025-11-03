@@ -14,15 +14,16 @@ function acquireWeapon(weapon, owner, active_ = true)
 
 function rangedWeaponShoot()
 {
-	var bullet = new ShotProjectile(projectile)
-	bullet.xPos = xPos
-	bullet.yPos = yPos
-	bullet.dir = aimDirection
-	bullet.dir += random_range(-spread/2, spread/2)
+	repeat (projectileAmount)
+	{
+		var bullet = new ShotProjectile(projectile)
+		bullet.xPos = xPos
+		bullet.yPos = yPos
+		bullet.dir = aimDirection
+		bullet.dir += random_range(-spread/2, spread/2)
 	
-	var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
-	
-	//array_push(oController.projectilePool, bullet)
+		var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
+	}
 }
 
 

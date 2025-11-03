@@ -20,6 +20,7 @@ function Weapon() constructor
 	projectile = noone
 	attackSpeed = 2		// shots/damage amount per second
 	spread = 0			// weapon accuracy in degrees
+	projectileAmount = 1
 	
 	// Generic attributes
 	sprite = sPlaceholderGun

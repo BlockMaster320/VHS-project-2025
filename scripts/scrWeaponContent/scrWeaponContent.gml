@@ -37,7 +37,7 @@ function WeaponsInit()
 		projectile = noone
 		attackSpeed = 3			// shots/damage amount per second
 		spread = 30				// weapon accuracy in degrees
-		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		projectileAmount = 5	// number of projectile to be shot in the shoot frame
 	
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
