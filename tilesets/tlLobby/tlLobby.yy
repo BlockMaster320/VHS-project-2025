@@ -13,7 +13,7 @@
     "TileSerialiseData":[],
   },
   "name":"tlLobby",
-  "out_columns":8,
+  "out_columns":9,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -39,5 +39,5 @@
   "tileWidth":16,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":64,
+  "tile_count":88,
 }
