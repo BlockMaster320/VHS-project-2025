@@ -1,9 +1,9 @@
 function DlgConstants(){
 	// Dialogue text box
-	#macro PADDING_V 30
-	#macro PADDING_H 50
-	#macro TEXTBOX_HEIGHT 192
+	#macro PADDING_V 10
+	#macro PADDING_H 16
+	#macro TEXTBOX_HEIGHT 64
 
 	// Options
-	#macro PADDING_OPTION 5
+	#macro PADDING_OPTION 2
 }

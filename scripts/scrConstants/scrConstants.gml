@@ -35,6 +35,7 @@ function Constants()
 	#macro guiW display_get_gui_width()
 	#macro guiH display_get_gui_height()
 	#macro windowToGui guiW / cameraW
+	#macro guiToCamera cameraW / guiW
 	
 	// Debug levels
 	#macro SHOW_STACKTRACE false

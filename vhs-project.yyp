@@ -65,6 +65,7 @@
     {"id":{"name":"oWeaponPickup","path":"objects/oWeaponPickup/oWeaponPickup.yy",},},
     {"id":{"name":"rmGame","path":"rooms/rmGame/rmGame.yy",},},
     {"id":{"name":"rmLobby","path":"rooms/rmLobby/rmLobby.yy",},},
+    {"id":{"name":"rmLobbyTesting","path":"rooms/rmLobbyTesting/rmLobbyTesting.yy",},},
     {"id":{"name":"rmMenu","path":"rooms/rmMenu/rmMenu.yy",},},
     {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"id":{"name":"scrAnchor","path":"scripts/scrAnchor/scrAnchor.yy",},},
@@ -140,6 +141,7 @@
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"roomId":{"name":"rmGame","path":"rooms/rmGame/rmGame.yy",},},
     {"roomId":{"name":"rmLobby","path":"rooms/rmLobby/rmLobby.yy",},},
+    {"roomId":{"name":"rmLobbyTesting","path":"rooms/rmLobbyTesting/rmLobbyTesting.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

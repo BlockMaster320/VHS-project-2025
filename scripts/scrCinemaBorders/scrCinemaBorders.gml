@@ -19,7 +19,7 @@ function CinemaBorders(_hiddenHeight=0, _visibleHeight=100, _duration=1500, _cur
 	destroy = function() {
 		controller.remove(self)	
 	}
-	
+
 	/// @function	Show()
 	/// @desc Function which returns tween for show animatino of cut scene borders.
 	/// @params {function|Constants.Ease} _onComplete - Callback which is triggered when showing ends.
@@ -59,12 +59,12 @@ function CinemaBorders(_hiddenHeight=0, _visibleHeight=100, _duration=1500, _cur
 		if (currentHeight <= 0) return;
 		safeDraw(function() {
 			draw_set_color(c_black);
-	        draw_rectangle(0, 0, display_get_gui_width(), currentHeight, false); // Top
+	        draw_rectangle(0, 0, cameraW, currentHeight, false); // Top
 	        draw_rectangle(
 	            0,
-	            display_get_gui_height() - currentHeight,
-	            display_get_gui_width(),
-	            display_get_gui_height(),
+	            cameraH - currentHeight,
+	            cameraW,
+	            cameraH,
 	            false
 	        );
 		})

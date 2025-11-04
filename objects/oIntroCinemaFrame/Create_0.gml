@@ -2,14 +2,14 @@ borders = new CinemaBorders(0, 80, 1000, 80)
 seq = new TweenSequence([])
 	.ContinueWith(
 		new TweenAction(function() { // disable player input
-			global.inputState = INPUT_STATE.cutscene
+			//global.inputState = INPUT_STATE.cutscene
 		})
 	)
-	.ContinueWith(TweenWait(1000))
+	.ContinueWith(TweenWait(300))
 	.ContinueWith(borders.Hide())
 	.ContinueWith(
 		new TweenAction(function() { // enable playstyle - i could store previous state if needed
-			global.inputState = INPUT_STATE.playing
+			//global.inputState = INPUT_STATE.playing
 			borders.destroy() // just formal cleanup
 		})
 	).start()

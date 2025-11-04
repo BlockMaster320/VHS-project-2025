@@ -16,6 +16,10 @@ function DialogueLine(_text, _answers, _next) constructor
 function DialogueSystem() constructor
 {
 	static dlgs = ds_map_create()
+	ds_map_add(dlgs, "", [new Dialogue(
+									[
+										new DialogueLine("JMÉNO UNDEFINED. OPRAV TO!", [], [])
+									])])
 	ds_map_add(dlgs, "Franta", [new Dialogue(
 									[
 										new DialogueLine("Čau kámo.", [], [1]),
@@ -25,10 +29,13 @@ function DialogueSystem() constructor
 										new DialogueLine("Dík moc, jsi frajer", [], []),
 										new DialogueLine("Tak doufám, že se ti rozvážou tkaničky.", [], [])
 									])])
+								
+									
 	static current_dialogue = noone
 	
 	static StartDialogue = function(_NPCName)
 	{
+		
 		current_dialogue = dlgs[? _NPCName][0]
 		return GetLine(0)
 	}
