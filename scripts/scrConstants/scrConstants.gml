@@ -5,6 +5,7 @@ function Constants()
 		playing,
 		menu,
 		dialogue,
+		cutscene,
 	}
 	
 	// Map generation settings
@@ -37,4 +38,57 @@ function Constants()
 	
 	// Debug levels
 	#macro SHOW_STACKTRACE false
+	#macro SHOW_DEBUG false
+	
+	global.Ease = {
+
+	    // --- Linear ---
+	    Linear: function(t) { return t; },
+
+	    // --- Quadratic ---
+	    EaseInQuad: function(t) { return t * t; },
+	    EaseOutQuad: function(t) { return t * (2 - t); },
+	    EaseInOutQuad: function(t) { return (t < 0.5) ? 2 * t * t : -1 + (4 - 2 * t) * t; },
+
+	    // --- Cubic ---
+	    EaseInCubic: function(t) { return t * t * t; },
+	    EaseOutCubic: function(t) { t -= 1; return t * t * t + 1; },
+	    EaseInOutCubic: function(t) { return (t < 0.5) ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1; },
+
+	    // --- Quartic ---
+	    EaseInQuart: function(t) { return t * t * t * t; },
+	    EaseOutQuart: function(t) { t -= 1; return 1 - t * t * t * t; },
+	    EaseInOutQuart: function(t) { return (t < 0.5) ? 8 * t * t * t * t : 1 - 8 * pow(t - 1, 4); },
+
+	    // --- Quintic ---
+	    EaseInQuint: function(t) { return t * t * t * t * t; },
+	    EaseOutQuint: function(t) { t -= 1; return 1 + t * t * t * t * t; },
+	    EaseInOutQuint: function(t) { return (t < 0.5) ? 16 * pow(t, 5) : 1 + 16 * pow(t - 1, 5); },
+
+	    // --- Sinusoidal ---
+	    EaseInSine: function(t) { return 1 - cos(t * pi / 2); },
+	    EaseOutSine: function(t) { return sin(t * pi / 2); },
+	    EaseInOutSine: function(t) { return -0.5 * (cos(pi * t) - 1); },
+
+	    // --- Exponential ---
+	    EaseInExpo: function(t) { return (t == 0) ? 0 : pow(2, 10 * (t - 1)); },
+	    EaseOutExpo: function(t) { return (t == 1) ? 1 : 1 - pow(2, -10 * t); },
+	    EaseInOutExpo: function(t) {
+	        if (t == 0) return 0;
+	        if (t == 1) return 1;
+	        t *= 2;
+	        if (t < 1) return 0.5 * pow(2, 10 * (t - 1));
+	        return 0.5 * (2 - pow(2, -10 * (t - 1)));
+	    },
+
+	    // --- Circular ---
+	    EaseInCirc: function(t) { return 1 - sqrt(1 - t * t); },
+	    EaseOutCirc: function(t) { t -= 1; return sqrt(1 - t * t); },
+	    EaseInOutCirc: function(t) {
+	        t *= 2;
+	        if (t < 1) return -0.5 * (sqrt(1 - t * t) - 1);
+	        t -= 2;
+	        return 0.5 * (sqrt(1 - t * t) + 1);
+	    }
+	};
 }
