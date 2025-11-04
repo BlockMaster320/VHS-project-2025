@@ -38,7 +38,8 @@ function updateUpscaleFactor()
 		{
 			oController.upscaleMult = mult
 			surface_resize(application_surface, cameraW * oController.upscaleMult, cameraH * oController.upscaleMult)
-			display_set_gui_size(window_get_width(), window_get_height())
+			//display_set_gui_size(window_get_width(), window_get_height())
+			display_set_gui_size(cameraW, cameraH)
 			break
 		}
 	}
