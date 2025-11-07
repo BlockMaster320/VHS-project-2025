@@ -52,8 +52,8 @@ function Input()
 			
 			
 		case INPUT_STATE.menu:
-			gui_x = device_mouse_x_to_gui(0)
-			gui_y = device_mouse_y_to_gui(0)
+			gui_x = device_mouse_x_to_gui(0) * guiToCamera
+			gui_y = device_mouse_y_to_gui(0) * guiToCamera
 			gui_pressed = mouse_check_button_pressed(mb_left)
 			
 	
@@ -65,6 +65,10 @@ function Input()
 			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left)
 			clicked = mouse_check_button_pressed(mb_left)
 			
+			break
+			
+		case INPUT_STATE.cutscene:
+		
 			break
 	}
 

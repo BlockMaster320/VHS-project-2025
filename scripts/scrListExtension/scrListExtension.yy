@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrListExtension",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrListExtension",
+  "parent":{
+    "name":"Extensions",
+    "path":"folders/Objects/CutScenes/Tween/Extensions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

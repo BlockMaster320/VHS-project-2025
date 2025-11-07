@@ -2,6 +2,10 @@
 
 walkSpd = 0
 
+// Generic constants -------------------------
+
+frictionMult = .7
+
 
 // Momentum ----------------------------------
 
@@ -17,5 +21,5 @@ vsp = 0		// Total horizontal speed
 
 // Combat ------------------------------------
 
-hp = 10
+hp = 150
 effects = []

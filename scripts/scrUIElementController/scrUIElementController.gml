@@ -42,6 +42,9 @@ function GUIElementController() constructor {
     /// @function   draw()
     static draw = function() {
 		safeDraw(function() {
+			
+			surface_set_target(oController.guiSurf)
+			
 		    draw_set_halign(fa_left);
 		    draw_set_valign(fa_middle);
 		    draw_set_color(c_white);
@@ -56,6 +59,8 @@ function GUIElementController() constructor {
 					showErrorMessage(elem, e, "draw()")
 				}
 			}
+
+			surface_reset_target()
 		})
     }
 

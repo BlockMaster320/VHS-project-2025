@@ -1,7 +1,11 @@
 if (!active) exit
 
+
+surface_set_target(oController.guiSurf)
+
+
 right = left + string_width(text) + 2 * PADDING_OPTION
-top = display_get_gui_height() - PADDING_V - TEXTBOX_HEIGHT/2 + idx*(string_height("L") + PADDING_OPTION)
+top = cameraH - PADDING_V - TEXTBOX_HEIGHT/2 + idx*(string_height("L") + PADDING_OPTION)
 bottom = top + string_height("L")
 
 if (selected)
@@ -14,3 +18,6 @@ if (selected)
 	draw_text(left, top, text)
 }
 draw_set_alpha(1)
+
+
+surface_reset_target()

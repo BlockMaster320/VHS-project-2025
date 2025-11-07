@@ -1,5 +1,10 @@
-function GetHit(character, projectile)
+function GetHit(character, projectileInstance)
 {
-	character.hp -= projectile.damage * projectile.damageMultiplier
-	character.effects = array_union(character.effects, projectile.effects)
+	var projectileData = projectileInstance.projectile
+	
+	character.hp -= projectileData.damage * projectileData.damageMultiplier
+	character.effects = array_union(character.effects, projectileData.effects)
+	
+	character.mhsp += lengthdir_x(projectileData.targetKnockback, projectileInstance.dir)
+	character.mvsp += lengthdir_y(projectileData.targetKnockback, projectileInstance.dir)
 }

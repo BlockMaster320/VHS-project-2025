@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrTween",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrTween",
+  "parent":{
+    "name":"Tween",
+    "path":"folders/Objects/CutScenes/Tween.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -31,8 +31,8 @@ if (!talking) {
 		}
 	}	
 } else {
-	var _x = device_mouse_x_to_gui(0)
-	var _y = device_mouse_y_to_gui(0)
+	var _x = device_mouse_x_to_gui(0) * guiToCamera
+	var _y = device_mouse_y_to_gui(0) * guiToCamera
 
 	if (oController.next){
 		if (timer < 2*string_length(current_line.text)){
@@ -62,8 +62,8 @@ if (!array_length(current_line.answers)) {
 	waiting_for_answer = true
 	
 	if (timer >= 2*string_length(current_line.text)){
-		var _x = device_mouse_x_to_gui(0)
-		var _y = device_mouse_y_to_gui(0)
+		var _x = device_mouse_x_to_gui(0) * guiToCamera
+		var _y = device_mouse_y_to_gui(0) * guiToCamera
 		for (var i = 0; i < array_length(current_line.answers); ++i){
 			options[i].active = true
 			options[i].text = current_line.answers[i]

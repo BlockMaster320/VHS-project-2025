@@ -1,5 +1,5 @@
 function ScreenDefaults() constructor {
-	size = {x: display_get_gui_width(), y: display_get_gui_height()}
+	size = {x: cameraW, y: cameraH}
 	
 	middle = {x: size.x / 2, y: size.y / 2}
 	
