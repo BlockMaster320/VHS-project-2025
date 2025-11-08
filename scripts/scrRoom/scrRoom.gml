@@ -207,7 +207,7 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
-			_enemy.characterController = new CharacterController(self, CHARACTER_TYPE.mechanic);
+			_enemy.characterController = new CharacterController(_enemy, CHARACTER_TYPE.mechanic);
 			
 			var mapWidth  = tilemap_get_width(global.tilemapCollision);
 			var mapHeight = tilemap_get_height(global.tilemapCollision);

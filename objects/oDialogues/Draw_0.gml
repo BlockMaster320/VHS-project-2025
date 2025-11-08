@@ -16,6 +16,6 @@ draw_set_alpha(1)
 draw_set_color(c_white)
 //draw_text(left + PADDING_H, top + PADDING_V, string_copy(current_line.text, 0, timer/2))
 draw_text(left + PADDING_H, top + PADDING_V, string_copy(current_line.text, 0, timer/2))
-draw_sprite_ext(closest_NPC.portrait, 0, right - 64, top + 1, 1, 1, 0, -1, 1);
+draw_sprite_ext(closest_NPC.characterController.portrait, 0, right - 64, top + 1, 1, 1, 0, -1, 1);
 
 surface_reset_target()

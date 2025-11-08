@@ -26,7 +26,7 @@ function CharacterController(_object, _characterType) constructor {
 	characterType = _characterType;
 	characterClass = noone;
 	name = "";
-	portrait = noone;
+	portrait = sNPCPortrait;
 	hp = 5;
 	harmed_duration = 0;
 	dir = 1;
@@ -36,12 +36,12 @@ function CharacterController(_object, _characterType) constructor {
 	// animation control
 	characterAnimation = noone;
 	anim = noone;
-	sprite_index = noone;
+	sprite_index = sCharacters;
 	sprite_frame = 0;
 	image_speed = 0.1;
 	
 	// Set the character variables
-	switch(_characterType) {
+	switch(characterType) {
 		
 		case CHARACTER_TYPE.player: {
 			characterClass = CHARACTER_CLASS.player;
@@ -119,11 +119,19 @@ function CharacterController(_object, _characterType) constructor {
 	}
 	
 	draw = function() {
-		//var current_dir = sign(oController.left - oController.right);
-		//dir = (current_dir == 0) ? dir : current_dir;
+		
 		dir = (oController.aimDir > 90 and oController.aimDir < 270) ? 1 : -1
 		var color = characterState == CharacterState.Harm ? c_red : c_white;
 		
-		draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(object.x), roundPixelPos(object.y), dir, 1, 0, color, 1)
+		switch(characterType) {
+			case CHARACTER_TYPE.player: {
+				draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(object.x), roundPixelPos(object.y), dir, 1, 0, color, 1)
+			} break;
+		
+			default: {
+				draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(object.x), roundPixelPos(object.y), 1, 1, 0, color, 1)
+			} break;
+		}
+
 	}
 }
