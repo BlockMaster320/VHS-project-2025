@@ -1,6 +1,6 @@
 event_inherited()
 
-controller = new CharacterController(self, new CharacterAnimation(EnemyAnimation))
+controller = new CharacterController(self, CHARACTER_TYPE.mechanic)
 
 startX = x;
 startY = y;

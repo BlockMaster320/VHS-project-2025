@@ -13,6 +13,9 @@ tileMapDec3 = layer_tilemap_get_id(_layerDec3);
 
 roomTypes = array_create(ROOM_COUNT);
 
+// Grid for enemy AI
+wallGrid = ds_grid_create(ROOM_SIZE, ROOM_SIZE);
+
 // Randomize the game seed
 randomize();
 
