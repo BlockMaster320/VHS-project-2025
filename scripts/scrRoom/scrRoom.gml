@@ -1,8 +1,9 @@
 // Contains IDs of tiles in the position of the tile in all the tileset layers
-function tile(_tileWall, _tileDe1, _tileDec2) constructor {
+function tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
 	tileWall = _tileWall;
-	tileDec1 = _tileDe1;
+	tileDec1 = _tileDec1;
 	tileDec2 = _tileDec2;
+	tileDec3 = _tileDec3;
 }
 
 // Represents a specific room in the floor
@@ -34,6 +35,7 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 				tilemap_set(oRoomManager.tileMapWall, _tile.tileWall, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec1, _tile.tileDec1, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec2, _tile.tileDec2, _roomX + _x, _roomY + _y);
+				tilemap_set(oRoomManager.tileMapDec3, _tile.tileDec3, _roomX + _x, _roomY + _y);
 			}
 		}
 		
