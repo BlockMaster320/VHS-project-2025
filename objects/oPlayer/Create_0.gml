@@ -1,5 +1,8 @@
 event_inherited()
 
+// Player controller
+playerController = new CharacterController(self, CHARACTER_TYPE.player)
+
 // Player attributes ------------------------
 
 walkSpd = 2
@@ -26,7 +29,3 @@ window_set_cursor(cr_cross)
 //window_set_cursor(cr_none)
 //cursor_sprite = sCursor
 //display_set_timing_method(tm_sleep)		// Turn off vsync
-
-
-// Player draw logic
-playerController = new CharacterController(self, new CharacterAnimation(PlayerAnimation))

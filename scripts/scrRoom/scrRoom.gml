@@ -207,6 +207,7 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
+			_enemy.characterController = new CharacterController(self, CHARACTER_TYPE.mechanic);
 			
 			var mapWidth  = tilemap_get_width(global.tilemapCollision);
 			var mapHeight = tilemap_get_height(global.tilemapCollision);
@@ -216,6 +217,17 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			if (tileId != 0) _enemy.controller.setState(CharacterState.Dead)
 			
 			ds_list_add(enemies, _enemy);
+		}
+		
+		// Generate grid for enemy AI
+		for (var _y = 0; _y < ROOM_SIZE; _y++) {
+			str = "";
+			for (var _x = 0; _x < ROOM_SIZE; _x++) {
+				var _tile = oRoomManager.roomTypes[roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
+				oRoomManager.wallGrid[# _x, _y] = (_tile.tileWall == 0) ? 0 : 1;
+				str += string(oRoomManager.wallGrid[# _x, _y]);
+			}
+			show_debug_message(str);
 		}
 	}
 	

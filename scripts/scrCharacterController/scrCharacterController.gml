@@ -1,27 +1,69 @@
-function CharacterController(_object, _characterAnimation) constructor {
+enum CHARACTER_CLASS
+{
+	player,
+	NPC,
+	enemy,
+}
+
+enum CHARACTER_TYPE
+{
+	player,
+	goblin,
+	mechanic,
+	shopkeeper,
+}
+
+enum CharacterState {
+	Idle,
+	Run,
+	Harm,
+	Dead
+}
+
+function CharacterController(_object, _characterType) constructor {
 	
-	object					= _object
-	characterAnimation		= _characterAnimation
-	x = 0;
-    y = 0;
+	object		  = _object
+	characterType = _characterType;
+	characterClass = noone;
+	name = "";
+	portrait = noone;
 	hp = 5;
 	harmed_duration = 0;
 	dir = 1;
 	
-	characterState = characterAnimation.startCharacterState//CharacterState.Idle;
+	characterState = CharacterState.Idle;
+	
 	// animation control
- 
-	sprite_index = sCharacters;
+	characterAnimation = noone;
+	anim = noone;
+	sprite_index = noone;
 	sprite_frame = 0;
 	image_speed = 0.1;
 	
-	sprite = sCharacters;
-	anim = characterAnimation.getAnimation
-    //anim = [];
-	//anim[CharacterState.Idle] = [0, 0];     // single frame
-    //anim[CharacterState.Run]  = [0, 3];     // frames 1–4
-    //anim[CharacterState.Harm] = [4, 4];     // frame 5
-    //anim[CharacterState.Dead] = [5, 5];     // frame 6
+	// Set the character variables
+	switch(_characterType) {
+		
+		case CHARACTER_TYPE.player: {
+			characterClass = CHARACTER_CLASS.player;
+			name = "Player";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(DefaultAnimation);
+			anim = characterAnimation.getAnimation;
+		} break;
+		
+		case CHARACTER_TYPE.mechanic: {
+			characterClass = CHARACTER_CLASS.NPC;
+			name = "Mechanic";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sNPC;
+			characterAnimation = new CharacterAnimation(DefaultAnimation);
+			anim = characterAnimation.getAnimation;
+		} break;
+	}
+		
 	
 	setState = function(_characterState) {
 		show_debug_message("set to: " + string(_characterState))
@@ -29,8 +71,8 @@ function CharacterController(_object, _characterAnimation) constructor {
 	}
 	
 	step = function() {
-		x = object.x
-		y = object.y
+		/*x = object.x
+		y = object.y*/
 		
 		if (keyboard_check_pressed(ord("H"))) {
 			hp--;
@@ -82,13 +124,6 @@ function CharacterController(_object, _characterAnimation) constructor {
 		dir = (oController.aimDir > 90 and oController.aimDir < 270) ? 1 : -1
 		var color = characterState == CharacterState.Harm ? c_red : c_white;
 		
-		draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, color, 1)
+		draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(object.x), roundPixelPos(object.y), dir, 1, 0, color, 1)
 	}
-}
-
-enum CharacterState {
-	Idle,
-	Run,
-	Harm,
-	Dead
 }

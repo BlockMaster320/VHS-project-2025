@@ -1,3 +1,6 @@
+// Controller
+characterController = new CharacterController(self,CHARACTER_TYPE.mechanic)
+
 // Generic attributes ------------------------
 
 walkSpd = 0
