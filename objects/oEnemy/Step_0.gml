@@ -12,6 +12,11 @@ function FindNewPath()
 	else show_debug_message("Failed to find path!")
 }
 
+function LineOfSight(pos)
+{
+	return collision_line(x, y, pos.x, pos.y, oRoomManager.tileMapWall, false, true)
+}
+
 if (mouse_check_button_pressed(mb_left))
 {
 	pathTargetX = mouse_x
