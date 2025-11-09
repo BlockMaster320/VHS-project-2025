@@ -3,7 +3,7 @@ characterController = new CharacterController(self,CHARACTER_TYPE.mechanic)
 
 // Generic attributes ------------------------
 
-walkSpd = 0
+walkSpd = 2
 
 // Generic constants -------------------------
 
