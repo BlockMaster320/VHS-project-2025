@@ -1,6 +1,6 @@
 // Generic attributes ------------------------
 
-walkSpd = 2
+walkSpd = 1
 
 // Generic constants -------------------------
 

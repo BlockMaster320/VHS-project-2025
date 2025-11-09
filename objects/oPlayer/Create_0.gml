@@ -1,4 +1,6 @@
+// Get generic attributes
 event_inherited()
+characterCreate(CHARACTER_TYPE.player);
 
 // Player attributes ------------------------
 

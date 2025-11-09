@@ -51,5 +51,3 @@ currentFrame++
 
 // Character code
 event_inherited()
-
-characterController.step()

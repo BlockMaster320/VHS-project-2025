@@ -8,7 +8,8 @@ if (abs(mvsp) < .001) mvsp = 0
 
 #endregion
 
-// GENERIC STEP EVENT (same for all characters) --------------------
+#region Choose step event from database
+/// GENERIC STEP EVENT (same for all characters)
 // DEBUG
 if (keyboard_check_pressed(ord("H"))) {
 	hp--;
@@ -57,6 +58,8 @@ if (sprite_frame < start) sprite_frame = start;
 	
 // STEP EVENT OF THE SPECIFIC CHARACTER --------------------
 stepEvent()
+
+#endregion
 
 #region Evaluate collisions and position
 

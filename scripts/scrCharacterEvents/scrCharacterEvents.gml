@@ -88,5 +88,9 @@ function characterCreate(_characterType) {
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.ghoster);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.ghoster);
 		} break;
+		
+		default:
+			show_debug_message("Attempting to create undefined character type!")
+			break
 	}
 }
