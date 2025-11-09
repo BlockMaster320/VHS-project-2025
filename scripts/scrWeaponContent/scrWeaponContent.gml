@@ -24,6 +24,8 @@ function WeaponsInit()
 	for (var i = 0; i < WEAPON_AMOUNT; i++)
 		weaponDatabase[i] = new Weapon()
 		
+	
+		
 	// -----------------------------------------------------------------------------
 
 	with (weaponDatabase[0])
