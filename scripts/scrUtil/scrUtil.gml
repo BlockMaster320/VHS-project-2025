@@ -12,6 +12,12 @@ function structCopy(src)
     return copy
 }
 
+function lerpDirection(a, b, fac)
+{
+	var angleDiff = angle_difference(b, a)
+	return lerp(a, a + angleDiff, fac)
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)

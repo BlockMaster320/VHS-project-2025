@@ -16,19 +16,28 @@ enum PROJECTILE_EFFECT
 
 function WeaponsInit()
 {
-	#macro WEAPON_AMOUNT 2
+	enum WEAPON
+	{
+		// Player focused
+		defaultGun, fists,
+		
+		// Monsters focused
+		ghosterGun,
+		
+		// --------------
+		length
+	}
 	
-	var weaponDatabase = array_create(WEAPON_AMOUNT, new Weapon())
+	#macro WEAPON_AMOUNT WEAPON.length
+
 	
-	weaponDatabase = array_create(WEAPON_AMOUNT)
+	var weaponDatabase = array_create(WEAPON_AMOUNT)
 	for (var i = 0; i < WEAPON_AMOUNT; i++)
 		weaponDatabase[i] = new Weapon()
 		
-	
-		
 	// -----------------------------------------------------------------------------
 
-	with (weaponDatabase[0])
+	with (weaponDatabase[WEAPON.defaultGun])
 	{
 		// Generic attributes
 		sprite = sPlaceholderGun
@@ -40,6 +49,14 @@ function WeaponsInit()
 		attackSpeed = 3			// shots/damage amount per second
 		spread = 30				// weapon accuracy in degrees
 		projectileAmount = 5	// number of projectile to be shot in the shoot frame
+		
+		// Non-modifiable attributes
+		magazineSize = -1
+		reloadTime = 0
+		
+		// Update some scene attributes
+		remainingDurability = durability
+		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -67,7 +84,7 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 	
-	with (weaponDatabase[1]) // Empty weapon slot (fist?)
+	with (weaponDatabase[WEAPON.fists]) // Empty weapon slot
 	{
 		// Generic attributes
 		sprite = sFists
@@ -102,6 +119,50 @@ function WeaponsInit()
 		// Weapon functions
 		update = nothingFunction
 		draw = nothingFunction
+	}
+	
+		
+	// -----------------------------------------------------------------------------
+
+	with (weaponDatabase[WEAPON.ghosterGun])
+	{
+		// Generic attributes
+		sprite = sPlaceholderGun
+	
+		// Modifiable attributes
+		attackSpeed = 3			// shots/damage amount per second
+		spread = 30				// weapon accuracy in degrees
+		
+		// Non-modifiable attributes
+		magazineSize = 10
+		reloadTime = 3
+		
+		// Update some scene attributes
+		remainingDurability = durability
+		magazineAmmo = magazineSize	// Remaining bullets before reloading
+	
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 10
+			projectileSpeed = 3
+			targetKnockback = .5
+			effects = []
+	
+			// Generic attributes
+			type = PROJECTILE_TYPE.ranged
+			sprite = sPlaceholderProjectile
+		}
+	
+		// Weapon actions
+		primaryAction = rangedWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
 	}
 	
 	// ----------------------------------------------------------

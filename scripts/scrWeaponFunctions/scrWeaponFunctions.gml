@@ -33,15 +33,16 @@ function weaponUpdatePosition()	// Called by every weapon
 {
 	if (projectile.ownerID.object_index == oPlayer)
 	{
-		dir = oController.aimDir;
-		flip = (dir > 90 && dir < 270) ? -1 : 1;
-		if (flip < 0) dir += 180;
-	
-		xPos = oPlayer.x + (drawOffsetX * flip)
-		yPos = oPlayer.y + drawOffsetY
-	
 		aimDirection = point_direction(xPos, yPos, mouse_x, mouse_y)
+		drawDirection = oController.aimDir
 	}
+	else drawDirection = aimDirection
+	
+	flip = (abs(drawDirection % 360) > 90 && abs(drawDirection % 360) < 270) ? -1 : 1;
+	if (flip < 0) drawDirection += 180;
+
+	xPos = projectile.ownerID.x + (drawOffsetX * flip)
+	yPos = projectile.ownerID.y + drawOffsetY
 }
 
 function genericWeaponUpdate()
@@ -50,14 +51,21 @@ function genericWeaponUpdate()
 	
 	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
 	
-	if (active and oController.primaryButton and primaryActionCooldown <= 0)
+	if (projectile.ownerID.object_index == oPlayer and oController.primaryButton)
+		holdingTrigger = true
+	
+	if (active and holdingTrigger and primaryActionCooldown <= 0 and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
 		while (primaryActionCooldown <= 0)
 		{
 			primaryActionCooldown += 60 / (attackSpeed * global.gameSpeed)
 			primaryAction()
+			remainingDurability--
+			if (magazineAmmo > 0) magazineAmmo--
 		}
 	}
+	
+	holdingTrigger = false
 }
 
 
@@ -65,5 +73,5 @@ function genericWeaponUpdate()
 
 function genericWeaponDraw()
 {	
-	draw_sprite_ext(sprite, 0, roundPixelPos(xPos), roundPixelPos(yPos), flip, 1, dir, c_white, 1)
+	draw_sprite_ext(sprite, 0, roundPixelPos(xPos), roundPixelPos(yPos), flip, 1, drawDirection, c_white, 1)
 }
