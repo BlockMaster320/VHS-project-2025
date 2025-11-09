@@ -15,6 +15,7 @@ roomTypes = array_create(ROOM_COUNT);
 
 // Grid for enemy AI
 wallGrid = ds_grid_create(ROOM_SIZE, ROOM_SIZE);
+pathfindingGrid = mp_grid_create(0, 0, ROOM_SIZE, ROOM_SIZE, TILE_SIZE, TILE_SIZE)
 
 // Randomize the game seed
 randomize();

@@ -8,3 +8,9 @@ function GetHit(character, projectileInstance)
 	character.mhsp += lengthdir_x(projectileData.targetKnockback, projectileInstance.dir)
 	character.mvsp += lengthdir_y(projectileData.targetKnockback, projectileInstance.dir)
 }
+
+
+function SetupPathFinding()
+{
+	
+}
