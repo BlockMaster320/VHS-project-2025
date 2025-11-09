@@ -2,6 +2,13 @@
 
 //draw_sprite(sCursor, 0, mouse_x, mouse_y)
 
+if (SHOW_PATH_GRID)
+{
+	draw_set_alpha(.5)
+	mp_grid_draw(oRoomManager.pathfindingGrid)
+	draw_set_alpha(1)
+}
+
 // Draw current weapon
 playerController.draw()
 
