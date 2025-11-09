@@ -203,31 +203,41 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		
 		// Spawn enemies
 		
-		repeat(5) {
+		var enemiesSpawned = 0
+		
+		while (enemiesSpawned < 1) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
-			var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
-			_enemy.characterController = new CharacterController(self, CHARACTER_TYPE.mechanic);
 			
 			var mapWidth  = tilemap_get_width(global.tilemapCollision);
 			var mapHeight = tilemap_get_height(global.tilemapCollision);
-			var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
-			var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
+			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
+			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
 			var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
-			if (tileId != 0) _enemy.controller.setState(CharacterState.Dead)
 			
-			ds_list_add(enemies, _enemy);
+			if (tileId == 0) //_enemy.controller.setState(CharacterState.Dead)
+			{
+				var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
+				_enemy.characterController = new CharacterController(_enemy, CHARACTER_TYPE.mechanic);
+				ds_list_add(enemies, _enemy);
+				enemiesSpawned++
+			}
 		}
 		
-		// Generate grid for enemy AI
-		for (var _y = 0; _y < ROOM_SIZE; _y++) {
-			str = "";
-			for (var _x = 0; _x < ROOM_SIZE; _x++) {
-				var _tile = oRoomManager.roomTypes[roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
-				oRoomManager.wallGrid[# _x, _y] = (_tile.tileWall == 0) ? 0 : 1;
-				str += string(oRoomManager.wallGrid[# _x, _y]);
+		// Generate pathfinding grid for enemy AI
+		with (oRoomManager)
+		{
+			for (var _y = 0; _y < ROOM_SIZE; _y++) {
+				var str = "";
+				for (var _x = 0; _x < ROOM_SIZE; _x++) {
+					var _tile = roomTypes[other.roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
+					wallGrid[# _x, _y] = (_tile.tileWall == 0) ? 0 : 1;
+					str += string(wallGrid[# _x, _y]);
+				}
+				show_debug_message(str);
 			}
-			show_debug_message(str);
+			pathfindingGrid = mp_grid_create(_roomX * TILE_SIZE, _roomY * TILE_SIZE, ROOM_SIZE, ROOM_SIZE, TILE_SIZE, TILE_SIZE)
+			ds_grid_to_mp_grid(wallGrid, pathfindingGrid)
 		}
 	}
 	

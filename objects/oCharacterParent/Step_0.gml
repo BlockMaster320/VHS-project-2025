@@ -40,3 +40,9 @@ if (place_meeting(x, y + vsp, global.tilemapCollision))
 y += vsp
 
 #endregion
+
+
+/// Reset walking momentum
+// This is useful for pathfinding
+whsp = 0
+wvsp = 0
