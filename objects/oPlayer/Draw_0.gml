@@ -1,6 +1,7 @@
 //draw_sprite(sprite_index, 0, x, y)
 
 //draw_sprite(sCursor, 0, mouse_x, mouse_y)
+event_inherited();
 
 if (SHOW_PATH_GRID)
 {
@@ -10,6 +11,4 @@ if (SHOW_PATH_GRID)
 }
 
 // Draw current weapon
-playerController.draw()
-
 weaponInventory[activeInventorySlot].draw()

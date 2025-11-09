@@ -53,5 +53,3 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 
 // Debug
 if (keyboard_check(ord("R"))) game_restart()
-
-playerController.step()

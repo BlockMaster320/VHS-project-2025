@@ -20,6 +20,7 @@ enum CharacterState {
 	Dead
 }
 
+/*
 function CharacterController(_object, _characterType) constructor {
 	
 	object		  = _object
@@ -40,40 +41,12 @@ function CharacterController(_object, _characterType) constructor {
 	sprite_frame = 0;
 	image_speed = 0.1;
 	
+	// Event functions
+	stepEvent = noone;
+	drawEvent = noone;
+	
 	// Set the character variables
-	switch(characterType) {
-		
-		case CHARACTER_TYPE.player: {
-			characterClass = CHARACTER_CLASS.player;
-			name = "Player";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
-			anim = characterAnimation.getAnimation;
-		} break;
-		
-		case CHARACTER_TYPE.mechanic: {
-			characterClass = CHARACTER_CLASS.NPC;
-			name = "Mechanic";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sNPC;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
-			anim = characterAnimation.getAnimation;
-		} break;
-		
-		case CHARACTER_TYPE.ghoster: {
-			characterClass = CHARACTER_CLASS.enemy;
-			name = "Ghoster";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sEnemy;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
-			anim = characterAnimation.getAnimation;
-		} break;
-	}
-		
+	callCharacterCreateEvent(_characterType);
 	
 	setState = function(_characterState) {
 		show_debug_message("set to: " + string(_characterState))
@@ -81,14 +54,15 @@ function CharacterController(_object, _characterType) constructor {
 	}
 	
 	step = function() {
-		/*x = object.x
-		y = object.y*/
 		
+		// DEBUG
 		if (keyboard_check_pressed(ord("H"))) {
 			hp--;
 			harmed_duration = image_speed * 30
 			characterState = CharacterState.Harm
 		}
+		
+		// Character death
 		if (hp <= 0) {
 			characterState = CharacterState.Dead
 		}
@@ -126,6 +100,8 @@ function CharacterController(_object, _characterType) constructor {
 		
 		//image_index = floor(image_fake_index)
 	
+		// Call the step event of specific character
+		stepEvent()
 	}
 	
 	draw = function() {
@@ -142,6 +118,9 @@ function CharacterController(_object, _characterType) constructor {
 				draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(object.x), roundPixelPos(object.y), 1, 1, 0, color, 1)
 			} break;
 		}
+		
+		// Call the step event of specific character
+		drawEvent()
 
 	}
-}
+}*/

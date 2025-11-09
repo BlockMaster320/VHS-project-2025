@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrCharacterEvents",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrCharacterEvents",
+  "parent":{
+    "name":"Characters",
+    "path":"folders/Objects/Characters.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

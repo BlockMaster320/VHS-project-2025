@@ -1,6 +1,3 @@
-// Controller
-characterController = noone;	// this has to be set when creating the character's object or in creation code
-
 // Generic attributes ------------------------
 
 walkSpd = 2
@@ -26,3 +23,24 @@ vsp = 0		// Total horizontal speed
 
 hp = 150
 effects = []
+
+// Other
+characterType = noone;
+characterClass = noone;
+name = "";
+portrait = sNPCPortrait;
+harmed_duration = 0;
+dir = 1;
+
+characterState = CharacterState.Idle;
+	
+// animation control
+characterAnimation = noone;
+anim = noone;
+sprite_index = sCharacters;
+sprite_frame = 0;
+image_speed = 0.1;
+	
+// Event functions
+stepEvent = noone;
+drawEvent = noone;

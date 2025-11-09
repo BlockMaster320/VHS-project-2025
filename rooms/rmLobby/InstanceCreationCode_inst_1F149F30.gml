@@ -1,1 +1,1 @@
-characterController = new CharacterController(self, CHARACTER_TYPE.mechanic);
+characterCreate(CHARACTER_TYPE.mechanic);

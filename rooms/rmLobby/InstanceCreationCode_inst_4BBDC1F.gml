@@ -1,1 +1,1 @@
-characterController = new CharacterController(self, CHARACTER_TYPE.player);
+characterCreate(CHARACTER_TYPE.player);

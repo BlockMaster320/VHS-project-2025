@@ -1,8 +1,5 @@
 event_inherited()
 
-// Player controller
-playerController = new CharacterController(self, CHARACTER_TYPE.player)
-
 // Player attributes ------------------------
 
 walkSpd = 2
