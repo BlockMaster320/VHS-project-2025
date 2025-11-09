@@ -218,7 +218,8 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			if (tileId == 0) //_enemy.controller.setState(CharacterState.Dead)
 			{
 				var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
-				with(_enemy) { characterCreate(CHARACTER_TYPE.ghoster); };
+				with(_enemy) { characterCreate(CHARACTER_TYPE.ghoster); }
+				
 				ds_list_add(enemies, _enemy);
 				enemiesSpawned++
 			}

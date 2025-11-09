@@ -17,12 +17,12 @@ function DialogueSystem() constructor
 {
 	static dlgs = ds_map_create()
 	
-	ds_map_add(dlgs, "", [new Dialogue(
+	ds_map_add(dlgs, noone, [new Dialogue(
 									[
 										new DialogueLine("UNKNOWN CHARACTER NAME. PLZ FIX.", [], [])
 									])])
 									
-	ds_map_add(dlgs, "Franta", [new Dialogue(
+	ds_map_add(dlgs, CHARACTER_TYPE.mechanic, [new Dialogue(
 									[
 										new DialogueLine("Čau kámo.", [], [1]),
 										new DialogueLine("Pěkné plíce.", [], [2]),
@@ -35,11 +35,11 @@ function DialogueSystem() constructor
 									
 	static current_dialogue = noone
 	
-	static StartDialogue = function(_NPCName)
+	static StartDialogue = function(_NPCType)
 	{
-		if (!ds_map_exists(dlgs, _NPCName)) // Unknown NPC name, show placeholder dialogue
-			_NPCName = ""
-		current_dialogue = dlgs[? _NPCName][0]
+		if (!ds_map_exists(dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue
+			_NPCType = noone
+		current_dialogue = dlgs[? _NPCType][0]
 		return GetLine(0)
 	}
 	

@@ -1,3 +1,8 @@
+// Check if the character is set up correctly.
+if (characterType == noone) {
+	show_message("Character is not set up correctly: " + object_get_name(object_index));
+}
+
 #region Calculate knockback
 
 mhsp *= frictionMult
@@ -25,34 +30,18 @@ if (hp <= 0) {
 if (harmed_duration > 0) {
 	harmed_duration -= image_speed;
 }
-		
-switch (characterState) {
-	case CharacterState.Harm:
-		if (harmed_duration <= 0) characterState = CharacterState.Idle
-				
-    case CharacterState.Idle:
-        // idle logic
-        if (oController.down || oController.up || oController.right || oController.left) {
-			characterState = CharacterState.Run;
-		}
-        break;
 
-    case CharacterState.Run:
-        if !(oController.down || oController.up || oController.right || oController.left) {
-			characterState = CharacterState.Idle
-		}
-        break;
-}
-		
-show_debug_message(characterType);
-var range = anim(characterState).range;
-var start = range[0];
-var ended = range[1];
-		
+// Animation
+var animationFrames = anim(characterState);
+var start = animationFrames.range[0];
+var ended = animationFrames.range[1];
+
 sprite_frame += image_speed;
-		
+
 if (sprite_frame >= ended + 1) sprite_frame = start; // loop back
 if (sprite_frame < start) sprite_frame = start;
+
+image_speed = animationFrames.speeds[floor(sprite_frame)];
 		
 //image_index = floor(image_fake_index)
 	

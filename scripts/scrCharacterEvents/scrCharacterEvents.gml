@@ -1,21 +1,38 @@
 // Returns step event of the specified character.
 function getCharacterStepEvent(_characterType){
 	switch (_characterType) {
+		
 		case CHARACTER_TYPE.player: {
 			return function() {
-				show_debug_message("player step");
+				switch (characterState) {
+					case CharacterState.Harm:
+						if (harmed_duration <= 0) characterState = CharacterState.Idle
+				
+				    case CharacterState.Idle:
+				        // idle logic
+				        if (oController.down || oController.up || oController.right || oController.left) {
+							characterState = CharacterState.Run;
+						}
+				        break;
+
+				    case CharacterState.Run:
+				        if !(oController.down || oController.up || oController.right || oController.left) {
+							characterState = CharacterState.Idle
+						}
+				        break;
+				}
 			};
 		}
 		
 		case CHARACTER_TYPE.mechanic: {
 			return function() {
-				show_debug_message("mechanic step");
+				//show_debug_message("mechanic step");
 			};
 		}
 		
 		case CHARACTER_TYPE.ghoster: {
 			return function() {
-				show_debug_message("ghoster step");
+				//show_debug_message("ghoster step");
 			};
 		}
 	}
@@ -26,19 +43,20 @@ function getCharacterDrawEvent(_characterType) {
 	switch (_characterType) {
 		case CHARACTER_TYPE.player: {
 			return function() {
-				show_debug_message("player draw");
+				//show_debug_message("player draw");
+				dir = (oController.aimDir > 90 and oController.aimDir < 270) ? 1 : -1
 			};
 		}
 		
 		case CHARACTER_TYPE.mechanic: {
 			return function() {
-				show_debug_message("mechanic draw");
+				//show_debug_message("mechanic draw");
 			};
 		}
 		
 		case CHARACTER_TYPE.ghoster: {
 			return function() {
-				show_debug_message("ghoster draw");
+				//show_debug_message("ghoster draw");
 			};
 		}
 	}
@@ -54,7 +72,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
@@ -67,9 +85,10 @@ function characterCreate(_characterType) {
 			name = "Mechanic";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sNPC;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
+			sprite_index = sMechanic;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
+			dir = -1;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
@@ -82,7 +101,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			sprite_index = sEnemy;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.ghoster);
@@ -90,7 +109,7 @@ function characterCreate(_characterType) {
 		} break;
 		
 		default:
-			show_debug_message("Attempting to create undefined character type!")
+			show_message("Attempting to create undefined character type!")
 			break
 	}
 }
