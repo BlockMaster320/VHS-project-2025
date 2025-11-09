@@ -53,7 +53,7 @@ currentFrame++
 
 event_inherited()
 
-controller.step()
+characterController.step()
 
 
 
