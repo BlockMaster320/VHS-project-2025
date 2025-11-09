@@ -1,3 +1,25 @@
+enum CHARACTER_CLASS
+{
+	player,
+	NPC,
+	enemy,
+}
+
+enum CHARACTER_TYPE
+{
+	player,
+	ghoster,
+	mechanic,
+	shopkeeper,
+}
+
+enum CharacterState {
+	Idle,
+	Run,
+	Harm,
+	Dead
+}
+
 function GetHit(character, projectileInstance)
 {
 	var projectileData = projectileInstance.projectile

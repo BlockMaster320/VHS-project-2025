@@ -1,0 +1,1 @@
+characterCreate(CHARACTER_TYPE.mechanic);

@@ -40,6 +40,9 @@ function Constants()
 	// Debug levels
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
+	// Debug pathfinding
+	#macro PATH_DEBUG true
+	#macro SHOW_PATH_GRID false
 	
 	global.Ease = {
 

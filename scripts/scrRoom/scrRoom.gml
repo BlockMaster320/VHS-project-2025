@@ -218,7 +218,8 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			if (tileId == 0) //_enemy.controller.setState(CharacterState.Dead)
 			{
 				var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
-				_enemy.characterController = new CharacterController(_enemy, CHARACTER_TYPE.ghoster);
+				with(_enemy) { characterCreate(CHARACTER_TYPE.ghoster); }
+				
 				ds_list_add(enemies, _enemy);
 				enemiesSpawned++
 			}
@@ -228,13 +229,10 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		with (oRoomManager)
 		{
 			for (var _y = 0; _y < ROOM_SIZE; _y++) {
-				var str = "";
 				for (var _x = 0; _x < ROOM_SIZE; _x++) {
 					var _tile = roomTypes[other.roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
 					wallGrid[# _x, _y] = (_tile.tileWall == 0) ? 0 : 1;
-					str += string(wallGrid[# _x, _y]);
 				}
-				show_debug_message(str);
 			}
 			pathfindingGrid = mp_grid_create(_roomX * TILE_SIZE, _roomY * TILE_SIZE, ROOM_SIZE, ROOM_SIZE, TILE_SIZE, TILE_SIZE)
 			ds_grid_to_mp_grid(wallGrid, pathfindingGrid)

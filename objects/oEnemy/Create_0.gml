@@ -1,14 +1,6 @@
 event_inherited()
 
-startX = x;
-startY = y;
-
-targetX = x;
-targetY = y;
-
-
 // Pathfinding
-
 myPath = path_add()
 myPathPoint = 0	// Index of the target point on my path
 pathTargetX = x

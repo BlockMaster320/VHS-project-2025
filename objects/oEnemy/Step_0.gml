@@ -12,6 +12,11 @@ function FindNewPath()
 	else show_debug_message("Failed to find path!")
 }
 
+function LineOfSight(pos)
+{
+	return collision_line(x, y, pos.x, pos.y, oRoomManager.tileMapWall, false, true)
+}
+
 if (mouse_check_button_pressed(mb_left))
 {
 	pathTargetX = mouse_x
@@ -50,20 +55,4 @@ if (targetPointDist > reachTargetMargin)
 currentFrame++
 
 // Character code
-
 event_inherited()
-
-characterController.step()
-
-
-
-//if (controller.characterState != CharacterState.Dead) {
-//	if (random(1) < 0.05) {  // 5% chance each step to pick a new target
-//	    targetX = startX + random_range(-2, 2);
-//	    targetY = startY + random_range(-2, 2);
-//	}
-
-//	// Smoothly move toward target
-//	x = lerp(x, targetX, 0.1);
-//	y = lerp(y, targetY, 0.1);
-//}

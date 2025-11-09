@@ -8,7 +8,8 @@ function bulletHitDetection()
 	if (character != noone)
 	{
 		if (projectile.projectileAuthority == PROJECTILE_AUTHORITY.self and
-			character != projectile.ownerID)
+			character != projectile.ownerID and
+			character.characterClass != CHARACTER_CLASS.NPC)
 		{
 			GetHit(character, id)
 			instance_destroy()

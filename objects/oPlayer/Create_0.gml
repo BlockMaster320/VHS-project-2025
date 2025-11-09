@@ -1,7 +1,6 @@
+// Get generic attributes
 event_inherited()
-
-// Player controller
-playerController = new CharacterController(self, CHARACTER_TYPE.player)
+characterCreate(CHARACTER_TYPE.player);
 
 // Player attributes ------------------------
 

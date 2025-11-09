@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrCharacterController",
+  "%Name":"scrCharacterEvents",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrCharacterController",
+  "name":"scrCharacterEvents",
   "parent":{
     "name":"Characters",
     "path":"folders/Objects/Characters.yy",

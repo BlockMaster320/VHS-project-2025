@@ -21,7 +21,6 @@ if (!currentRoom.discovered) {    // make the room close after the player steps 
 }
 
 
-
 // Check whether player has cleared the room
 currentRoom.CheckCleared();
 

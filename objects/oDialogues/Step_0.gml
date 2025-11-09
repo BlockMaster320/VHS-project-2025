@@ -7,7 +7,7 @@ if (!talking) {
 	}
 
 	talking = true
-	current_line = dialogues.StartDialogue(closest_NPC.characterController.name)
+	current_line = dialogues.StartDialogue(closest_NPC.characterType)
 	global.inputState = INPUT_STATE.dialogue
 	timer = 0
 } else if (!waiting_for_answer){

@@ -75,7 +75,7 @@
     {"id":{"name":"scrButton","path":"scripts/scrButton/scrButton.yy",},},
     {"id":{"name":"scrCanvas","path":"scripts/scrCanvas/scrCanvas.yy",},},
     {"id":{"name":"scrCharacterAnimation","path":"scripts/scrCharacterAnimation/scrCharacterAnimation.yy",},},
-    {"id":{"name":"scrCharacterController","path":"scripts/scrCharacterController/scrCharacterController.yy",},},
+    {"id":{"name":"scrCharacterEvents","path":"scripts/scrCharacterEvents/scrCharacterEvents.yy",},},
     {"id":{"name":"scrCharacterGeneric","path":"scripts/scrCharacterGeneric/scrCharacterGeneric.yy",},},
     {"id":{"name":"scrCinemaBorders","path":"scripts/scrCinemaBorders/scrCinemaBorders.yy",},},
     {"id":{"name":"scrColumn","path":"scripts/scrColumn/scrColumn.yy",},},
