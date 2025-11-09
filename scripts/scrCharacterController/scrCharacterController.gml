@@ -8,7 +8,7 @@ enum CHARACTER_CLASS
 enum CHARACTER_TYPE
 {
 	player,
-	goblin,
+	ghoster,
 	mechanic,
 	shopkeeper,
 }
@@ -49,7 +49,7 @@ function CharacterController(_object, _characterType) constructor {
 			portrait = sNPCPortrait;
 			
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(DefaultAnimation);
+			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
 			anim = characterAnimation.getAnimation;
 		} break;
 		
@@ -59,7 +59,17 @@ function CharacterController(_object, _characterType) constructor {
 			portrait = sNPCPortrait;
 			
 			sprite_index = sNPC;
-			characterAnimation = new CharacterAnimation(DefaultAnimation);
+			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
+			anim = characterAnimation.getAnimation;
+		} break;
+		
+		case CHARACTER_TYPE.ghoster: {
+			characterClass = CHARACTER_CLASS.enemy;
+			name = "Ghoster";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sEnemy;
+			characterAnimation = new CharacterAnimation(GetAnimationFrameRange);
 			anim = characterAnimation.getAnimation;
 		} break;
 	}

@@ -29,4 +29,4 @@ updateUpscaleFactor()
 
 
 //room_goto(rmLobby)
-room_goto(rmGame)
+room_goto(rmLobby)

@@ -1,5 +1,5 @@
 // Controller
-characterController = new CharacterController(self,CHARACTER_TYPE.mechanic)
+characterController = noone;	// this has to be set when creating the character's object or in creation code
 
 // Generic attributes ------------------------
 
