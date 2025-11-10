@@ -163,7 +163,7 @@ function characterCreate(_characterType) {
 			
 			// Hide
 			panickedWalkSpd = 2
-			giveUpHidingTimer = new Range(90, 300)
+			giveUpHidingTimer = new Range(120, 400)
 			
 			// Behaviour
 			stepEvent = function()
@@ -219,6 +219,7 @@ function characterCreate(_characterType) {
 						{
 							walkSpd = panickedWalkSpd
 							state = GHOSTER_STATE.hide
+							reachedPathEnd = true
 							wantsToHide = 0
 						}
 						if (patience <= 0 and !seesPlayer)
@@ -230,6 +231,13 @@ function characterCreate(_characterType) {
 						break
 						
 					case GHOSTER_STATE.shoot:
+						if (wantsToHide >= 1)
+						{
+							walkSpd = panickedWalkSpd
+							state = GHOSTER_STATE.reposition
+							reachedPathEnd = true
+							wantsToHide = 0
+						}
 						if (myWeapon.magazineAmmo <= 0)
 						{
 							walkSpd = panickedWalkSpd
@@ -323,6 +331,13 @@ function characterCreate(_characterType) {
 						break
 						
 					case GHOSTER_STATE.shoot:
+						// Run away if player is too close for too long
+						if (playerDist < optimalRange.min_ - reachTargetMargin)
+							wantsToHide += -.0002 * (playerDist - optimalRange.min_)
+						else wantsToHide -= .01
+						
+						wantsToHide = max(wantsToHide, 0)
+						
 						myWeapon.holdingTrigger = true
 						
 						if (shootMoveCooldown.value <= 0 and reachedPathEnd and myWeapon.primaryActionCooldown > 10)	// Find new position
@@ -341,7 +356,7 @@ function characterCreate(_characterType) {
 					case GHOSTER_STATE.hide:
 						if (seesPlayer and reachedPathEnd)
 						{
-							var foundPath = FindValidPathTargetReposition(new Range(30, 999), false)
+							var foundPath = FindValidPathTargetReposition(new Range(playerDist, 999), false)
 							if (!foundPath)
 							{
 								FindValidPathTarget(new Range(playerDist, playerDist + 100))

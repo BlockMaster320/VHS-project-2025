@@ -40,12 +40,12 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 			FindNewPath())
 		{
 			var pathLen = path_get_length(myPath)
-			//if (pathLen < shortestPathDist)
-			//{
+			if (pathLen < shortestPathDist)
+			{
 				shortestPathDist = pathLen
 				nearestTargetX = pathTargetX
 				nearestTargetY = pathTargetY
-			//}
+			}
 			
 			foundPath = true
 			break
