@@ -21,8 +21,8 @@ function genericBulletUpdate()
 {
 	bulletHitDetection()
 	lifetime--
-	x += lengthdir_x(projectile.projectileSpeed, dir)
-	y += lengthdir_y(projectile.projectileSpeed, dir)
+	x += lengthdir_x(projectile.projectileSpeed * global.gameSpeed, dir)
+	y += lengthdir_y(projectile.projectileSpeed * global.gameSpeed, dir)
 }
 
 function genericMeleeHitUpdate()

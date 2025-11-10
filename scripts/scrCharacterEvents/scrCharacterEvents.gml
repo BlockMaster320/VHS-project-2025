@@ -140,8 +140,11 @@ function characterCreate(_characterType) {
 			state = GHOSTER_STATE.idle
 			lookAtPlayerTimer = new Range(40, 180)
 			
+			activeCoordination = false
+			hidingCoordination = false
+			
 			// Idle state
-			moveCooldown = new Range(50, 400)
+			moveCooldown = new Range(50, 300)
 			idleWalkSpd = .5
 			
 			// Reposition
@@ -153,7 +156,8 @@ function characterCreate(_characterType) {
 			repositionWalkSpd = 1
 			inactiveTime = 0
 			inactiveThreshold = new Range(0, 50)
-			repositionSuddenStopDelay = new Range(20, 70)
+			repositionSuddenStopDelay = new Range(10, 50)
+			danger = 0
 			
 			// Shoot
 			shootingWalkSpd = .3
@@ -191,89 +195,124 @@ function characterCreate(_characterType) {
 				var playerDist = point_distance(x, y, oPlayer.x, oPlayer.y)
 				
 				// State changes
-				switch (state)
+				if (!activeCoordination)
 				{
-					case GHOSTER_STATE.idle:
-						if (seesPlayer)
-						{
-							state = GHOSTER_STATE.reposition
-							walkSpd = repositionWalkSpd
-						}
-						break
-						
-					case GHOSTER_STATE.reposition:
-						if (reachedPathEnd and inactiveTime > inactiveThreshold.value)
-						{
-							if (seesPlayerWell)
-							{	
-								walkSpd = shootingWalkSpd
-								inactiveThreshold.rndmize()
-								state = GHOSTER_STATE.shoot
-							}
-							else
+					switch (state)
+					{
+						case GHOSTER_STATE.idle:
+							if (seesPlayer)
 							{
-								updateRate.value = 0
+								state = GHOSTER_STATE.reposition
+								walkSpd = repositionWalkSpd
 							}
-						}
-						if (wantsToHide >= 1)
-						{
-							walkSpd = panickedWalkSpd
-							state = GHOSTER_STATE.hide
-							reachedPathEnd = true
-							wantsToHide = 0
-						}
-						if (patience <= 0 and !seesPlayer)
-						{
-							patience = 1
-							walkSpd = idleWalkSpd
-							state = GHOSTER_STATE.idle
-						}
-						break
+							break
 						
-					case GHOSTER_STATE.shoot:
-						if (wantsToHide >= 1)
-						{
-							walkSpd = panickedWalkSpd
-							state = GHOSTER_STATE.reposition
-							reachedPathEnd = true
-							wantsToHide = 0
-						}
-						if (myWeapon.magazineAmmo <= 0)
-						{
-							walkSpd = panickedWalkSpd
-							myWeapon.holdingTrigger = false
-							state = GHOSTER_STATE.hide
-						}
-						else if (noTargetDuration > noTargetDurationMax.value)
-						{
-							walkSpd = repositionWalkSpd
-							myWeapon.holdingTrigger = false
-							state = GHOSTER_STATE.reposition
-						}
-						break
+						case GHOSTER_STATE.reposition:
+							if (reachedPathEnd and inactiveTime > inactiveThreshold.value)
+							{
+								if (seesPlayerWell)
+								{	
+									walkSpd = shootingWalkSpd
+									inactiveTime = 0
+									inactiveThreshold.rndmize()
+									state = GHOSTER_STATE.shoot
+								}
+								else
+								{
+									updateRate.value = 0
+								}
+							}
+							if (wantsToHide >= 1)
+							{
+								walkSpd = panickedWalkSpd
+								state = GHOSTER_STATE.hide
+								reachedPathEnd = true
+								wantsToHide = 0
+							}
+							if (patience <= 0 and !seesPlayer)
+							{
+								patience = 1
+								walkSpd = idleWalkSpd
+								state = GHOSTER_STATE.idle
+							}
+							break
+						
+						case GHOSTER_STATE.shoot:
+							if (wantsToHide >= 1)
+							{
+								walkSpd = panickedWalkSpd
+								state = GHOSTER_STATE.reposition
+								reachedPathEnd = true
+								wantsToHide = 0
+							}
+							if (myWeapon.magazineAmmo <= 0)
+							{
+								walkSpd = panickedWalkSpd
+								myWeapon.holdingTrigger = false
+								state = GHOSTER_STATE.hide
+							}
+							else if (noTargetDuration > noTargetDurationMax.value)
+							{
+								walkSpd = repositionWalkSpd
+								myWeapon.holdingTrigger = false
+								state = GHOSTER_STATE.reposition
+							}
+							break
 						
 						
-					case GHOSTER_STATE.reload:
-						if (myWeapon.magazineAmmo == myWeapon.magazineSize)
-						{
-							walkSpd = repositionWalkSpd
-							state = GHOSTER_STATE.reposition
-							followingPath = false
-							reachedPathEnd = true
-						}
-						break
+						case GHOSTER_STATE.reload:
+							if (myWeapon.magazineAmmo == myWeapon.magazineSize)
+							{
+								walkSpd = repositionWalkSpd
+								state = GHOSTER_STATE.reposition
+								followingPath = false
+								reachedPathEnd = true
+							}
+							break
 						
-					case GHOSTER_STATE.hide:
-						if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0)
-						{
-							giveUpHidingTimer.rndmize()
-							state = GHOSTER_STATE.reload
-							myWeapon.reloading = true
-							walkSpd = shootingWalkSpd
-						}
-						else giveUpHidingTimer.value--
-						break
+						case GHOSTER_STATE.hide:
+							if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0)
+							{
+								giveUpHidingTimer.rndmize()
+								state = GHOSTER_STATE.reload
+								myWeapon.reloading = true
+								walkSpd = shootingWalkSpd
+							}
+							else giveUpHidingTimer.value--
+							break
+					}
 				}
+				
+				if (callHideCooldown.value <= 0)
+				{
+					show_debug_message("Hide boys!")
+					with (oEnemy)
+					{
+						callRepositionCooldown.rndmize()
+						callHideCooldown.rndmize()
+						walkSpd = panickedWalkSpd
+						reachedPathEnd = true
+						wantsToHide = 0
+						state = GHOSTER_STATE.hide
+						activeCoordination = true
+						hidingCoordination = true
+					}
+				}
+				else if (!activeCoordination) callHideCooldown.value--
+				if (callRepositionCooldown.value <= 0 and hidingCoordination)
+				{
+					show_debug_message("Show em!")
+					with (oEnemy)
+					{
+						walkSpd = repositionWalkSpd
+						reachedPathEnd = true
+						wantsToHide = 0
+						state = GHOSTER_STATE.reposition
+						activeCoordination = false
+						hidingCoordination = false
+					}
+				}
+				if (callRepositionCooldown.value >= 0 and hidingCoordination) callRepositionCooldown.value--
 				
 				// State behaviour
 				switch (state)
@@ -299,12 +338,12 @@ function characterCreate(_characterType) {
 						// Determine when to reposition
 						if (reachedPathEnd)
 						{
-							if (playerDist < optimalRange.min_) updateRate.value *= 1. - (wantsToHide*.7) - .3
+							if (playerDist < optimalRange.min_) updateRate.value *= .5
 							if (!seesPlayerWell) updateRate.value *= .5
 							if (playerDist > optimalRange.max_) updateRate.value *= .8
 						}
 						
-						if (angle_difference(playerDir, point_direction(x, y, targetPointX, targetPointY)) < 75 and	
+						if (//angle_difference(playerDir, point_direction(x, y, targetPointX, targetPointY)) < 75 and	
 							playerDist > optimalRange.min_ and playerDist < optimalRange.max_ and seesPlayerWell)
 						{
 							if (repositionSuddenStopDelay.value <= 0)
@@ -321,7 +360,10 @@ function characterCreate(_characterType) {
 						if (reachedPathEnd) inactiveTime++
 						if (updateRate.value <= 0)
 						{
-							var foundPath = FindValidPathTargetReposition(optimalRange)
+							var dir1 = playerDir + 180 + 120
+							var dir2 = playerDir + 180 - 120
+							
+							var foundPath = FindValidPathTargetReposition(optimalRange, true, new Range(dir1, dir2))
 							inactiveTime = 0
 							if (!foundPath) patience -= 1/7
 							else patience = 1
@@ -351,15 +393,19 @@ function characterCreate(_characterType) {
 						
 						if (!seesPlayerWell) noTargetDuration++
 						else noTargetDuration = 0
+						
 						break
 						
 					case GHOSTER_STATE.hide:
 						if (seesPlayer and reachedPathEnd)
 						{
-							var foundPath = FindValidPathTargetReposition(new Range(playerDist, 999), false)
+							var dir1 = playerDir + 180 + 90
+							var dir2 = playerDir + 180 - 90
+							
+							var foundPath = FindValidPathTargetReposition(new Range(playerDist, 999), false, new Range(dir1, dir2))
 							if (!foundPath)
 							{
-								FindValidPathTarget(new Range(playerDist, playerDist + 100))
+								FindValidPathTarget(new Range(playerDist, playerDist + 100), new Range(dir1, dir2))
 							}
 						}
 						
@@ -388,7 +434,9 @@ function characterCreate(_characterType) {
 					//draw_text(x, yy + offset * 1, $"Scared: {wantsToHide}")
 					//draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
 					//draw_text(x, yy + offset * 3, $"Patience: {patience}")
-					//draw_text(x, yy + offset * 4, $"Stop delay: {repositionSuddenStopDelay.value}")
+					//draw_text(x, yy + offset * 1, $"Stop delay: {repositionSuddenStopDelay.value}")
+					draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
+					//draw_text(x, yy + offset * 2, $"Sees player well: {LineOfSightObject(oPlayer)}")
 					//draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
 					draw_set_halign(halign)
 				
