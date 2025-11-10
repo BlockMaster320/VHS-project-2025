@@ -388,7 +388,7 @@ function characterCreate(_characterType) {
 			anim = characterAnimation.getAnimation;
 			dir = -1;
 			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.student);
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
 		} break;
 		// --------------------------------------------------------------------------------
