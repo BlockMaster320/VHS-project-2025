@@ -108,6 +108,21 @@ function characterCreate(_characterType) {
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.ghoster);
 		} break;
 		
+		case CHARACTER_TYPE.student: {
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.student;
+			name = "Mechanic";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sMechanic;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			anim = characterAnimation.getAnimation;
+			dir = -1;
+			
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.student);
+			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+		} break;
+		
 		default:
 			show_message("Attempting to create undefined character type!")
 			break
