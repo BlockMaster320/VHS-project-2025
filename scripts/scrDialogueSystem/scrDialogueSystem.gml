@@ -31,6 +31,16 @@ function DialogueSystem() constructor
 										new DialogueLine("Dík moc, jsi frajer", [], []),
 										new DialogueLine("Tak doufám, že se ti rozvážou tkaničky.", [], [])
 									])])
+	ds_map_add(dlgs, CHARACTER_TYPE.student, [new Dialogue(
+									[
+										new DialogueLine("Yo, bro! Heading to the academy?", ["Yeah, cloning exam. Last shot or I'm out."], [1]),
+										new DialogueLine("No way, me too!", [], [2]),
+										new DialogueLine("Man, I failed it twice already and I was about to fail it again...", [], [3]),
+										new DialogueLine("but I guess those manifesting classes finally paid off.", ["What do you mean?"], [4]),
+										new DialogueLine("The metro is stuck or something, idk.", [], [5]),
+										new DialogueLine("Ask the guy in yellow, I'm going home.", [], [6]),
+										new DialogueLine("Silver league's calling, I can feel it!", [], [])
+									])])
 								
 									
 	static current_dialogue = noone

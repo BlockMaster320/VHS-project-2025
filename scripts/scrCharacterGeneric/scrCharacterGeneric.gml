@@ -11,6 +11,7 @@ enum CHARACTER_TYPE
 	ghoster,
 	mechanic,
 	shopkeeper,
+	student,
 }
 
 enum CharacterState {
