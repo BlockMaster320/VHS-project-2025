@@ -8,6 +8,7 @@ function PathfindingInit()
 	targetPointY = y
 	currentFrame = 0
 	pathUpdateModulo = 50
+	reachedPathEnd = false
 	#macro reachTargetMargin TILE_SIZE * .7
 }
 
@@ -21,24 +22,38 @@ function FindNewPath()
 		myPathPoint = 0
 		targetPointX = path_get_point_x(myPath, myPathPoint)
 		targetPointY = path_get_point_y(myPath, myPathPoint)
+		return true
 	}
-	else show_debug_message("Failed to find path!")
+	
+	show_debug_message("Failed to find path!")
+	return false
 }
 
-function LineOfSight(posX, posY)
+function LineOfSightPoint(posX, posY)
 {
 	return !collision_line(x, y, posX, posY, oRoomManager.tileMapWall, false, true)
 }
 
+function LineOfSightObject(object, angleDiff = 6, originX = x, originY = y)
+{
+	//var objDist = point_distance(originX, originY, object.x, object.y)
+	var objDir = point_direction(originX, originY, object.x, object.y)
+	var xx1 = originX + lengthdir_x(30, objDir - angleDiff)
+	var yy1 = originY + lengthdir_y(30, objDir - angleDiff)
+	var xx2 = originX + lengthdir_x(30, objDir + angleDiff)
+	var yy2 = originY + lengthdir_y(30, objDir + angleDiff)
+	return LineOfSightPoint(object.x, object.y) and LineOfSightPoint(xx1, yy1) and LineOfSightPoint(xx2, yy2)
+}
+
 function PathfindingStep()
 {
-	if (mouse_check_button_pressed(mb_left))
-	{
-		pathTargetX = mouse_x
-		pathTargetY = mouse_y
-		FindNewPath()
-	}
-	else if (currentFrame % pathUpdateModulo == 0)
+	//if (mouse_check_button_pressed(mb_left))
+	//{
+	//	pathTargetX = mouse_x
+	//	pathTargetY = mouse_y
+	//	FindNewPath()
+	//}
+	if (currentFrame % pathUpdateModulo == 0)
 	{
 		FindNewPath()
 	}
@@ -54,10 +69,13 @@ function PathfindingStep()
 			targetPointY = path_get_point_y(myPath, myPathPoint)
 			targetPointDist = point_distance(x, y, targetPointX, targetPointY)
 		}
+		else reachedPathEnd = true
 	}
 
-	if (targetPointDist > reachTargetMargin)
+	if (targetPointDist >= reachTargetMargin)
 	{
+		reachedPathEnd = false
+		
 		//var targetVectorX = targetPointX - x
 		//var targetVectorY = targetPointY - y
 		var targetPointDir = point_direction(x, y, targetPointX, targetPointY)
@@ -76,12 +94,15 @@ function PathfindingDraw()
 	{	
 		if (path_exists(myPath))
 			draw_path(myPath, 0, 0, true)
+			
+		draw_circle(targetPointX, targetPointY, 3, false)
 	}
 
-	draw_circle(targetPointX, targetPointY, 3, false)
-
-	var col = LineOfSight(oPlayer.x, oPlayer.y) ? c_green : c_red
-	draw_set_color(col)
-	draw_line(x, y, oPlayer.x, oPlayer.y)
-	draw_set_color(c_white)
+	if (AI_DEBUG)
+	{
+		var col = LineOfSightPoint(oPlayer.x, oPlayer.y) ? c_green : c_red
+		draw_set_color(col)
+		draw_line(x, y, oPlayer.x, oPlayer.y)
+		draw_set_color(c_white)
+	}
 }

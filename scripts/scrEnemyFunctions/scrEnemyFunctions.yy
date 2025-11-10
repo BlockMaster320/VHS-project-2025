@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrEnemyContent",
+  "%Name":"scrEnemyFunctions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrEnemyContent",
+  "name":"scrEnemyFunctions",
   "parent":{
     "name":"Enemies",
     "path":"folders/Objects/Characters/Enemies.yy",

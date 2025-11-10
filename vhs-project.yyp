@@ -85,7 +85,7 @@
     {"id":{"name":"scrDialogueSystem","path":"scripts/scrDialogueSystem/scrDialogueSystem.yy",},},
     {"id":{"name":"scrDlgConstants","path":"scripts/scrDlgConstants/scrDlgConstants.yy",},},
     {"id":{"name":"scrDrawGuiController","path":"scripts/scrDrawGuiController/scrDrawGuiController.yy",},},
-    {"id":{"name":"scrEnemyContent","path":"scripts/scrEnemyContent/scrEnemyContent.yy",},},
+    {"id":{"name":"scrEnemyFunctions","path":"scripts/scrEnemyFunctions/scrEnemyFunctions.yy",},},
     {"id":{"name":"scrInput","path":"scripts/scrInput/scrInput.yy",},},
     {"id":{"name":"scrInteractable","path":"scripts/scrInteractable/scrInteractable.yy",},},
     {"id":{"name":"scrIterationTween","path":"scripts/scrIterationTween/scrIterationTween.yy",},},

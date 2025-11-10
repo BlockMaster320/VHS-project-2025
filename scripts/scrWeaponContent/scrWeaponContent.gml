@@ -130,7 +130,7 @@ function WeaponsInit()
 		sprite = sPlaceholderGun
 	
 		// Modifiable attributes
-		attackSpeed = 3			// shots/damage amount per second
+		attackSpeed = 1			// shots/damage amount per second
 		spread = 30				// weapon accuracy in degrees
 		
 		// Non-modifiable attributes
@@ -147,8 +147,8 @@ function WeaponsInit()
 		{
 			// Modifiable attributes
 			damage = 10
-			projectileSpeed = 3
-			targetKnockback = .5
+			projectileSpeed = 1
+			targetKnockback = 2
 			effects = []
 	
 			// Generic attributes

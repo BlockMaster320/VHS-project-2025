@@ -18,6 +18,11 @@ function lerpDirection(a, b, fac)
 	return lerp(a, a + angleDiff, fac)
 }
 
+function collisionMargin(xx, yy, margin)
+{
+	return collision_circle(xx, yy, margin, oRoomManager.tileMapWall, false, false)
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)

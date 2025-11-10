@@ -53,6 +53,18 @@ function genericWeaponUpdate()
 	
 	if (projectile.ownerID.object_index == oPlayer and oController.primaryButton)
 		holdingTrigger = true
+		
+	if (reloading and magazineAmmo != magazineSize)
+	{
+		if (reloadProgress > reloadTime * 60)
+		{
+			reloadProgress = 0
+			reloading = false
+			magazineAmmo = magazineSize
+		}
+		reloadProgress += global.gameSpeed
+	}
+	else reloadProgress = 0
 	
 	if (active and holdingTrigger and primaryActionCooldown <= 0 and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
