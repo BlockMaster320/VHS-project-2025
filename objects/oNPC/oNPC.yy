@@ -8,8 +8,8 @@
   "name":"oNPC",
   "overriddenProperties":[],
   "parent":{
-    "name":"Characters",
-    "path":"folders/Objects/Characters.yy",
+    "name":"NPCs",
+    "path":"folders/Objects/Characters/NPCs.yy",
   },
   "parentObjectId":{
     "name":"oCharacterParent",

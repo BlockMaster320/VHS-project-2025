@@ -10,11 +10,11 @@ function Constants()
 	
 	// Map generation settings
 	#macro TILE_SIZE 16		// size of 1 tile in pixels
-	#macro ROOM_SIZE 16		// size of each room in tiles
+	#macro ROOM_SIZE 30		// size of each room in tiles
 	#macro ROOM_SCAN_X 1	// where to start scanning the rooms
 	#macro ROOM_SCAN_Y 1
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
-	#macro ROOM_COUNT 3		// number of rooms to scan
+	#macro ROOM_COUNT 2		// number of rooms to scan
 	#macro GENERATION_FALLOFF 0.4
 	//#macro ROOM_SPACING 3
 
@@ -41,8 +41,11 @@ function Constants()
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
 	// Debug pathfinding
-	#macro PATH_DEBUG true
+	#macro PATH_DEBUG false
 	#macro SHOW_PATH_GRID false
+	#macro ENEMY_COLLISION_MARGIN 12
+	// AI
+	#macro AI_DEBUG false
 	
 	global.Ease = {
 

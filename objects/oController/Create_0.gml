@@ -28,5 +28,5 @@ updateUpscaleFactor()
 //window_set_size(cameraW * 3, cameraH * 3)
 
 
-//room_goto(rmLobby)
 room_goto(rmLobby)
+//room_goto(rmGame)

@@ -12,6 +12,17 @@ function structCopy(src)
     return copy
 }
 
+function lerpDirection(a, b, fac)
+{
+	var angleDiff = angle_difference(b, a)
+	return lerp(a, a + angleDiff, fac)
+}
+
+function collisionMargin(xx, yy, margin)
+{
+	return collision_circle(xx, yy, margin, oRoomManager.tileMapWall, false, false)
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)

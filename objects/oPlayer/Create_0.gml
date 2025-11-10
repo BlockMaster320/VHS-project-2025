@@ -5,7 +5,7 @@ characterCreate(CHARACTER_TYPE.player);
 // Player attributes ------------------------
 
 walkSpd = 2
-hp = 10
+hp = infinity
 
 // Inventory --------------------------
 
@@ -15,8 +15,8 @@ activeInventorySlot = 0
 // Weapons
 weaponInventory = array_create(INVENTORY_SIZE, noone)
 //weaponInventory[0] = acquireWeapon(1, id) // Fists
-weaponInventory[0] = acquireWeapon(0, id) // For testing
-weaponInventory[1] = acquireWeapon(1, id, false) // Fists
+weaponInventory[0] = acquireWeapon(WEAPON.defaultGun, id) // For testing
+weaponInventory[1] = acquireWeapon(WEAPON.fists, id, false) // Fists
 
 // Buffs
 buffsInventory = array_create(INVENTORY_SIZE)
