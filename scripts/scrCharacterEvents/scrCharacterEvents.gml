@@ -153,6 +153,7 @@ function characterCreate(_characterType) {
 			repositionWalkSpd = 1
 			inactiveTime = 0
 			inactiveThreshold = new Range(0, 50)
+			repositionSuddenStopDelay = new Range(20, 70)
 			
 			// Shoot
 			shootingWalkSpd = .3
@@ -162,6 +163,7 @@ function characterCreate(_characterType) {
 			
 			// Hide
 			panickedWalkSpd = 2
+			giveUpHidingTimer = new Range(90, 300)
 			
 			// Behaviour
 			stepEvent = function()
@@ -230,7 +232,7 @@ function characterCreate(_characterType) {
 					case GHOSTER_STATE.shoot:
 						if (myWeapon.magazineAmmo <= 0)
 						{
-							walkSpd = repositionWalkSpd
+							walkSpd = panickedWalkSpd
 							myWeapon.holdingTrigger = false
 							state = GHOSTER_STATE.hide
 						}
@@ -248,16 +250,20 @@ function characterCreate(_characterType) {
 						{
 							walkSpd = repositionWalkSpd
 							state = GHOSTER_STATE.reposition
+							followingPath = false
+							reachedPathEnd = true
 						}
 						break
 						
 					case GHOSTER_STATE.hide:
-						if (!seesPlayer and reachedPathEnd)
+						if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0)
 						{
+							giveUpHidingTimer.rndmize()
 							state = GHOSTER_STATE.reload
 							myWeapon.reloading = true
-							walkSpd = repositionWalkSpd
+							walkSpd = shootingWalkSpd
 						}
+						else giveUpHidingTimer.value--
 						break
 				}
 				
@@ -291,12 +297,16 @@ function characterCreate(_characterType) {
 						}
 						
 						if (angle_difference(playerDir, point_direction(x, y, targetPointX, targetPointY)) < 75 and	
-							playerDist > optimalRange.min_ and playerDist < optimalRange.max_ and
-							seesPlayerWell)
+							playerDist > optimalRange.min_ and playerDist < optimalRange.max_ and seesPlayerWell)
 						{
-							pathTargetX = x
-							pathTargetY = y
-							FindNewPath()
+							if (repositionSuddenStopDelay.value <= 0)
+							{
+								pathTargetX = x
+								pathTargetY = y
+								followingPath = false
+								repositionSuddenStopDelay.rndmize()
+							}
+							else repositionSuddenStopDelay.value--
 						}
 						
 						// Reposition
@@ -315,11 +325,13 @@ function characterCreate(_characterType) {
 					case GHOSTER_STATE.shoot:
 						myWeapon.holdingTrigger = true
 						
-						if (shootMoveCooldown.value <= 0 and reachedPathEnd)	// Find new position
+						if (shootMoveCooldown.value <= 0 and reachedPathEnd and myWeapon.primaryActionCooldown > 10)	// Find new position
 						{
 							FindValidPathTarget(new Range(5, 30))
 							shootMoveCooldown.rndmize()
 						}
+						else if (myWeapon.primaryActionCooldown < 10)
+							followingPath = false
 						if (reachedPathEnd) shootMoveCooldown.value--
 						
 						if (!seesPlayerWell) noTargetDuration++
@@ -332,7 +344,7 @@ function characterCreate(_characterType) {
 							var foundPath = FindValidPathTargetReposition(new Range(30, 999), false)
 							if (!foundPath)
 							{
-								FindValidPathTarget(new Range(20, 80))
+								FindValidPathTarget(new Range(playerDist, playerDist + 100))
 							}
 						}
 						
@@ -358,11 +370,11 @@ function characterCreate(_characterType) {
 				
 					draw_set_halign(fa_center)
 					draw_text(x, yy + offset * 0, $"{stateStrings[state]}")
-					draw_text(x, yy + offset * 1, $"Scared: {wantsToHide}")
-					draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
-					draw_text(x, yy + offset * 3, $"Patience: {patience}")
-					draw_text(x, yy + offset * 4, $"Inactive: {inactiveTime}")
-					draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
+					//draw_text(x, yy + offset * 1, $"Scared: {wantsToHide}")
+					//draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
+					//draw_text(x, yy + offset * 3, $"Patience: {patience}")
+					//draw_text(x, yy + offset * 4, $"Stop delay: {repositionSuddenStopDelay.value}")
+					//draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
 					draw_set_halign(halign)
 				
 					var objDir = point_direction(x, y, oPlayer.x, oPlayer.y)
@@ -370,8 +382,14 @@ function characterCreate(_characterType) {
 					var yy1 = y + lengthdir_y(30, objDir - 5)
 					var xx2 = x + lengthdir_x(30, objDir + 5)
 					var yy2 = y + lengthdir_y(30, objDir + 5)
-					draw_line(x, y, xx1, yy1)
-					draw_line(x, y, xx2, yy2)
+					//draw_line(x, y, xx1, yy1)
+					//draw_line(x, y, xx2, yy2)
+					
+					
+					var col = LineOfSightPoint(oPlayer.x, oPlayer.y) ? c_green : c_red
+					draw_set_color(col)
+					//draw_line(x, y, oPlayer.x, oPlayer.y)
+					draw_set_color(c_white)
 				}
 			}
 			

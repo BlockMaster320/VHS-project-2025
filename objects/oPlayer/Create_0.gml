@@ -18,6 +18,7 @@ weaponInventory = array_create(INVENTORY_SIZE, noone)
 weaponInventory[0] = acquireWeapon(WEAPON.defaultGun, id) // For testing
 weaponInventory[1] = acquireWeapon(WEAPON.fists, id, false) // Fists
 
+
 // Buffs
 buffsInventory = array_create(INVENTORY_SIZE)
 for (var i = 0; i < array_length(buffsInventory); i++)

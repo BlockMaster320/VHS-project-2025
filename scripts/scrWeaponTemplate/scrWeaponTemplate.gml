@@ -68,7 +68,7 @@ function ShotProjectile(srcProjectile) constructor
 	projectile = srcProjectile // This copies by reference! Do not change this struct's values
 	
 	// Scene attributes (set by the object spawning this projectile)
-	lifetime = (2 * 60) / global.gameSpeed
+	lifetime = (5 * 60) / global.gameSpeed
 	xPos = 0
 	yPos = 0
 	dir = 0

@@ -203,7 +203,7 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		
 		// Spawn enemies
 		
-		var spawnEnemies = 100
+		var spawnEnemies = 20
 		
 		while (spawnEnemies > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;

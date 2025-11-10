@@ -8,6 +8,7 @@ function PathfindingInit()
 	targetPointY = y
 	currentFrame = 0
 	pathUpdateModulo = 50
+	followingPath = true
 	reachedPathEnd = false
 	#macro reachTargetMargin TILE_SIZE * .7
 }
@@ -22,6 +23,7 @@ function FindNewPath()
 		myPathPoint = 0
 		targetPointX = path_get_point_x(myPath, myPathPoint)
 		targetPointY = path_get_point_y(myPath, myPathPoint)
+		followingPath = true
 		return true
 	}
 	
@@ -62,7 +64,7 @@ function PathfindingStep()
 
 	if (targetPointDist < reachTargetMargin)
 	{
-		if (myPathPoint < path_get_number(myPath)-1)
+		if (followingPath and myPathPoint < path_get_number(myPath)-1)
 		{
 			myPathPoint++
 			targetPointX = path_get_point_x(myPath, myPathPoint)
@@ -72,7 +74,7 @@ function PathfindingStep()
 		else reachedPathEnd = true
 	}
 
-	if (targetPointDist >= reachTargetMargin)
+	if (followingPath and targetPointDist >= reachTargetMargin)
 	{
 		reachedPathEnd = false
 		
@@ -95,14 +97,10 @@ function PathfindingDraw()
 		if (path_exists(myPath))
 			draw_path(myPath, 0, 0, true)
 			
-		draw_circle(targetPointX, targetPointY, 3, false)
-	}
-
-	if (AI_DEBUG)
-	{
-		var col = LineOfSightPoint(oPlayer.x, oPlayer.y) ? c_green : c_red
+		var col = reachedPathEnd ? c_green : c_white
 		draw_set_color(col)
-		draw_line(x, y, oPlayer.x, oPlayer.y)
+		draw_circle(targetPointX, targetPointY, 3, false)
 		draw_set_color(c_white)
+
 	}
 }
