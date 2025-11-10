@@ -41,7 +41,7 @@ sprite_frame += image_speed;
 if (sprite_frame >= ended + 1) sprite_frame = start; // loop back
 if (sprite_frame < start) sprite_frame = start;
 
-image_speed = animationFrames.speeds[floor(sprite_frame) - start];
+image_speed = animationFrames.speeds[max(0, floor(sprite_frame) - start)];
 		
 //image_index = floor(image_fake_index)
 	
