@@ -31,6 +31,10 @@ playerRoomY = 0;
 playerRoomXPrev = 0;
 playerRoomYPrev = 0;
 
+playerRoomXpx = 0
+playerRoomYpx = 0
+roomSizePx = ROOM_SIZE * TILE_SIZE
+
 // Scan and save all the room types
 var _roomX = ROOM_SCAN_X;
 var _roomY = ROOM_SCAN_Y;

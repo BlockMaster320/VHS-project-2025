@@ -6,6 +6,9 @@ playerRoomYPrev = playerRoomY;
 playerRoomX = floor(playerTileX / ROOM_SIZE);
 playerRoomY = floor(playerTileY / ROOM_SIZE);
 
+playerRoomXpx = (floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + playerRoomX * ROOM_SIZE) * TILE_SIZE
+playerRoomYpx = (floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + playerRoomY * ROOM_SIZE) * TILE_SIZE
+
 // Lock the current room if player stepped into uncleared room
 if (playerRoomX != playerRoomXPrev || playerRoomY != playerRoomYPrev)
     currentRoom = rooms[? string([playerRoomX, playerRoomY])];

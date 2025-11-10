@@ -3,7 +3,7 @@ function Range(minimum, maximum) constructor
 	min_ = minimum
 	max_ = maximum
 	
-	value = 0
+	value = random_range(min_, max_)
 	
 	function rndmize() { value = random_range(min_, max_) }
 }

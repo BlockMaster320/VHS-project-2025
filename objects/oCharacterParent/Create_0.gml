@@ -24,11 +24,15 @@ vsp = 0		// Total horizontal speed
 hp = 150
 effects = []
 
-// Other
+
+// Character attributes ----------------------------------
+// These are assigned by calling characterCreate()
+
 characterType = noone;
 characterClass = noone;
 name = "";
 portrait = sNPCPortrait;
+myWeapon = noone	// Non-player only
 harmed_duration = 0;
 dir = 1;
 
@@ -42,5 +46,5 @@ sprite_frame = 0;
 image_speed = 0.1;
 	
 // Event functions
-stepEvent = noone;
+stepEvent = noone
 drawEvent = noone;

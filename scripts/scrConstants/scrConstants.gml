@@ -41,8 +41,11 @@ function Constants()
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
 	// Debug pathfinding
-	#macro PATH_DEBUG true
+	#macro PATH_DEBUG false
 	#macro SHOW_PATH_GRID false
+	#macro ENEMY_COLLISION_MARGIN 12
+	// AI
+	#macro AI_DEBUG false
 	
 	global.Ease = {
 

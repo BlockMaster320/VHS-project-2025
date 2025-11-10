@@ -203,9 +203,9 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		
 		// Spawn enemies
 		
-		var enemiesSpawned = 0
+		var spawnEnemies = 100
 		
-		while (enemiesSpawned < 1) {
+		while (spawnEnemies > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			
@@ -213,15 +213,16 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			var mapHeight = tilemap_get_height(global.tilemapCollision);
 			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
 			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
-			var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
+			//var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
+			var colliding = collision_rectangle(_enemyX - TILE_SIZE/2, _enemyY - TILE_SIZE/2, _enemyX + TILE_SIZE/2, _enemyY + TILE_SIZE/2, global.tilemapCollision, false, true)
 			
-			if (tileId == 0) //_enemy.controller.setState(CharacterState.Dead)
+			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
 			{
 				var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
 				with(_enemy) { characterCreate(CHARACTER_TYPE.ghoster); }
 				
 				ds_list_add(enemies, _enemy);
-				enemiesSpawned++
+				spawnEnemies--
 			}
 		}
 		

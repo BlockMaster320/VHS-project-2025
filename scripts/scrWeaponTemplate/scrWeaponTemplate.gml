@@ -21,6 +21,9 @@ function Weapon() constructor
 	attackSpeed = 2		// shots/damage amount per second
 	spread = 0			// weapon accuracy in degrees
 	projectileAmount = 1
+	reloadTime = .5		// in seconds
+	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
+	durability = 100	// usually the number of primary action calls before breaking
 	
 	// Generic attributes
 	sprite = sPlaceholderGun
@@ -32,11 +35,17 @@ function Weapon() constructor
 	// Scene attributes
 	index = 0	// Index in the global weapon database
 	active = true
-	aimDirection = 0 // Update aim direction from the point of the gun
+	aimDirection = 0	// Update aim direction from the point of the gun
+	drawDirection = 0	// Flips horizontaly (unlike aimDirection)
 	xPos = 0
 	yPos = 0
-	dir = 0
 	flip = false
+	reloading = false
+	holdingTrigger = false	// Wether the weapon owner is trying to shoot
+							// Resets at the end of every frame
+	remainingDurability = durability
+	magazineAmmo = magazineSize	// Remaining bullets before reloading
+	reloadProgress = 0
 	primaryActionCooldown = 0
 	secondaryActionCooldown = 0
 	
