@@ -6,4 +6,7 @@ function DlgConstants(){
 
 	// Options
 	#macro PADDING_OPTION 2
+	
+	// NPC interaction
+	#macro INTERACTION_DISTANCE 32
 }

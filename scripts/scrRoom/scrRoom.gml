@@ -202,15 +202,14 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		}
 		
 		// Spawn enemies
-		
-		var spawnEnemies = 10
+		var mapWidth  = tilemap_get_width(global.tilemapCollision);
+		var mapHeight = tilemap_get_height(global.tilemapCollision);
+		var spawnEnemies = 5
 		
 		while (spawnEnemies > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			
-			var mapWidth  = tilemap_get_width(global.tilemapCollision);
-			var mapHeight = tilemap_get_height(global.tilemapCollision);
 			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
 			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
 			//var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
@@ -223,6 +222,27 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 				
 				ds_list_add(enemies, _enemy);
 				spawnEnemies--
+			}
+		}
+		
+		// Spawn weapons
+		var spawnGuns = 5
+		
+		while (spawnGuns > 0) {
+			var _gunX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
+			var _gunY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
+			
+			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
+			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
+			//var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
+			var colliding = collision_rectangle(_gunX - TILE_SIZE/2, _gunY - TILE_SIZE/2, _gunX + TILE_SIZE/2, _gunY + TILE_SIZE/2, global.tilemapCollision, false, true)
+			
+			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
+			{
+				var _gun = instance_create_layer(_gunX, _gunY, "Instances", oWeaponPickup);
+				_gun.setupWeaponPickup(WEAPON.garbage);
+				
+				spawnGuns--;
 			}
 		}
 		
@@ -253,7 +273,10 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
+		if (cleared) return;
+		
 		if (ds_list_empty(enemies)) {
+			//show_debug_message("clear");
 			// Open all entries to the room
 			var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 			var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;

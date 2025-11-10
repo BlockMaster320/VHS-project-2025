@@ -34,5 +34,10 @@ function genericMeleeHitUpdate()
 
 function genericProjectileDraw()
 {
-	draw_sprite(projectile.sprite, 0, xPos, yPos)
+	draw_sprite_ext(projectile.sprite, 0, x, y, 1, 1, rot, c_white, 1)
+
+function projectileDrawRotating()
+{
+	rot += 5;
+	genericProjectileDraw();
 }
