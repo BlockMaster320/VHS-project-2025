@@ -48,6 +48,7 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 			}
 			
 			foundPath = true
+			break
 		}
 	}
 	

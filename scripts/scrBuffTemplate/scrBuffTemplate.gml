@@ -8,6 +8,14 @@ function Range(minimum, maximum) constructor
 	function rndmize() { value = random_range(min_, max_) }
 }
 
+function Cooldown(defaultVal) constructor
+{
+	valueDef = defaultVal_
+	value = defaultVal_
+
+	function reset() { value = valueDef }
+}
+
 function Buff() constructor
 {
 	sprite = sPlaceholderBuff

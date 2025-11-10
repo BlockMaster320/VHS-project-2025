@@ -134,8 +134,8 @@ function WeaponsInit()
 		spread = 30				// weapon accuracy in degrees
 		
 		// Non-modifiable attributes
-		magazineSize = 10
-		reloadTime = 3
+		magazineSize = 6
+		reloadTime = 2
 		
 		// Update some scene attributes
 		remainingDurability = durability

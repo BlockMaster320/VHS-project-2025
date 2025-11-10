@@ -1,15 +1,12 @@
 function PathfindingInit()
 {
-	myPath = path_add()
-	myPathPoint = 0	// Index of the target point on my path
+	FollowPathInit()
+	
 	pathTargetX = x
 	pathTargetY = y
-	targetPointX = x
-	targetPointY = y
 	currentFrame = 0
-	pathUpdateModulo = 50
-	reachedPathEnd = false
-	#macro reachTargetMargin TILE_SIZE * .7
+	pathUpdateModulo = 60
+	updateModuloOffset = global.enemyMaxIndex++
 }
 
 // Pathfinding
@@ -22,6 +19,7 @@ function FindNewPath()
 		myPathPoint = 0
 		targetPointX = path_get_point_x(myPath, myPathPoint)
 		targetPointY = path_get_point_y(myPath, myPathPoint)
+		followingPath = true
 		return true
 	}
 	
@@ -53,56 +51,17 @@ function PathfindingStep()
 	//	pathTargetY = mouse_y
 	//	FindNewPath()
 	//}
-	if (currentFrame % pathUpdateModulo == 0)
+	if ((currentFrame + updateModuloOffset) % pathUpdateModulo == 0)
 	{
 		FindNewPath()
 	}
 
-	var targetPointDist = point_distance(x, y, targetPointX, targetPointY)
-
-	if (targetPointDist < reachTargetMargin)
-	{
-		if (myPathPoint < path_get_number(myPath)-1)
-		{
-			myPathPoint++
-			targetPointX = path_get_point_x(myPath, myPathPoint)
-			targetPointY = path_get_point_y(myPath, myPathPoint)
-			targetPointDist = point_distance(x, y, targetPointX, targetPointY)
-		}
-		else reachedPathEnd = true
-	}
-
-	if (targetPointDist >= reachTargetMargin)
-	{
-		reachedPathEnd = false
-		
-		//var targetVectorX = targetPointX - x
-		//var targetVectorY = targetPointY - y
-		var targetPointDir = point_direction(x, y, targetPointX, targetPointY)
-		var spd = min(walkSpd, targetPointDist) * global.gameSpeed
-	
-		whsp = lengthdir_x(spd, targetPointDir)
-		wvsp = lengthdir_y(spd, targetPointDir)
-	}
+	FollowPathStep()
 
 	currentFrame++
 }
 
 function PathfindingDraw()
 {
-	if (PATH_DEBUG)
-	{	
-		if (path_exists(myPath))
-			draw_path(myPath, 0, 0, true)
-			
-		draw_circle(targetPointX, targetPointY, 3, false)
-	}
-
-	if (AI_DEBUG)
-	{
-		var col = LineOfSightPoint(oPlayer.x, oPlayer.y) ? c_green : c_red
-		draw_set_color(col)
-		draw_line(x, y, oPlayer.x, oPlayer.y)
-		draw_set_color(c_white)
-	}
+	FollowPathDraw()
 }
