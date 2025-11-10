@@ -13,7 +13,7 @@ function FindValidPathTarget(distRange, dirRange = new Range(0, 360), maxAttempt
 			return true
 	}
 	
-	show_debug_message($"Failed to find valid path after {maxAttempts} attempts")
+	//show_debug_message($"Failed to find valid path after {maxAttempts} attempts")
 	
 	return false
 }
@@ -59,6 +59,6 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 		return true
 	}
 	
-	show_debug_message($"Failed to find valid path after {maxAttempts} attempts")
+	//show_debug_message($"Failed to find valid path after {maxAttempts} attempts")
 	return false
 }

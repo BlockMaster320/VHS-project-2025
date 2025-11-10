@@ -1,6 +1,13 @@
 // Update player position
 playerTileX = (oPlayer.x - FLOOR_CENTER_X) div TILE_SIZE + ROOM_SIZE * 0.5;
 playerTileY = (oPlayer.y - FLOOR_CENTER_Y) div TILE_SIZE + ROOM_SIZE * 0.5;
+
+/*
+show_debug_message("oPlayerX: " + string(oPlayer.x));
+show_debug_message("oPlayerY: " + string(oPlayer.y));
+show_debug_message("tileX: " + string(playerTileX));
+show_debug_message("tileY: " + string(playerTileY));*/
+
 playerRoomXPrev = playerRoomX;
 playerRoomYPrev = playerRoomY;
 playerRoomX = floor(playerTileX / ROOM_SIZE);
@@ -25,7 +32,8 @@ if (!currentRoom.discovered) {    // make the room close after the player steps 
 
 
 // Check whether player has cleared the room
-currentRoom.CheckCleared();
+if (currentRoom.discovered)
+	currentRoom.CheckCleared();
 
 if (keyboard_check_pressed(ord("C")))    // clear all enemies
     with (oEnemy) oRoomManager.currentRoom.KillEnemy(id);

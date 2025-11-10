@@ -253,7 +253,10 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
+		if (cleared) return;
+		
 		if (ds_list_empty(enemies)) {
+			//show_debug_message("clear");
 			// Open all entries to the room
 			var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 			var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
