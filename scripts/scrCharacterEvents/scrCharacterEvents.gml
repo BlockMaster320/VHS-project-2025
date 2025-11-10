@@ -44,7 +44,20 @@ function getCharacterDrawEvent(_characterType) {
 		case CHARACTER_TYPE.player: {
 			return function() {
 				//show_debug_message("player draw");
-				dir = (oController.aimDir > 90 and oController.aimDir < 270) ? 1 : -1
+				dir = (oController.aimDir > 90 and oController.aimDir < 270) ? -1 : 1
+				
+				// Draw player's hands
+				var animationFrames = animHands(characterState);
+				var start = animationFrames.range[0];
+				var ended = animationFrames.range[1];
+
+				spriteFrameHands += imageSpeedHands;
+
+				if (spriteFrameHands >= ended + 1) spriteFrameHands = start; // loop back
+				if (spriteFrameHands < start) spriteFrameHands = start;
+
+				imageSpeedHands = animationFrames.speeds[floor(spriteFrameHands) - start];
+				draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
 			};
 		}
 		
@@ -68,15 +81,21 @@ function characterCreate(_characterType) {
 		case CHARACTER_TYPE.player: {		
 			characterClass = CHARACTER_CLASS.player;
 			characterType = CHARACTER_TYPE.player;
+			characterType = CHARACTER_TYPE.player;
 			name = "Player";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			sprite_index = sPlayer;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
 			anim = characterAnimation.getAnimation;
+			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
+			animHands = handsAnimation.getAnimation;
+			spriteFrameHands = 0;
+			imageSpeedHands = 0;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
+			
 		} break;
 		
 		case CHARACTER_TYPE.mechanic: {
