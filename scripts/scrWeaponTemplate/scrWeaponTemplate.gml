@@ -29,8 +29,8 @@ function Weapon() constructor
 	sprite = sPlaceholderGun
 	name = "Generic weapon"
 	description = "This weapon is a weapon"
-	drawOffsetX = 4
-	drawOffsetY = 0
+	drawOffsetX = 6
+	drawOffsetY = 3
 	
 	// Scene attributes
 	index = 0	// Index in the global weapon database
@@ -72,7 +72,9 @@ function ShotProjectile(srcProjectile) constructor
 	xPos = 0
 	yPos = 0
 	dir = 0
+	rot = 0
 	color = c_white
+	
 	
 	// Decide scene behaviour
 	switch (projectile.type)

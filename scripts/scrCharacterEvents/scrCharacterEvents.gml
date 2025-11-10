@@ -29,6 +29,8 @@ function getCharacterStepEvent(_characterType){
 				//show_debug_message("mechanic step");
 			};
 		}
+		
+		default: { return function() {}; }
 	}
 }
 
@@ -41,17 +43,21 @@ function getCharacterDrawEvent(_characterType) {
 				dir = (oController.aimDir > 90 and oController.aimDir < 270) ? -1 : 1
 				
 				// Draw player's hands
-				var animationFrames = animHands(characterState);
-				var start = animationFrames.range[0];
-				var ended = animationFrames.range[1];
+				var _weapon = weaponInventory[activeInventorySlot];
+				if (_weapon.index = WEAPON.fists) {	// draw bare hands
+					var animationFrames = animHands(characterState);
+					var start = animationFrames.range[0];
+					var ended = animationFrames.range[1];
 
-				spriteFrameHands += imageSpeedHands;
+					spriteFrameHands += imageSpeedHands;
 
-				if (spriteFrameHands >= ended + 1) spriteFrameHands = start; // loop back
-				if (spriteFrameHands < start) spriteFrameHands = start;
+					if (spriteFrameHands >= ended + 1) spriteFrameHands = start; // loop back
+					if (spriteFrameHands < start) spriteFrameHands = start;
 
-				imageSpeedHands = animationFrames.speeds[floor(spriteFrameHands) - start];
-				draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
+					imageSpeedHands = animationFrames.speeds[floor(spriteFrameHands) - start];
+				
+					draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
+				}
 			};
 		}
 		
@@ -60,6 +66,8 @@ function getCharacterDrawEvent(_characterType) {
 				//show_debug_message("mechanic draw");
 			};
 		}
+		
+		default: { return function() {}; }
 	}
 }
 
@@ -100,10 +108,23 @@ function characterCreate(_characterType) {
 			sprite_index = sMechanic;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
-			dir = -1;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+		} break;
+		
+		case CHARACTER_TYPE.passenger1: {
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.passenger1;
+			name = "Passanger";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sPassanger1;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			anim = characterAnimation.getAnimation;
+			
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.passenger1);
+			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
 		} break;
 		
 		// Enemies ---------------------------------------------------------------

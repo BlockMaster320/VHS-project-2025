@@ -46,7 +46,7 @@ image_speed = animationFrames.speeds[max(0, floor(sprite_frame) - start)];
 //image_index = floor(image_fake_index)
 	
 // STEP EVENT OF THE SPECIFIC CHARACTER --------------------
-stepEvent()
+stepEvent();
 
 #endregion
 

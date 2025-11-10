@@ -25,7 +25,7 @@
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"fa236ade-e458-4dd1-9b14-43db6376b136","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"fa236ade-e458-4dd1-9b14-43db6376b136","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
-    {"$GMImageLayer":"","%Name":"67b304a5-4487-40d3-a8c4-90276cc4dc5a","blendMode":0,"displayName":"default","isLocked":false,"name":"67b304a5-4487-40d3-a8c4-90276cc4dc5a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"67b304a5-4487-40d3-a8c4-90276cc4dc5a","blendMode":0,"displayName":"default","isLocked":false,"name":"67b304a5-4487-40d3-a8c4-90276cc4dc5a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
   ],
   "name":"sMechanic",
   "nineSlice":null,

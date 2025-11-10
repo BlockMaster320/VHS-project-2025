@@ -8,9 +8,10 @@ enum CHARACTER_CLASS
 enum CHARACTER_TYPE
 {
 	player,
-	ghoster,
 	mechanic,
 	shopkeeper,
+	passenger1,
+	ghoster,
 }
 
 enum CharacterState {

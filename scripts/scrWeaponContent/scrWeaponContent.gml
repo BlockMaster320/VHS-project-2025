@@ -19,7 +19,7 @@ function WeaponsInit()
 	enum WEAPON
 	{
 		// Player focused
-		defaultGun, fists,
+		defaultGun, fists, garbage,
 		
 		// Monsters focused
 		ghosterGun,
@@ -164,6 +164,55 @@ function WeaponsInit()
 		update = genericWeaponUpdate
 		draw = genericWeaponDraw
 	}
+	
+	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.garbage])
+	{
+		// Generic attributes
+		sprite = sTrashBag
+		name = "Garbage"
+		description = "This weapon is garbage"
+		durability = 1
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 1			// shots/damage amount per second
+		spread = 30				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		
+		// Non-modifiable attributes
+		magazineSize = -1
+		reloadTime = 0
+		
+		// Update some scene attributes
+		remainingDurability = durability
+		magazineAmmo = magazineSize	// Remaining bullets before reloading
+	
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 10
+			projectileSpeed = 3
+			targetKnockback = 15
+			effects = []
+	
+			// Generic attributes
+			type = PROJECTILE_TYPE.ranged
+			sprite = sTrashBag
+		}
+	
+		// Weapon actions
+		primaryAction = rangedWeaponShootRotating
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw;
+	}
+		
 	
 	// ----------------------------------------------------------
 	
