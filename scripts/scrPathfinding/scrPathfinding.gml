@@ -1,4 +1,4 @@
-function PathfindingInit()
+function pathfindingInit()
 {
 	FollowPathInit()
 	
@@ -11,7 +11,7 @@ function PathfindingInit()
 
 // Pathfinding
 
-function FindNewPath()
+function findNewPath()
 {
 	var pathFound = mp_grid_path(oRoomManager.pathfindingGrid, myPath, x, y, pathTargetX, pathTargetY, true)
 	if (pathFound)
@@ -43,25 +43,25 @@ function LineOfSightObject(object, angleDiff = 6, originX = x, originY = y)
 	return LineOfSightPoint(object.x, object.y) and LineOfSightPoint(xx1, yy1) and LineOfSightPoint(xx2, yy2)
 }
 
-function PathfindingStep()
+function pathfindingStep()
 {
 	//if (mouse_check_button_pressed(mb_left))
 	//{
 	//	pathTargetX = mouse_x
 	//	pathTargetY = mouse_y
-	//	FindNewPath()
+	//	findNewPath()
 	//}
 	if ((currentFrame + updateModuloOffset) % pathUpdateModulo == 0)
 	{
-		FindNewPath()
+		findNewPath()
 	}
 
-	FollowPathStep()
+	followPathStep()
 
 	currentFrame++
 }
 
-function PathfindingDraw()
+function pathfindingDraw()
 {
-	FollowPathDraw()
+	followPathDraw()
 }
