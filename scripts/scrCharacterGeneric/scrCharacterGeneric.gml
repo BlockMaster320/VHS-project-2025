@@ -21,16 +21,15 @@ enum CharacterState {
 	Dead
 }
 
-function GetHit(character, projectileInstance)
+function GetHit(character, proj)
 {
-	var projectileData = projectileInstance.projectile
-	var damageDealt = projectileData.damage * projectileData.damageMultiplier
+	var damageDealt = proj.damage * proj.damageMultiplier
 	
 	character.hp -= damageDealt
-	character.effects = array_union(character.effects, projectileData.effects)
+	character.effects = array_union(character.effects, proj.effects)
 	
-	character.mhsp += lengthdir_x(projectileData.targetKnockback, projectileInstance.dir)
-	character.mvsp += lengthdir_y(projectileData.targetKnockback, projectileInstance.dir)
+	character.mhsp += lengthdir_x(proj.targetKnockback, proj.dir)
+	character.mvsp += lengthdir_y(proj.targetKnockback, proj.dir)
 	
 	if (character.characterType == CHARACTER_TYPE.ghoster)
 	{

@@ -1,5 +1,6 @@
 function nothingFunction() {}
 
+/// @param {enum/struct} weapon can be either an index from WEAPON enum or a specific Weapon struct
 function acquireWeapon(weapon, owner, active_ = true)
 {
 	var newWeapon;
@@ -16,31 +17,13 @@ function rangedWeaponShoot()
 {
 	repeat (projectileAmount)
 	{
-		var bullet = new ShotProjectile(projectile)
-		bullet.xPos = xPos
-		bullet.yPos = yPos
+		var bullet = instance_create_layer(xPos, yPos, "Instances", oProjectile, projectile)
+		bullet.x = xPos
+		bullet.y = yPos
 		bullet.dir = aimDirection
 		bullet.dir += random_range(-spread/2, spread/2)
-	
-		var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
 	}
 }
-
-function rangedWeaponShootRotating()
-{
-	repeat (projectileAmount)
-	{
-		var bullet = new ShotProjectile(projectile)
-		bullet.xPos = xPos
-		bullet.yPos = yPos
-		bullet.dir = aimDirection
-		bullet.dir += random_range(-spread/2, spread/2)
-		bullet.draw = projectileDrawRotating;
-	
-		var inst = instance_create_layer(xPos, yPos, "Instances", oProjectile, bullet)
-	}
-}
-
 
 // Weapon update ------------------------------------
 
@@ -70,6 +53,7 @@ function genericWeaponUpdate()
 		holdingTrigger = true
 	
 	if (projectile.ownerID.object_index == oPlayer) {	// player holds the gun
+		// Get rid of weapon after running out of durability
 		if (remainingDurability <= 0) {
 			with (oPlayer) {
 				weaponInventory[activeInventorySlot] = acquireWeapon(WEAPON.fists, id);

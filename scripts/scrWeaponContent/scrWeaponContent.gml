@@ -1,8 +1,3 @@
-enum PROJECTILE_TYPE
-{
-	melee, ranged, special
-}
-
 enum PROJECTILE_AUTHORITY
 {
 	self,		// Damages all characters other then himself
@@ -45,7 +40,6 @@ function WeaponsInit()
 		description = "This weapon is a weapon"
 	
 		// Modifiable attributes
-		projectile = noone
 		attackSpeed = 3			// shots/damage amount per second
 		spread = 30				// weapon accuracy in degrees
 		projectileAmount = 5	// number of projectile to be shot in the shoot frame
@@ -69,8 +63,11 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			type = PROJECTILE_TYPE.ranged
 			sprite = sPlaceholderProjectile
+			
+			// Behaviour
+			update = genericBulletUpdate
+			draw = genericProjectileDraw
 		}
 	
 		// Weapon actions
@@ -108,8 +105,11 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			type = PROJECTILE_TYPE.melee
 			sprite = sPlaceholderProjectile
+			
+			// Behaviour
+			update = genericBulletUpdate
+			draw = genericProjectileDraw
 		}
 	
 		// Weapon actions
@@ -152,8 +152,11 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			type = PROJECTILE_TYPE.ranged
 			sprite = sPlaceholderProjectile
+			
+			// Behaviour
+			update = genericBulletUpdate
+			draw = genericProjectileDraw
 		}
 	
 		// Weapon actions
@@ -200,12 +203,15 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			type = PROJECTILE_TYPE.ranged
 			sprite = sTrashBag
+			
+			// Behaviour
+			update = rotatingProjectileUpdate
+			draw = genericProjectileDraw
 		}
-	
+
 		// Weapon actions
-		primaryAction = rangedWeaponShootRotating
+		primaryAction = rangedWeaponShoot
 		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
 	
 		// Weapon functions
