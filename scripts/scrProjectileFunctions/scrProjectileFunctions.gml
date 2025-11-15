@@ -7,8 +7,8 @@ function bulletHitDetection()
 	var character = instance_place(x, y, oCharacterParent)
 	if (character != noone)
 	{
-		if (projectile.projectileAuthority == PROJECTILE_AUTHORITY.self and
-			character != projectile.ownerID and
+		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+			character != ownerID and
 			character.characterClass != CHARACTER_CLASS.NPC)
 		{
 			GetHit(character, id)
@@ -21,23 +21,24 @@ function genericBulletUpdate()
 {
 	bulletHitDetection()
 	lifetime--
-	x += lengthdir_x(projectile.projectileSpeed * global.gameSpeed, dir)
-	y += lengthdir_y(projectile.projectileSpeed * global.gameSpeed, dir)
+	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir)
+	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir)
 }
 
 function genericMeleeHitUpdate()
 {
 }
 
+function rotatingProjectileUpdate()
+{
+	genericBulletUpdate()
+	rot += 5
+}
+
 
 // Projectile draw ----------------------------------------
 
 function genericProjectileDraw()
-{
-	draw_sprite_ext(projectile.sprite, 0, x, y, 1, 1, rot, c_white, 1)
-}
-function projectileDrawRotating()
-{
-	rot += 5;
-	genericProjectileDraw();
+{	
+	draw_sprite_ext(sprite, 0, x, y, 1, 1, rot, c_white, 1)
 }

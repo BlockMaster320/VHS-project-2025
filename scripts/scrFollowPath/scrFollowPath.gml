@@ -12,7 +12,7 @@ function FollowPathInit()
 	#macro reachTargetMargin TILE_SIZE * .7
 }
 
-function FollowPathStep()
+function followPathStep()
 {
 	var targetPointDist = point_distance(x, y, targetPointX, targetPointY)
 
@@ -42,7 +42,7 @@ function FollowPathStep()
 	}
 }
 
-function FollowPathDraw()
+function followPathDraw()
 {
 	if (PATH_DEBUG)
 	{	
