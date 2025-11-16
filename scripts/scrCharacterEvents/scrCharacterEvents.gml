@@ -143,6 +143,38 @@ function characterCreate(_characterType) {
 		
 		// Enemies ---------------------------------------------------------------
 		
+		case CHARACTER_TYPE.targetDummy:
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.targetDummy;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Ghoster";
+			portrait = sNPCPortrait;
+			
+			// Animation
+			sprite_index = sEnemy;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			anim = characterAnimation.getAnimation;
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.ghosterGun, id)
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				myWeapon.update()
+			}
+			drawEvent = function()
+			{
+				draw_text(x, y - 20, $"HP: {hp}")
+				myWeapon.draw()
+			}
+			break
+		
 		case CHARACTER_TYPE.ghoster: {
 			// Character attributes
 			characterClass = CHARACTER_CLASS.enemy;

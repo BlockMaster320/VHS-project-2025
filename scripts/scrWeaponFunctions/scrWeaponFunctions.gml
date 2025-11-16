@@ -13,15 +13,38 @@ function acquireWeapon(weapon, owner, active_ = true)
 
 // Weapon actions ------------------------------------
 
+///@return instance of spawned bullet
+function spawnBullet()
+{
+	var bullet = instance_create_layer(xPos, yPos, "Instances", oProjectile, projectile)
+	bullet.x = xPos
+	bullet.y = yPos
+	bullet.dir = aimDirection
+	bullet.dir += random_range(-spread/2, spread/2)
+	
+	return bullet
+}
+
 function rangedWeaponShoot()
 {
 	repeat (projectileAmount)
 	{
-		var bullet = instance_create_layer(xPos, yPos, "Instances", oProjectile, projectile)
-		bullet.x = xPos
-		bullet.y = yPos
-		bullet.dir = aimDirection
-		bullet.dir += random_range(-spread/2, spread/2)
+		var bullet = spawnBullet()
+		bullet.sprite_index = projectile.sprite
+	}
+}
+
+function meleeWeaponShoot()
+{
+	repeat (projectileAmount) // Just in case of a projectileAmount upgrade
+	{
+		var bullet = spawnBullet()
+		bullet.x = oPlayer.x
+		bullet.y = oPlayer.y
+		bullet.image_angle = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
+		bullet.sprite_index = sMeleeHitbox
+		bullet.image_xscale = projectile.scale
+		bullet.image_yscale = projectile.scale
 	}
 }
 
