@@ -46,7 +46,7 @@ function BuffsInit()
 		
 		buffActivate = function(weapon)
 		{
-			weapon.damageMultiplier = dmgMultRange.value
+			weapon.projectile.damageMultiplier = dmgMultRange.value
 		}
 	}
 	

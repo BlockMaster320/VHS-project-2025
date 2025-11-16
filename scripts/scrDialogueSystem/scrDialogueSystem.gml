@@ -31,6 +31,11 @@ function DialogueSystem() constructor
 										new DialogueLine("Dík moc, jsi frajer", [], []),
 										new DialogueLine("Tak doufám, že se ti rozvážou tkaničky.", [], [])
 									])])
+									
+	ds_map_add(dlgs, CHARACTER_TYPE.passenger1, [new Dialogue(
+									[
+										new DialogueLine("Nečum.", [], [])
+									])])
 								
 									
 	static current_dialogue = noone

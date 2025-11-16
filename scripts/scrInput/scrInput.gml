@@ -4,7 +4,6 @@ function Input()
 	down = 0
 	left = 0
 	right = 0
-	aimDir = 0
 	primaryButton = 0
 	secondaryButton = 0	
 	selectSlot = 0

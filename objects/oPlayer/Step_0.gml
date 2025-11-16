@@ -50,6 +50,5 @@ for (var i = 0; i < INVENTORY_SIZE; i++)
 
 #endregion
 
-
 // Debug
 if (keyboard_check(ord("R"))) game_restart()

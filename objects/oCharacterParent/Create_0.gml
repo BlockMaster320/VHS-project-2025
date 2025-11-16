@@ -41,9 +41,10 @@ characterState = CharacterState.Idle;
 // animation control
 characterAnimation = noone;
 anim = noone;
-sprite_index = sCharacters;
+sprite_index = noone;
 sprite_frame = 0;
 image_speed = 0.1;
+depth = -y;
 	
 // Event functions
 stepEvent = noone

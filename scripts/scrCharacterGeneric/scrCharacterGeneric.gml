@@ -8,9 +8,10 @@ enum CHARACTER_CLASS
 enum CHARACTER_TYPE
 {
 	player,
-	ghoster,
 	mechanic,
 	shopkeeper,
+	passenger1,
+	ghoster,
 }
 
 enum CharacterState {
@@ -20,15 +21,20 @@ enum CharacterState {
 	Dead
 }
 
-function GetHit(character, projectileInstance)
+function GetHit(character, proj)
 {
-	var projectileData = projectileInstance.projectile
+	var damageDealt = proj.damage * proj.damageMultiplier
 	
-	character.hp -= projectileData.damage * projectileData.damageMultiplier
-	character.effects = array_union(character.effects, projectileData.effects)
+	character.hp -= damageDealt
+	character.effects = array_union(character.effects, proj.effects)
 	
-	character.mhsp += lengthdir_x(projectileData.targetKnockback, projectileInstance.dir)
-	character.mvsp += lengthdir_y(projectileData.targetKnockback, projectileInstance.dir)
+	character.mhsp += lengthdir_x(proj.targetKnockback, proj.dir)
+	character.mvsp += lengthdir_y(proj.targetKnockback, proj.dir)
+	
+	if (character.characterType == CHARACTER_TYPE.ghoster)
+	{
+		character.wantsToHide += damageDealt * .03
+	}
 	
 	if (character.hp <= 0) instance_destroy(character)
 }
