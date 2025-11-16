@@ -59,11 +59,11 @@ vsp = wvsp + mvsp
 if (room = rmLobby)
 	if (y < 120) room_goto(	rmGame)
 
-/// Tilemap collisions
+/// Tilemap and object collision
 
 // Horizontal
 var _xx = x;
-if (place_meeting(x + hsp, y, global.tilemapCollision))
+if (place_meeting(x + hsp, y, global.tilemapCollision))	// tile collision
 {
 	while (!place_meeting(x + sign(hsp), y, global.tilemapCollision)) {
 		x += sign(hsp)
@@ -71,20 +71,32 @@ if (place_meeting(x + hsp, y, global.tilemapCollision))
 	x = round(x)
 	hsp = 0;
 }
-x += hsp
-if (x < 500 && room = rmGame) {
-	show_debug_message("haahhahah")
+if (place_meeting(x + hsp, y, oCollider))				// object collision
+{
+	while (!place_meeting(x + sign(hsp), y, oCollider)) {
+		x += sign(hsp)
+	}
+	x = round(x)
+	hsp = 0;
 }
+x += hsp
 
 
 // Vertical
-if (place_meeting(x, y + vsp, global.tilemapCollision))
+if (place_meeting(x, y + vsp, oCollider))				// tile collision
+{
+	while (!place_meeting(x, y + sign(vsp),oCollider)) y += sign(vsp)
+	y = round(y)
+	vsp = 0;
+}
+if (place_meeting(x, y + vsp, global.tilemapCollision))	// object collision
 {
 	while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
 	y = round(y)
 	vsp = 0;
 }
 y += vsp
+
 
 #endregion
 

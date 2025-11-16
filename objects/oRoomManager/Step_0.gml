@@ -1,3 +1,16 @@
+// Scan rooms a generate the first floor
+if (!areRoomsScanned) {
+	ScanRooms();
+	areRoomsScanned = true;
+	
+	// Generate the floor
+	var _room = new Room(0, 0, 1, RoomCategory.ENTRANCE);
+	_room.discovered = true;
+	_room.cleared = true;
+	currentRoom = _room;
+	_room.Generate();	// generate the entire floor
+}
+
 // Update player position
 playerTileX = (oPlayer.x - FLOOR_CENTER_X) div TILE_SIZE + ROOM_SIZE * 0.5;
 playerTileY = (oPlayer.y - FLOOR_CENTER_Y) div TILE_SIZE + ROOM_SIZE * 0.5;

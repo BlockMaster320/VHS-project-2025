@@ -39,7 +39,7 @@ function getCharacterDrawEvent(_characterType) {
 	switch (_characterType) {
 		case CHARACTER_TYPE.player: {
 			return function() {
-				//show_debug_message("player draw");
+				
 				dir = (oController.aimDir > 90 and oController.aimDir < 270) ? -1 : 1
 				
 				// Draw player's hands
@@ -111,6 +111,20 @@ function characterCreate(_characterType) {
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+		} break;
+		
+		case CHARACTER_TYPE.shopkeeper: {
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.mechanic;
+			name = "Shopkeeper";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sShopkeeper;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			anim = characterAnimation.getAnimation;
+			
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.shopkeeper);
+			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.shopkeeper);
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {

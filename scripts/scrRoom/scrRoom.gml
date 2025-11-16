@@ -1,17 +1,36 @@
 // Contains IDs of tiles in the position of the tile in all the tileset layers
-function tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
+function Tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
 	tileWall = _tileWall;
 	tileDec1 = _tileDec1;
 	tileDec2 = _tileDec2;
 	tileDec3 = _tileDec3;
 }
 
+function Interactable(_objectID, _x, _y) constructor {
+	objectID = _objectID;
+	roomX = _x;
+	roomY = _y;
+}
+
+enum RoomCategory {
+	ENTRANCE,
+	EXIT,
+	SHOP,
+	FIGHT
+}
+
+function RoomType(_tiles, _interactables, _category = noone) constructor {
+	tiles = _tiles;
+	interactables = _interactables;
+	category = _category;
+}
+
 // Represents a specific room in the floor
-function Room(_x, _y, _depth, _type = noone) constructor {
+function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	// Set room attributes
 	roomX = _x; roomY = _y;
-	roomType = _type;
-	if (roomType = noone) roomType = floor(random(ROOM_COUNT));
+	roomTypeIndex = _typeIndex;
+	if (roomTypeIndex = noone) roomTypeIndex = floor(random(ROOM_COUNT));
 	roomDepth = _depth;
 	nextRooms = ds_list_create();
 	
@@ -26,17 +45,27 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	Generate = function() {
 		var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 		var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
+		var _roomType = oRoomManager.roomTypes[roomTypeIndex];
 		
 		// Set the room's tiles
 		for (var _y = 0; _y < ROOM_SIZE; _y++) {
 			for (var _x = 0; _x < ROOM_SIZE; _x++) {
-				var _tile = oRoomManager.roomTypes[roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
+				var _tile = _roomType.tiles[_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
 				
 				tilemap_set(oRoomManager.tileMapWall, _tile.tileWall, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec1, _tile.tileDec1, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec2, _tile.tileDec2, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec3, _tile.tileDec3, _roomX + _x, _roomY + _y);
 			}
+		}
+		
+	    // Spawn the room's interactables
+		for (var _i = 0; _i < ds_list_size(_roomType.interactables); _i++) {
+			var _interactable = _roomType.interactables[| _i];
+			var _x = _roomX * TILE_SIZE + _interactable.roomX - TILE_SIZE;	// that "- TILE_SIZE" is a magic offset which corrects the position
+			var _y = _roomY * TILE_SIZE + _interactable.roomY - TILE_SIZE;
+			instance_create_layer(_x, _y, "Instances", _interactable.objectID);
+			
 		}
 		
 		// Generate adjacent rooms
@@ -251,7 +280,7 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		{
 			for (var _y = 0; _y < ROOM_SIZE; _y++) {
 				for (var _x = 0; _x < ROOM_SIZE; _x++) {
-					var _tile = roomTypes[other.roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
+					var _tile = roomTypes[other.roomTypeIndex].tiles[_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
 					wallGrid[# _x, _y] = (_tile.tileWall == 0) ? 0 : 1;
 				}
 			}
@@ -300,5 +329,40 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			
 			cleared = true;
 		}
+	}
+}
+
+
+// Scans and saves all room types (their tiles and interactables)
+function ScanRooms() {
+	// Scan room tiles
+	var _roomX = ROOM_SCAN_X;
+	var _roomY = ROOM_SCAN_Y;
+	for (var _room = 0; _room < ROOM_COUNT; _room++) {
+	
+	    var _tiles = array_create(ROOM_SIZE * ROOM_SIZE);
+	    for (var _y = 0; _y < ROOM_SIZE; _y++) {
+	        for (var _x = 0; _x < ROOM_SIZE; _x++) {
+
+	            var _dataWall = tilemap_get(tileMapWall, _roomX + _x, _roomY + _y);
+	            var _dataDec1 = tilemap_get(tileMapDec1, _roomX + _x, _roomY + _y);
+	            var _dataDec2 = tilemap_get(tileMapDec2, _roomX + _x, _roomY + _y);
+	            var _dataDec3 = tilemap_get(tileMapDec3, _roomX + _x, _roomY + _y);
+	            _tiles[_y * ROOM_SIZE + _x] = new Tile(_dataWall, _dataDec1, _dataDec2, _dataDec3);
+	        }
+	    }
+	
+		var _interactables = ds_list_create();
+	    roomTypes[_room] = new RoomType(_tiles, _interactables, noone);
+	    _roomY += ROOM_SIZE + ROOM_OFFSET;
+	}
+
+	// Scan room interactables
+	with (oInteractable) {
+		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		var _interactable = new Interactable(object_index, _roomX, _roomY);
+		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].interactables, _interactable);
 	}
 }
