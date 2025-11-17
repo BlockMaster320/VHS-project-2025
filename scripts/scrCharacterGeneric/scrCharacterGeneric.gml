@@ -36,5 +36,11 @@ function GetHit(character, proj)
 		character.wantsToHide += damageDealt * .03
 	}
 	
-	if (character.hp <= 0) instance_destroy(character)
+	if (character.hp <= 0) {
+		if (character.characterClass == CHARACTER_CLASS.enemy) {
+			oRoomManager.currentRoom.KillEnemy(character);
+		}
+		else
+			instance_destroy(character)
+	}
 }
