@@ -23,6 +23,38 @@ function collisionMargin(xx, yy, margin)
 	return collision_circle(xx, yy, margin, oRoomManager.tileMapWall, false, false)
 }
 
+function drawHitbox(xx, yy, spr, scaleX=1, scaleY=1, rot=0, thickness=1)
+{
+	var origX = sprite_get_xoffset(spr)
+	var origY = sprite_get_yoffset(spr)
+	var left   = (sprite_get_bbox_left(spr) -   origX) * scaleX
+	var top    = (sprite_get_bbox_top(spr) -    origY) * scaleY
+	var right  = (sprite_get_bbox_right(spr) -  origX + 1) * scaleX
+	var bottom = (sprite_get_bbox_bottom(spr) - origY + 1) * scaleY
+	
+	rot = degtorad(-rot)
+	
+	var c = cos(rot)
+	var s = sin(rot)
+	
+	var xx1 = (cos(rot) * left ) - (sin(rot) * top)		+ xx
+	var yy1 = (sin(rot) * left ) + (cos(rot) * top)		+ yy
+	var xx2 = (cos(rot) * right) - (sin(rot) * top)		+ xx
+	var yy2 = (sin(rot) * right) + (cos(rot) * top)		+ yy
+	var xx3 = (cos(rot) * right) - (sin(rot) * bottom)	+ xx
+	var yy3 = (sin(rot) * right) + (cos(rot) * bottom)	+ yy
+	var xx4 = (cos(rot) * left ) - (sin(rot) * bottom)	+ xx
+	var yy4 = (sin(rot) * left ) + (cos(rot) * bottom)	+ yy
+	
+	// Draw hitbox as red rectangle
+	draw_set_color(c_red)
+	draw_line_width(xx1, yy1, xx2, yy2, thickness)
+	draw_line_width(xx2, yy2, xx3, yy3, thickness)
+	draw_line_width(xx3, yy3, xx4, yy4, thickness)
+	draw_line_width(xx4, yy4, xx1, yy1, thickness)
+	draw_set_color(c_white)
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)

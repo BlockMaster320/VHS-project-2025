@@ -44,9 +44,11 @@ function Constants()
 	// Debug levels
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
+	// Hitboxes
+	#macro SHOW_HITBOXES true
 	// Debug pathfinding
+	#macro SHOW_PATH_GRID false
 	#macro PATH_DEBUG true
-	#macro SHOW_PATH_GRID true
 	// AI
 	#macro AI_DEBUG true
 	

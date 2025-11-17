@@ -132,7 +132,7 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 3			// shots/damage amount per second
+		attackSpeed = 2			// shots/damage amount per second
 		spread = 0				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		
@@ -141,15 +141,15 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 1
+			damage = 20
 			projectileSpeed = 3
-			targetKnockback = 5
+			targetKnockback = 10
 			effects = []
 			scale = 4
 	
 			// Generic attributes
 			sprite = sPlaceholderProjectile
-			lifetime = 8
+			lifetime = 5
 			
 			// Behaviour
 			update = genericMeleeHitUpdate

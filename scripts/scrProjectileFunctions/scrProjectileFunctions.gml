@@ -2,23 +2,26 @@
 
 ///@return true/false wether the bullet hit something
 function projectileHitDetection()
-{
-	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
-		return true
-	
-	var character = instance_place(x, y, oCharacterParent)
-	if (character != noone)
+{	
+	var hit = false
+	var collidingList = ds_list_create()
+	instance_place_list(x, y, oCharacterParent, collidingList, false)
+	for (var i = 0; i < ds_list_size(collidingList); i++)
 	{
+		var colliding = collidingList[| i]
 		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
-			character != ownerID and
-			character.characterClass != CHARACTER_CLASS.NPC)
+			colliding != ownerID and
+			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
-			GetHit(character, id)
-			return true
+			GetHit(colliding, id)
+			hit = true
 		}
 	}
 	
-	return false
+	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
+		hit = true
+	
+	return hit
 }
 
 function genericBulletUpdate()
@@ -54,6 +57,6 @@ function rotatingProjectileUpdate()
 
 function genericProjectileDraw()
 {	
-	//draw_sprite_ext(sprite, 0, x, y, scale, scale, drawRot, c_white, 1)
-	draw_self()
+	draw_sprite_ext(sprite, 0, x, y, scale, scale, drawRot, c_white, 1)
+	//draw_self()
 }
