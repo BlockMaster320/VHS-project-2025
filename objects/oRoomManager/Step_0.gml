@@ -43,11 +43,6 @@ if (!currentRoom.discovered) {    // make the room close after the player steps 
     }
 }
 
-
-// Check whether player has cleared the room
-if (currentRoom.discovered)
-	currentRoom.CheckCleared();
-
 if (keyboard_check_pressed(ord("C")))    // clear all enemies
     with (oEnemy) oRoomManager.currentRoom.KillEnemy(id);
    
