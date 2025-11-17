@@ -2,7 +2,7 @@
   "$GMSprite":"",
   "%Name":"sBin",
   "bboxMode":2,
-  "bbox_bottom":10,
+  "bbox_bottom":11,
   "bbox_left":1,
   "bbox_right":14,
   "bbox_top":7,
