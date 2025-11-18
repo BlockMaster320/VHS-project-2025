@@ -19,7 +19,7 @@ function GUIElement() constructor {
 	y		 = 0;
     static width    = 200;
     static height   = 32;
-    static padding  = 16;
+    static padding  = {x: 16, y: 16};
 	static anchor	 = Anchor.Center
 
     // focus-related

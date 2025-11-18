@@ -102,6 +102,7 @@
     {"id":{"name":"scrCharacterAnimation","path":"scripts/scrCharacterAnimation/scrCharacterAnimation.yy",},},
     {"id":{"name":"scrCharacterEvents","path":"scripts/scrCharacterEvents/scrCharacterEvents.yy",},},
     {"id":{"name":"scrCharacterGeneric","path":"scripts/scrCharacterGeneric/scrCharacterGeneric.yy",},},
+    {"id":{"name":"scrCheckbox","path":"scripts/scrCheckbox/scrCheckbox.yy",},},
     {"id":{"name":"scrCinemaBorders","path":"scripts/scrCinemaBorders/scrCinemaBorders.yy",},},
     {"id":{"name":"scrColumn","path":"scripts/scrColumn/scrColumn.yy",},},
     {"id":{"name":"scrConstants","path":"scripts/scrConstants/scrConstants.yy",},},
