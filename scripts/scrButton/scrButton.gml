@@ -16,6 +16,8 @@ function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = func
 	text		= _text;
 	anchor		= _anchor;
 	onClick		= _onClick;
+	width		= 0;
+	height		= 0;
 	buttonSprites  = _buttonSprites;
 	
     /// @function   click()
@@ -36,8 +38,8 @@ function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = func
 		    var tw = string_width(text);
 		    var th = string_height(text);
 		
-			var btn_w = tw + padding * 2;
-			var btn_h = th + padding * 2;
+			var btn_w = tw + padding.x * 2;
+			var btn_h = th + padding.y * 2;
 		
 			width = max(btn_w, width);
 			height = max(btn_h, height)

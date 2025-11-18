@@ -11,6 +11,7 @@ resume_button = new Button(
 		global.inputState = INPUT_STATE.playing
 	},
 ); 
+resume_button.padding = {x: 16, y:8}
 
 exit_button = new Button(
 	"exit_game_button",
@@ -19,6 +20,7 @@ exit_button = new Button(
 	"Exit Game", 
 	game_end,
 ); 
+exit_button.padding = {x: 16, y:8}
 
 my_canvas = new Canvas(
 	"pause_canvas",
@@ -34,12 +36,12 @@ dynamic_column = new DynamicColumn(
 	UIGroups.PAUSE,
 	screen.middle.x,
 	screen.middle.y,
-	30,
+	0,
 	[resume_button, exit_button],
 	Anchor.Center,
 	Anchor.Top,
 	function(width, height) {
-		var padding = 30 * 2
+		var padding = 8 * 2
 		my_canvas.height = height + padding
 		my_canvas.width = width + padding
 	}
