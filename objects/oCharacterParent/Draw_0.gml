@@ -12,3 +12,9 @@ draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), 
 		
 // DRAW EVENT OF THE SPECIFIC CHARACTER --------------------
 drawEvent()
+
+
+if (SHOW_HITBOXES)
+{
+	drawHitbox(x, y, sprite_index, image_xscale, image_yscale)
+}
