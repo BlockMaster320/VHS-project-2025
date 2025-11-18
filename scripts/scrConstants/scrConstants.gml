@@ -37,15 +37,20 @@ function Constants()
 	#macro windowToGui guiW / cameraW
 	#macro guiToCamera cameraW / guiW
 	
+	// Pathfinding
+	global.enemyMaxIndex = 0
+	#macro ENEMY_COLLISION_MARGIN 12
+	
 	// Debug levels
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
+	// Hitboxes
+	#macro SHOW_HITBOXES true
 	// Debug pathfinding
-	#macro PATH_DEBUG false
 	#macro SHOW_PATH_GRID false
-	#macro ENEMY_COLLISION_MARGIN 12
+	#macro PATH_DEBUG true
 	// AI
-	#macro AI_DEBUG false
+	#macro AI_DEBUG true
 	
 	global.Ease = {
 

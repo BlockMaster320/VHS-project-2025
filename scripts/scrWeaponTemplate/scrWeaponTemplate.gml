@@ -1,19 +1,3 @@
-function Projectile() constructor
-{	
-	// Modifiable attributes
-	damage = 10
-	damageMultiplier = 1
-	projectileSpeed = 4
-	targetKnockback = 5
-	effects = []
-	
-	// Generic attributes
-	type = PROJECTILE_TYPE.ranged
-	sprite = sPlaceholderProjectile
-	projectileAuthority = PROJECTILE_AUTHORITY.self
-	ownerID = -1
-}
-
 function Weapon() constructor
 {
 	// Modifiable attributes
@@ -23,14 +7,14 @@ function Weapon() constructor
 	projectileAmount = 1
 	reloadTime = .5		// in seconds
 	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
-	durability = 100	// usually the number of primary action calls before breaking
+	durability = infinity	// usually the number of primary action calls before breaking
 	
 	// Generic attributes
 	sprite = sPlaceholderGun
 	name = "Generic weapon"
 	description = "This weapon is a weapon"
-	drawOffsetX = 4
-	drawOffsetY = 0
+	drawOffsetX = 6
+	drawOffsetY = 3
 	
 	// Scene attributes
 	index = 0	// Index in the global weapon database
@@ -49,9 +33,6 @@ function Weapon() constructor
 	primaryActionCooldown = 0
 	secondaryActionCooldown = 0
 	
-	// Initiate parameters of a specific weapon
-	//weaponInit = function(){ show_debug_message("Weapon init undefined!") }
-	
 	// Weapon actions
 	primaryAction = rangedWeaponShoot
 	secondaryAction = nothingFunction
@@ -61,36 +42,36 @@ function Weapon() constructor
 	draw = genericWeaponDraw		// Runs when weapon is held
 }
 
-// Scene projectiles
+// Projectiles -------------------------------------------
 
-function ShotProjectile(srcProjectile) constructor
+// Projectile type reference
+function Projectile() constructor
 {	
-	projectile = srcProjectile // This copies by reference! Do not change this struct's values
+	// Modifiable attributes
+	damage = 10
+	damageMultiplier = 1
+	projectileSpeed = 4
+	targetKnockback = 5
+	effects = []
+	scale = 1
 	
-	// Scene attributes (set by the object spawning this projectile)
-	lifetime = (2 * 60) / global.gameSpeed
+	// Generic attributes
+	sprite = sPlaceholderProjectile
+	projectileAuthority = PROJECTILE_AUTHORITY.self
+	ownerID = -1
+	
+	// Scene attributes
+	lifetime = (5 * 60) / global.gameSpeed
 	xPos = 0
 	yPos = 0
 	dir = 0
+	drawRot = 0
 	color = c_white
+	hitboxActive = true
 	
-	// Decide scene behaviour
-	switch (projectile.type)
-	{
-		case PROJECTILE_TYPE.melee:
-			update = genericMeleeHitUpdate
-			break
-		
-		case PROJECTILE_TYPE.ranged:
-			update = genericBulletUpdate
-			break
-			
-		default:
-			update = noone
-			show_message("Projectile update is not defined!")
-			break
-	}
-	draw = genericProjectileDraw
+	// Behaviour
+	update = function(){show_debug_message("Unset projectile update!")}
+	draw = function(){show_debug_message("Unset projectile draw!")}
 }
 
 

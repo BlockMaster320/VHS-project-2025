@@ -1,3 +1,16 @@
+// Scan rooms a generate the first floor
+if (!areRoomsScanned) {
+	ScanRooms();
+	areRoomsScanned = true;
+	
+	// Generate the floor
+	var _room = new Room(0, 0, 1, RoomCategory.ENTRANCE);
+	_room.discovered = true;
+	_room.cleared = true;
+	currentRoom = _room;
+	_room.Generate();	// generate the entire floor
+}
+
 // Update player position
 playerTileX = (oPlayer.x - FLOOR_CENTER_X) div TILE_SIZE + ROOM_SIZE * 0.5;
 playerTileY = (oPlayer.y - FLOOR_CENTER_Y) div TILE_SIZE + ROOM_SIZE * 0.5;
@@ -29,11 +42,6 @@ if (!currentRoom.discovered) {    // make the room close after the player steps 
         currentRoom.discovered = true;
     }
 }
-
-
-// Check whether player has cleared the room
-if (currentRoom.discovered)
-	currentRoom.CheckCleared();
 
 if (keyboard_check_pressed(ord("C")))    // clear all enemies
     with (oEnemy) oRoomManager.currentRoom.KillEnemy(id);

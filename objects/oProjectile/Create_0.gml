@@ -1,4 +1,1 @@
-x = xPos
-y = yPos
-
-sprite_index = projectile.sprite
+// Projectile specific attributes get assigned by the object spawning this projectile

@@ -40,6 +40,10 @@ function DialogueSystem() constructor
 										new DialogueLine("The metro is stuck or something, idk.", [], [5]),
 										new DialogueLine("Ask the guy in yellow, I'm going home.", [], [6]),
 										new DialogueLine("Silver league's calling, I can feel it!", [], [])
+									
+	ds_map_add(dlgs, CHARACTER_TYPE.passenger1, [new Dialogue(
+									[
+										new DialogueLine("Nečum.", [], [])
 									])])
 								
 									

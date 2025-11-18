@@ -1,9 +1,17 @@
 if (!talking) {
 	if (!oController.interact) exit
 
+	/*
 	with (oPlayer){
 		other.closest_NPC = instance_place(x, y, oNPC)
 		if (other.closest_NPC == noone) exit
+	}*/
+	
+	closest_NPC = instance_nearest(oPlayer.x, oPlayer.y, oNPC);
+	if (closest_NPC == noone) exit;
+	var _distToClosestNPC = point_distance(oPlayer.x, oPlayer.y, closest_NPC.x, closest_NPC.y);
+	if (_distToClosestNPC > INTERACTION_DISTANCE) {
+		exit;
 	}
 
 	talking = true

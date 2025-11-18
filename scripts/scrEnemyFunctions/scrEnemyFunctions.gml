@@ -9,7 +9,7 @@ function FindValidPathTarget(distRange, dirRange = new Range(0, 360), maxAttempt
 		pathTargetX = clamp(pathTargetX, oRoomManager.playerRoomXpx, oRoomManager.playerRoomXpx + oRoomManager.roomSizePx)
 		pathTargetY = clamp(pathTargetY, oRoomManager.playerRoomYpx, oRoomManager.playerRoomYpx + oRoomManager.roomSizePx)
 								
-		if (!collisionMargin(pathTargetX, pathTargetY, collMargin) and FindNewPath())
+		if (!collisionMargin(pathTargetX, pathTargetY, collMargin) and findNewPath())
 			return true
 	}
 	
@@ -37,7 +37,7 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 
 		if (!collisionMargin(pathTargetX, pathTargetY, collMargin) and
 			((willSeePlayer and shouldSeePlayer) or (!willSeePlayer and !shouldSeePlayer)) and
-			FindNewPath())
+			findNewPath())
 		{
 			var pathLen = path_get_length(myPath)
 			if (pathLen < shortestPathDist)
@@ -48,6 +48,7 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 			}
 			
 			foundPath = true
+			break
 		}
 	}
 	
@@ -55,7 +56,7 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 	{
 		pathTargetX = nearestTargetX
 		pathTargetY = nearestTargetY
-		FindNewPath()
+		findNewPath()
 		return true
 	}
 	

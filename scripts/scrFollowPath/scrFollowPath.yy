@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrFollowPath",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrFollowPath",
+  "parent":{
+    "name":"Characters",
+    "path":"folders/Objects/Characters.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,23 +1,43 @@
+enum RoomCategory {
+	ENTRANCE,
+	EXIT,
+	SHOP,
+	ENEMIES
+}
+
 // Contains IDs of tiles in the position of the tile in all the tileset layers
-function tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
+function Tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
 	tileWall = _tileWall;
 	tileDec1 = _tileDec1;
 	tileDec2 = _tileDec2;
 	tileDec3 = _tileDec3;
 }
 
+function Interactable(_objectID, _x, _y) constructor {
+	objectID = _objectID;
+	roomX = _x;
+	roomY = _y;
+}
+
+function RoomType(_tiles, _interactables, _category = noone) constructor {
+	tiles = _tiles;
+	interactables = _interactables;
+	category = _category;
+}
+
 // Represents a specific room in the floor
-function Room(_x, _y, _depth, _type = noone) constructor {
+function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	// Set room attributes
 	roomX = _x; roomY = _y;
-	roomType = _type;
-	if (roomType = noone) roomType = floor(random(ROOM_COUNT));
+	roomTypeIndex = _typeIndex;
+	if (roomTypeIndex = noone) roomTypeIndex = floor(random(ROOM_COUNT));
 	roomDepth = _depth;
 	nextRooms = ds_list_create();
 	
 	discovered = false;
 	cleared = false;
 	enemies = ds_list_create();
+	doors = ds_list_create();
 	entrySides = [false, false, false, false];	// right, left, bottom, top
 	
 	ds_map_add(oRoomManager.rooms, string([roomX, roomY]), self);
@@ -26,17 +46,27 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	Generate = function() {
 		var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 		var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
+		var _roomType = oRoomManager.roomTypes[roomTypeIndex];
 		
 		// Set the room's tiles
 		for (var _y = 0; _y < ROOM_SIZE; _y++) {
 			for (var _x = 0; _x < ROOM_SIZE; _x++) {
-				var _tile = oRoomManager.roomTypes[roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
+				var _tile = _roomType.tiles[_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
 				
 				tilemap_set(oRoomManager.tileMapWall, _tile.tileWall, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec1, _tile.tileDec1, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec2, _tile.tileDec2, _roomX + _x, _roomY + _y);
 				tilemap_set(oRoomManager.tileMapDec3, _tile.tileDec3, _roomX + _x, _roomY + _y);
 			}
+		}
+		
+	    // Spawn the room's interactables
+		for (var _i = 0; _i < ds_list_size(_roomType.interactables); _i++) {
+			var _interactable = _roomType.interactables[| _i];
+			var _x = _roomX * TILE_SIZE + _interactable.roomX - TILE_SIZE;	// that "- TILE_SIZE" is a magic offset which corrects the position
+			var _y = _roomY * TILE_SIZE + _interactable.roomY - TILE_SIZE;
+			instance_create_layer(_x, _y, "Instances", _interactable.objectID);
+			
 		}
 		
 		// Generate adjacent rooms
@@ -61,10 +91,18 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + ROOM_SIZE,     _roomY + (ROOM_SIZE div 2) - 1);
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + ROOM_SIZE,     _roomY + (ROOM_SIZE div 2));
 			
-			tilemap_set(oRoomManager.tileMapWall, 40, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) - 2);	// set wall tiles around the doors
+			tilemap_set(oRoomManager.tileMapWall, 40, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) - 3);	// set wall tiles around the doors
+			tilemap_set(oRoomManager.tileMapWall, 65, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) - 2);
 			tilemap_set(oRoomManager.tileMapWall, 34, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) + 1);
-			tilemap_set(oRoomManager.tileMapWall, 38, _roomX + ROOM_SIZE,     _roomY + (ROOM_SIZE div 2) - 2);
+			tilemap_set(oRoomManager.tileMapWall, 38, _roomX + ROOM_SIZE,     _roomY + (ROOM_SIZE div 2) - 3);
+			tilemap_set(oRoomManager.tileMapWall, 57, _roomX + ROOM_SIZE,     _roomY + (ROOM_SIZE div 2) - 2);
 			tilemap_set(oRoomManager.tileMapWall, 36, _roomX + ROOM_SIZE,     _roomY + (ROOM_SIZE div 2) + 1);
+			
+			var _doorX = (_roomX + ROOM_SIZE) * TILE_SIZE - sprite_get_width(sDoorSide) * 0.5;
+			var _doorY = (_roomY + (ROOM_SIZE div 2)) * TILE_SIZE - sprite_get_height(sDoorSide) * 0.6;
+			var _door = instance_create_layer(_doorX, _doorY, "Instances", oDoor);
+			ds_list_add(doors, _door);
+			ds_list_add(_room.doors, _door);
 		}
 		
 		var _roomIsLeft = ds_map_exists(oRoomManager.rooms, string([roomX - 1, roomY]));
@@ -85,10 +123,18 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX - 1, _roomY + (ROOM_SIZE div 2) - 1);
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX - 1, _roomY + (ROOM_SIZE div 2));
 			
-			tilemap_set(oRoomManager.tileMapWall, 38, _roomX,	  _roomY + (ROOM_SIZE div 2) - 2);	// set wall tiles around the doors
+			tilemap_set(oRoomManager.tileMapWall, 40, _roomX - 1, _roomY + (ROOM_SIZE div 2) - 3);	// set wall tiles around the doors
+			tilemap_set(oRoomManager.tileMapWall, 57, _roomX,	  _roomY + (ROOM_SIZE div 2) - 2);
 			tilemap_set(oRoomManager.tileMapWall, 36, _roomX,	  _roomY + (ROOM_SIZE div 2) + 1);
-			tilemap_set(oRoomManager.tileMapWall, 40, _roomX - 1, _roomY + (ROOM_SIZE div 2) - 2);
+			tilemap_set(oRoomManager.tileMapWall, 38, _roomX,     _roomY + (ROOM_SIZE div 2) - 3);
+			tilemap_set(oRoomManager.tileMapWall, 65, _roomX - 1, _roomY + (ROOM_SIZE div 2) - 2);
 			tilemap_set(oRoomManager.tileMapWall, 34, _roomX - 1, _roomY + (ROOM_SIZE div 2) + 1);
+			
+			var _doorX = _roomX * TILE_SIZE - sprite_get_width(sDoorSide) * 0.5;
+			var _doorY = (_roomY + (ROOM_SIZE div 2)) * TILE_SIZE - sprite_get_height(sDoorSide) * 0.6;
+			var _door = instance_create_layer(_doorX, _doorY, "Instances", oDoor);
+			ds_list_add(doors, _door);
+			ds_list_add(_room.doors, _door);
 		}
 		
 		var _roomIsDown = ds_map_exists(oRoomManager.rooms, string([roomX, roomY + 1]));
@@ -99,15 +145,31 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			_room.entrySides[3] = true;
 			_room.Generate();
 			
-			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY + ROOM_SIZE - 1);	// unset wall tiles
-			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY + ROOM_SIZE);
-			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE - 1);	// unset wall tiles
 			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE + 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),	 _roomY + ROOM_SIZE - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY + ROOM_SIZE);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY + ROOM_SIZE + 1);
 			
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2),     _roomY + ROOM_SIZE - 1);	// set floor tiles
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2),     _roomY + ROOM_SIZE);
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE - 1);
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE);
+			
+			tilemap_set(oRoomManager.tileMapWall, 36, _roomX + (ROOM_SIZE div 2) - 2, _roomY + ROOM_SIZE - 1);	// set wall tiles around the doors
+			tilemap_set(oRoomManager.tileMapWall, 38, _roomX + (ROOM_SIZE div 2) - 2, _roomY + ROOM_SIZE);
+			tilemap_set(oRoomManager.tileMapWall, 57, _roomX + (ROOM_SIZE div 2) - 2, _roomY + ROOM_SIZE + 1);
+			tilemap_set(oRoomManager.tileMapWall, 34, _roomX + (ROOM_SIZE div 2) + 1, _roomY + ROOM_SIZE - 1);
+			tilemap_set(oRoomManager.tileMapWall, 40, _roomX + (ROOM_SIZE div 2) + 1, _roomY + ROOM_SIZE);
+			tilemap_set(oRoomManager.tileMapWall, 65, _roomX + (ROOM_SIZE div 2) + 1, _roomY + ROOM_SIZE + 1);
+			
+			var _doorX = (_roomX + (ROOM_SIZE div 2)) * TILE_SIZE - sprite_get_width(sDoorFront) * 0.5;
+			var _doorY = (_roomY + ROOM_SIZE + 1) * TILE_SIZE - sprite_get_height(sDoorFront) * 0.4;
+			var _door = instance_create_layer(_doorX, _doorY, "Instances", oDoor);
+			_door.sprite_index = sDoorFront;
+			ds_list_add(doors, _door);
+			ds_list_add(_room.doors, _door);
 		}
 		
 		var _roomIsUp = ds_map_exists(oRoomManager.rooms, string([roomX, roomY - 1]));
@@ -118,15 +180,31 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			_room.entrySides[2] = true;
 			_room.Generate();
 			
-			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY - 1);	// unset wall tiles
-			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY);
-			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY - 1);	// unset wall tiles
 			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),	 _roomY - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),     _roomY + 1);
 			
-			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2) - 1, _roomY - 1);	// set floor tiles
-			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
-			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2),     _roomY - 1);
+			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2),     _roomY - 1);	// set floor tiles
 			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2),     _roomY);
+			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2) - 1, _roomY - 1);
+			tilemap_set(oRoomManager.tileMapDec1, 1, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
+			
+			tilemap_set(oRoomManager.tileMapWall, 36, _roomX + (ROOM_SIZE div 2) - 2, _roomY - 1);	// set wall tiles around the doors
+			tilemap_set(oRoomManager.tileMapWall, 38, _roomX + (ROOM_SIZE div 2) - 2, _roomY);
+			tilemap_set(oRoomManager.tileMapWall, 57, _roomX + (ROOM_SIZE div 2) - 2, _roomY + 1);
+			tilemap_set(oRoomManager.tileMapWall, 34, _roomX + (ROOM_SIZE div 2) + 1, _roomY - 1);
+			tilemap_set(oRoomManager.tileMapWall, 40, _roomX + (ROOM_SIZE div 2) + 1, _roomY);
+			tilemap_set(oRoomManager.tileMapWall, 65, _roomX + (ROOM_SIZE div 2) + 1, _roomY + 1);
+			
+			var _doorX = (_roomX + (ROOM_SIZE div 2)) * TILE_SIZE - sprite_get_width(sDoorFront) * 0.5;
+			var _doorY = (_roomY + 1) * TILE_SIZE - sprite_get_height(sDoorFront) * 0.4;
+			var _door = instance_create_layer(_doorX, _doorY, "Instances", oDoor);
+			_door.sprite_index = sDoorFront;
+			ds_list_add(doors, _door);
+			ds_list_add(_room.doors, _door);
 		}
 	}
 	
@@ -180,6 +258,11 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	
 	// Locks the room and spawns enemies
 	LockRoom = function() {
+		// Start door closing animation
+		for (var _i = 0; _i < ds_list_size(doors); _i++) {
+			doors[| _i].isOpen = false;
+		}
+		
 		// Lock all entries to the room
 		var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 		var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
@@ -202,15 +285,14 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 		}
 		
 		// Spawn enemies
-		
-		var spawnEnemies = 100
+		var mapWidth  = tilemap_get_width(global.tilemapCollision);
+		var mapHeight = tilemap_get_height(global.tilemapCollision);
+		var spawnEnemies = 10
 		
 		while (spawnEnemies > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			
-			var mapWidth  = tilemap_get_width(global.tilemapCollision);
-			var mapHeight = tilemap_get_height(global.tilemapCollision);
 			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
 			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
 			//var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
@@ -226,15 +308,45 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 			}
 		}
 		
+		// Spawn weapons
+		var spawnGuns = 5
+		
+		while (spawnGuns > 0) {
+			var _gunX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
+			var _gunY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
+			
+			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
+			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
+			//var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
+			var colliding = collision_rectangle(_gunX - TILE_SIZE/2, _gunY - TILE_SIZE/2, _gunX + TILE_SIZE/2, _gunY + TILE_SIZE/2, global.tilemapCollision, false, true)
+			
+			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
+			{
+				var _gun = instance_create_layer(_gunX, _gunY, "Instances", oWeaponPickup);
+				var weaponType = choose(WEAPON.garbage, WEAPON.sword)
+				_gun.setupWeaponPickup(weaponType);
+				
+				spawnGuns--;
+			}
+		}
+		
 		// Generate pathfinding grid for enemy AI
 		with (oRoomManager)
 		{
 			for (var _y = 0; _y < ROOM_SIZE; _y++) {
 				for (var _x = 0; _x < ROOM_SIZE; _x++) {
-					var _tile = roomTypes[other.roomType][_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
+					var _tile = roomTypes[other.roomTypeIndex].tiles[_y * ROOM_SIZE + _x];	// retreive the tile struct at the position
 					wallGrid[# _x, _y] = (_tile.tileWall == 0) ? 0 : 1;
 				}
 			}
+			
+			var _interactables = roomTypes[other.roomTypeIndex].interactables
+			for (var _i = 0; _i < ds_list_size(_interactables); _i++) {
+				var _x = _interactables[| _i].roomX div TILE_SIZE - 1;
+				var _y = _interactables[| _i].roomY div TILE_SIZE - 1;
+				wallGrid[# _x, _y] = 1;
+			}
+			
 			pathfindingGrid = mp_grid_create(_roomX * TILE_SIZE, _roomY * TILE_SIZE, ROOM_SIZE, ROOM_SIZE, TILE_SIZE, TILE_SIZE)
 			ds_grid_to_mp_grid(wallGrid, pathfindingGrid)
 		}
@@ -242,43 +354,80 @@ function Room(_x, _y, _depth, _type = noone) constructor {
 	
 	// Kills and removes specified enemy object from the room
 	KillEnemy = function(_enemyID) {
-		for (var _i = 0; _i < ds_list_size(enemies); _i++) {
-			if (enemies[| _i] == _enemyID) {
-				instance_destroy(_enemyID);
-				ds_list_delete(enemies, _i);
-				return;
-			}
+		var _index = ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID);
+		if (_index != -1) {
+			ds_list_delete(oRoomManager.currentRoom.enemies, _index);
+			instance_destroy(_enemyID);
+			CheckCleared();
 		}
 	}
 	
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
-		if (cleared) return;
+		if (cleared || !ds_list_empty(enemies)) return;
 		
-		if (ds_list_empty(enemies)) {
-			//show_debug_message("clear");
-			// Open all entries to the room
-			var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
-			var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
-		
-			if (entrySides[0]) {
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) - 1);
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2));
-			}
-			if (entrySides[1]) {
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX, _roomY + (ROOM_SIZE div 2) - 1);
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX, _roomY + (ROOM_SIZE div 2));
-			}
-			if (entrySides[2]) {
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),	   _roomY + ROOM_SIZE - 1);
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE - 1);
-			}
-			if (entrySides[3]) {
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),	   _roomY);
-				tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
-			}
-			
-			cleared = true;
+		// Start door opening animation
+		for (var _i = 0; _i < ds_list_size(doors); _i++) {
+			doors[| _i].isOpen = true;
 		}
+			
+		//show_debug_message("clear");
+		// Open all entries to the room
+		var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
+		var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
+		
+		if (entrySides[0]) {
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2));
+		}
+		if (entrySides[1]) {
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX, _roomY + (ROOM_SIZE div 2) - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX, _roomY + (ROOM_SIZE div 2));
+		}
+		if (entrySides[2]) {
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),	   _roomY + ROOM_SIZE - 1);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE - 1);
+		}
+		if (entrySides[3]) {
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2),	   _roomY);
+			tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
+		}
+			
+		cleared = true;
+	}
+}
+
+
+// Scans and saves all room types (their tiles and interactables)
+function ScanRooms() {
+	// Scan room tiles
+	var _roomX = ROOM_SCAN_X;
+	var _roomY = ROOM_SCAN_Y;
+	for (var _room = 0; _room < ROOM_COUNT; _room++) {
+	
+	    var _tiles = array_create(ROOM_SIZE * ROOM_SIZE);
+	    for (var _y = 0; _y < ROOM_SIZE; _y++) {
+	        for (var _x = 0; _x < ROOM_SIZE; _x++) {
+
+	            var _dataWall = tilemap_get(tileMapWall, _roomX + _x, _roomY + _y);
+	            var _dataDec1 = tilemap_get(tileMapDec1, _roomX + _x, _roomY + _y);
+	            var _dataDec2 = tilemap_get(tileMapDec2, _roomX + _x, _roomY + _y);
+	            var _dataDec3 = tilemap_get(tileMapDec3, _roomX + _x, _roomY + _y);
+	            _tiles[_y * ROOM_SIZE + _x] = new Tile(_dataWall, _dataDec1, _dataDec2, _dataDec3);
+	        }
+	    }
+	
+		var _interactables = ds_list_create();
+	    roomTypes[_room] = new RoomType(_tiles, _interactables, noone);
+	    _roomY += ROOM_SIZE + ROOM_OFFSET;
+	}
+
+	// Scan room interactables
+	with (oInteractable) {
+		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		var _interactable = new Interactable(object_index, _roomX, _roomY);
+		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].interactables, _interactable);
 	}
 }

@@ -1,38 +1,62 @@
 // Projectile update ------------------------------------
 
-function bulletHitDetection()
-{
-	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0) instance_destroy()
-	
-	var character = instance_place(x, y, oCharacterParent)
-	if (character != noone)
+///@return true/false wether the bullet hit something
+function projectileHitDetection()
+{	
+	var hit = false
+	var collidingList = ds_list_create()
+	instance_place_list(x, y, oCharacterParent, collidingList, false)
+	for (var i = 0; i < ds_list_size(collidingList); i++)
 	{
-		if (projectile.projectileAuthority == PROJECTILE_AUTHORITY.self and
-			character != projectile.ownerID and
-			character.characterClass != CHARACTER_CLASS.NPC)
+		var colliding = collidingList[| i]
+		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+			colliding != ownerID and
+			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
-			GetHit(character, id)
-			instance_destroy()
+			GetHit(colliding, id)
+			hit = true
 		}
 	}
+	
+	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
+		hit = true
+	
+	return hit
 }
 
 function genericBulletUpdate()
 {
-	bulletHitDetection()
+	if (projectileHitDetection()) instance_destroy()
 	lifetime--
-	x += lengthdir_x(projectile.projectileSpeed, dir)
-	y += lengthdir_y(projectile.projectileSpeed, dir)
+	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir)
+	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir)
 }
 
 function genericMeleeHitUpdate()
 {
+	if (hitboxActive)
+	{
+		var hit = projectileHitDetection()
+		if (hit) hitboxActive = false
+	}
+	if (lifetime <= 0) instance_destroy()
+	lifetime--
+	x = oPlayer.x
+	y = oPlayer.y
+	
+}
+
+function rotatingProjectileUpdate()
+{
+	genericBulletUpdate()
+	drawRot += 5
 }
 
 
 // Projectile draw ----------------------------------------
 
 function genericProjectileDraw()
-{
-	draw_sprite(projectile.sprite, 0, xPos, yPos)
+{	
+	draw_sprite_ext(sprite, 0, x, y, scale, scale, drawRot, c_white, 1)
+	//draw_self()
 }
