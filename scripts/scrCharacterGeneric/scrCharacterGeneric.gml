@@ -8,9 +8,8 @@ enum CHARACTER_CLASS
 enum CHARACTER_TYPE
 {
 	player,
-	
+	student,
 	mechanic, shopkeeper, passenger1,
-	
 	targetDummy, ghoster,
 }
 
