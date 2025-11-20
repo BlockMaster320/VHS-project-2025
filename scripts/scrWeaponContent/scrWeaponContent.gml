@@ -123,7 +123,7 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 	
-	with (weaponDatabase[WEAPON.sword]) // Empty weapon slot
+	with (weaponDatabase[WEAPON.sword])
 	{
 		// Generic attributes
 		sprite = sSword
@@ -148,7 +148,7 @@ function WeaponsInit()
 			scale = 4
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
+			sprite = sMeleeHitbox
 			lifetime = 5
 			
 			// Behaviour
@@ -164,7 +164,6 @@ function WeaponsInit()
 		update = genericWeaponUpdate
 		draw = genericWeaponDraw
 	}
-	
 		
 	// -----------------------------------------------------------------------------
 

@@ -93,6 +93,7 @@
     {"id":{"name":"rmLobbyTesting","path":"rooms/rmLobbyTesting/rmLobbyTesting.yy",},},
     {"id":{"name":"rmMenu","path":"rooms/rmMenu/rmMenu.yy",},},
     {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
+    {"id":{"name":"scrAiGeneric","path":"scripts/scrAiGeneric/scrAiGeneric.yy",},},
     {"id":{"name":"scrAnchor","path":"scripts/scrAnchor/scrAnchor.yy",},},
     {"id":{"name":"scrBaseTween","path":"scripts/scrBaseTween/scrBaseTween.yy",},},
     {"id":{"name":"scrBuffContent","path":"scripts/scrBuffContent/scrBuffContent.yy",},},

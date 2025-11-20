@@ -13,3 +13,6 @@ if (SHOW_PATH_GRID)
 
 // Draw current weapon
 weaponInventory[activeInventorySlot].draw()
+
+
+draw_text(x, y - 20, $"Health: {hp}")

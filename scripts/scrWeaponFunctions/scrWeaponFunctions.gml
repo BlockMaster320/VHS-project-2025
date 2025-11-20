@@ -42,6 +42,7 @@ function meleeWeaponShoot()
 		bullet.x = oPlayer.x
 		bullet.y = oPlayer.y
 		bullet.image_angle = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
+		bullet.drawRot = bullet.image_angle
 		bullet.sprite_index = sMeleeHitbox
 		bullet.image_xscale = projectile.scale
 		bullet.image_yscale = projectile.scale

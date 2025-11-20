@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrAiGeneric",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrAiGeneric",
+  "parent":{
+    "name":"Enemies",
+    "path":"folders/Objects/Content/Enemies.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
