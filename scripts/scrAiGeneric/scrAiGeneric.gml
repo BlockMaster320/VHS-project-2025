@@ -16,30 +16,32 @@ function genericAiInit()
 	seesPlayerWell = LineOfSightObject(oPlayer)
 	playerDir = point_direction(x, y, oPlayer.x, oPlayer.y)
 	playerDist = point_distance(x, y, oPlayer.x, oPlayer.y)
+	walkDir = point_direction(x, y, x + whsp, y + wvsp)
 }
 
 ///@desc calculate look direction and positional relationship to player
 function genericAiUpdate()
 {
-	// Look direction
-	if (LineOfSightPoint(oPlayer.x, oPlayer.y))
-	{
-		lookDirTarget = point_direction(x, y, oPlayer.x, oPlayer.y)
-		lookAtPlayerTimer.rndmize()
-	}
-	else if (lookAtPlayerTimer.value <= 0 and (whsp != 0 or wvsp != 0))
-		lookDirTarget = point_direction(x, y, x + whsp, y + wvsp)
-					
-	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value--
-	lookDir = lerpDirection(lookDir, lookDirTarget, .2)
-	if (is_struct(myWeapon))
-		myWeapon.aimDirection = lookDir
-	
 	// Relation to player
 	seesPlayer = LineOfSightPoint(oPlayer.x, oPlayer.y)
 	seesPlayerWell = LineOfSightObject(oPlayer)
 	playerDir = point_direction(x, y, oPlayer.x, oPlayer.y)
 	playerDist = point_distance(x, y, oPlayer.x, oPlayer.y)
+	walkDir = point_direction(x, y, x + whsp, y + wvsp)
+
+	// Look direction
+	if (seesPlayer)
+	{
+		lookDirTarget = playerDir
+		lookAtPlayerTimer.rndmize()
+	}
+	else if (lookAtPlayerTimer.value <= 0 and (whsp != 0 or wvsp != 0))
+		lookDirTarget = walkDir
+					
+	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value--
+	lookDir = lerpDirection(lookDir, lookDirTarget, .2)
+	if (is_struct(myWeapon))
+		myWeapon.aimDirection = lookDir
 }
 
 #endregion
