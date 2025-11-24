@@ -154,6 +154,7 @@
     {"id":{"name":"sHands","path":"sprites/sHands/sHands.yy",},},
     {"id":{"name":"sInfoTable","path":"sprites/sInfoTable/sInfoTable.yy",},},
     {"id":{"name":"sMechanic","path":"sprites/sMechanic/sMechanic.yy",},},
+    {"id":{"name":"sMechanicPortrait","path":"sprites/sMechanicPortrait/sMechanicPortrait.yy",},},
     {"id":{"name":"sMeleeHitbox","path":"sprites/sMeleeHitbox/sMeleeHitbox.yy",},},
     {"id":{"name":"sNPC","path":"sprites/sNPC/sNPC.yy",},},
     {"id":{"name":"sNPCPortrait","path":"sprites/sNPCPortrait/sNPCPortrait.yy",},},
