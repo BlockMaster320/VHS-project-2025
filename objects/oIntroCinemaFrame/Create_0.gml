@@ -1,4 +1,4 @@
-borders = new CinemaBorders(0, 80, 1000, 80)
+borders = new CinemaBorders(0, 40, 1000, 40)
 seq = new TweenSequence([])
 	.ContinueWith(
 		new TweenAction(function() { // disable player input

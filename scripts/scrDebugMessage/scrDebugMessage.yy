@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrListExtension",
+  "%Name":"scrDebugMessage",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrListExtension",
+  "name":"scrDebugMessage",
   "parent":{
     "name":"Extensions",
     "path":"folders/Objects/Extensions.yy",

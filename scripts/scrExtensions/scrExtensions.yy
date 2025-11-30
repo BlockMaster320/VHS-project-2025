@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrListExtension",
+  "%Name":"scrExtensions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrListExtension",
+  "name":"scrExtensions",
   "parent":{
-    "name":"Extensions",
-    "path":"folders/Objects/Extensions.yy",
+    "name":"PathFinding",
+    "path":"folders/Objects/Characters/PathFinding.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scrPathfinding",
   "parent":{
-    "name":"Characters",
-    "path":"folders/Objects/Characters.yy",
+    "name":"PathFinding",
+    "path":"folders/Objects/Characters/PathFinding.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
