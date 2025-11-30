@@ -30,7 +30,7 @@ if (oController.interact)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
 		weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
-		EvaluateBuffEffects(activeInventorySlot)
+		EvaluateBuffEffects()
 		instance_destroy(weaponPickup)
 	}
 	
@@ -38,8 +38,9 @@ if (oController.interact)
 	var buffPickup = instance_place(x, y, oBuffPickup)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
-		array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
-		EvaluateBuffEffects(activeInventorySlot)
+		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
+		array_push(activeBuffs, buffPickup.myBuff)
+		EvaluateBuffEffects()
 		instance_destroy(buffPickup)
 	}
 }

@@ -24,7 +24,7 @@ function Buff() constructor
 	rarity = RARITY.common
 	
 	buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
-	buffActivate = function(){ show_debug_message("Buff function is undefined!") }
+	buffApply = function(){ show_debug_message("Buff function is undefined!") }
 }
 
 function GetBuffIndex(rarity)
@@ -35,16 +35,29 @@ function GetBuffIndex(rarity)
 	return random_range(start_, end_)
 }
 
-function EvaluateBuffEffects(slotID)
+function EvaluateBuffEffects()
 {
 	with (oPlayer)
 	{
-		var myWeaponID = weaponInventory[slotID].index
-		weaponInventory[slotID] = acquireWeapon(myWeaponID, id)
-		
-		for (var i = 0; i < array_length(buffsInventory[slotID]); i++)
+		for (var slot = 0; slot < INVENTORY_SIZE; slot++)
 		{
-			buffsInventory[slotID][i].buffActivate(weaponInventory[slotID])
+			// Reset weapon stats to default
+			var myWeaponID = weaponInventory[slot].index
+			weaponInventory[slot] = acquireWeapon(myWeaponID, id, weaponInventory[slot].active)
+			
+			// Apply buffs
+			for (var j = 0; j < array_length(activeBuffs); j++)
+			{
+				activeBuffs[j].buffApply(weaponInventory[slot])
+			}
 		}
+		
+		// Multiple buff implementation
+		//var myWeaponID = weaponInventory[slotID].index
+		//weaponInventory[slotID] = acquireWeapon(myWeaponID, id)
+		//for (var i = 0; i < array_length(buffsInventory[slotID]); i++)
+		//{
+		//	buffsInventory[slotID][i].buffApply(weaponInventory[slotID])
+		//}
 	}
 }

@@ -25,7 +25,7 @@ function BuffsInit()
 			descriptionDebuff = $"Amogus"
 		}
 		
-		buffActivate = function(weapon)
+		buffApply = function(weapon)
 		{
 			weapon.projectile.damageMultiplier = dmgMultRange.value
 			weapon.projectile.sprite = sPlaceholderGun
@@ -44,7 +44,7 @@ function BuffsInit()
 			descriptionDebuff = $"Amogus"
 		}
 		
-		buffActivate = function(weapon)
+		buffApply = function(weapon)
 		{
 			weapon.projectile.damageMultiplier = dmgMultRange.value
 		}

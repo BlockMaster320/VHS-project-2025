@@ -20,9 +20,10 @@ weaponInventory[1] = acquireWeapon(WEAPON.fists, id, false) // Fists
 
 
 // Buffs
-buffsInventory = array_create(INVENTORY_SIZE)
-for (var i = 0; i < array_length(buffsInventory); i++)
-	buffsInventory[i] = array_create(0)
+activeBuffs = []
+//buffsInventory = array_create(INVENTORY_SIZE)
+//for (var i = 0; i < array_length(buffsInventory); i++)
+//	buffsInventory[i] = array_create(0)
 
 // Misc ---------------------------------
 

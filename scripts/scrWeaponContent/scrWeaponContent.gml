@@ -13,8 +13,11 @@ function WeaponsInit()
 {
 	enum WEAPON
 	{
-		// Player focused
-		defaultGun, fists, garbage, sword,
+		// Default
+		fists,
+		
+		// Player focused (droppable?)
+		defaultGun, garbage, sword,
 		
 		// Monsters focused
 		ghosterGun,
