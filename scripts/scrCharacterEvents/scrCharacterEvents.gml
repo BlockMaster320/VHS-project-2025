@@ -29,7 +29,12 @@ function getCharacterStepEvent(_characterType){
 				//show_debug_message("mechanic step");
 			};
 		}
-		
+
+		case CHARACTER_TYPE.passenger1: {
+			return function() {
+			};
+		}
+
 		default: { return function() {}; }
 	}
 }
@@ -64,6 +69,11 @@ function getCharacterDrawEvent(_characterType) {
 		case CHARACTER_TYPE.mechanic: {
 			return function() {
 				//show_debug_message("mechanic draw");
+			};
+		}
+		
+		case CHARACTER_TYPE.passenger1: {
+			return function() {
 			};
 		}
 		

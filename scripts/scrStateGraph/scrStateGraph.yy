@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrFollowPath",
+  "%Name":"scrStateGraph",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrFollowPath",
+  "name":"scrStateGraph",
   "parent":{
     "name":"PathFinding",
     "path":"folders/Objects/Characters/PathFinding.yy",
