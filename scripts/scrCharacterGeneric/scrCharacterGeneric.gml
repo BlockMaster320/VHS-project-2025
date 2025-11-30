@@ -10,7 +10,7 @@ enum CHARACTER_TYPE
 	player,
 	student,
 	mechanic, shopkeeper, passenger1,
-	targetDummy, ghoster,
+	targetDummy, ghoster, dropper
 }
 
 enum CharacterState {
@@ -34,6 +34,9 @@ function GetHit(character, proj)
 	{
 		character.wantsToHide += damageDealt * .02
 	}
+	
+	// Iterate through applied effects
+	// TODO..
 	
 	
 	// Kill

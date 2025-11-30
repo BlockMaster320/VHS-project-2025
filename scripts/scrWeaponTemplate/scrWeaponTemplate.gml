@@ -58,6 +58,7 @@ function Projectile() constructor
 	// Generic attributes
 	sprite = sPlaceholderProjectile
 	projectileAuthority = PROJECTILE_AUTHORITY.self
+	projectileType = PROJECTILE_TYPE.ranged
 	ownerID = -1
 	
 	// Scene attributes

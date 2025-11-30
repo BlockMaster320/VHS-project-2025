@@ -110,6 +110,7 @@
     {"id":{"name":"scrDialogueSystem","path":"scripts/scrDialogueSystem/scrDialogueSystem.yy",},},
     {"id":{"name":"scrDlgConstants","path":"scripts/scrDlgConstants/scrDlgConstants.yy",},},
     {"id":{"name":"scrDrawGuiController","path":"scripts/scrDrawGuiController/scrDrawGuiController.yy",},},
+    {"id":{"name":"scrDropper","path":"scripts/scrDropper/scrDropper.yy",},},
     {"id":{"name":"scrEnemyFunctions","path":"scripts/scrEnemyFunctions/scrEnemyFunctions.yy",},},
     {"id":{"name":"scrFollowPath","path":"scripts/scrFollowPath/scrFollowPath.yy",},},
     {"id":{"name":"scrGhoster","path":"scripts/scrGhoster/scrGhoster.yy",},},

@@ -39,10 +39,10 @@ function meleeWeaponShoot()
 	repeat (projectileAmount) // Just in case of a projectileAmount upgrade
 	{
 		var bullet = spawnBullet()
-		bullet.x = oPlayer.x
-		bullet.y = oPlayer.y
-		bullet.image_angle = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
-		bullet.drawRot = bullet.image_angle
+		bullet.x = bullet.ownerID.x
+		bullet.y = bullet.ownerID.y
+		bullet.image_angle = aimDirection
+		bullet.drawRot = aimDirection
 		bullet.sprite_index = sMeleeHitbox
 		bullet.image_xscale = projectile.scale
 		bullet.image_yscale = projectile.scale

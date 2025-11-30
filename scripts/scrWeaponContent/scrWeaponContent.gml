@@ -9,6 +9,11 @@ enum PROJECTILE_EFFECT
 	nothing
 }
 
+enum PROJECTILE_TYPE
+{
+	ranged, melee
+}
+
 function WeaponsInit()
 {
 	enum WEAPON
@@ -67,6 +72,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sPlaceholderProjectile
+			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -93,34 +99,36 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 0			// shots/damage amount per second
+		attackSpeed = 1			// shots/damage amount per second
 		spread = 0				// weapon accuracy in degrees
-		projectileAmount = 0	// number of projectile to be shot in the shoot frame
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 0
+			damage = 1
 			projectileSpeed = 3
 			targetKnockback = 5
 			effects = []
+			lifetime = 5
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
+			sprite = sMeleeHitbox
+			projectileType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
-			update = genericBulletUpdate
+			update = genericMeleeHitUpdate
 			draw = genericProjectileDraw
 		}
 	
 		// Weapon actions
-		primaryAction = nothingFunction
+		primaryAction = meleeWeaponShoot
 		secondaryAction = nothingFunction
 	
 		// Weapon functions
-		update = nothingFunction
+		update = genericWeaponUpdate
 		draw = nothingFunction
 	}
 		
@@ -153,6 +161,7 @@ function WeaponsInit()
 			// Generic attributes
 			sprite = sMeleeHitbox
 			lifetime = 5
+			projectileType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
 			update = genericMeleeHitUpdate
@@ -199,6 +208,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sPlaceholderProjectile
+			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -250,6 +260,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sTrashBag
+			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = rotatingProjectileUpdate

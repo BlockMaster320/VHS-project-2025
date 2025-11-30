@@ -125,15 +125,26 @@ function idleAiUpdate()
 
 function repositionAiInit()
 {
-	updateRate = new Range(50, 100)
-	updateRate.value = 0
-	optimalRange = new Range(80, 180)
-	wantsToHide = 0
-	patience = 1
 	repositionWalkSpd = 1
+	
+	optimalRange = new Range(80, 180)
+	
+	wantsToHide = 0
+	wantsToHideMult = 1
+	
+	// Become idle after not seeing the player for a while
+	patience = 1
+	patienceDec = 1/7
+	
 	inactiveTime = 0
 	inactiveThreshold = new Range(0, 30)
+	
+	// Accidentaly arrived at a good position, wait few frames
+	//	before swapping state to avoid getting stuck near wall edges
 	repositionSuddenStopDelay = new Range(10, 50)
+	
+	updateRate = new Range(50, 100)
+	updateRate.value = 0
 }
 
 function repositionAiTransition()
@@ -171,7 +182,7 @@ function repositionAiUpdate()
 {
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * (playerDist - optimalRange.min_)
+		wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_)
 	else wantsToHide -= .01
 						
 	wantsToHide = max(wantsToHide, 0)
@@ -206,7 +217,7 @@ function repositionAiUpdate()
 							
 		var foundPath = FindValidPathTargetReposition(optimalRange, true, new Range(dir1, dir2))
 		inactiveTime = 0
-		if (!foundPath) patience -= 1/7
+		if (!foundPath) patience -= patienceDec
 		else patience = 1
 		updateRate.rndmize()
 	}
@@ -233,7 +244,7 @@ function shootAiTransition()
 		reachedPathEnd = true
 		wantsToHide = 0
 	}
-	if (myWeapon.magazineAmmo <= 0)
+	if (myWeapon.magazineAmmo <= 0 and myWeapon.magazineSize != -1)
 	{
 		walkSpd = panickedWalkSpd
 		myWeapon.holdingTrigger = false
@@ -251,7 +262,7 @@ function shootAiUpdate()
 {
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * (playerDist - optimalRange.min_)
+		wantsToHide += -.0002 * wantsToHideMult * (playerDist - optimalRange.min_)
 	else wantsToHide -= .01
 						
 	wantsToHide = max(wantsToHide, 0)

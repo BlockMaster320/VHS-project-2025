@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrDropper",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrDropper",
+  "parent":{
+    "name":"Enemies",
+    "path":"folders/Objects/Content/Enemies.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

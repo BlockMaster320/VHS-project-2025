@@ -41,8 +41,8 @@ function genericMeleeHitUpdate()
 	}
 	if (lifetime <= 0) instance_destroy()
 	lifetime--
-	x = oPlayer.x
-	y = oPlayer.y
+	x = ownerID.x
+	y = ownerID.y
 	
 }
 
