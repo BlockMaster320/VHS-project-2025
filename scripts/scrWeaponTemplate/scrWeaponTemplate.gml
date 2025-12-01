@@ -27,6 +27,7 @@ function Weapon() constructor
 	reloading = false
 	holdingTrigger = false	// Wether the weapon owner is trying to shoot
 							// Resets at the end of every frame
+	shootOnHold = true	// Wether to keep shooting when the player holds down fire
 	remainingDurability = durability
 	magazineAmmo = magazineSize	// Remaining bullets before reloading
 	reloadProgress = 0

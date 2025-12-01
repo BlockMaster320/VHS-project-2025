@@ -49,7 +49,7 @@ function GetHit(character, proj)
 		else if (character.object_index == oPlayer) game_restart()	// TEMP
 		else
 		{
-			instance_destroy(character)
+			character.onDeathEvent()
 		}
 	}
 }

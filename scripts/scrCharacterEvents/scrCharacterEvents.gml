@@ -260,6 +260,8 @@ function characterCreate(_characterType) {
 				dropperAiDraw()	// AI visualization
 			}
 			
+			onDeathEvent = dropperOnDeath
+			
 		} break;
 		
 		case CHARACTER_TYPE.student: {

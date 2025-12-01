@@ -29,6 +29,12 @@ if (oController.interact)
 	var weaponPickup = instance_place(x, y, oWeaponPickup)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
+		// Drop current weapon
+		var myWeaponID = weaponInventory[activeInventorySlot].index
+		if (myWeaponID != WEAPON.fists)
+			dropWeapon(myWeaponID)
+		
+		// Get new weapon
 		weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
 		EvaluateBuffEffects()
 		instance_destroy(weaponPickup)

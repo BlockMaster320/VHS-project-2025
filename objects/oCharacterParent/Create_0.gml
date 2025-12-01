@@ -48,4 +48,5 @@ depth = -y;
 	
 // Event functions
 stepEvent = noone
-drawEvent = noone;
+drawEvent = noone
+onDeathEvent = function(){ instance_destroy() }

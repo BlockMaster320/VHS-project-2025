@@ -117,3 +117,12 @@ function dropperAiDraw()
 		draw_set_color(c_white)
 	}
 }
+
+// Drop weapon on death -------------------------------------
+
+function dropperOnDeath()
+{
+	dropWeapon(myWeapon.index)
+	
+	instance_destroy()
+}

@@ -358,7 +358,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		var _index = ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID);
 		if (_index != -1) {
 			ds_list_delete(oRoomManager.currentRoom.enemies, _index);
-			instance_destroy(_enemyID);
+			_enemyID.onDeathEvent()
 			CheckCleared();
 		}
 	}
