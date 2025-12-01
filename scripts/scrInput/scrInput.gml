@@ -33,6 +33,7 @@ function Input()
 			
 			// Weapon usage
 			primaryButton = mouse_check_button(mb_left)
+			primaryButtonPress = mouse_check_button_pressed(mb_left)
 			secondaryButton = mouse_check_button(mb_right)
 	
 			// Weapon slots

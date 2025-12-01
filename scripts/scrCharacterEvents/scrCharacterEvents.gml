@@ -218,6 +218,52 @@ function characterCreate(_characterType) {
 			
 		} break;
 		
+		// Dropper - can carry any gun and drops it on death
+		case CHARACTER_TYPE.dropper: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.dropper;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Dropper";
+			portrait = sNPCPortrait;
+			
+			// Animation
+			sprite_index = sMechanic;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			anim = characterAnimation.getAnimation;
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.sword, id)
+			
+			// AI
+			dropperAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				dropperAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				dropperAiDraw()	// AI visualization
+			}
+			
+			onDeathEvent = dropperOnDeath
+			
+		} break;
+		
 		case CHARACTER_TYPE.student: {
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.student;

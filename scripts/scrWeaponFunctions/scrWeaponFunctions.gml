@@ -11,6 +11,13 @@ function acquireWeapon(weapon, owner, active_ = true)
 	return newWeapon
 }
 
+// Spawns a weapon pickup at the position and depth of the calling instance
+function dropWeapon(weaponID)
+{
+	var weaponPickup = instance_create_depth(x, y, depth, oWeaponPickup)
+	with (weaponPickup) setupWeaponPickup(weaponID)
+}
+
 // Weapon actions ------------------------------------
 
 ///@return instance of spawned bullet
@@ -39,9 +46,10 @@ function meleeWeaponShoot()
 	repeat (projectileAmount) // Just in case of a projectileAmount upgrade
 	{
 		var bullet = spawnBullet()
-		bullet.x = oPlayer.x
-		bullet.y = oPlayer.y
-		bullet.image_angle = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y)
+		bullet.x = bullet.ownerID.x
+		bullet.y = bullet.ownerID.y
+		bullet.image_angle = aimDirection
+		bullet.drawRot = aimDirection
 		bullet.sprite_index = sMeleeHitbox
 		bullet.image_xscale = projectile.scale
 		bullet.image_yscale = projectile.scale
@@ -72,8 +80,11 @@ function genericWeaponUpdate()
 	
 	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
 	
-	if (projectile.ownerID.object_index == oPlayer and oController.primaryButton)
-		holdingTrigger = true
+	if (projectile.ownerID.object_index == oPlayer)
+	{
+		if (oController.primaryButtonPress or (shootOnHold and oController.primaryButton))
+			holdingTrigger = true
+	}
 	
 	if (projectile.ownerID.object_index == oPlayer) {	// player holds the gun
 		// Get rid of weapon after running out of durability

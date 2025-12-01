@@ -27,6 +27,7 @@ function Weapon() constructor
 	reloading = false
 	holdingTrigger = false	// Wether the weapon owner is trying to shoot
 							// Resets at the end of every frame
+	shootOnHold = true	// Wether to keep shooting when the player holds down fire
 	remainingDurability = durability
 	magazineAmmo = magazineSize	// Remaining bullets before reloading
 	reloadProgress = 0
@@ -58,6 +59,7 @@ function Projectile() constructor
 	// Generic attributes
 	sprite = sPlaceholderProjectile
 	projectileAuthority = PROJECTILE_AUTHORITY.self
+	projectileType = PROJECTILE_TYPE.ranged
 	ownerID = -1
 	
 	// Scene attributes

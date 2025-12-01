@@ -10,7 +10,7 @@ enum CHARACTER_TYPE
 	player,
 	student,
 	mechanic, shopkeeper, passenger1,
-	targetDummy, ghoster,
+	targetDummy, ghoster, dropper
 }
 
 enum CharacterState {
@@ -35,6 +35,9 @@ function GetHit(character, proj)
 		character.wantsToHide += damageDealt * .02
 	}
 	
+	// Iterate through applied effects
+	// TODO..
+	
 	
 	// Kill
 	if (character.hp <= 0)
@@ -43,9 +46,10 @@ function GetHit(character, proj)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}
+		else if (character.object_index == oPlayer) game_restart()	// TEMP
 		else
 		{
-			instance_destroy(character)
+			character.onDeathEvent()
 		}
 	}
 }

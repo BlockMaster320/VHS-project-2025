@@ -41,8 +41,12 @@ function genericMeleeHitUpdate()
 	}
 	if (lifetime <= 0) instance_destroy()
 	lifetime--
-	x = oPlayer.x
-	y = oPlayer.y
+	
+	if (instance_exists(ownerID))	// Actually important in the case
+	{								//  when owner dies in the same frame
+		x = ownerID.x
+		y = ownerID.y
+	}
 	
 }
 

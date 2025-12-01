@@ -1,6 +1,6 @@
 // AI --------------------------------------------------------
 
-function ghosterAiInit()
+function dropperAiInit()
 {
 	genericAiInit()
 	
@@ -12,6 +12,11 @@ function ghosterAiInit()
 			
 	// Reposition
 	repositionAiInit()
+	wantsToHideMult = 0
+	if (myWeapon.projectile.projectileType = PROJECTILE_TYPE.melee)
+		optimalRange = new Range(20, 60)
+	else if (myWeapon.projectile.projectileType = PROJECTILE_TYPE.melee)
+		optimalRange = new Range(80, 180)
 			
 	// Shoot
 	shootAiInit()
@@ -20,7 +25,7 @@ function ghosterAiInit()
 	hideAiInit()
 }
 
-function ghosterAiUpdate()
+function dropperAiUpdate()
 {	
 	genericAiUpdate()
 				
@@ -78,7 +83,7 @@ function ghosterAiUpdate()
 	}
 }
 
-function ghosterAiDraw()
+function dropperAiDraw()
 {
 	if (AI_DEBUG)
 	{
@@ -111,4 +116,13 @@ function ghosterAiDraw()
 		//draw_line(x, y, oPlayer.x, oPlayer.y)
 		draw_set_color(c_white)
 	}
+}
+
+// Drop weapon on death -------------------------------------
+
+function dropperOnDeath()
+{
+	dropWeapon(myWeapon.index)
+	
+	instance_destroy()
 }

@@ -29,8 +29,14 @@ if (oController.interact)
 	var weaponPickup = instance_place(x, y, oWeaponPickup)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
+		// Drop current weapon
+		var myWeaponID = weaponInventory[activeInventorySlot].index
+		if (myWeaponID != WEAPON.fists)
+			dropWeapon(myWeaponID)
+		
+		// Get new weapon
 		weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
-		EvaluateBuffEffects(activeInventorySlot)
+		EvaluateBuffEffects()
 		instance_destroy(weaponPickup)
 	}
 	
@@ -38,8 +44,9 @@ if (oController.interact)
 	var buffPickup = instance_place(x, y, oBuffPickup)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
-		array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
-		EvaluateBuffEffects(activeInventorySlot)
+		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
+		array_push(activeBuffs, buffPickup.myBuff)
+		EvaluateBuffEffects()
 		instance_destroy(buffPickup)
 	}
 }
