@@ -7,7 +7,7 @@ function Weapon() constructor
 	projectileAmount = 1
 	reloadTime = .5		// in seconds
 	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
-	durability = 100	// usually the number of primary action calls before breaking
+	durability = infinity	// usually the number of primary action calls before breaking
 	
 	// Generic attributes
 	sprite = sPlaceholderGun
@@ -53,6 +53,7 @@ function Projectile() constructor
 	projectileSpeed = 4
 	targetKnockback = 5
 	effects = []
+	scale = 1
 	
 	// Generic attributes
 	sprite = sPlaceholderProjectile
@@ -64,8 +65,9 @@ function Projectile() constructor
 	xPos = 0
 	yPos = 0
 	dir = 0
-	rot = 0
+	drawRot = 0
 	color = c_white
+	hitboxActive = true
 	
 	// Behaviour
 	update = function(){show_debug_message("Unset projectile update!")}

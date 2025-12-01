@@ -6,7 +6,8 @@ event_inherited();
 if (SHOW_PATH_GRID)
 {
 	draw_set_alpha(.5)
-	mp_grid_draw(oRoomManager.pathfindingGrid)
+	if (instance_exists(oRoomManager)) // This check has to be here
+		mp_grid_draw(oRoomManager.pathfindingGrid)
 	draw_set_alpha(1)
 }
 

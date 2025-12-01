@@ -28,9 +28,8 @@ function ghosterAiInit()
 	patience = 1
 	repositionWalkSpd = 1
 	inactiveTime = 0
-	inactiveThreshold = new Range(0, 50)
+	inactiveThreshold = new Range(0, 30)
 	repositionSuddenStopDelay = new Range(10, 50)
-	danger = 0
 			
 	// Shoot
 	shootingWalkSpd = .3

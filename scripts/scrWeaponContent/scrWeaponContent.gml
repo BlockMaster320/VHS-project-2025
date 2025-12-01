@@ -14,7 +14,7 @@ function WeaponsInit()
 	enum WEAPON
 	{
 		// Player focused
-		defaultGun, fists, garbage,
+		defaultGun, fists, garbage, sword,
 		
 		// Monsters focused
 		ghosterGun,
@@ -119,6 +119,50 @@ function WeaponsInit()
 		// Weapon functions
 		update = nothingFunction
 		draw = nothingFunction
+	}
+		
+	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.sword]) // Empty weapon slot
+	{
+		// Generic attributes
+		sprite = sSword
+		name = "Sword"
+		description = "Slashes things"
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 2			// shots/damage amount per second
+		spread = 0				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 20
+			projectileSpeed = 3
+			targetKnockback = 10
+			effects = []
+			scale = 4
+	
+			// Generic attributes
+			sprite = sPlaceholderProjectile
+			lifetime = 5
+			
+			// Behaviour
+			update = genericMeleeHitUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
 	}
 	
 		
