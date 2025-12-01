@@ -12,7 +12,9 @@ if (SHOW_PATH_GRID)
 }
 
 // Draw current weapon
-weaponInventory[activeInventorySlot].draw()
+for (var i = 0; i < INVENTORY_SIZE; i++)
+	if (weaponInventory[i].active) weaponInventory[i].draw()
+if (tempWeaponSlot.active) tempWeaponSlot.draw()
 
 
-draw_text(x, y - 20, $"Health: {hp}")
+//draw_text(x, y - 20, $"Health: {hp}")

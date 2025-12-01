@@ -48,7 +48,7 @@ function Constants()
 	#macro SHOW_HITBOXES false
 	// Debug pathfinding
 	#macro SHOW_PATH_GRID false
-	#macro PATH_DEBUG true
+	#macro PATH_DEBUG false
 	// AI
 	#macro AI_DEBUG true
 	
