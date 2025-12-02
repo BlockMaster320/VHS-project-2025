@@ -6,7 +6,7 @@
   "name":"scrSafeDraw",
   "parent":{
     "name":"Extensions",
-    "path":"folders/Objects/UI/Scripts/Extensions.yy",
+    "path":"folders/Objects/Extensions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
