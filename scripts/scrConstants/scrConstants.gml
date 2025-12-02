@@ -14,8 +14,10 @@ function Constants()
 	#macro ROOM_SCAN_X 1	// where to start scanning the rooms
 	#macro ROOM_SCAN_Y 1
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
-	#macro ROOM_COUNT 2		// number of rooms to scan
+	#macro ROOM_COUNT 5		// number of rooms to scan
 	#macro GENERATION_FALLOFF 0.4
+	#macro MAX_DEPTH 6
+	#macro MAX_SHOPS 3
 	//#macro ROOM_SPACING 3
 
 	// Minimap rendering settings

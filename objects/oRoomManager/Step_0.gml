@@ -4,11 +4,22 @@ if (!areRoomsScanned) {
 	areRoomsScanned = true;
 	
 	// Generate the floor
-	var _room = new Room(0, 0, 1, RoomCategory.ENTRANCE);
+	var _room = new Room(0, 0, 0, RoomCategory.ENTRANCE);
 	_room.discovered = true;
 	_room.cleared = true;
 	currentRoom = _room;
 	_room.Generate();	// generate the entire floor
+	
+	// Generate exit room
+	var _exitDir = choose(0, 1, 2, 3);
+	var _mostDistantRoom = mostDistantRooms[_exitDir];
+	_mostDistantRoom.GenerateAdjacentRoom(_exitDir, MAX_DEPTH, RoomCategory.EXIT);
+	
+	// Generate curcuits room
+	var _circuitsDir = (_exitDir + 1) % 4
+	_mostDistantRoom = mostDistantRooms[_circuitsDir];
+	_mostDistantRoom.GenerateAdjacentRoom(_circuitsDir, MAX_DEPTH, RoomCategory.CIRCUITS);
+	
 }
 
 // Update player position
