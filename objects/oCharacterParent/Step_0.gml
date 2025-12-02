@@ -56,9 +56,6 @@ stepEvent();
 hsp = whsp + mhsp
 vsp = wvsp + mvsp
 
-if (room = rmLobby)	// REPLACE LATER plz
-	if (y < 120) room_goto(rmGame)
-
 /// Tilemap and object collision
 
 // Horizontal
