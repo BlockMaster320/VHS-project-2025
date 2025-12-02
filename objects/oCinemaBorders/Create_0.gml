@@ -1,18 +1,51 @@
-borders = new CinemaBorders(0, 80, 1000, 80)
-seq = new TweenSequence([])
-	.ContinueWith(
-		new TweenAction(function() { // disable player input
-			//global.inputState = INPUT_STATE.cutscene
-		})
-	)
-	.ContinueWith(TweenWait(300))
-	.ContinueWith(borders.Hide())
-	.ContinueWith(
-		new TweenAction(function() { // enable playstyle - i could store previous state if needed
-			//global.inputState = INPUT_STATE.playing
-			borders.destroy() // just formal cleanup
-		})
-	).start()
+cinemaBorders = new CinemaBorders(0, 40, 1000, 40)
+transtionBorders = new CinemaBorders(0, 150, 1000, 0)
+
+cinemaHide = function(_onEnd = function() {}) {
+	onEnd = _onEnd
+	new TweenSequence([])
+		.ContinueWith(cinemaBorders.Hide())
+		.ContinueWith(
+			new TweenAction(function() {
+				if (is_callable(onEnd)) onEnd()
+			})
+		).start()
+}
+
+cinemaShow = function(_onEnd = function() {}) {
+	onEnd = _onEnd
+	new TweenSequence([])
+		.ContinueWith(cinemaBorders.Show())
+		.ContinueWith(
+			new TweenAction(function() {
+				if (is_callable(onEnd)) onEnd()
+			})
+		).start()
+}
+
+transitionHide = function(_onEnd = function() {}) {
+	onEnd = _onEnd
+	new TweenSequence([])
+		.ContinueWith(transtionBorders.Hide())
+		.ContinueWith(
+			new TweenAction(function() {
+				if (is_callable(onEnd)) onEnd()
+			})
+		).start()
+}
+
+transitionShow = function(_onEnd = function() {}) {
+	onEnd = _onEnd
+	new TweenSequence([])
+		.ContinueWith(transtionBorders.Show())
+		.ContinueWith(
+			new TweenAction(function() {
+				if (is_callable(onEnd)) onEnd()
+			})
+		).start()
+}
+
+cinemaHide()
 
 /* Example of tween and sequence usage 
 cutsceneFrame = function() {
@@ -36,7 +69,8 @@ cutsceneFrame = function() {
 	/// Example 2: Conbined constructor + pipeline method.
 	seq = new TweenSequence([
 		new TweenAction(function() { // disable player input
-			global.inputState = INPUT_STATE.cutscene
+
+		global.inputState = INPUT_STATE.cutscene
 		})
 	]).
 	
