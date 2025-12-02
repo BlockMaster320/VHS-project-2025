@@ -1,18 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"oIntroCinemaFrame",
+  "%Name":"oCinemaBorders",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oIntroCinemaFrame",
+  "name":"oCinemaBorders",
   "overriddenProperties":[],
   "parent":{
     "name":"CutScenes",
     "path":"folders/Objects/CutScenes.yy",
   },
   "parentObjectId":null,
-  "persistent":false,
+  "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
