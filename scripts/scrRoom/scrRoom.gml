@@ -78,7 +78,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		}
 		
 		// Generate adjacent rooms
-		if (roomDepth >= MAX_DEPTH) return;
+		//if (roomDepth >= MAX_DEPTH) return;
 		
 		for (var _dir = 0; _dir < 4; _dir++) {
 			if (random(1) > 1 - roomDepth * GENERATION_FALLOFF)
@@ -86,11 +86,10 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 				
 			var _roomTypeIndex = noone;
 			if (oRoomManager.shopsGenerated < MAX_SHOPS &&
-				roomDepth > 1 &&
-				random(1) < (roomDepth * GENERATION_FALLOFF) * 0.8)
+				roomDepth >= 1 && roomTypeIndex != RoomCategory.SHOP &&
+				random(1) <= SHOP_SPAWN_CHANCE)
 			{
-				_roomTypeIndex = RoomCategory.SHOP;
-				oRoomManager.shopsGenerated++;
+				_roomTypeIndex = RoomCategory.SHOP;	// (try to) generate a shop room
 			}
 			GenerateAdjacentRoom(_dir, roomDepth + 1, _roomTypeIndex);
 		}
@@ -99,19 +98,21 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	
 	// Generates a new room in the given direction
-	GenerateAdjacentRoom = function(_dir, _depth, _typeIndex) {	// _roomX/Y = position of the current room; _dir: 0=right, 1=left, 2=up, 3=down
+	GenerateAdjacentRoom = function(_dir, _depth, _roomTypeIndex) {	// _roomX/Y = position of the current room; _dir: 0=right, 1=left, 2=up, 3=down
 		var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 		var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
 		
+		var _isGenerated = false;
 		switch(_dir) {
 			case 0: {
 				var _roomIsRight = ds_map_exists(oRoomManager.rooms, string([roomX + 1, roomY]));
 				if (!_roomIsRight) {
-					var _room = new Room(roomX + 1, roomY, _depth, _typeIndex);
+					var _room = new Room(roomX + 1, roomY, _depth, _roomTypeIndex);
 					ds_list_add(nextRooms, _room);
 					entrySides[0] = true;
 					_room.entrySides[1] = true;
 					_room.Generate();
+					_isGenerated = true;
 			
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2) - 1);	// unset wall tiles
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX + ROOM_SIZE - 1, _roomY + (ROOM_SIZE div 2));
@@ -142,11 +143,12 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			case 1: {
 				var _roomIsLeft = ds_map_exists(oRoomManager.rooms, string([roomX - 1, roomY]));
 				if (!_roomIsLeft) {
-					var _room = new Room(roomX - 1, roomY, _depth, _typeIndex);
+					var _room = new Room(roomX - 1, roomY, _depth, _roomTypeIndex);
 					ds_list_add(nextRooms, _room);
 					entrySides[1] = true;
 					_room.entrySides[0] = true;
 					_room.Generate();
+					_isGenerated = true;
 			
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX,     _roomY + (ROOM_SIZE div 2) - 1);	// unset wall tiles
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX,     _roomY + (ROOM_SIZE div 2));
@@ -176,11 +178,12 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			case 2: {
 				var _roomIsUp = ds_map_exists(oRoomManager.rooms, string([roomX, roomY - 1]));
 				if (!_roomIsUp) {
-					var _room = new Room(roomX, roomY - 1, _depth, _typeIndex);
+					var _room = new Room(roomX, roomY - 1, _depth, _roomTypeIndex);
 					ds_list_add(nextRooms, _room);
 					entrySides[3] = true;
 					_room.entrySides[2] = true;
 					_room.Generate();
+					_isGenerated = true;
 			
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY - 1);	// unset wall tiles
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
@@ -213,11 +216,12 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			case 3: {
 				var _roomIsDown = ds_map_exists(oRoomManager.rooms, string([roomX, roomY + 1]));
 				if (!_roomIsDown) {
-					var _room = new Room(roomX, roomY + 1, _depth, _typeIndex);
+					var _room = new Room(roomX, roomY + 1, _depth, _roomTypeIndex);
 					ds_list_add(nextRooms, _room);
 					entrySides[2] = true;
 					_room.entrySides[3] = true;
 					_room.Generate();
+					_isGenerated = true;
 			
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE - 1);	// unset wall tiles
 					tilemap_set(oRoomManager.tileMapWall, 0, _roomX + (ROOM_SIZE div 2) - 1, _roomY + ROOM_SIZE);
@@ -247,6 +251,11 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 				}
 			} break;
 			
+		}
+		
+		if (_isGenerated) {
+			if (_roomTypeIndex = RoomCategory.SHOP)
+				oRoomManager.shopsGenerated++;
 		}
 	}
 	
