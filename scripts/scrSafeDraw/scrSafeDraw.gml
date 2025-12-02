@@ -22,4 +22,3 @@ function safeDraw(lambda){
 	draw_set_alpha(old_alpha)
 	draw_set_font(old_font);
 }
-s
