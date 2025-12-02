@@ -16,7 +16,8 @@ function Constants()
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
 	#macro ROOM_COUNT 5		// number of rooms to scan
 	#macro GENERATION_FALLOFF 0.4
-	#macro MAX_DEPTH 6
+	#macro MAX_DEPTH 3
+	#macro SHOP_SPAWN_CHANCE 0.5
 	#macro MAX_SHOPS 3
 	//#macro ROOM_SPACING 3
 
