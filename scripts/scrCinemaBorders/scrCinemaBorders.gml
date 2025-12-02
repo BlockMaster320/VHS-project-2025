@@ -5,9 +5,12 @@
 /// @param {real} [_duration] [1500] - Duration of animation for hiding/showing borders
 /// @param {real} [_currentHeight] [undefined] - If undefined, _hiddenHeight is provided.
 function CinemaBorders(_hiddenHeight=0, _visibleHeight=100, _duration=1500, _currentHeight=undefined) constructor {
-	hiddenHeight	= 0		// px
-	visibleHeight	= 100	// px
-	duration		= 1500	// ms
+	static name			= "CinemaBorders"
+	if (SHOW_DEBUG) show_debug_message(name + " is being created.")
+
+	hiddenHeight	= _hiddenHeight		// px
+	visibleHeight	= _visibleHeight	// px
+	duration		= _duration			// ms
 	
 	currentHeight	= is_undefined(_currentHeight) ? hiddenHeight : _currentHeight
 	
