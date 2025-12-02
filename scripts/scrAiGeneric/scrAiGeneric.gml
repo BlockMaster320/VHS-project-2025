@@ -1,16 +1,18 @@
 enum AI_STATE
 {
-	idle, hide, reposition, shoot, reload
+	idle, hide, reposition, shoot, reload, rest
 }
 
 #region Generic
 
 function genericAiInit()
 {
-	stateStrings = ["idle", "hide", "reposition", "shoot", "reload"]
+	stateStrings = ["idle", "hide", "reposition", "shoot", "reload", "rest"]
 	state = AI_STATE.idle
 	
 	lookAtPlayerTimer = new Range(40, 180)
+	
+	aimingAtPlayer = true	// Wether the AI is trying to aim at the player
 	
 	seesPlayer = LineOfSightPoint(oPlayer.x, oPlayer.y)
 	seesPlayerWell = LineOfSightObject(oPlayer)
@@ -30,7 +32,7 @@ function genericAiUpdate()
 	walkDir = point_direction(x, y, x + whsp, y + wvsp)
 
 	// Look direction
-	if (seesPlayer)
+	if (seesPlayer and aimingAtPlayer)
 	{
 		lookDirTarget = playerDir
 		lookAtPlayerTimer.rndmize()
@@ -136,30 +138,27 @@ function repositionAiInit()
 	patience = 1
 	patienceDec = 1/7
 	
-	inactiveTime = 0
-	inactiveThreshold = new Range(0, 30)
-	
 	// Accidentaly arrived at a good position, wait few frames
 	//	before swapping state to avoid getting stuck near wall edges
 	repositionSuddenStopDelay = new Range(10, 50)
 	
-	updateRate = new Range(50, 100)
+	updateRate = new Range(50, 80)
 	updateRate.value = 0
 }
 
 function repositionAiTransition()
 {
-	if (reachedPathEnd and inactiveTime > inactiveThreshold.value)
+	if (reachedPathEnd)
 	{
-		if (seesPlayerWell)
+		if (seesPlayerWell and playerDist > optimalRange.min_ and playerDist < optimalRange.max_)
 		{	
 			walkSpd = shootingWalkSpd
-			inactiveTime = 0
-			inactiveThreshold.rndmize()
+			shootAiSetupState()
 			state = AI_STATE.shoot
 		}
 		else
 		{
+			reachedPathEnd = false
 			updateRate.value = 0
 		}
 	}
@@ -204,19 +203,18 @@ function repositionAiUpdate()
 			pathTargetY = y
 			followingPath = false
 			repositionSuddenStopDelay.rndmize()
+			reachedPathEnd = true
 		}
 		else repositionSuddenStopDelay.value--
 	}
 						
 	// Reposition
-	if (reachedPathEnd) inactiveTime++
 	if (updateRate.value <= 0)
 	{
 		var dir1 = playerDir + 180 + 120
 		var dir2 = playerDir + 180 - 120
 							
 		var foundPath = FindValidPathTargetReposition(optimalRange, true, new Range(dir1, dir2))
-		inactiveTime = 0
 		if (!foundPath) patience -= patienceDec
 		else patience = 1
 		updateRate.rndmize()
@@ -232,13 +230,32 @@ function shootAiInit()
 	shootingWalkSpd = .3
 	shootMoveCooldown = new Range(0, 20)
 	noTargetDurationMax = new Range(30, 180)
+	
+	inactiveTime = 0
+	inactiveThreshold = new Range(0, 30)
+	
 	noTargetDuration = 0
+	shootingDuration = 0
+}
+
+function shootAiSetupState()
+{
+	inactiveThreshold.rndmize()
+	inactiveTime = 0
+	shootingDuration = 0
+	
+	noTargetDurationMax.rndmize()
+	noTargetDuration = 0
+	
+	if (myWeapon.projectile.projectileType == PROJECTILE_TYPE.melee)
+		aimingAtPlayer = false
 }
 
 function shootAiTransition()
 {	
 	if (wantsToHide >= 1)
 	{
+		aimingAtPlayer = true
 		walkSpd = panickedWalkSpd
 		state = AI_STATE.reposition
 		reachedPathEnd = true
@@ -246,12 +263,14 @@ function shootAiTransition()
 	}
 	if (myWeapon.magazineAmmo <= 0 and myWeapon.magazineSize != -1)
 	{
+		aimingAtPlayer = true
 		walkSpd = panickedWalkSpd
 		myWeapon.holdingTrigger = false
 		state = AI_STATE.hide
 	}
 	else if (noTargetDuration > noTargetDurationMax.value)
 	{
+		aimingAtPlayer = true
 		walkSpd = repositionWalkSpd
 		myWeapon.holdingTrigger = false
 		state = AI_STATE.reposition
@@ -259,15 +278,22 @@ function shootAiTransition()
 }
 
 function shootAiUpdate()
-{
+{	
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
 		wantsToHide += -.0002 * wantsToHideMult * (playerDist - optimalRange.min_)
 	else wantsToHide -= .01
 						
 	wantsToHide = max(wantsToHide, 0)
+	
+	if (inactiveTime < inactiveThreshold.value)
+	{
+		inactiveTime++
+		return
+	}
 						
 	myWeapon.holdingTrigger = true
+	shootingDuration++
 						
 	if (shootMoveCooldown.value <= 0 and reachedPathEnd and myWeapon.primaryActionCooldown > 10)	// Find new position
 	{
@@ -291,6 +317,7 @@ function reloadAiTransition()
 	if (myWeapon.magazineAmmo == myWeapon.magazineSize)
 	{
 		walkSpd = repositionWalkSpd
+		myWeapon.reloading = false
 		state = AI_STATE.reposition
 		followingPath = false
 		reachedPathEnd = true
@@ -332,6 +359,34 @@ function hideAiUpdate()
 			FindValidPathTarget(new Range(playerDist, playerDist + 100), new Range(dir1, dir2))
 		}
 	}
+}
+
+#endregion
+
+#region Rest
+
+function restAiInit()
+{
+	restTime = new Cooldown(120)
+}
+
+function restAiTransition()
+{
+	if (restTime.value <= 0)
+	{
+		restTime.reset()
+		walkSpd = repositionWalkSpd
+		myWeapon.holdingTrigger = false
+		
+		state = AI_STATE.reposition
+		updateRate.value = 0
+		inactiveTime = 0
+	}
+}
+
+function restAiUpdate()
+{
+	restTime.value--
 }
 
 #endregion

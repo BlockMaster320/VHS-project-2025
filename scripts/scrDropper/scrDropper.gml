@@ -4,6 +4,8 @@ function dropperAiInit()
 {
 	genericAiInit()
 	
+	var projType = myWeapon.projectile.projectileType
+	
 	// Coordination
 	coordinationInit()
 			
@@ -12,17 +14,30 @@ function dropperAiInit()
 			
 	// Reposition
 	repositionAiInit()
-	wantsToHideMult = 0
-	if (myWeapon.projectile.projectileType = PROJECTILE_TYPE.melee)
+	
+	if (projType == PROJECTILE_TYPE.melee)
+	{
 		optimalRange = new Range(20, 60)
-	else if (myWeapon.projectile.projectileType = PROJECTILE_TYPE.melee)
+		wantsToHideMult = 0
+		repositionSuddenStopDelay = new Range(5, 15)
+	}
+	else if (projType == PROJECTILE_TYPE.ranged)
 		optimalRange = new Range(80, 180)
 			
 	// Shoot
 	shootAiInit()
+	
+	if (projType == PROJECTILE_TYPE.melee)
+	{
+		inactiveThreshold = new Range(40, 40)		
+		shootingWalkSpd = 0
+	}
 			
 	// Hide
 	hideAiInit()
+	
+	// Rest
+	restAiInit()
 }
 
 function dropperAiUpdate()
@@ -46,8 +61,13 @@ function dropperAiUpdate()
 						
 			case AI_STATE.shoot:
 				shootAiTransition()
+				if (shootingDuration >= 2)
+				{
+					walkSpd = 0
+					myWeapon.holdingTrigger = false
+					state = AI_STATE.rest
+				}
 				break
-						
 						
 			case AI_STATE.reload:
 				reloadAiTransition()
@@ -55,6 +75,10 @@ function dropperAiUpdate()
 						
 			case AI_STATE.hide:
 				hideAiTransition()
+				break
+				
+			case AI_STATE.rest:
+				restAiTransition()
 				break
 		}
 	}
@@ -73,13 +97,16 @@ function dropperAiUpdate()
 			break
 						
 		case AI_STATE.shoot:
-			shootAiUpdate()						
+			shootAiUpdate()
 			break
 						
 		case AI_STATE.hide:
 			hideAiUpdate()
 			break
-						
+			
+		case AI_STATE.rest:
+			restAiUpdate()
+			break
 	}
 }
 
@@ -96,8 +123,8 @@ function dropperAiDraw()
 		//draw_text(x, yy + offset * 1, $"Scared: {wantsToHide}")
 		//draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
 		//draw_text(x, yy + offset * 3, $"Patience: {patience}")
-		//draw_text(x, yy + offset * 1, $"Stop delay: {repositionSuddenStopDelay.value}")
-		draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
+		//draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
+		draw_text(x, yy + offset * 1, $"Path end: {reachedPathEnd}")
 		//draw_text(x, yy + offset * 2, $"Sees player well: {LineOfSightObject(oPlayer)}")
 		//draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
 		draw_set_halign(halign)

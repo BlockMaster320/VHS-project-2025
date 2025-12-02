@@ -20,7 +20,8 @@ if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	weaponInventory[activeInventorySlot].active = false
 	activeInventorySlot = !activeInventorySlot
-	weaponInventory[activeInventorySlot].active = true
+	if (tempWeaponSlot.active != true)
+		weaponInventory[activeInventorySlot].active = true
 }
 
 if (oController.interact)
@@ -29,15 +30,28 @@ if (oController.interact)
 	var weaponPickup = instance_place(x, y, oWeaponPickup)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
-		// Drop current weapon
-		var myWeaponID = weaponInventory[activeInventorySlot].index
-		if (myWeaponID != WEAPON.fists)
-			dropWeapon(myWeaponID)
+		if (weaponPickup.myWeapon.oneTimeUse)
+		{
+			// Deactivate current slot
+			weaponInventory[activeInventorySlot].active = false
+			
+			// Use the temporary slot
+			tempWeaponSlot = acquireWeapon(weaponPickup.myWeapon, id)
+			EvaluateBuffEffects()
+			instance_destroy(weaponPickup)
+		}
+		else
+		{
+			// Drop current weapon
+			var myWeaponID = weaponInventory[activeInventorySlot].index
+			if (myWeaponID != WEAPON.fists)
+				dropWeapon(myWeaponID)
 		
-		// Get new weapon
-		weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
-		EvaluateBuffEffects()
-		instance_destroy(weaponPickup)
+			// Get new weapon
+			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
+			EvaluateBuffEffects()
+			instance_destroy(weaponPickup)
+		}
 	}
 	
 	// Buff pickup
@@ -54,6 +68,7 @@ if (oController.interact)
 // Update weapons
 for (var i = 0; i < INVENTORY_SIZE; i++)
 	weaponInventory[i].update()
+tempWeaponSlot.update()
 
 #endregion
 

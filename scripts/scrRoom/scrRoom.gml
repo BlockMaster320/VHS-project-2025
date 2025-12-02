@@ -347,7 +347,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		// Spawn enemies
 		var mapWidth  = tilemap_get_width(global.tilemapCollision);
 		var mapHeight = tilemap_get_height(global.tilemapCollision);
-		var spawnEnemies = 3
+		var spawnEnemies = 6
 		
 		while (spawnEnemies > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
@@ -361,7 +361,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
 			{
 				var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
-				var enemyType = choose(CHARACTER_TYPE.dropper)
+				var enemyType = choose(CHARACTER_TYPE.dropper, CHARACTER_TYPE.ghoster)
 				with(_enemy) { characterCreate(enemyType); }
 				
 				ds_list_add(enemies, _enemy);

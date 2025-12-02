@@ -8,7 +8,7 @@ function Range(minimum, maximum) constructor
 	function rndmize() { value = random_range(min_, max_) }
 }
 
-function Cooldown(defaultVal) constructor
+function Cooldown(defaultVal_) constructor
 {
 	valueDef = defaultVal_
 	value = defaultVal_
