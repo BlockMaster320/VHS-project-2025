@@ -16,7 +16,8 @@ activeInventorySlot = 0
 weaponInventory = array_create(INVENTORY_SIZE, noone)
 //weaponInventory[0] = acquireWeapon(1, id) // Fists
 weaponInventory[0] = acquireWeapon(WEAPON.sword, id) // For testing
-weaponInventory[1] = acquireWeapon(WEAPON.fists, id, false) // Fists
+weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false) // Fists
+tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 
 
 // Buffs

@@ -90,7 +90,12 @@ function genericWeaponUpdate()
 		// Get rid of weapon after running out of durability
 		if (remainingDurability <= 0) {
 			with (oPlayer) {
-				weaponInventory[activeInventorySlot] = acquireWeapon(WEAPON.fists, id);
+				if (other.oneTimeUse)
+				{
+					tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false)
+					weaponInventory[activeInventorySlot].active = true
+				}
+				else weaponInventory[activeInventorySlot] = acquireWeapon(WEAPON.fists, id);
 			}
 		}
 	}
