@@ -1,3 +1,4 @@
+
 surface_set_target(guiUpscaledSurf)
 draw_clear_alpha(0, 0)
 draw_surface_ext(guiSurf, 0, 0, upscaleMult, upscaleMult, 0, c_white, 1)
