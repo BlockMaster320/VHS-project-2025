@@ -74,7 +74,6 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			var _x = _roomX * TILE_SIZE + _interactable.roomX - TILE_SIZE;	// that "- TILE_SIZE" is a magic offset which corrects the position
 			var _y = _roomY * TILE_SIZE + _interactable.roomY - TILE_SIZE;
 			instance_create_layer(_x, _y, "Instances", _interactable.objectID);
-			
 		}
 		
 		// Generate adjacent rooms
@@ -93,9 +92,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			}
 			GenerateAdjacentRoom(_dir, roomDepth + 1, _roomTypeIndex);
 		}
-		
 	}
-	
 	
 	// Generates a new room in the given direction
 	GenerateAdjacentRoom = function(_dir, _depth, _roomTypeIndex) {	// _roomX/Y = position of the current room; _dir: 0=right, 1=left, 2=up, 3=down

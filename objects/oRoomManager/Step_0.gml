@@ -49,7 +49,8 @@ if (!currentRoom.discovered) {    // make the room close after the player steps 
         playerTileY > (playerRoomY * ROOM_SIZE + 1) &&
         playerTileY < ((playerRoomY + 1) * ROOM_SIZE - 1))
     {
-        currentRoom.LockRoom();
+		if (currentRoom.roomTypeIndex > 3)
+			currentRoom.LockRoom();
         currentRoom.discovered = true;
     }
 }
