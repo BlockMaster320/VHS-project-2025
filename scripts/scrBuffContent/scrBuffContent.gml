@@ -49,7 +49,7 @@ function BuffsInit()
 	with (global.buffDatabase[BUFF.cloner])
 	{
 		rarity = RARITY.common
-		projAmountMultRange = new Range(2, 3)
+		projAmountMultRange = new Range(2, 4)
 		spreadMultRange = new Range(40, 60)
 		
 		buffRandomize = function()

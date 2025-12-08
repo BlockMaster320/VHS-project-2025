@@ -48,8 +48,8 @@ function meleeWeaponShoot()
 		var bullet = spawnBullet()
 		bullet.x = bullet.ownerID.x
 		bullet.y = bullet.ownerID.y
-		bullet.image_angle = aimDirection
-		bullet.drawRot = aimDirection
+		bullet.image_angle = bullet.dir
+		bullet.drawRot = bullet.dir
 		bullet.sprite_index = sMeleeHitbox
 		bullet.image_xscale = projectile.scale
 		bullet.image_yscale = projectile.scale
