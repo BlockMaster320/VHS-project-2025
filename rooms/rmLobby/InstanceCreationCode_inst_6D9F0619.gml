@@ -1,1 +1,1 @@
-setupBuffPickupID(0)
+setupBuffPickupID(BUFF.cloner)

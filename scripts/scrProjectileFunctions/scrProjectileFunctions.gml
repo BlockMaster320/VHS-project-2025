@@ -13,6 +13,7 @@ function projectileHitDetection()
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
+			//if !(!is_undefined(oRoomManager.tileMapWall) and projectileType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
 			GetHit(colliding, id)
 			hit = true
 		}

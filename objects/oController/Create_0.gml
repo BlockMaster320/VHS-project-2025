@@ -2,7 +2,7 @@ Constants()
 
 global.gameSpeed = 1
 //game_set_speed(240, gamespeed_fps)
-global.gameSpeed = 0.25
+//global.gameSpeed = 0.25
 
 global.inputState = INPUT_STATE.playing
 
