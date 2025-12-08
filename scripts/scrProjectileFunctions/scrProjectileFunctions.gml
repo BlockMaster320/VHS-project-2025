@@ -27,7 +27,7 @@ function projectileHitDetection()
 function genericBulletUpdate()
 {
 	if (projectileHitDetection()) instance_destroy()
-	lifetime--
+	lifetime -= global.gameSpeed
 	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir)
 	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir)
 }
@@ -40,7 +40,7 @@ function genericMeleeHitUpdate()
 		if (hit) hitboxActive = false
 	}
 	if (lifetime <= 0) instance_destroy()
-	lifetime--
+	lifetime -= global.gameSpeed
 	
 	if (instance_exists(ownerID))	// Actually important in the case
 	{								//  when owner dies in the same frame

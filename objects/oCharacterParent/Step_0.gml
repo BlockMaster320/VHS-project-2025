@@ -3,10 +3,13 @@ if (characterType == noone) {
 	show_message("Character is not set up correctly: " + object_get_name(object_index));
 }
 
+if (characterType != CHARACTER_TYPE.player and global.gameSpeed < .0001)
+	return;
+
 #region Calculate knockback
 
-mhsp *= frictionMult
-mvsp *= frictionMult
+mhsp *= 1 - (1 - frictionMult) * global.gameSpeed
+mvsp *= 1 - (1 - frictionMult) * global.gameSpeed
 
 if (abs(mhsp) < .001) mhsp = 0
 if (abs(mvsp) < .001) mvsp = 0
@@ -79,7 +82,7 @@ if (place_meeting(x + hsp, y, oCollider))				// object collision
 	x = round(x)
 	hsp = 0;
 }
-x += hsp
+x += hsp * global.gameSpeed
 
 
 // Vertical
@@ -95,7 +98,7 @@ if (place_meeting(x, y + vsp, global.tilemapCollision))	// object collision
 	y = round(y)
 	vsp = 0;
 }
-y += vsp
+y += vsp * global.gameSpeed
 
 
 #endregion

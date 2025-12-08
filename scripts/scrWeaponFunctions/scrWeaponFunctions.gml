@@ -78,7 +78,7 @@ function genericWeaponUpdate()
 {
 	weaponUpdatePosition() // All weapons should call this
 	
-	primaryActionCooldown = max(primaryActionCooldown - 1, -1)
+	primaryActionCooldown = max(primaryActionCooldown - global.gameSpeed, -1)
 	
 	if (projectile.ownerID.object_index == oPlayer)
 	{
@@ -116,7 +116,7 @@ function genericWeaponUpdate()
 	{
 		while (primaryActionCooldown <= 0)
 		{
-			primaryActionCooldown += 60 / (attackSpeed * global.gameSpeed)
+			primaryActionCooldown += 60 / attackSpeed
 			primaryAction()
 			remainingDurability--
 			if (magazineAmmo > 0) magazineAmmo--
