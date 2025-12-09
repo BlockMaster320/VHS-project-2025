@@ -1,5 +1,8 @@
 /**
  * @struct	StateGraph
+ *
+ * @desc Struct which wraps state graph with defined transitions and states.
+ * @param 
  */
 function StateGraph(_startDestinatinoId, _states, _transitions) constructor {	
 	states = _states;

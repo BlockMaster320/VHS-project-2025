@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrExtensions",
+  "%Name":"scrGenericPF",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrExtensions",
+  "name":"scrGenericPF",
   "parent":{
     "name":"PathFinding",
     "path":"folders/Objects/Characters/PathFinding.yy",
