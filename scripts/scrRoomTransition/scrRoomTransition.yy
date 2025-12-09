@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrRoomTransition",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrRoomTransition",
+  "parent":{
+    "name":"CutScenes",
+    "path":"folders/Objects/CutScenes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

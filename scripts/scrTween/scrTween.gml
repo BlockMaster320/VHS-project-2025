@@ -60,7 +60,8 @@ function TweenProperty(_to, _getter, _setter, _msDuration=1000, _easing=global.E
     static step = function() {
         if (finished) {
             stop();
-			destroy()
+			destroy();
+			onComplete();
             return;
         }
 
