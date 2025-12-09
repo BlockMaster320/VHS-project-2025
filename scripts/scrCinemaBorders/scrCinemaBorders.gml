@@ -43,7 +43,7 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 	/// @function	Start()
 	/// @desc Start method which tries to run current tween if defined and not started.
 	Start = function() {
-		if (State() == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
+		if (tween.progress == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
 	}
 
 	/// @Function	drawGui()
