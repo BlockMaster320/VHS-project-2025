@@ -4,6 +4,7 @@ function Constants()
 	{
 		playing,
 		menu,
+		pausedDialogue,	// Je to trochu hotfix, ale funguje, omlouvám se vašim očím
 		dialogue,
 		cutscene,
 	}

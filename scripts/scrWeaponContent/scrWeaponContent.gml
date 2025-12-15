@@ -48,9 +48,9 @@ function WeaponsInit()
 		description = "This weapon is a weapon"
 	
 		// Modifiable attributes
-		attackSpeed = 3			// shots/damage amount per second
-		spread = 30				// weapon accuracy in degrees
-		projectileAmount = 5	// number of projectile to be shot in the shoot frame
+		attackSpeed = 2			// shots/damage amount per second
+		spread = 25				// weapon accuracy in degrees
+		projectileAmount = 3	// number of projectile to be shot in the shoot frame
 		
 		// Non-modifiable attributes
 		magazineSize = -1

@@ -91,11 +91,13 @@ function BuffsInit()
 	//     common common common rare rare -> rarityIndexes[common] = 3
 	//     At least one of each rarity must exist for this to work!
 	
-	//array_sort(global.buffDatabase, function(a, b){ return a.rarity - b.rarity })
+	global.buffDatabaseSorted = []
+	array_copy(global.buffDatabaseSorted, 0, global.buffDatabase, 0, array_length(global.buffDatabase))
+	array_sort(global.buffDatabaseSorted, function(a, b){ return a.rarity - b.rarity })
 	rarityIndexes = []
-	//for (var i = 0; i < array_length(global.buffDatabase)-1; i++)
-	//{
-	//	if (global.buffDatabase[i].rarity != global.buffDatabase[i+1].rarity)
-	//		array_push(rarityIndexes, i)
-	//}
+	for (var i = 0; i < array_length(global.buffDatabaseSorted)-1; i++)
+	{
+		if (global.buffDatabaseSorted[i].rarity != global.buffDatabaseSorted[i+1].rarity)
+			array_push(rarityIndexes, i)
+	}
 }
