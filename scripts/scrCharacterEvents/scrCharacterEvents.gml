@@ -131,9 +131,9 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.passenger1;
 			name = "Passanger";
-			portrait = sNPCPortrait;
+			portrait = sPassenger1Portrait;
 			
-			sprite_index = sPassanger1;
+			sprite_index = sPassenger1;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
 			
