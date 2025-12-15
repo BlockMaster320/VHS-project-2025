@@ -3,8 +3,8 @@
 #region Walking
 
 var walkDir = point_direction(0, 0, oController.right - oController.left, oController.down - oController.up)
-whsp = lengthdir_x(walkSpd * global.gameSpeed, walkDir) * sign(oController.right + oController.left)
-wvsp = lengthdir_y(walkSpd * global.gameSpeed, walkDir) * sign(oController.down + oController.up)
+whsp = lengthdir_x(walkSpd, walkDir) * sign(oController.right + oController.left)
+wvsp = lengthdir_y(walkSpd, walkDir) * sign(oController.down + oController.up)
 
 #endregion
 
@@ -66,9 +66,12 @@ if (oController.interact)
 }
 
 // Update weapons
-for (var i = 0; i < INVENTORY_SIZE; i++)
-	weaponInventory[i].update()
-tempWeaponSlot.update()
+if (global.gameSpeed > .0001)
+{
+	for (var i = 0; i < INVENTORY_SIZE; i++)
+		weaponInventory[i].update()
+	tempWeaponSlot.update()
+}
 
 #endregion
 

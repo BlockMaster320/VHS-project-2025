@@ -40,7 +40,7 @@ function genericAiUpdate()
 	else if (lookAtPlayerTimer.value <= 0 and (whsp != 0 or wvsp != 0))
 		lookDirTarget = walkDir
 					
-	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value--
+	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value -= global.gameSpeed
 	lookDir = lerpDirection(lookDir, lookDirTarget, .2)
 	if (is_struct(myWeapon))
 		myWeapon.aimDirection = lookDir
@@ -73,7 +73,7 @@ function coordinationUpdate()
 			hidingCoordination = true
 		}
 	}
-	else if (!activeCoordination) callHideCooldown.value--
+	else if (!activeCoordination) callHideCooldown.value -= global.gameSpeed
 	if (callRepositionCooldown.value <= 0 and hidingCoordination)
 	{
 		show_debug_message("Show em!")
@@ -87,7 +87,7 @@ function coordinationUpdate()
 			hidingCoordination = false
 		}
 	}
-	if (callRepositionCooldown.value >= 0 and hidingCoordination) callRepositionCooldown.value--
+	if (callRepositionCooldown.value >= 0 and hidingCoordination) callRepositionCooldown.value -= global.gameSpeed
 }
 
 #endregion
@@ -118,7 +118,7 @@ function idleAiUpdate()
 		FindValidPathTarget(new Range(20, 120))
 		moveCooldown.rndmize()
 	}
-	if (reachedPathEnd) moveCooldown.value--
+	if (reachedPathEnd) moveCooldown.value -= global.gameSpeed
 }
 
 #endregion
@@ -181,8 +181,8 @@ function repositionAiUpdate()
 {
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_)
-	else wantsToHide -= .01
+		wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_) * global.gameSpeed
+	else wantsToHide -= .01 * global.gameSpeed
 						
 	wantsToHide = max(wantsToHide, 0)
 						
@@ -205,7 +205,7 @@ function repositionAiUpdate()
 			repositionSuddenStopDelay.rndmize()
 			reachedPathEnd = true
 		}
-		else repositionSuddenStopDelay.value--
+		else repositionSuddenStopDelay.value -= global.gameSpeed
 	}
 						
 	// Reposition
@@ -215,7 +215,7 @@ function repositionAiUpdate()
 		var dir2 = playerDir + 180 - 120
 							
 		var foundPath = FindValidPathTargetReposition(optimalRange, true, new Range(dir1, dir2))
-		if (!foundPath) patience -= patienceDec
+		if (!foundPath) patience -= patienceDec * global.gameSpeed
 		else patience = 1
 		updateRate.rndmize()
 	}
@@ -281,19 +281,19 @@ function shootAiUpdate()
 {	
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * wantsToHideMult * (playerDist - optimalRange.min_)
-	else wantsToHide -= .01
+		wantsToHide += -.0002 * wantsToHideMult * (playerDist - optimalRange.min_) * global.gameSpeed
+	else wantsToHide -= .01 * global.gameSpeed
 						
 	wantsToHide = max(wantsToHide, 0)
 	
 	if (inactiveTime < inactiveThreshold.value)
 	{
-		inactiveTime++
+		inactiveTime += global.gameSpeed
 		return
 	}
 						
 	myWeapon.holdingTrigger = true
-	shootingDuration++
+	shootingDuration += global.gameSpeed
 						
 	if (shootMoveCooldown.value <= 0 and reachedPathEnd and myWeapon.primaryActionCooldown > 10)	// Find new position
 	{
@@ -302,9 +302,9 @@ function shootAiUpdate()
 	}
 	else if (myWeapon.primaryActionCooldown < 10)
 		followingPath = false
-	if (reachedPathEnd) shootMoveCooldown.value--
+	if (reachedPathEnd) shootMoveCooldown.value -= global.gameSpeed
 						
-	if (!seesPlayerWell) noTargetDuration++
+	if (!seesPlayerWell) noTargetDuration += global.gameSpeed
 	else noTargetDuration = 0
 }
 
@@ -343,7 +343,7 @@ function hideAiTransition()
 		myWeapon.reloading = true
 		walkSpd = shootingWalkSpd
 	}
-	else giveUpHidingTimer.value--
+	else giveUpHidingTimer.value -= global.gameSpeed
 }
 
 function hideAiUpdate()
@@ -386,7 +386,7 @@ function restAiTransition()
 
 function restAiUpdate()
 {
-	restTime.value--
+	restTime.value -= global.gameSpeed
 }
 
 #endregion
