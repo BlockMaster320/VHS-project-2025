@@ -4,7 +4,9 @@ characterCreate(CHARACTER_TYPE.player);
 
 // Player attributes ------------------------
 
-walkSpd = 1.7
+walkSpdDef = 1.7
+walkSpdSprint = 2.5	// Use when running between cleared rooms
+walkSpd = walkSpdDef
 hp = 150
 
 // Inventory --------------------------

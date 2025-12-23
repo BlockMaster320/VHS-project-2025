@@ -62,6 +62,7 @@
   "resources":[
     {"id":{"name":"fntGeneric","path":"fonts/fntGeneric/fntGeneric.yy",},},
     {"id":{"name":"crt","path":"objects/crt/crt.yy",},},
+    {"id":{"name":"oAreaEffect","path":"objects/oAreaEffect/oAreaEffect.yy",},},
     {"id":{"name":"oBarrelSteel","path":"objects/oBarrelSteel/oBarrelSteel.yy",},},
     {"id":{"name":"oBarrelToxic","path":"objects/oBarrelToxic/oBarrelToxic.yy",},},
     {"id":{"name":"oBarrelWooden","path":"objects/oBarrelWooden/oBarrelWooden.yy",},},

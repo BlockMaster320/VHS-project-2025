@@ -39,4 +39,3 @@ playerRoomYPrev = 0;
 
 playerRoomXpx = 0
 playerRoomYpx = 0
-roomSizePx = ROOM_SIZE * TILE_SIZE

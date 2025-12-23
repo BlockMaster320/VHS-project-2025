@@ -6,8 +6,8 @@ function FindValidPathTarget(distRange, dirRange = new Range(0, 360), maxAttempt
 		dirRange.rndmize()
 		pathTargetX = x + lengthdir_x(distRange.value, dirRange.value)
 		pathTargetY = y + lengthdir_y(distRange.value, dirRange.value)
-		pathTargetX = clamp(pathTargetX, oRoomManager.playerRoomXpx, oRoomManager.playerRoomXpx + oRoomManager.roomSizePx)
-		pathTargetY = clamp(pathTargetY, oRoomManager.playerRoomYpx, oRoomManager.playerRoomYpx + oRoomManager.roomSizePx)
+		pathTargetX = clamp(pathTargetX, oRoomManager.playerRoomXpx, oRoomManager.playerRoomXpx + ROOM_SIZE_PX)
+		pathTargetY = clamp(pathTargetY, oRoomManager.playerRoomYpx, oRoomManager.playerRoomYpx + ROOM_SIZE_PX)
 								
 		if (!collisionMargin(pathTargetX, pathTargetY, collMargin) and findNewPath())
 			return true
@@ -29,8 +29,8 @@ function FindValidPathTargetReposition(distRange, shouldSeePlayer = true, dirRan
 		dirRange.rndmize()
 		pathTargetX = oPlayer.x + lengthdir_x(distRange.value, dirRange.value)
 		pathTargetY = oPlayer.y + lengthdir_y(distRange.value, dirRange.value)
-		pathTargetX = clamp(pathTargetX, oRoomManager.playerRoomXpx, oRoomManager.playerRoomXpx + oRoomManager.roomSizePx)
-		pathTargetY = clamp(pathTargetY, oRoomManager.playerRoomYpx, oRoomManager.playerRoomYpx + oRoomManager.roomSizePx)
+		pathTargetX = clamp(pathTargetX, oRoomManager.playerRoomXpx, oRoomManager.playerRoomXpx + ROOM_SIZE_PX)
+		pathTargetY = clamp(pathTargetY, oRoomManager.playerRoomYpx, oRoomManager.playerRoomYpx + ROOM_SIZE_PX)
 
 		var willSeePlayer = !collision_line(pathTargetX, pathTargetY, oPlayer.x, oPlayer.y, global.tilemapCollision, false, false)
 		//var playerSight = LineOfSightObject(oPlayer, , pathTargetX, pathTargetY)

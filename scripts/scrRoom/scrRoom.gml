@@ -76,6 +76,15 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			instance_create_layer(_x, _y, "Instances", _interactable.objectID);
 		}
 		
+		// Spawn weapon and buff pickups
+		if (roomTypeIndex == RoomCategory.SHOP)
+		{
+			var middleX = _roomX * TILE_SIZE + ROOM_SIZE_PX/2
+			var middleY = _roomY * TILE_SIZE + ROOM_SIZE_PX/2
+			var buff = instance_create_layer(middleX, middleY, "Instances", oBuffPickup)
+			with (buff) { setupBuffPickupRarity(RARITY.common) }
+		}
+		
 		// Generate adjacent rooms
 		//if (roomDepth >= MAX_DEPTH) return;
 		
@@ -315,6 +324,9 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	// Locks the room and spawns enemies
 	LockRoom = function() {
+		
+		oPlayer.walkSpd = oPlayer.walkSpdDef
+		
 		// Start door closing animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {
 			doors[| _i].isOpen = false;
@@ -423,6 +435,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
 		if (cleared || !ds_list_empty(enemies)) return;
+		
+		oPlayer.walkSpd = oPlayer.walkSpdSprint
 		
 		// Start door opening animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {

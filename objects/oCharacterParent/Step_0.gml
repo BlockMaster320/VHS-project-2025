@@ -6,13 +6,27 @@ if (characterType == noone) {
 if (characterType != CHARACTER_TYPE.player and global.gameSpeed < .0001)
 	return;
 
-#region Calculate knockback
+#region Momentum friction
 
 mhsp *= 1 - (1 - frictionMult) * global.gameSpeed
 mvsp *= 1 - (1 - frictionMult) * global.gameSpeed
 
 if (abs(mhsp) < .001) mhsp = 0
 if (abs(mvsp) < .001) mvsp = 0
+
+#endregion
+
+#region AOE collision
+
+var aoeList = ds_list_create()
+var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
+if (colliding)
+{
+	for (var i = 0; i < ds_list_size(aoeList); i++)
+	{
+		aoeList[| i].effect()
+	}
+}
 
 #endregion
 

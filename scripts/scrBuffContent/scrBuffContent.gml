@@ -25,6 +25,8 @@ function BuffsInit()
 		
 	// Content --------------------------------------------------
 	
+	// COMMON
+	
 	with (global.buffDatabase[BUFF.blast])
 	{
 		rarity = RARITY.common
@@ -66,6 +68,8 @@ function BuffsInit()
 			weapon.spread += spreadMultRange.value
 		}
 	}
+	
+	// RARE
 	
 	with (global.buffDatabase[BUFF.testRare])
 	{

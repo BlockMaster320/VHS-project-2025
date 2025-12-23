@@ -12,6 +12,7 @@ function Constants()
 	// Map generation settings
 	#macro TILE_SIZE 16		// size of 1 tile in pixels
 	#macro ROOM_SIZE 30		// size of each room in tiles
+	#macro ROOM_SIZE_PX ROOM_SIZE * TILE_SIZE	// size of each room in pixels
 	#macro ROOM_SCAN_X 1	// where to start scanning the rooms
 	#macro ROOM_SCAN_Y 1
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
