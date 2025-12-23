@@ -32,6 +32,8 @@ function getCharacterStepEvent(_characterType){
 
 		case CHARACTER_TYPE.passenger1: {
 			return function() {
+				
+				followPathStep()
 			};
 		}
 
@@ -74,6 +76,9 @@ function getCharacterDrawEvent(_characterType) {
 		
 		case CHARACTER_TYPE.passenger1: {
 			return function() {
+
+				
+				if (!is_undefined(myPath) && path_exists(myPath)) draw_path(myPath, 0, 0, true)
 			};
 		}
 		
@@ -149,6 +154,15 @@ function characterCreate(_characterType) {
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.passenger1);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
+
+	
+			
+			followingPath = true
+			FollowPathInit()
+			if (!mp_grid_path(getLobby().pfGrid, myPath, x, y, 450, 200, 1))
+			{
+				debug("Failed to get grid path")	
+			}
 		} break;
 		
 		// Enemies ---------------------------------------------------------------

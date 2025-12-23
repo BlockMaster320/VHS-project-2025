@@ -130,6 +130,7 @@
     {"id":{"name":"scrInteractable","path":"scripts/scrInteractable/scrInteractable.yy",},},
     {"id":{"name":"scrIterationTween","path":"scripts/scrIterationTween/scrIterationTween.yy",},},
     {"id":{"name":"scrListExtension","path":"scripts/scrListExtension/scrListExtension.yy",},},
+    {"id":{"name":"scrLobby","path":"scripts/scrLobby/scrLobby.yy",},},
     {"id":{"name":"scrPathfinding","path":"scripts/scrPathfinding/scrPathfinding.yy",},},
     {"id":{"name":"scrProjectileFunctions","path":"scripts/scrProjectileFunctions/scrProjectileFunctions.yy",},},
     {"id":{"name":"scrRoom","path":"scripts/scrRoom/scrRoom.yy",},},
