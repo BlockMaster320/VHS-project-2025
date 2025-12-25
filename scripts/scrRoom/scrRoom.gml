@@ -79,10 +79,24 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		// Spawn weapon and buff pickups
 		if (roomTypeIndex == RoomCategory.SHOP)
 		{
-			var middleX = _roomX * TILE_SIZE + ROOM_SIZE_PX/2
-			var middleY = _roomY * TILE_SIZE + ROOM_SIZE_PX/2
-			var buff = instance_create_layer(middleX, middleY, "Instances", oBuffPickup)
-			with (buff) { setupBuffPickupRarity(RARITY.common) }
+			var xOff = 9 * TILE_SIZE
+			var yOff = 1 * TILE_SIZE
+			var xx = _roomX * TILE_SIZE + ROOM_SIZE_PX/2
+			var yy = _roomY * TILE_SIZE + ROOM_SIZE_PX/2 + yOff
+			
+			var buff1 = instance_create_layer(xx, yy, "Instances", oBuffPickup)
+			with (buff1) { setupBuffPickupRarity(RARITY.common) }
+			
+			var buff2 = instance_create_layer(xx - xOff, yy, "Instances", oBuffPickup)
+			with (buff2) { setupBuffPickupRarity(RARITY.common) }
+			
+			var buff3 = instance_create_layer(xx + xOff, yy, "Instances", oBuffPickup)
+			with (buff3) { setupBuffPickupRarity(RARITY.common) }
+			
+			// Delete other choices on pickup
+			buff1.connectedInstances = [buff2, buff3]
+			buff2.connectedInstances = [buff1, buff3]
+			buff3.connectedInstances = [buff1, buff2]
 		}
 		
 		// Generate adjacent rooms

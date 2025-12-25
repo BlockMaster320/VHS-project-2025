@@ -3,19 +3,20 @@ enum RARITY
 	common, rare, length
 }
 
+enum BUFF
+{
+	// Common
+	blast, cloner,
+		
+	// Rare
+	testRare,
+		
+	// --------------
+	length
+}
+
 function BuffsInit()
 {
-	enum BUFF
-	{
-		// Common
-		blast, cloner,
-		
-		// Rare
-		testRare,
-		
-		// --------------
-		length
-	}
 	
 	#macro BUFF_AMOUNT BUFF.length
 	
@@ -37,8 +38,8 @@ function BuffsInit()
 		{
 			dmgMultRange.rndmize()
 			attackSpdMultRange.rndmize()
-			descriptionBuff = $"{dmgMultRange.value}% damage"
-			descriptionDebuff = $"{attackSpdMultRange.value}% attack speed"
+			descriptionBuff = $"{dmgMultRange.value*100}% damage"
+			descriptionDebuff = $"{attackSpdMultRange.value*100}% attack speed"
 		}
 		
 		buffApply = function(weapon)
@@ -56,10 +57,10 @@ function BuffsInit()
 		
 		buffRandomize = function()
 		{
-			projAmountMultRange.rndmize()
+			projAmountMultRange.rndmizeInt()
 			spreadMultRange.rndmize()
 			descriptionBuff = $"{projAmountMultRange.value}x projectile amount"
-			descriptionDebuff = $"{spreadMultRange.value}% spread"
+			descriptionDebuff = $"{spreadMultRange.value*100}% spread"
 		}
 		
 		buffApply = function(weapon)

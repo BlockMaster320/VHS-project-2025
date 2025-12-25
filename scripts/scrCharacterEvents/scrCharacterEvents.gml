@@ -141,6 +141,21 @@ function characterCreate(_characterType) {
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
 		} break;
 		
+		case CHARACTER_TYPE.student: {
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.student;
+			name = "Mechanic";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sMechanic;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			anim = characterAnimation.getAnimation;
+			dir = -1;
+			
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
+			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+		} break;
+		
 		// Enemies ---------------------------------------------------------------
 		
 		case CHARACTER_TYPE.targetDummy:
@@ -265,20 +280,6 @@ function characterCreate(_characterType) {
 			
 		} break;
 		
-		case CHARACTER_TYPE.student: {
-			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.student;
-			name = "Mechanic";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sMechanic;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
-			anim = characterAnimation.getAnimation;
-			dir = -1;
-			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
-		} break;
 		// --------------------------------------------------------------------------------
 		
 		default:

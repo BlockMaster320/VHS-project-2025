@@ -6,6 +6,7 @@ function Range(minimum, maximum) constructor
 	value = random_range(min_, max_)
 	
 	function rndmize() { value = random_range(min_, max_) }
+	function rndmizeInt() { value = irandom_range(min_, max_) }
 }
 
 function Cooldown(defaultVal_) constructor

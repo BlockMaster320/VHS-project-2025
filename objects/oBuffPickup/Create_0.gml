@@ -12,3 +12,5 @@ function setupBuffPickupID(buffID)
 	myBuff.buffRandomize()
 	sprite_index = myBuff.sprite
 }
+
+connectedInstances = []	// On pickup, destroy other choices

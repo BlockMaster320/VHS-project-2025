@@ -5,6 +5,7 @@ function Weapon() constructor
 	attackSpeed = 2		// shots/damage amount per second
 	spread = 0			// weapon accuracy in degrees
 	projectileAmount = 1
+	
 	reloadTime = .5		// in seconds
 	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
 	durability = infinity	// usually the number of primary action calls before breaking
