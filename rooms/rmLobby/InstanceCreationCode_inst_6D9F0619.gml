@@ -1,1 +1,1 @@
-setupBuffPickupID(BUFF.cloner)
+setupBuffPickupRarity(RARITY.common)

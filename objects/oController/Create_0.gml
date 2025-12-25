@@ -9,7 +9,7 @@ global.inputState = INPUT_STATE.playing
 //projectilePool = []
 
 WeaponsInit()
-BuffsInit()
+buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 
 show_debug_overlay(true)
 

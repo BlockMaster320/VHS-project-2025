@@ -21,8 +21,26 @@ draw_set_alpha(alpha)
 draw_set_color(c_black)
 draw_rectangle(left, top, right, bott, false)
 
-draw_set_color(c_white)
-draw_text(left + margin, top + margin, myBuff.descriptionBuff)
-draw_text(left + margin, top + margin + 20, myBuff.descriptionDebuff)
+var textLineOff = 20
+var yy = top + margin
 
+if (myBuff.descriptionBuff != "default")
+{
+	draw_set_color(c_green)
+	draw_text(left + margin, yy, myBuff.descriptionBuff)
+	yy += textLineOff
+}
+if (myBuff.descriptionDebuff != "default")
+{
+	draw_set_color(c_red)
+	draw_text(left + margin, yy, myBuff.descriptionDebuff)
+	yy += textLineOff
+}
+if (myBuff.descriptionNeutralEffect != "default")
+{
+	draw_set_color(c_yellow)
+	draw_text(left + margin, yy, myBuff.descriptionNeutralEffect)
+}
+
+draw_set_color(c_white)
 draw_set_alpha(1.)

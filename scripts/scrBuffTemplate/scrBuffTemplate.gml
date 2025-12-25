@@ -20,8 +20,9 @@ function Cooldown(defaultVal_) constructor
 function Buff() constructor
 {
 	sprite = sPlaceholderBuff
-	descriptionBuff = "Default buff text"
-	descriptionDebuff = "Default debuff text"
+	descriptionBuff = "default"	// Don't change the default unless you have a good reason to
+	descriptionDebuff = "default"
+	descriptionNeutralEffect = "default"
 	rarity = RARITY.common
 	
 	buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
@@ -30,10 +31,15 @@ function Buff() constructor
 
 function GetBuffIndex(rarity)
 {
+	//var start_ = 0
+	//if (rarity != 0) start_ = oController.rarityIndexes[rarity-1]
+	//var end_ = oController.rarityIndexes[rarity] - 1
+	//return irandom_range(start_, end_)
+	
 	var start_ = 0
-	if (rarity != 0) start_ = oController.rarityIndexes[rarity-1]
-	var end_ = oController.rarityIndexes[rarity] - 1
-	return random_range(start_, end_)
+	if (rarity != 0) start_ = oController.buffRarityIndexes[rarity-1] + 1
+	var end_ = oController.buffRarityIndexes[rarity] - 1
+	return irandom_range(start_, end_)
 }
 
 function EvaluateBuffEffects()

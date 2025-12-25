@@ -18,6 +18,19 @@ function dropWeapon(weaponID)
 	with (weaponPickup) setupWeaponPickup(weaponID)
 }
 
+// Converts 0-360 degree spread to 1-0 accuracy 
+function spreadToAccuracy(spread)
+{
+	var spreadClamped = clamp(abs(spread), 0, 360)
+	return 1 - (spreadClamped / 360)
+}
+// Converts 0-1 accuracy to 360-0 degree spread
+function accuracyToSpread(accuracy)
+{
+	var accuracyClamped = clamp(accuracy, 0, 1)
+	return (1 - accuracyClamped) * 360
+}
+
 // Weapon actions ------------------------------------
 
 ///@return instance of spawned bullet
