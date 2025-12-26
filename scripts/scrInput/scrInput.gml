@@ -37,7 +37,7 @@ function Input()
 			secondaryButton = mouse_check_button(mb_right)
 	
 			// Weapon slots
-			//for (var i = 1; i <= INVENTORY_SIZE; i++)
+			//for (var i = 1; i <= inventorySize; i++)
 			//	if (keyboard_check_pressed(ord(string(i))))
 			//		selectSlot = i
 			swapSlot = keyboard_check_pressed(vk_space)

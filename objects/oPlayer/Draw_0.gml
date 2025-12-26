@@ -12,7 +12,7 @@ if (SHOW_PATH_GRID)
 }
 
 // Draw current weapon
-for (var i = 0; i < INVENTORY_SIZE; i++)
+for (var i = 0; i < inventorySize; i++)
 	if (weaponInventory[i].active) weaponInventory[i].draw()
 if (tempWeaponSlot.active) tempWeaponSlot.draw()
 

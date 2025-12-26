@@ -9,6 +9,16 @@ function Range(minimum, maximum) constructor
 	function rndmizeInt() { value = irandom_range(min_, max_) }
 }
 
+function iRange(minimum, maximum) constructor
+{
+	min_ = minimum
+	max_ = maximum
+	
+	value = irandom_range(min_, max_)
+	
+	function rndmize() { value = irandom_range(min_, max_) }
+}
+
 function Cooldown(defaultVal_) constructor
 {
 	valueDef = defaultVal_
@@ -24,6 +34,7 @@ function Buff() constructor
 	descriptionDebuff = "default"
 	descriptionNeutralEffect = "default"
 	rarity = RARITY.common
+	target = BUFF_TARGET.weapon
 	
 	buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
 	buffApply = function(){ show_debug_message("Buff function is undefined!") }
@@ -31,40 +42,46 @@ function Buff() constructor
 
 function GetBuffIndex(rarity)
 {
-	//var start_ = 0
-	//if (rarity != 0) start_ = oController.rarityIndexes[rarity-1]
-	//var end_ = oController.rarityIndexes[rarity] - 1
-	//return irandom_range(start_, end_)
-	
 	var start_ = 0
 	if (rarity != 0) start_ = oController.buffRarityIndexes[rarity-1] + 1
 	var end_ = oController.buffRarityIndexes[rarity] - 1
 	return irandom_range(start_, end_)
 }
 
-function EvaluateBuffEffects()
+function EvaluateWeaponBuffs()
 {
 	with (oPlayer)
 	{
-		for (var slot = 0; slot < INVENTORY_SIZE; slot++)
+		for (var slot = 0; slot < inventorySize; slot++)
 		{
 			// Reset weapon stats to default
 			var myWeaponID = weaponInventory[slot].index
 			weaponInventory[slot] = acquireWeapon(myWeaponID, id, weaponInventory[slot].active)
 			
 			// Apply buffs
-			for (var j = 0; j < array_length(activeBuffs); j++)
+			for (var j = 0; j < array_length(weaponBuffs); j++)
 			{
-				activeBuffs[j].buffApply(weaponInventory[slot])
+				weaponBuffs[j].buffApply(weaponInventory[slot])
 			}
 		}
+	}
+}
+
+function EvaluatePlayerBuffs()
+{
+	with (oPlayer)
+	{	
+		// Reset to default stats
+		InitPlayerStats()
 		
-		// Multiple buff implementation
-		//var myWeaponID = weaponInventory[slotID].index
-		//weaponInventory[slotID] = acquireWeapon(myWeaponID, id)
-		//for (var i = 0; i < array_length(buffsInventory[slotID]); i++)
-		//{
-		//	buffsInventory[slotID][i].buffApply(weaponInventory[slotID])
-		//}
+		// Apply buffs
+		for (var j = 0; j < array_length(playerBuffs); j++)
+		{
+			playerBuffs[j].buffApply(-1)
+		}
+		
+		walkSpdDef = min(walkSpdDef, TILE_SIZE)
+		walkSpdSprint = min(walkSpdSprint, TILE_SIZE)
+		walkSpd = walkSpdDef
 	}
 }

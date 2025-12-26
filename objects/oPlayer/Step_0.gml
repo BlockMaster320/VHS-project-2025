@@ -37,7 +37,7 @@ if (oController.interact)
 			
 			// Use the temporary slot
 			tempWeaponSlot = acquireWeapon(weaponPickup.myWeapon, id)
-			EvaluateBuffEffects()
+			EvaluateWeaponBuffs()
 			instance_destroy(weaponPickup)
 		}
 		else
@@ -49,7 +49,7 @@ if (oController.interact)
 		
 			// Get new weapon
 			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
-			EvaluateBuffEffects()
+			EvaluateWeaponBuffs()
 			instance_destroy(weaponPickup)
 		}
 	}
@@ -59,8 +59,16 @@ if (oController.interact)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
 		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
-		array_push(activeBuffs, buffPickup.myBuff)
-		EvaluateBuffEffects()
+		if (buffPickup.myBuff.target == BUFF_TARGET.weapon)
+		{
+			array_push(weaponBuffs, buffPickup.myBuff)
+			EvaluateWeaponBuffs()
+		}
+		else if (buffPickup.myBuff.target == BUFF_TARGET.player)
+		{
+			array_push(playerBuffs, buffPickup.myBuff)
+			EvaluatePlayerBuffs()
+		}
 		instance_destroy(buffPickup)
 	}
 }
@@ -68,7 +76,7 @@ if (oController.interact)
 // Update weapons
 if (global.gameSpeed > .0001)
 {
-	for (var i = 0; i < INVENTORY_SIZE; i++)
+	for (var i = 0; i < inventorySize; i++)
 		weaponInventory[i].update()
 	tempWeaponSlot.update()
 }

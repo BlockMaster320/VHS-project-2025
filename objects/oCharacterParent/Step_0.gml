@@ -93,7 +93,8 @@ if (place_meeting(x + hsp, y, oCollider))				// object collision
 	x = round(x)
 	hsp = 0;
 }
-x += hsp * global.gameSpeed
+var hspClamped = abs(min(hsp * global.gameSpeed, TILE_SIZE)) * sign(hsp) // Simpler than improving collision code lmao
+x += hspClamped
 
 
 // Vertical
@@ -109,7 +110,8 @@ if (place_meeting(x, y + vsp, global.tilemapCollision))	// object collision
 	y = round(y)
 	vsp = 0;
 }
-y += vsp * global.gameSpeed
+var vspClamped = abs(min(vsp * global.gameSpeed, TILE_SIZE)) * sign(vsp)
+y += vspClamped
 
 
 #endregion
