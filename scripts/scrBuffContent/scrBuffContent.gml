@@ -11,7 +11,7 @@ enum BUFF_TARGET
 enum BUFF
 {
 	// Common
-	blast, precision, rapidFire, cloner, tacticalKnockback, sonicSpeed,
+	blast, precision, rapidFire, cloner, meleeKnockback, rangedReverseKnockback, sonicSpeed,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
@@ -127,24 +127,45 @@ function BuffCreate(buffType_)
 				break
 				
 				
-			case BUFF.tacticalKnockback:
+			case BUFF.meleeKnockback:
 			
 				rarity = RARITY.common
 				
 				// + melee knockback (flat)
-				// 0 ranged knockback
+				// negative ranged knockback
 				
 				buffRandomize = function()
 				{		
-					descriptionNeutralEffect = $"+ melee knockback\n0 ranged knockback"
+					descriptionNeutralEffect = $"Big melee knockback"
+				}
+		
+				buffApply = function(weapon)
+				{
+					if (weapon.projectile.projectileType == PROJECTILE_TYPE.melee)
+						weapon.projectile.targetKnockback += 40
+				}
+				
+				break
+				
+				
+			case BUFF.rangedReverseKnockback:
+			
+				rarity = RARITY.common
+				
+				// negative ranged knockback
+				
+				buffRandomize = function()
+				{		
+					descriptionNeutralEffect = $"Invert ranged knockback"
 				}
 		
 				buffApply = function(weapon)
 				{
 					if (weapon.projectile.projectileType == PROJECTILE_TYPE.ranged)
-						weapon.projectile.targetKnockback = 0
-					else
-						weapon.projectile.targetKnockback += 40
+					{
+						weapon.projectile.targetKnockback *= -1
+						weapon.projectile.targetKnockback -= 10
+					}
 				}
 				
 				break

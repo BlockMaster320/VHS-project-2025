@@ -93,13 +93,16 @@ function genericWeaponUpdate()
 	
 	primaryActionCooldown = max(primaryActionCooldown - global.gameSpeed, -1)
 	
-	if (projectile.ownerID.object_index == oPlayer)
+	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
+	
+	if (ownerIsPlayer)
 	{
 		if (oController.primaryButtonPress or (shootOnHold and oController.primaryButton))
 			holdingTrigger = true
 	}
 	
-	if (projectile.ownerID.object_index == oPlayer) {	// player holds the gun
+	// Weapon durability
+	if (ownerIsPlayer) {	// player holds the gun
 		// Get rid of weapon after running out of durability
 		if (remainingDurability <= 0) {
 			with (oPlayer) {
@@ -113,6 +116,7 @@ function genericWeaponUpdate()
 		}
 	}
 		
+	// Reloading
 	if (reloading and magazineAmmo != magazineSize)
 	{
 		if (reloadProgress > reloadTime * 60)
@@ -125,14 +129,23 @@ function genericWeaponUpdate()
 	}
 	else reloadProgress = 0
 	
+	// Shooting
 	if (active and holdingTrigger and primaryActionCooldown <= 0 and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
-		while (primaryActionCooldown <= 0)
+		while (primaryActionCooldown <= 0)	// "while" instead of "if" for very high attack speeds
 		{
 			primaryActionCooldown += 60 / attackSpeed
 			primaryAction()
 			remainingDurability--
 			if (magazineAmmo > 0) magazineAmmo--
+			
+			if (ownerIsPlayer)	// Screenshake
+			{
+				var shakeMult = 8
+				if (!shootOnHold)
+					shakeMult *= 1.8
+				oCamera.currentShakeAmount += (1 / (attackSpeed + 1)) * shakeMult
+			}
 		}
 	}
 	

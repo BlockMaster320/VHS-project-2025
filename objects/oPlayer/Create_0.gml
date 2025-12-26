@@ -9,11 +9,13 @@ function InitPlayerStats()
 	walkSpdDef = 1.7
 	walkSpdSprint = 2.5	// Use when running between cleared rooms
 	walkSpd = walkSpdDef
-	hp = 150
+	maxHp = 150
 	
 	inventorySize = 2
 }
 InitPlayerStats()	// Do this, so we can reset player stats to default later
+
+hp = maxHp
 
 // Inventory --------------------------
 

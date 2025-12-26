@@ -55,7 +55,7 @@ function Constants()
 	#macro SHOW_PATH_GRID false
 	#macro PATH_DEBUG false
 	// AI
-	#macro AI_DEBUG true
+	#macro AI_DEBUG false
 	
 	global.Ease = {
 

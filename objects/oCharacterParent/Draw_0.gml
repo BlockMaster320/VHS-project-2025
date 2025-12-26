@@ -7,8 +7,18 @@ if (y != yprevious) depth = -y
 
 
 // Draw the character
-var color = characterState == CharacterState.Harm ? c_red : c_white;
-draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, color, 1)
+//var color = characterState == CharacterState.Harm ? c_red : c_white;
+if (hitFlashCooldown.value > 0)
+{
+	shader_set(shHitFlash)
+		shader_set_uniform_f(flashFacLoc, flashFac)
+		draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
+	shader_reset()
+	
+	flashFac = lerp(flashFac, 1, flashFacMixFac)
+	hitFlashCooldown.value -= global.gameSpeed
+}
+else draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
 		
 // DRAW EVENT OF THE SPECIFIC CHARACTER --------------------
 drawEvent()

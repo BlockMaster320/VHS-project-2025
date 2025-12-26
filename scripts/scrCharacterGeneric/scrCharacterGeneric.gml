@@ -22,6 +22,10 @@ enum CharacterState {
 
 function GetHit(character, proj)
 {
+	var charIsPlayer = character.object_index == oPlayer
+	
+	// Stat changes
+	
 	var damageDealt = proj.damage * proj.damageMultiplier
 	
 	character.hp -= damageDealt
@@ -39,6 +43,15 @@ function GetHit(character, proj)
 	// TODO..
 	
 	
+	// Feedback
+	var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
+	damageNumber.Init(damageDealt)
+	
+	character.hitFlash()
+	if (charIsPlayer)
+		oCamera.currentShakeAmount += damageDealt * .7
+	
+	
 	// Kill
 	if (character.hp <= 0)
 	{
@@ -46,7 +59,7 @@ function GetHit(character, proj)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}
-		else if (character.object_index == oPlayer) game_restart()	// TEMP
+		else if (charIsPlayer) game_restart()	// TEMP
 		else
 		{
 			character.onDeathEvent()
