@@ -130,34 +130,3 @@ function getPathfindingGrid(_grid) {
 	
 	return pfGrid
 }
-
-/**
- * @struct	NpcController()
- * @desc Base controller structure for any npc. Contains variables: [name], methods: [step, draw]
- */
-function NpcController() constructor {
-	name = "npc"
-
-	/**
-	 * @function	step()
-	 * @desc Step method called in each time the step phase has been triggered.
-	 */
-	static step = function() {}
-	
-	/**
-	 * @function	draw()
-	 * @desc Draw method called in each time when draw phase has been triggered.
-	 */
-	static draw = function() {}
-}
-
-/**
- * @struct	Passenger1Controller()
- * @desc Base controller structure for any npc. 
- *			Contains variables: [name], methods: [step, draw]
- */
-function Passenger1Controller(
-	_name
-) constructor {
-	
-}

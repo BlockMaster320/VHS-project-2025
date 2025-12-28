@@ -1,0 +1,134 @@
+/**
+ * @struct	Passenger1Controller()
+ * @extends EntityBase
+ * @desc Controller for passenger1 npc. Contains variables: [name], methods: [step, draw]
+ *
+ * @param {Asset.GMObject|Id.Instance} _gameObject - Game object referenced for NPC.
+ * @param {String} [_name] [undefined] - Name of the NPC
+ */
+function Passenger1Controller(
+	_gameObject,
+	_name = undefined
+) : NpcController(_gameObject, _name) constructor {
+
+	with(gameObject) {
+		// type
+		characterClass = CHARACTER_CLASS.NPC;
+		characterType = CHARACTER_TYPE.passenger1;
+		
+		// graphics
+		portrait = sNPCPortrait;
+		sprite_index = sPassanger1;
+		characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+		anim = characterAnimation.getAnimation;
+
+		// logic
+		followingPath = true
+		FollowPathInit()
+		/*
+			0 ... moving
+			1 ... stopped
+		*/
+		moveTimer = irandom_range(180, 600)
+		stopTimer = irandom_range(30, 180)
+		stuckTimer = 0
+		oldPosition = {x: x, y: y}
+		moveGraph = new StateGraph(
+			0,
+			[new State(0), new State(1)],
+			[
+				new Transition(0, LAMBDA {
+					if (moveTimer >= 0) {
+						moveTimer--
+						return 0
+					}
+					stopTimer = irandom_range(30, 180)
+					return 1
+				}),
+				new Transition(1, LAMBDA {
+					if (stopTimer >= 0) {
+						stopTimer--
+						return 1
+					}
+					moveTimer = irandom_range(180, 600)
+					return 0
+				}),
+			]
+		)
+		/*
+			0 ... lobby entrace
+			1 ... lobby tram
+			2 ... lobby sign
+			3 ... lobby terminal
+		*/
+		destinationGraph = new StateGraph(
+			0,
+			[
+				new State(0, getLobby().positions.lobby_exit), 
+				new State(1, getLobby().positions.info_sign), 
+				new State(2, getLobby().positions.terminal), 
+				new State(3, getLobby().positions.platform_left), 
+				new State(4, getLobby().positions.platform_right)],
+			[
+				new Transition(0, LAMBDA { return irandom(4) }),
+				new Transition(1, LAMBDA { return irandom(4) }),
+				new Transition(2, LAMBDA { return irandom(4) }),
+				new Transition(3, LAMBDA { return irandom(4) }),
+				new Transition(4, LAMBDA { return irandom(4) }),
+			]
+		)
+		debugIf(
+			!controller.updatePath(destinationGraph.get().value.x, destinationGraph.get().value.y), //mp_grid_path(getLobby().pfGrid, myPath, x, y, 450, 200, 1),
+			"Failed to get path"
+		)
+	}
+
+	
+	step = function() {
+		with(gameObject) {
+			
+			// End path
+			if (reachedPathEnd) {
+				destinationGraph.next()
+				FollowPathInit()
+				debugIf(
+					!controller.updatePath(destinationGraph.get().value.x, destinationGraph.get().value.y), //mp_grid_path(getLobby().pfGrid, myPath, x, y, 450, 200, 1),
+					"Failed to get new path"
+				)
+				moveTimer = 0
+			}
+			
+			// Check move conditions
+			moveGraph.next()
+			if (moveGraph.get().id == 0) {
+				followPathStep()
+				// Is stucked ?
+				if (oldPosition.x == x && oldPosition.y == y) {
+					debugIf(stuckTimer > 0, string(name) + " is stucked for " + string(stuckTimer) + " frames")
+					stuckTimer++	
+				} else {
+					stuckTimer = 0	
+				}
+				// Is stucked
+				if (stuckTimer > 30) {
+					debug(name + " stucked for 30 frames -> creating new path.")
+					destinationGraph.next()
+					FollowPathInit()
+					var successToFindPath = controller.updatePath(destinationGraph.get().value.x, destinationGraph.get().value.y)
+					debugIf(
+						!successToFindPath,
+						"Failed to get new path"
+					)
+					if (successToFindPath) stuckTimer = 0
+				}
+				oldPosition = {x: x, y: y}
+			}
+		}
+	}
+	
+	draw = function() { 
+		with (gameObject) {
+			if (!is_undefined(myPath) && path_exists(myPath) && PATH_DEBUG) draw_path(myPath, 0, 0, true)
+		}
+	}
+}

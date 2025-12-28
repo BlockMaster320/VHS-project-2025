@@ -1,2 +1,3 @@
 #macro LAMBDA function() 
-#macro DO LAMBDA
+#macro DO function() 
+#macro NOTHING {}

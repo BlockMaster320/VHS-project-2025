@@ -30,14 +30,9 @@ function getCharacterStepEvent(_characterType){
 			};
 		}
 
-		case CHARACTER_TYPE.passenger1: {
-			return function() {
-				
-				followPathStep()
-			};
+		default: { 
+			return DO NOTHING
 		}
-
-		default: { return function() {}; }
 	}
 }
 
@@ -74,15 +69,9 @@ function getCharacterDrawEvent(_characterType) {
 			};
 		}
 		
-		case CHARACTER_TYPE.passenger1: {
-			return function() {
-
-				
-				if (!is_undefined(myPath) && path_exists(myPath)) draw_path(myPath, 0, 0, true)
-			};
+		default: {
+			return DO NOTHING
 		}
-		
-		default: { return function() {}; }
 	}
 }
 
@@ -143,26 +132,10 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {
-			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.passenger1;
-			name = "Passanger";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sPassanger1;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
-			anim = characterAnimation.getAnimation;
-			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.passenger1);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
-
-	
-			
-			followingPath = true
-			FollowPathInit()
-			if (!mp_grid_path(getLobby().pfGrid, myPath, x, y, 450, 200, 1))
-			{
-				debug("Failed to get grid path")	
-			}
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger1"
+			)
 		} break;
 		
 		// Enemies ---------------------------------------------------------------

@@ -49,10 +49,10 @@ function Constants()
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
 	// Hitboxes
-	#macro SHOW_HITBOXES false
+	#macro SHOW_HITBOXES true
 	// Debug pathfinding
 	#macro SHOW_PATH_GRID false
-	#macro PATH_DEBUG false
+	#macro PATH_DEBUG true
 	// AI
 	#macro AI_DEBUG true
 	

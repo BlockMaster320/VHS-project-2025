@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scrStateGraph",
   "parent":{
-    "name":"PathFinding",
-    "path":"folders/Objects/Characters/PathFinding.yy",
+    "name":"NPCs",
+    "path":"folders/Objects/Characters/NPCs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
