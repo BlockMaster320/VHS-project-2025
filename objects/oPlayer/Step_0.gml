@@ -30,17 +30,17 @@ if (oController.interact)
 	var weaponPickup = instance_place(x, y, oWeaponPickup)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
-		if (weaponPickup.myWeapon.oneTimeUse)
+		if (weaponPickup.myWeapon.oneTimeUse)	// One time use weapons
 		{
 			// Deactivate current slot
 			weaponInventory[activeInventorySlot].active = false
 			
 			// Use the temporary slot
 			tempWeaponSlot = acquireWeapon(weaponPickup.myWeapon, id)
-			EvaluateWeaponBuffs()
+			EvaluateOneTimeUseBuffs()
 			instance_destroy(weaponPickup)
 		}
-		else
+		else									// Inventory slot weapons
 		{
 			// Drop current weapon
 			var myWeaponID = weaponInventory[activeInventorySlot].index

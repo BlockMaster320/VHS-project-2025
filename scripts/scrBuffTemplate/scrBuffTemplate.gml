@@ -67,6 +67,22 @@ function EvaluateWeaponBuffs()
 	}
 }
 
+function EvaluateOneTimeUseBuffs()
+{
+	with (oPlayer)
+	{
+		// Reset weapon stats to default
+		var myWeaponID = tempWeaponSlot.index
+		tempWeaponSlot = acquireWeapon(myWeaponID, id)
+			
+		// Apply buffs
+		for (var j = 0; j < array_length(weaponBuffs); j++)
+		{
+			weaponBuffs[j].buffApply(tempWeaponSlot)
+		}
+	}
+}
+
 function EvaluatePlayerBuffs()
 {
 	with (oPlayer)
