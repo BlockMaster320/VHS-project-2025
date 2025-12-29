@@ -23,9 +23,9 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 	
 	/// @function	Set()
 	/// @desc Method which sets target animation and on complete callback when finished.
-	/// @params {CinemaBordersState} _target - Target state of cienma for animation.
-	/// @params {function} _onComplete - Callback which is triggered when showing ends.
-	/// @returns {struct.CinemaBorders}
+	/// @param {CinemaBordersState} _target - Target state of cienma for animation.
+	/// @param {function} _onComplete - Callback which is triggered when showing ends.
+	/// @return {struct.CinemaBorders}
 	Set = function(_target, _onComplete = function() {}) {
 		if (target == _target) return self
 		target = _target
@@ -43,7 +43,7 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 	/// @function	Start()
 	/// @desc Start method which tries to run current tween if defined and not started.
 	Start = function() {
-		if (State() == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
+		if (tween.progress == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
 	}
 
 	/// @Function	drawGui()

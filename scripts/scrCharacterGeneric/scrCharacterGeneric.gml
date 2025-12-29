@@ -9,7 +9,8 @@ enum CHARACTER_TYPE
 {
 	player,
 	student,
-	mechanic, shopkeeper, passenger1,
+	mechanic, shopkeeper, 
+	passenger1, passenger2, passenger3,
 	targetDummy, ghoster, dropper
 }
 

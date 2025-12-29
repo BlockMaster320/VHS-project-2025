@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrFollowPath",
+  "%Name":"scrDebugMessage",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrFollowPath",
+  "name":"scrDebugMessage",
   "parent":{
-    "name":"PathFinding",
-    "path":"folders/Objects/Characters/PathFinding.yy",
+    "name":"Extensions",
+    "path":"folders/Objects/Extensions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

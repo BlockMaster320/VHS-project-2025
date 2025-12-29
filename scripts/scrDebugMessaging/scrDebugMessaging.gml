@@ -6,6 +6,19 @@ function debug(_msg){
 	}
 }
 
+/**
+ * @function	debugIf(_condition, _msg)
+ * @desc Logs _msg if _condition is equal to true.
+ *
+ * @param {Bool} _condition - True if _msg is supposed to be logged.
+ * @param {String} _msg - Message to be logged.
+ */
+function debugIf(_condition, _msg){
+	if (_condition && LOG_LEVEL <= LogLevel.Debug) {
+		show_debug_message("🪲	" + string(_msg));
+	}
+}
+
 function info(_msg){
 	if (LOG_LEVEL <= LogLevel.Info) {
 		show_debug_message("ℹ️	" + string(_msg));
@@ -20,7 +33,7 @@ function warning(_msg){
 
 function error(_msg){
 	if (LOG_LEVEL <= LogLevel.Error) {
-		show_debug_message("⚠️	" + string(_msg));
+		show_debug_message("❎️	" + string(_msg));
 	}
 }
 
@@ -39,7 +52,6 @@ enum LogLevel {
 	Silent = 5
 }
 
-/*❌⚡✅❎⚠️☑️✖️⬜ℹ️❗❓☠✔️*/
+/*❌⚡✅❎⚠️☑️✖️⛔‼️ℹ️✔️✖⬜❗❓☠✔️*/
 // 🐛
 // 🪲
-

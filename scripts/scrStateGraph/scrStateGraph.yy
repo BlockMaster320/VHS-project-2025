@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrFollowPath",
+  "%Name":"scrStateGraph",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrFollowPath",
+  "name":"scrStateGraph",
   "parent":{
-    "name":"PathFinding",
-    "path":"folders/Objects/Characters/PathFinding.yy",
+    "name":"NPCs",
+    "path":"folders/Objects/Characters/NPCs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

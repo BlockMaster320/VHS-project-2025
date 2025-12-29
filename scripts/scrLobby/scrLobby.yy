@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrFollowPath",
+  "%Name":"scrLobby",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrFollowPath",
+  "name":"scrLobby",
   "parent":{
-    "name":"PathFinding",
-    "path":"folders/Objects/Characters/PathFinding.yy",
+    "name":"Systems",
+    "path":"folders/Objects/Systems.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -29,8 +29,10 @@ function getCharacterStepEvent(_characterType){
 				//show_debug_message("mechanic step");
 			};
 		}
-		
-		default: { return function() {}; }
+
+		default: { 
+			return DO NOTHING
+		}
 	}
 }
 
@@ -67,7 +69,9 @@ function getCharacterDrawEvent(_characterType) {
 			};
 		}
 		
-		default: { return function() {}; }
+		default: {
+			return DO NOTHING
+		}
 	}
 }
 
@@ -128,17 +132,22 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {
-			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.passenger1;
-			name = "Passanger";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sPassanger1;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
-			anim = characterAnimation.getAnimation;
-			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.passenger1);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 1"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger2: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 2"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger3: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 3"
+			)
 		} break;
 		
 		case CHARACTER_TYPE.student: {

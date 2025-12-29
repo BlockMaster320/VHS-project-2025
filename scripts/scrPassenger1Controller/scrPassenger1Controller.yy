@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrPassenger1Controller",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrPassenger1Controller",
+  "parent":{
+    "name":"Controllers",
+    "path":"folders/Objects/Characters/NPCs/Controllers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
