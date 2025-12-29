@@ -15,11 +15,14 @@ function NpcController(
         gameObject = undefined;
 		warning("Creating base npc controller with undefined gameObject.")
         return self;
-    }	
+    }
 	gameObject = _gameObject
     name = (is_undefined(_name)) ? object_get_name(_gameObject.object_index) : _name;
 	gameObject.controller = self
 	gameObject.name = name
+	with(gameObject) {
+		dir = 1
+	}
 
 	/**
 	 * @function	step()
@@ -48,7 +51,6 @@ function NpcController(
 		return mp_grid_path(getLobby().pfGrid, gameObject.myPath, gameObject.x, gameObject.y, _x, _y, 1)
 	}
 	
-		
 	gameObject.stepEvent = DO { step() }
 	gameObject.drawEvent = DO { draw() }
 }

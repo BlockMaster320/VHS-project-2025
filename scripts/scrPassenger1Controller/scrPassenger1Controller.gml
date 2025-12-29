@@ -12,6 +12,7 @@ function Passenger1Controller(
 ) : NpcController(_gameObject, _name) constructor {
 
 	with(gameObject) {
+		
 		// type
 		characterClass = CHARACTER_CLASS.NPC;
 		characterType = CHARACTER_TYPE.passenger1;
@@ -33,6 +34,7 @@ function Passenger1Controller(
 		stopTimer = irandom_range(30, 180)
 		stuckTimer = 0
 		oldPosition = {x: x, y: y}
+		tracer = new Tracer()
 		moveGraph = new StateGraph(
 			0,
 			[new State(0), new State(1)],
@@ -55,12 +57,6 @@ function Passenger1Controller(
 				}),
 			]
 		)
-		/*
-			0 ... lobby entrace
-			1 ... lobby tram
-			2 ... lobby sign
-			3 ... lobby terminal
-		*/
 		destinationGraph = new StateGraph(
 			0,
 			[
@@ -102,16 +98,16 @@ function Passenger1Controller(
 			moveGraph.next()
 			if (moveGraph.get().id == 0) {
 				followPathStep()
-				// Is stucked ?
-				if (oldPosition.x == x && oldPosition.y == y) {
-					debugIf(stuckTimer > 0, string(name) + " is stucked for " + string(stuckTimer) + " frames")
+				// Is stuck ?
+				if (tracer.isStuck()) {//(oldPosition.x == x && oldPosition.y == y) {
+					debugIf(stuckTimer > 0, string(name) + " is stuck for " + string(stuckTimer) + " frames")
 					stuckTimer++	
 				} else {
 					stuckTimer = 0	
 				}
-				// Is stucked
-				if (stuckTimer > 30) {
-					debug(name + " stucked for 30 frames -> creating new path.")
+				// Is stuck
+				if (stuckTimer > STUCK_FRAMES_THRESHOLD) {
+					debug(name + " stuck too long -> creating new path.")
 					destinationGraph.next()
 					FollowPathInit()
 					var successToFindPath = controller.updatePath(destinationGraph.get().value.x, destinationGraph.get().value.y)
@@ -122,13 +118,48 @@ function Passenger1Controller(
 					if (successToFindPath) stuckTimer = 0
 				}
 				oldPosition = {x: x, y: y}
+				tracer.set(x, y)
 			}
 		}
 	}
 	
 	draw = function() { 
 		with (gameObject) {
-			if (!is_undefined(myPath) && path_exists(myPath) && PATH_DEBUG) draw_path(myPath, 0, 0, true)
+			hMove = sign(x - oldPosition.x)
+			dir = (hMove != 0) ? sign(hMove) : dir
+			if (!is_undefined(myPath) && path_exists(myPath)) followPathDraw()
 		}
 	}
 }
+
+function Tracer(
+	_threshold = 5,
+	_speed = 1,
+	_stuckRatio = .1
+) constructor {
+	oldX = 0
+	oldY = 0
+	x = 0
+	y = 0
+	
+	indexer = 0
+	threshold = _threshold
+	distanceThreshold = threshold * _speed * _stuckRatio + 1
+	
+	static set = function(_x, _y) {
+		if (indexer >= threshold) {
+			oldX = x
+			oldY = y
+			x = _x
+			y = _y
+			indexer = 0
+		}
+		indexer++
+	}
+	
+	static isStuck = function() {
+		return abs(oldX - x) <= distanceThreshold && abs(oldY - y) <= distanceThreshold
+	}
+}
+
+#macro STUCK_FRAMES_THRESHOLD 60

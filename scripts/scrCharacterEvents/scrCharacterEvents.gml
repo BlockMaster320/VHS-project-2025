@@ -134,7 +134,19 @@ function characterCreate(_characterType) {
 		case CHARACTER_TYPE.passenger1: {
 			controller = new Passenger1Controller(
 				id, 
-				"Passanger1"
+				"Passanger 1"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger2: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 2"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger3: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 3"
 			)
 		} break;
 		

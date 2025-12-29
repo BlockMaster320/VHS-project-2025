@@ -1,1 +1,1 @@
-characterCreate(CHARACTER_TYPE.passenger1);
+characterCreate(CHARACTER_TYPE.passenger3);
