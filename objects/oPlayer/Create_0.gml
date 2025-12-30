@@ -4,7 +4,7 @@ characterCreate(CHARACTER_TYPE.player);
 
 // Player attributes ------------------------
 
-walkSpd = 1.7
+walkSpd = 10
 hp = 150
 
 // Inventory --------------------------

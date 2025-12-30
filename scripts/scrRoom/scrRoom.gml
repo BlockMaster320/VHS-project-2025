@@ -488,4 +488,12 @@ function ScanRooms() {
 		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].interactables, _interactable);
 	}
+	
+	with (oNPC) {
+		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		var _interactable = new Interactable(object_index, _roomX, _roomY);
+		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].interactables, _interactable);
+	}
 }

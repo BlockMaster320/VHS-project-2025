@@ -171,6 +171,7 @@
     {"id":{"name":"sPlaceholderBuff","path":"sprites/sPlaceholderBuff/sPlaceholderBuff.yy",},},
     {"id":{"name":"sPlaceholderGun","path":"sprites/sPlaceholderGun/sPlaceholderGun.yy",},},
     {"id":{"name":"sPlaceholderProjectile","path":"sprites/sPlaceholderProjectile/sPlaceholderProjectile.yy",},},
+    {"id":{"name":"sPlant","path":"sprites/sPlant/sPlant.yy",},},
     {"id":{"name":"sPlayer","path":"sprites/sPlayer/sPlayer.yy",},},
     {"id":{"name":"sPlayerSmol","path":"sprites/sPlayerSmol/sPlayerSmol.yy",},},
     {"id":{"name":"spr_crt_example_games","path":"sprites/spr_crt_example_games/spr_crt_example_games.yy",},},
