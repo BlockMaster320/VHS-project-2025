@@ -9,8 +9,9 @@ enum CHARACTER_TYPE
 {
 	player,
 	student,
-	mechanic, shopkeeper, passenger1,
-	targetDummy, ghoster,
+	mechanic, shopkeeper, 
+	passenger1, passenger2, passenger3,
+	targetDummy, ghoster, dropper
 }
 
 enum CharacterState {
@@ -22,6 +23,10 @@ enum CharacterState {
 
 function GetHit(character, proj)
 {
+	var charIsPlayer = character.object_index == oPlayer
+	
+	// Stat changes
+	
 	var damageDealt = proj.damage * proj.damageMultiplier
 	
 	character.hp -= damageDealt
@@ -35,6 +40,18 @@ function GetHit(character, proj)
 		character.wantsToHide += damageDealt * .02
 	}
 	
+	// Iterate through applied effects
+	// TODO..
+	
+	
+	// Feedback
+	var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
+	damageNumber.Init(damageDealt)
+	
+	character.hitFlash()
+	if (charIsPlayer)
+		oCamera.currentShakeAmount += damageDealt * .7
+	
 	
 	// Kill
 	if (character.hp <= 0)
@@ -43,9 +60,10 @@ function GetHit(character, proj)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}
+		else if (charIsPlayer) game_restart()	// TEMP
 		else
 		{
-			instance_destroy(character)
+			character.onDeathEvent()
 		}
 	}
 }

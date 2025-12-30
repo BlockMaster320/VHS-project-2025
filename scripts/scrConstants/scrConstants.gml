@@ -4,6 +4,7 @@ function Constants()
 	{
 		playing,
 		menu,
+		pausedDialogue,	// Je to trochu hotfix, ale funguje, omlouvám se vašim očím
 		dialogue,
 		cutscene,
 	}
@@ -11,11 +12,15 @@ function Constants()
 	// Map generation settings
 	#macro TILE_SIZE 16		// size of 1 tile in pixels
 	#macro ROOM_SIZE 30		// size of each room in tiles
+	#macro ROOM_SIZE_PX ROOM_SIZE * TILE_SIZE	// size of each room in pixels
 	#macro ROOM_SCAN_X 1	// where to start scanning the rooms
 	#macro ROOM_SCAN_Y 1
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
-	#macro ROOM_COUNT 2		// number of rooms to scan
+	#macro ROOM_COUNT 5		// number of rooms to scan
 	#macro GENERATION_FALLOFF 0.4
+	#macro MAX_DEPTH 3
+	#macro SHOP_SPAWN_CHANCE 0.5
+	#macro MAX_SHOPS 3
 	//#macro ROOM_SPACING 3
 
 	// Minimap rendering settings
@@ -45,12 +50,12 @@ function Constants()
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
 	// Hitboxes
-	#macro SHOW_HITBOXES true
+	#macro SHOW_HITBOXES false
 	// Debug pathfinding
 	#macro SHOW_PATH_GRID false
-	#macro PATH_DEBUG true
+	#macro PATH_DEBUG false
 	// AI
-	#macro AI_DEBUG true
+	#macro AI_DEBUG false
 	
 	global.Ease = {
 

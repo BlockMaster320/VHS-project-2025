@@ -13,7 +13,7 @@ function BaseTween(_gameSpeed = global.gameSpeed) constructor {
  
 	/// @function	step()
 	/// @desc Step function called in each step if registered.
-	static step = function() {}
+	static step = function() {progress = Progress.FINISHED}
 	
 	/// @function	destroy()
 	/// @desc Destroy methods which removes itself from controller (unregister).

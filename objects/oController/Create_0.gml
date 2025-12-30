@@ -1,15 +1,15 @@
 Constants()
 
 global.gameSpeed = 1
-//game_set_speed(120, gamespeed_fps)
-//global.gameSpeed = 0.5
+//game_set_speed(240, gamespeed_fps)
+//global.gameSpeed = 0.25
 
 global.inputState = INPUT_STATE.playing
 
 //projectilePool = []
 
 WeaponsInit()
-BuffsInit()
+buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 
 show_debug_overlay(true)
 

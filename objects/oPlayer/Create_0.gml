@@ -4,25 +4,34 @@ characterCreate(CHARACTER_TYPE.player);
 
 // Player attributes ------------------------
 
-walkSpd = 2
-hp = infinity
+function InitPlayerStats()
+{
+	walkSpdDef = 1.7
+	walkSpdSprint = 2.5	// Use when running between cleared rooms
+	walkSpd = walkSpdDef
+	maxHp = 150
+	
+	inventorySize = 2
+}
+InitPlayerStats()	// Do this, so we can reset player stats to default later
+
+hp = maxHp
 
 // Inventory --------------------------
 
-#macro INVENTORY_SIZE 2
 activeInventorySlot = 0
 
 // Weapons
-weaponInventory = array_create(INVENTORY_SIZE, noone)
+weaponInventory = array_create(inventorySize, noone)
 //weaponInventory[0] = acquireWeapon(1, id) // Fists
 weaponInventory[0] = acquireWeapon(WEAPON.sword, id) // For testing
-weaponInventory[1] = acquireWeapon(WEAPON.fists, id, false) // Fists
+weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false) // Fists
+tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 
 
 // Buffs
-buffsInventory = array_create(INVENTORY_SIZE)
-for (var i = 0; i < array_length(buffsInventory); i++)
-	buffsInventory[i] = array_create(0)
+weaponBuffs = []
+playerBuffs = []
 
 // Misc ---------------------------------
 

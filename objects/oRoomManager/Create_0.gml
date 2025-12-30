@@ -16,6 +16,8 @@ roomTypes = array_create(ROOM_COUNT);
 areRoomsScanned = false; 
 rooms = ds_map_create();
 currentRoom = noone;
+mostDistantRooms = [noone, noone, noone, noone];
+shopsGenerated = 0;
 
 // Grid for enemy AI
 wallGrid = ds_grid_create(ROOM_SIZE, ROOM_SIZE);
@@ -37,4 +39,3 @@ playerRoomYPrev = 0;
 
 playerRoomXpx = 0
 playerRoomYpx = 0
-roomSizePx = ROOM_SIZE * TILE_SIZE

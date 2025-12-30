@@ -6,7 +6,7 @@
   "name":"scrListExtension",
   "parent":{
     "name":"Extensions",
-    "path":"folders/Objects/CutScenes/Tween/Extensions.yy",
+    "path":"folders/Objects/Extensions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

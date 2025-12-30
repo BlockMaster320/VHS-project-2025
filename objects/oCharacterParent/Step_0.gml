@@ -3,13 +3,30 @@ if (characterType == noone) {
 	show_message("Character is not set up correctly: " + object_get_name(object_index));
 }
 
-#region Calculate knockback
+if (characterType != CHARACTER_TYPE.player and global.gameSpeed < .0001)
+	return;
 
-mhsp *= frictionMult
-mvsp *= frictionMult
+#region Momentum friction
+
+mhsp *= 1 - (1 - frictionMult) * global.gameSpeed
+mvsp *= 1 - (1 - frictionMult) * global.gameSpeed
 
 if (abs(mhsp) < .001) mhsp = 0
 if (abs(mvsp) < .001) mvsp = 0
+
+#endregion
+
+#region AOE collision
+
+var aoeList = ds_list_create()
+var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
+if (colliding)
+{
+	for (var i = 0; i < ds_list_size(aoeList); i++)
+	{
+		aoeList[| i].effect()
+	}
+}
 
 #endregion
 
@@ -56,9 +73,6 @@ stepEvent();
 hsp = whsp + mhsp
 vsp = wvsp + mvsp
 
-if (room = rmLobby)	// REPLACE LATER plz
-	if (y < 120) room_goto(rmGame)
-
 /// Tilemap and object collision
 
 // Horizontal
@@ -79,7 +93,8 @@ if (place_meeting(x + hsp, y, oCollider))				// object collision
 	x = round(x)
 	hsp = 0;
 }
-x += hsp
+var hspClamped = abs(min(hsp * global.gameSpeed, TILE_SIZE)) * sign(hsp) // Simpler than improving collision code lmao
+x += hspClamped
 
 
 // Vertical
@@ -95,7 +110,8 @@ if (place_meeting(x, y + vsp, global.tilemapCollision))	// object collision
 	y = round(y)
 	vsp = 0;
 }
-y += vsp
+var vspClamped = abs(min(vsp * global.gameSpeed, TILE_SIZE)) * sign(vsp)
+y += vspClamped
 
 
 #endregion

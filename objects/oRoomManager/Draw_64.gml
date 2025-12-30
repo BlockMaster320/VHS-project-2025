@@ -2,6 +2,7 @@
 if (!surface_exists(minimapSurf))
 	minimapSurf = surface_create(MINIMAP_SURF_W, MINIMAP_SURF_H);
 
+
 surface_set_target(minimapSurf);
 draw_clear_alpha(c_black, 0.7);
 rooms[? string([0, 0])].RenderMinimap(minimapSurf);

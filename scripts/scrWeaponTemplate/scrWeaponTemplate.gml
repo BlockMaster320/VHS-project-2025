@@ -5,10 +5,13 @@ function Weapon() constructor
 	attackSpeed = 2		// shots/damage amount per second
 	spread = 0			// weapon accuracy in degrees
 	projectileAmount = 1
+	
 	reloadTime = .5		// in seconds
 	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
 	durability = infinity	// usually the number of primary action calls before breaking
-	
+	shootOnHold = true		// Wether to keep shooting when the player holds down fire
+	oneTimeUse = false
+
 	// Generic attributes
 	sprite = sPlaceholderGun
 	name = "Generic weapon"
@@ -58,6 +61,7 @@ function Projectile() constructor
 	// Generic attributes
 	sprite = sPlaceholderProjectile
 	projectileAuthority = PROJECTILE_AUTHORITY.self
+	projectileType = PROJECTILE_TYPE.ranged
 	ownerID = -1
 	
 	// Scene attributes
@@ -73,7 +77,6 @@ function Projectile() constructor
 	update = function(){show_debug_message("Unset projectile update!")}
 	draw = function(){show_debug_message("Unset projectile draw!")}
 }
-
 
 
 

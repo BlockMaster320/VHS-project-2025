@@ -33,10 +33,11 @@ function Input()
 			
 			// Weapon usage
 			primaryButton = mouse_check_button(mb_left)
+			primaryButtonPress = mouse_check_button_pressed(mb_left)
 			secondaryButton = mouse_check_button(mb_right)
 	
 			// Weapon slots
-			//for (var i = 1; i <= INVENTORY_SIZE; i++)
+			//for (var i = 1; i <= inventorySize; i++)
 			//	if (keyboard_check_pressed(ord(string(i))))
 			//		selectSlot = i
 			swapSlot = keyboard_check_pressed(vk_space)
@@ -51,6 +52,7 @@ function Input()
 			
 			
 		case INPUT_STATE.menu:
+		case INPUT_STATE.pausedDialogue:
 			gui_x = device_mouse_x_to_gui(0) * guiToCamera
 			gui_y = device_mouse_y_to_gui(0) * guiToCamera
 			gui_pressed = mouse_check_button_pressed(mb_left)

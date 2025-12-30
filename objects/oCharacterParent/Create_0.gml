@@ -21,8 +21,21 @@ vsp = 0		// Total horizontal speed
 
 // Combat ------------------------------------
 
-hp = 150
+maxHp = 150
+hp = maxHp
 effects = []
+
+// Hit flash
+hitFlashCooldown = new Cooldown(10)
+hitFlashCooldown.value = 0
+flashFacLoc = shader_get_uniform(shHitFlash, "flashFac")
+flashFac = 0
+flashFacMixFac = .5
+function hitFlash()
+{
+	hitFlashCooldown.reset()
+	flashFac = 0
+}
 
 
 // Character attributes ----------------------------------
@@ -48,4 +61,5 @@ depth = -y;
 	
 // Event functions
 stepEvent = noone
-drawEvent = noone;
+drawEvent = noone
+onDeathEvent = function(){ instance_destroy() }

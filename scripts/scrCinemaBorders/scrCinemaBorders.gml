@@ -1,15 +1,16 @@
 /// @struct	CinemaBorders
 /// @desc Helper struct which wraps current state of cut scene borders. Provide helper functions for hide and show animations.
-/// @param {real} [_hiddenHeight] [0] - Hidden height of borders
-/// @param {real} [_visibleHeight] [100] - Visible height of borders
 /// @param {real} [_duration] [1500] - Duration of animation for hiding/showing borders
-/// @param {real} [_currentHeight] [undefined] - If undefined, _hiddenHeight is provided.
-function CinemaBorders(_hiddenHeight=0, _visibleHeight=100, _duration=1500, _currentHeight=undefined) constructor {
-	hiddenHeight	= 0		// px
-	visibleHeight	= 100	// px
-	duration		= 1500	// ms
+/// @param {real} [_currentHeightState] [CinemaBordersState.NONE] - If undefined, _hiddenHeight is provided.
+function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NONE) constructor {
+	static name			= "CinemaBorders"
+	if (SHOW_DEBUG) show_debug_message(name + " is being created.")
+
+	duration		= _duration			// ms
 	
-	currentHeight	= is_undefined(_currentHeight) ? hiddenHeight : _currentHeight
+	currentHeight	= _currentHeightState
+	target			= _currentHeightState
+	tween			= undefined
 	
 	controller		= getDrawGuiController()
 	controller.add(self)
@@ -19,37 +20,31 @@ function CinemaBorders(_hiddenHeight=0, _visibleHeight=100, _duration=1500, _cur
 	destroy = function() {
 		controller.remove(self)	
 	}
-
-	/// @function	Show()
-	/// @desc Function which returns tween for show animatino of cut scene borders.
-	/// @params {function|Constants.Ease} _onComplete - Callback which is triggered when showing ends.
-	/// @returns {struct.TweenProperty}
-    Show = function(_onComplete = function() {}) {
-		return new TweenProperty(
-			visibleHeight,
+	
+	/// @function	Set()
+	/// @desc Method which sets target animation and on complete callback when finished.
+	/// @param {CinemaBordersState} _target - Target state of cienma for animation.
+	/// @param {function} _onComplete - Callback which is triggered when showing ends.
+	/// @return {struct.CinemaBorders}
+	Set = function(_target, _onComplete = function() {}) {
+		if (target == _target) return self
+		target = _target
+		tween = new TweenProperty(
+			target,
             function() { return currentHeight; },
             function(v) { currentHeight = v; },
             duration, 
-            global.Ease.EaseOutQuad,
+            (target == CinemaBordersState.NONE) ? global.Ease.EaseInQuad : global.Ease.EaseOutQuad,
 			_onComplete
         )
-    }
-
-	/// @function	Hide()
-	/// @desc Function which returns tween for hide animatino of cut scene borders.
-	/// @params {function} _onComplete - Callback which is triggered when hidding ends.
-	/// @returns {struct.TweenProperty}
-    Hide = function(_onComplete = function() {}) {
-		//currentHeight = hiddenHeight
-		return new TweenProperty(
-			hiddenHeight,
-            function() { return currentHeight; },
-            function(v) { currentHeight = v; },
-            duration,
-            global.Ease.EaseInQuad,
-			_onComplete
-        )
-    }
+		return self
+	}
+	
+	/// @function	Start()
+	/// @desc Start method which tries to run current tween if defined and not started.
+	Start = function() {
+		if (tween.progress == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
+	}
 
 	/// @Function	drawGui()
 	/// @desc Based on currentHeight draws in GUI top and bottom borders.
@@ -70,8 +65,13 @@ function CinemaBorders(_hiddenHeight=0, _visibleHeight=100, _duration=1500, _cur
 		})
 	}
 	
+	State = function() {
+		return is_undefined(tween) ? Progress.FINISHED : tween.progress
+	}
+	
 	enum CinemaBordersState {
-		HIDDEN = 1,
-		VISIBLE = 2,
+		NONE = 0,
+		CINEMA = 40,
+		WHOLE = 150
 	}
 }

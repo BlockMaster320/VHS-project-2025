@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrNpcController",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrNpcController",
+  "parent":{
+    "name":"Controllers",
+    "path":"folders/Objects/Characters/NPCs/Controllers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

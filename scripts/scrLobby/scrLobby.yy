@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrLobby",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrLobby",
+  "parent":{
+    "name":"Systems",
+    "path":"folders/Objects/Systems.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

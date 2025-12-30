@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrStateGraph",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrStateGraph",
+  "parent":{
+    "name":"NPCs",
+    "path":"folders/Objects/Characters/NPCs.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

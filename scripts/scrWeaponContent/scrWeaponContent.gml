@@ -9,12 +9,20 @@ enum PROJECTILE_EFFECT
 	nothing
 }
 
+enum PROJECTILE_TYPE
+{
+	ranged, melee
+}
+
 function WeaponsInit()
 {
 	enum WEAPON
 	{
-		// Player focused
-		defaultGun, fists, garbage, sword,
+		// Default
+		fists,
+		
+		// Player focused (droppable?)
+		defaultGun, garbage, sword,
 		
 		// Monsters focused
 		ghosterGun,
@@ -40,9 +48,9 @@ function WeaponsInit()
 		description = "This weapon is a weapon"
 	
 		// Modifiable attributes
-		attackSpeed = 3			// shots/damage amount per second
-		spread = 30				// weapon accuracy in degrees
-		projectileAmount = 5	// number of projectile to be shot in the shoot frame
+		attackSpeed = 2			// shots/damage amount per second
+		spread = 25				// weapon accuracy in degrees
+		projectileAmount = 3	// number of projectile to be shot in the shoot frame
 		
 		// Non-modifiable attributes
 		magazineSize = -1
@@ -57,13 +65,14 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
-			projectileSpeed = 3
+			damage = 20
+			projectileSpeed = 2
 			targetKnockback = 5
 			effects = []
 	
 			// Generic attributes
 			sprite = sPlaceholderProjectile
+			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -90,40 +99,42 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 0			// shots/damage amount per second
+		attackSpeed = 1			// shots/damage amount per second
 		spread = 0				// weapon accuracy in degrees
-		projectileAmount = 0	// number of projectile to be shot in the shoot frame
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 0
+			damage = 1
 			projectileSpeed = 3
 			targetKnockback = 5
 			effects = []
+			lifetime = 5
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
+			sprite = sMeleeHitbox
+			projectileType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
-			update = genericBulletUpdate
+			update = genericMeleeHitUpdate
 			draw = genericProjectileDraw
 		}
 	
 		// Weapon actions
-		primaryAction = nothingFunction
+		primaryAction = meleeWeaponShoot
 		secondaryAction = nothingFunction
 	
 		// Weapon functions
-		update = nothingFunction
+		update = genericWeaponUpdate
 		draw = nothingFunction
 	}
 		
 	// -----------------------------------------------------------------------------
 	
-	with (weaponDatabase[WEAPON.sword]) // Empty weapon slot
+	with (weaponDatabase[WEAPON.sword])
 	{
 		// Generic attributes
 		sprite = sSword
@@ -135,6 +146,7 @@ function WeaponsInit()
 		attackSpeed = 2			// shots/damage amount per second
 		spread = 0				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		shootOnHold = false
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -148,8 +160,9 @@ function WeaponsInit()
 			scale = 4
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
+			sprite = sMeleeHitbox
 			lifetime = 5
+			projectileType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
 			update = genericMeleeHitUpdate
@@ -164,7 +177,6 @@ function WeaponsInit()
 		update = genericWeaponUpdate
 		draw = genericWeaponDraw
 	}
-	
 		
 	// -----------------------------------------------------------------------------
 
@@ -197,6 +209,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sPlaceholderProjectile
+			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -225,8 +238,9 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 1			// shots/damage amount per second
-		spread = 30				// weapon accuracy in degrees
+		spread = 0				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		oneTimeUse = true
 		
 		// Non-modifiable attributes
 		magazineSize = -1
@@ -248,6 +262,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sTrashBag
+			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = rotatingProjectileUpdate

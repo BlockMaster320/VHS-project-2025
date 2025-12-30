@@ -29,8 +29,10 @@ function getCharacterStepEvent(_characterType){
 				//show_debug_message("mechanic step");
 			};
 		}
-		
-		default: { return function() {}; }
+
+		default: { 
+			return DO NOTHING
+		}
 	}
 }
 
@@ -67,7 +69,9 @@ function getCharacterDrawEvent(_characterType) {
 			};
 		}
 		
-		default: { return function() {}; }
+		default: {
+			return DO NOTHING
+		}
 	}
 }
 
@@ -128,17 +132,37 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 1"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger2: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 2"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger3: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 3"
+			)
+		} break;
+		
+		case CHARACTER_TYPE.student: {
 			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.passenger1;
-			name = "Passanger";
-			portrait = sPassenger1Portrait;
+			characterType = CHARACTER_TYPE.student;
+			name = "Mechanic";
+			portrait = sNPCPortrait;
 			
-			sprite_index = sPassenger1;
+			sprite_index = sMechanic;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
+			dir = -1;
 			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.passenger1);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
+			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
 		} break;
 		
 		// Enemies ---------------------------------------------------------------
@@ -218,20 +242,53 @@ function characterCreate(_characterType) {
 			
 		} break;
 		
-		case CHARACTER_TYPE.student: {
-			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.student;
-			name = "Mechanic";
+		// Dropper - can carry any gun and drops it on death
+		case CHARACTER_TYPE.dropper: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.dropper;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Dropper";
 			portrait = sNPCPortrait;
 			
+			// Animation
 			sprite_index = sMechanic;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
-			dir = -1;
 			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			var weaponID = choose(WEAPON.sword, WEAPON.defaultGun, WEAPON.garbage)
+			myWeapon = acquireWeapon(weaponID, id)
+			
+			// AI
+			dropperAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				dropperAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				dropperAiDraw()	// AI visualization
+			}
+			
+			onDeathEvent = dropperOnDeath
+			
 		} break;
+		
 		// --------------------------------------------------------------------------------
 		
 		default:
