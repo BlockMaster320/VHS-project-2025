@@ -19,7 +19,7 @@ function Passenger1Controller(
 		
 		// graphics
 		portrait = sNPCPortrait;
-		sprite_index = sPassanger1;
+		sprite_index = sPassenger1;
 		characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 		anim = characterAnimation.getAnimation;
 

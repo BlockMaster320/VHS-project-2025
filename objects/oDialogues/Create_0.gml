@@ -1,5 +1,6 @@
 DlgConstants()
 dialogues = new DialogueSystem()
+current_dialogue = noone
 
 closest_NPC = noone
 talking = false
