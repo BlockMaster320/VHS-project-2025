@@ -19,6 +19,10 @@ if (hitFlashCooldown.value > 0)
 	hitFlashCooldown.value -= global.gameSpeed
 }
 else draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
+
+if (inRange){
+	draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 15, "[E]")
+}
 		
 // DRAW EVENT OF THE SPECIFIC CHARACTER --------------------
 drawEvent()

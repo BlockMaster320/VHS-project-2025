@@ -1,11 +1,7 @@
 if (!talking) {
-	if (!oController.interact) exit
-
-	/*
-	with (oPlayer){
-		other.closest_NPC = instance_place(x, y, oNPC)
-		if (other.closest_NPC == noone) exit
-	}*/
+	if (closest_NPC != noone){
+		closest_NPC.inRange = false
+	}
 	
 	closest_NPC = instance_nearest(oPlayer.x, oPlayer.y, oNPC);
 	if (closest_NPC == noone) exit;
@@ -13,6 +9,15 @@ if (!talking) {
 	if (_distToClosestNPC > INTERACTION_DISTANCE) {
 		exit;
 	}
+	closest_NPC.inRange = true
+	
+	if (!oController.interact) exit
+
+	/*
+	with (oPlayer){
+		other.closest_NPC = instance_place(x, y, oNPC)
+		if (other.closest_NPC == noone) exit
+	}*/
 	
 	StartDlg(closest_NPC.characterType)
 } else {
