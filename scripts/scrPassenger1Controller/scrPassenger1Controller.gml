@@ -19,8 +19,8 @@ function Passenger1Controller(
 		
 		// graphics
 		portrait = sNPCPortrait;
-		sprite_index = sPassenger1;
-		characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+		sprite_index = sCharacters;
+		characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
 		anim = characterAnimation.getAnimation;
 
 		// logic
@@ -96,7 +96,8 @@ function Passenger1Controller(
 			
 			// Check move conditions
 			moveGraph.next()
-			if (moveGraph.get().id == 0) {
+			characterState = (IS_MOVING) ? CharacterState.Run : CharacterState.Idle
+			if (IS_MOVING) {
 				followPathStep()
 				// Is stuck ?
 				if (tracer.isStuck()) {//(oldPosition.x == x && oldPosition.y == y) {
@@ -130,6 +131,8 @@ function Passenger1Controller(
 			if (!is_undefined(myPath) && path_exists(myPath)) followPathDraw()
 		}
 	}
+	
+	#macro IS_MOVING moveGraph.get().id == 0
 }
 
 function Tracer(
