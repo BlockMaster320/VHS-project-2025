@@ -50,6 +50,7 @@ harmed_duration = 0;
 dir = 1;
 
 characterState = CharacterState.Idle;
+inRange = false
 	
 // animation control
 characterAnimation = noone;

@@ -107,7 +107,7 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.mechanic;
 			name = "Mechanic";
-			portrait = sNPCPortrait;
+			portrait = sMechanicPortrait;
 			
 			sprite_index = sMechanic;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
