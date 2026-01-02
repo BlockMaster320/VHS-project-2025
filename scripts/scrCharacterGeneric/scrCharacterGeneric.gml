@@ -11,7 +11,8 @@ enum CHARACTER_TYPE
 	student,
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,
-	targetDummy, ghoster, dropper
+	targetDummy, ghoster, dropper,
+	playerCleaner
 }
 
 enum CharacterState {
@@ -60,7 +61,7 @@ function GetHit(character, proj)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}
-		else if (charIsPlayer) game_restart()	// TEMP
+		//else if (character.object_index == oPlayer) game_restart()	// TEMP
 		else
 		{
 			character.onDeathEvent()
