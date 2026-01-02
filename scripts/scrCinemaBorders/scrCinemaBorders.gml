@@ -45,6 +45,13 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 	Start = function() {
 		if (tween.progress == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
 	}
+	
+	/// @function	GetTween()
+	/// @desc Returns currently holded tween of cinema borders.
+	/// @return {struct.BaseTween}
+	GetTween = function() {
+		return tween
+	}
 
 	/// @Function	drawGui()
 	/// @desc Based on currentHeight draws in GUI top and bottom borders.

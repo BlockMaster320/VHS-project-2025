@@ -85,3 +85,7 @@ if (global.gameSpeed > .0001)
 
 // Debug
 if (keyboard_check(ord("R"))) game_restart()
+if (keyboard_check_pressed(ord("K"))) {
+	hp = 0
+	onDeathEvent()
+}

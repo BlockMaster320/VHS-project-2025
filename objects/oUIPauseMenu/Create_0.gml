@@ -16,6 +16,15 @@ resume_button = new Button(
 ); 
 resume_button.padding = {x: 16, y:8}
 
+restart_button = new Button(
+	"restart_game_button",
+	UIGroups.PAUSE,
+	0, 0,
+	"Restart", 
+	game_restart
+); 
+restart_button.padding = {x: 16, y:8}
+
 exit_button = new Button(
 	"exit_game_button",
 	UIGroups.PAUSE,
@@ -40,7 +49,7 @@ dynamic_column = new DynamicColumn(
 	screen.middle.x,
 	screen.middle.y,
 	0,
-	[resume_button, exit_button],
+	[resume_button, restart_button, exit_button],
 	Anchor.Center,
 	Anchor.Top,
 	function(width, height) {

@@ -1,3 +1,9 @@
+/**
+ * @function	RoomTransition()
+ * @desc Function which start cutscene & animate closing cinema & transitino to another room.
+ *
+ * @param {Asset.GMRoom} _room - Room target to transition
+ */
 function RoomTransition(_room){
 	nextRoom = _room
 	global.inputState = INPUT_STATE.cutscene

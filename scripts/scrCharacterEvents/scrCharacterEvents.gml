@@ -20,6 +20,8 @@ function getCharacterStepEvent(_characterType){
 							characterState = CharacterState.Idle
 						}
 				        break;
+					case CharacterState.Dead:
+						break;
 				}
 			};
 		}
@@ -98,6 +100,13 @@ function characterCreate(_characterType) {
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
+			onDeathEvent = function() {
+				debug("player dead")
+				DeathScene()
+				//RoomTransition(rmLobby)
+				//global.inputState = INPUT_STATE.cutscene
+				//oCinemaBorders.cinema.Set(CinemaBordersState.CINEMA).Start()
+			}
 			
 		} break;
 		
@@ -148,6 +157,25 @@ function characterCreate(_characterType) {
 				id, 
 				"Passanger 3"
 			)
+		} break;
+		
+		case CHARACTER_TYPE.playerCleaner: {
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.playerCleaner;
+			name = "Player cleaner";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sPlayer;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
+			anim = characterAnimation.getAnimation;
+			dir = -1;
+			characterState = CharacterState.Run
+			
+			var movement = new TweenProperty(x - 64 * 2, function() { return x }, function(_x) { x = _x }, 2000)
+			movement.start()
+		
+			stepEvent = function() {}
+			drawEvent = function() {}
 		} break;
 		
 		case CHARACTER_TYPE.student: {
