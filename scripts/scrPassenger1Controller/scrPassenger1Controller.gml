@@ -58,7 +58,7 @@ function Passenger1Controller(
 			]
 		)
 		destinationGraph = new StateGraph(
-			0,
+			irandom(4),
 			[
 				new State(0, getLobby().positions.lobby_exit), 
 				new State(1, getLobby().positions.info_sign), 

@@ -110,7 +110,7 @@ function characterCreate(_characterType) {
 			portrait = sMechanicPortrait;
 			
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameMechanic);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
@@ -157,7 +157,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameMechanic);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			dir = -1;
 			
@@ -255,7 +255,7 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFrameMechanic);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
