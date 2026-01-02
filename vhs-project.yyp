@@ -12,6 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"Example and Docs","folderPath":"folders/Example and Docs.yy","name":"Example and Docs","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Resources","folderPath":"folders/Resources.yy","name":"Resources","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Characters","folderPath":"folders/Objects/Characters.yy","name":"Characters","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Enemies","folderPath":"folders/Objects/Characters/Enemies.yy","name":"Enemies","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -173,6 +174,7 @@
     {"id":{"name":"sChairLong","path":"sprites/sChairLong/sChairLong.yy",},},
     {"id":{"name":"sChairSide","path":"sprites/sChairSide/sChairSide.yy",},},
     {"id":{"name":"sCharacters","path":"sprites/sCharacters/sCharacters.yy",},},
+    {"id":{"name":"sCharactersResource","path":"sprites/sCharactersResource/sCharactersResource.yy",},},
     {"id":{"name":"sCursor","path":"sprites/sCursor/sCursor.yy",},},
     {"id":{"name":"sDoorFront","path":"sprites/sDoorFront/sDoorFront.yy",},},
     {"id":{"name":"sDoorSide","path":"sprites/sDoorSide/sDoorSide.yy",},},
