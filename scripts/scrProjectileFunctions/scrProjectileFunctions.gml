@@ -4,11 +4,13 @@
 function projectileHitDetection()
 {	
 	var hit = false
-	var collidingList = ds_list_create()
-	instance_place_list(x, y, oCharacterParent, collidingList, false)
-	for (var i = 0; i < ds_list_size(collidingList); i++)
+	//var collidingList = ds_list_create()
+	//instance_place_list(x, y, oCharacterParent, collidingList, false)
+	var colliding = instance_place(x, y, oCharacterParent)
+	//for (var i = 0; i < ds_list_size(collidingList); i++)
+	if (colliding != noone)
 	{
-		var colliding = collidingList[| i]
+		//var colliding = collidingList[| i]
 		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
@@ -18,6 +20,7 @@ function projectileHitDetection()
 			hit = true
 		}
 	}
+	//ds_list_destroy(collidingList)
 	
 	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
 		hit = true
