@@ -1,16 +1,15 @@
 // Projectile update ------------------------------------
 
+/// Detects all of the colliding enemies
 ///@return true/false wether the bullet hit something
-function projectileHitDetection()
-{	
+function projectileHitDetectionArea()
+{
 	var hit = false
-	//var collidingList = ds_list_create()
-	//instance_place_list(x, y, oCharacterParent, collidingList, false)
-	var colliding = instance_place(x, y, oCharacterParent)
-	//for (var i = 0; i < ds_list_size(collidingList); i++)
-	if (colliding != noone)
+	var collidingList = ds_list_create()
+	instance_place_list(x, y, oEnemy, collidingList, false)
+	for (var i = 0; i < ds_list_size(collidingList); i++)
 	{
-		//var colliding = collidingList[| i]
+		var colliding = collidingList[| i]
 		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
@@ -20,7 +19,31 @@ function projectileHitDetection()
 			hit = true
 		}
 	}
-	//ds_list_destroy(collidingList)
+	ds_list_destroy(collidingList)
+	
+	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
+		hit = true
+	
+	return hit
+}
+
+/// Detects one of the colliding enemies - faster variant of projectileHitDetectArea
+///@return true/false wether the bullet hit something
+function projectileHitDetection()
+{
+	var hit = false
+	var colliding = instance_place(x, y, oCharacterParent)
+	if (colliding != noone)
+	{
+		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+			colliding != ownerID and
+			colliding.characterClass != CHARACTER_CLASS.NPC)
+		{
+			//if !(!is_undefined(oRoomManager.tileMapWall) and projectileType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+			GetHit(colliding, id)
+			hit = true
+		}
+	}
 	
 	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
 		hit = true
@@ -40,7 +63,7 @@ function genericMeleeHitUpdate()
 {
 	if (hitboxActive)
 	{
-		var hit = projectileHitDetection()
+		var hit = projectileHitDetectionArea()
 		if (hit) hitboxActive = false
 	}
 	if (lifetime <= 0) instance_destroy()
