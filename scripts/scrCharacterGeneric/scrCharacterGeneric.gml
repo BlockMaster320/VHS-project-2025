@@ -7,7 +7,7 @@ enum CHARACTER_CLASS
 
 enum CHARACTER_TYPE
 {
-	player,
+	player, dummyPlayer,
 	student,
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,

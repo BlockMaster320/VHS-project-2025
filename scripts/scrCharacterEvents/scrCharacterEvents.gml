@@ -86,7 +86,6 @@ function characterCreate(_characterType) {
 		case CHARACTER_TYPE.player: {		
 			characterClass = CHARACTER_CLASS.player;
 			characterType = CHARACTER_TYPE.player;
-			characterType = CHARACTER_TYPE.player;
 			name = "Player";
 			portrait = sNPCPortrait;
 			
@@ -101,13 +100,26 @@ function characterCreate(_characterType) {
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
 			onDeathEvent = function() {
-				debug("player dead")
-				DeathScene()
-				//RoomTransition(rmLobby)
-				//global.inputState = INPUT_STATE.cutscene
-				//oCinemaBorders.cinema.Set(CinemaBordersState.CINEMA).Start()
+				debug("player has died")
+				DeathScene(self)
 			}
 			
+		} break;
+		
+		
+		case CHARACTER_TYPE.dummyPlayer: {		
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.dummyPlayer;
+			name = "Player";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
+			anim = characterAnimation.getAnimation;
+			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
+			animHands = handsAnimation.getAnimation;
+			spriteFrameHands = 0;
+			imageSpeedHands = 0;
 		} break;
 		
 		// NPCs -----------------------------------------------------------
@@ -165,14 +177,12 @@ function characterCreate(_characterType) {
 			name = "Player cleaner";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sPlayer;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner1);
 			anim = characterAnimation.getAnimation;
 			dir = -1;
 			characterState = CharacterState.Run
-			
-			var movement = new TweenProperty(x - 64 * 2, function() { return x }, function(_x) { x = _x }, 2000)
-			movement.start()
+
 		
 			stepEvent = function() {}
 			drawEvent = function() {}
