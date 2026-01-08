@@ -1,18 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"oCinemaBorders",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"oTextCanvas",
+  "eventList":[],
   "managed":true,
-  "name":"oCinemaBorders",
+  "name":"oTextCanvas",
   "overriddenProperties":[],
   "parent":{
     "name":"Wrappers",
     "path":"folders/Objects/CutScenes/Wrappers.yy",
   },
   "parentObjectId":null,
-  "persistent":true,
+  "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,

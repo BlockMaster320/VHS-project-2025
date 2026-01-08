@@ -96,6 +96,7 @@
     {"id":{"name":"oProjectile","path":"objects/oProjectile/oProjectile.yy",},},
     {"id":{"name":"oRoomManager","path":"objects/oRoomManager/oRoomManager.yy",},},
     {"id":{"name":"oTable","path":"objects/oTable/oTable.yy",},},
+    {"id":{"name":"oTextCanvas","path":"objects/oTextCanvas/oTextCanvas.yy",},},
     {"id":{"name":"oToxicWaste","path":"objects/oToxicWaste/oToxicWaste.yy",},},
     {"id":{"name":"oTrashBag","path":"objects/oTrashBag/oTrashBag.yy",},},
     {"id":{"name":"oTweenController","path":"objects/oTweenController/oTweenController.yy",},},

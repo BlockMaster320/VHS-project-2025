@@ -45,12 +45,17 @@ function DialogueSystem() constructor
 									[
 										new DialogueLine("Nečum.", [], [])
 									])])
+	ds_map_add(dlgs, CHARACTER_TYPE.playerCleaner, [new Dialogue(
+									[
+										new DialogueLine("You messed it down there a bit. Be careful, I may not be there next time.", ["I'll be careful.", "Okay"], [1, 1]),
+										new DialogueLine("I hope I won't see you down again anymore. And now more cleaning again...", [], [])
+									])])
 
 }
 
 function StartDlg(_NPCType)
 {
-	if (!ds_map_exists(dialogues.dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue
+	if (!ds_map_exists(dialogues.dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue - T.N. IMO this does not work
 		_NPCType = noone
 	current_dialogue = dialogues.dlgs[? _NPCType][0]
 	SetCurrentLine(0)

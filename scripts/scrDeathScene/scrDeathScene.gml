@@ -1,7 +1,7 @@
 function DeathScene(_deadCharacter) {
 	with(_deadCharacter) {
-		var xx = x
-		var yy = y
+		 xx = x
+		 yy = y
 		
 		alpha = 0
 		weaponAlpha = 0
@@ -50,7 +50,7 @@ function DeathScene(_deadCharacter) {
 			// Grap player & drag to left
 			new TweenAction(function() {
 				new TweenSequence([
-				TweenWait(200),
+					TweenWait(200),
 					player.grabbed
 				]).start()
 				
@@ -63,13 +63,20 @@ function DeathScene(_deadCharacter) {
 			// move to new scene
 			new TweenAction(function() {
 				room_goto(rmLobby);
-				oCinemaBorders.cinema.Set(CinemaBordersState.NONE).Start()
-				// TODO: there is triggered dialog
-				global.inputState = INPUT_STATE.playing
-				
 				alpha = 1
 				weaponAlpha = 1
 			}),
+			// lobby & dialog
+			new TweenAction(function() {
+				inLobbyCleaner = instance_create_layer(xx + 32, yy, "Instances", oNPC)
+				with(inLobbyCleaner) { 
+					characterCreate(CHARACTER_TYPE.playerCleaner)
+				}
+				oCinemaBorders.cinema.Set(CinemaBordersState.NONE, DO {
+					oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner)	
+				}).Start()
+			})
+			// TODO: Cleaner will disappear
 		]).start()
 	}
 }

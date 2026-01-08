@@ -110,7 +110,7 @@ function characterCreate(_characterType) {
 		case CHARACTER_TYPE.dummyPlayer: {		
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.dummyPlayer;
-			name = "Player";
+			name = "Dummy Player";
 			portrait = sNPCPortrait;
 			
 			sprite_index = sCharacters;
@@ -120,6 +120,9 @@ function characterCreate(_characterType) {
 			animHands = handsAnimation.getAnimation;
 			spriteFrameHands = 0;
 			imageSpeedHands = 0;
+			
+			stepEvent = DO NOTHING;
+			drawEvent = DO NOTHING;
 		} break;
 		
 		// NPCs -----------------------------------------------------------
@@ -184,8 +187,8 @@ function characterCreate(_characterType) {
 			characterState = CharacterState.Run
 
 		
-			stepEvent = function() {}
-			drawEvent = function() {}
+			stepEvent = DO NOTHING
+			drawEvent = DO NOTHING
 		} break;
 		
 		case CHARACTER_TYPE.student: {
