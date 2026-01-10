@@ -65,7 +65,7 @@ function genericBulletLifespan()
 
 function genericBulletUpdate()
 {
-	if (projectileHitDetection()) genericProjectileDestroy()
+	if (projectileHitDetection()) destroy()
 	genericBulletLifespan()
 }
 
@@ -76,7 +76,7 @@ function genericMeleeHitUpdate()
 		var hit = projectileHitDetectionArea()
 		if (hit) hitboxActive = false
 	}
-	if (lifetime <= 0) instance_destroy()
+	if (lifetime <= 0) destroy()
 	lifetime -= global.gameSpeed
 	
 	if (instance_exists(ownerID))	// Actually important in the case
@@ -90,21 +90,32 @@ function genericMeleeHitUpdate()
 // The projectile that spawns the explosionš
 function explosiveUpdate()
 {
+	if (projectileHitDetection())
+		destroy()
 	genericBulletLifespan()
 }
 
 function explosionUpdate()
 {
-	if (lifetime <= 0) projectileHitDetectionArea()
+	if (lifetime <= 0) destroy()
+	projectileHitDetectionArea()
 	lifetime--
+}
+
+function explosiveDestroy()
+{
+	var explosion = instance_create_layer(x, y, "Instances", oProjectile, explosionProj)
+	explosion.sprite_index = sExplosion
+	explosion.image_xscale = explosion.scale
+	explosion.image_yscale = explosion.scale
+	instance_destroy()
 }
 
 // ---------------------------------------------
 
 function trashUpdate()
 {
-	genericBulletUpdate()
-	drawRot += 5
+	explosiveUpdate()
 }
 
 
@@ -112,6 +123,13 @@ function trashUpdate()
 
 function genericProjectileDraw()
 {	
-	draw_sprite_ext(sprite, 0, x, y, scale, scale, drawRot, c_white, 1)
+	//draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
+	draw_self()
 	//draw_self()
+}
+
+function genericProjectileRotatingDraw()
+{
+	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
+	drawRot += 5
 }

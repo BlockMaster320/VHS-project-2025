@@ -179,6 +179,7 @@
     {"id":{"name":"sDoorFront","path":"sprites/sDoorFront/sDoorFront.yy",},},
     {"id":{"name":"sDoorSide","path":"sprites/sDoorSide/sDoorSide.yy",},},
     {"id":{"name":"sEnemy","path":"sprites/sEnemy/sEnemy.yy",},},
+    {"id":{"name":"sExplosion","path":"sprites/sExplosion/sExplosion.yy",},},
     {"id":{"name":"sFists","path":"sprites/sFists/sFists.yy",},},
     {"id":{"name":"sHands","path":"sprites/sHands/sHands.yy",},},
     {"id":{"name":"sInfoTable","path":"sprites/sInfoTable/sInfoTable.yy",},},

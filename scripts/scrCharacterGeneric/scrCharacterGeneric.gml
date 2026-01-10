@@ -32,8 +32,26 @@ function GetHit(character, proj)
 	character.hp -= damageDealt
 	character.effects = array_union(character.effects, proj.effects)
 	
-	character.mhsp += lengthdir_x(proj.targetKnockback, proj.dir)
-	character.mvsp += lengthdir_y(proj.targetKnockback, proj.dir)
+	// Overly complicated knockback calculation
+	//	to avoid overstacking on knockback when hit
+	//  by multiple projectiles
+	var knockbackDir = proj.dir
+	if (proj.projectileType == PROJECTILE_TYPE.explosion)
+		knockbackDir = point_direction(proj.x, proj.y, character.x, character.y)
+	var mhsp = lengthdir_x(proj.targetKnockback, knockbackDir)
+	var mvsp = lengthdir_y(proj.targetKnockback, knockbackDir)
+	var velocity = sqrt(sqr(character.mhsp + mhsp) + sqr(character.mvsp + mvsp))
+	if (velocity > proj.targetKnockback)
+	{
+		character.mhsp = max(abs(character.mhsp), abs(mhsp)) * sign(character.mhsp + mhsp)
+		character.mvsp = max(abs(character.mvsp), abs(mvsp)) * sign(character.mvsp + mvsp)
+	}
+	else
+	{
+		character.mhsp += mhsp
+		character.mvsp += mvsp 
+	}
+	
 	
 	if (character.characterType == CHARACTER_TYPE.ghoster)
 	{

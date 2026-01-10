@@ -8,7 +8,7 @@ function Weapon() constructor
 	
 	reloadTime = .5		// in seconds
 	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
-	durability = infinity	// usually the number of primary action calls before breaking
+	durabilityMult = 1	// Multiplier of how fast durability decreases
 	shootOnHold = true		// Wether to keep shooting when the player holds down fire
 	oneTimeUse = false
 
@@ -30,7 +30,7 @@ function Weapon() constructor
 	reloading = false
 	holdingTrigger = false	// Wether the weapon owner is trying to shoot
 							// Resets at the end of every frame
-	remainingDurability = durability
+	remainingDurability = 1
 	magazineAmmo = magazineSize	// Remaining bullets before reloading
 	reloadProgress = 0
 	primaryActionCooldown = 0
@@ -57,6 +57,7 @@ function Projectile() constructor
 	targetKnockback = 5
 	effects = []
 	scale = 1
+	explosionProj = noone
 	
 	// Generic attributes
 	sprite = sPlaceholderProjectile

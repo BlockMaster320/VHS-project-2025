@@ -16,6 +16,3 @@ function assignEffect(effectType, radius_ = 20)
 	//}
 }
 
-function explosion(radius, damage, knockback)
-{
-}

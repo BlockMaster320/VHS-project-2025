@@ -65,9 +65,9 @@ var size = 1.6 * TILE_SIZE
 var center = size/2
 
 draw_set_color(c_dkgray)
-draw_set_alpha(.6)
+draw_set_alpha(.8)
 
-draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY, false)
+draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY + 1., false)
 
 draw_set_alpha(1)
 draw_set_color(c_white)
@@ -77,11 +77,18 @@ for (var i = 0; i < inventorySize; i++)
 	var xx = rightX - (size * (inventorySize-1 - i)) - center
 	var yy = bottomY - center
 	
-	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
+	var weaponDurFac = weaponInventory[i].remainingDurability / 1
+	if (weaponInventory[i].durabilityMult == 0) weaponDurFac = 0
+	draw_set_alpha(.8)
+	draw_rectangle(xx - center, yy - center, lerp(xx-center, xx+center, weaponDurFac), yy + center + 1., false)
+	draw_set_alpha(1)
 	
-	if (activeInventorySlot == i)
-		draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
+	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
 }
+
+var xx = rightX - (size * (inventorySize-1 - activeInventorySlot)) - center
+var yy = bottomY - center
+draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
 
 // Health
 

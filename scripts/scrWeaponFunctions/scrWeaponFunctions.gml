@@ -101,9 +101,9 @@ function genericWeaponUpdate()
 			holdingTrigger = true
 	}
 	
-	// Weapon durability
+	// Weapon durabilityMult
 	if (ownerIsPlayer) {	// player holds the gun
-		// Get rid of weapon after running out of durability
+		// Get rid of weapon after running out of durabilityMult
 		if (remainingDurability <= 0) {
 			with (oPlayer) {
 				if (other.oneTimeUse)
@@ -136,7 +136,8 @@ function genericWeaponUpdate()
 		{
 			primaryActionCooldown += 60 / attackSpeed
 			primaryAction()
-			remainingDurability--
+			if (oneTimeUse) remainingDurability = 0
+			else remainingDurability -= durabilityMult / (attackSpeed * durabilityInSeconds)
 			if (magazineAmmo > 0) magazineAmmo--
 			
 			if (ownerIsPlayer)	// Screenshake
