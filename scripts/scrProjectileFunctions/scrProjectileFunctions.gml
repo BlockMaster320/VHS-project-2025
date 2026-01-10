@@ -51,12 +51,22 @@ function projectileHitDetection()
 	return hit
 }
 
-function genericBulletUpdate()
+function genericProjectileDestroy()
 {
-	if (projectileHitDetection()) instance_destroy()
+	instance_destroy()
+}
+
+function genericBulletLifespan()
+{
 	lifetime -= global.gameSpeed
 	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir)
 	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir)
+}
+
+function genericBulletUpdate()
+{
+	if (projectileHitDetection()) genericProjectileDestroy()
+	genericBulletLifespan()
 }
 
 function genericMeleeHitUpdate()
@@ -77,7 +87,21 @@ function genericMeleeHitUpdate()
 	
 }
 
-function rotatingProjectileUpdate()
+// The projectile that spawns the explosionš
+function explosiveUpdate()
+{
+	genericBulletLifespan()
+}
+
+function explosionUpdate()
+{
+	if (lifetime <= 0) projectileHitDetectionArea()
+	lifetime--
+}
+
+// ---------------------------------------------
+
+function trashUpdate()
 {
 	genericBulletUpdate()
 	drawRot += 5

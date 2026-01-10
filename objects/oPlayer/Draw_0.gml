@@ -49,19 +49,24 @@ if (activeWeapon != -1 and
 }
 
 
+if (global.inputState != INPUT_STATE.dialogue and global.inputState != INPUT_STATE.pausedDialogue)
+{
 // UI -----------------------------------
 
 surface_set_target(oController.guiSurf)
 
 var margin = 2 * TILE_SIZE
-var size = 1.3 * TILE_SIZE
+var rightX = cameraW - margin
+var bottomY = cameraH - margin
+
+// Inventory
+
+var size = 1.6 * TILE_SIZE
+var center = size/2
 
 draw_set_color(c_dkgray)
 draw_set_alpha(.6)
 
-var rightX = cameraW - margin
-var bottomY = cameraH - margin
-var center = size/2
 draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY, false)
 
 draw_set_alpha(1)
@@ -78,4 +83,26 @@ for (var i = 0; i < inventorySize; i++)
 		draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
 }
 
+// Health
+
+var w = 40
+var x1 = margin
+var y1 = cameraH - margin
+var x2 = x1 + w
+var y2 = y1 - w
+
+var healthFac = hp / maxHp
+
+//draw_circle()
+draw_set_color(c_black)
+draw_roundrect(x1, y1, x2, y2, false)
+draw_set_color(c_maroon)
+draw_roundrect(x1, y1, x2, lerp(y1, y2, healthFac), false)
+draw_set_color(c_white)
+draw_roundrect(x1, y1, x2, y2, true)
+draw_set_color(c_white)
+
 surface_reset_target()
+
+// --------------------------------------------
+}

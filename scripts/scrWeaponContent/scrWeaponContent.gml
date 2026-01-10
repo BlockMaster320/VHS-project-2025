@@ -265,7 +265,7 @@ function WeaponsInit()
 			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
-			update = rotatingProjectileUpdate
+			update = trashUpdate
 			draw = genericProjectileDraw
 		}
 

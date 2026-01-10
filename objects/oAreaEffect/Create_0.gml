@@ -3,7 +3,7 @@ effect = function(){}
 
 enum AREA_EFFECT
 {
-	removeBuffs
+	trashExplosion
 }
 type = -1
 
@@ -14,4 +14,8 @@ function assignEffect(effectType, radius_ = 20)
 	//switch (effectType)
 	//{
 	//}
+}
+
+function explosion(radius, damage, knockback)
+{
 }

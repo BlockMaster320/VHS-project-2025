@@ -76,6 +76,7 @@ function Projectile() constructor
 	// Behaviour
 	update = function(){show_debug_message("Unset projectile update!")}
 	draw = function(){show_debug_message("Unset projectile draw!")}
+	destroy = genericProjectileDestroy
 }
 
 
