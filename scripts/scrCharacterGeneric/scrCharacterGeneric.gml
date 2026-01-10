@@ -63,8 +63,11 @@ function GetHit(character, proj)
 	
 	
 	// Feedback
-	var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
-	damageNumber.Init(damageDealt)
+	if (damageDealt > 0)
+	{
+		var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
+		damageNumber.Init(damageDealt)
+	}
 	
 	character.hitFlash()
 	if (charIsPlayer)

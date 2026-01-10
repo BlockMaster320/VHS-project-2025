@@ -67,7 +67,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 20
+			damage = 10
 			projectileSpeed = 2
 			targetKnockback = 5
 			effects = []
@@ -111,7 +111,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
+			damage = 35
 			projectileSpeed = 3
 			targetKnockback = 5
 			effects = []
@@ -160,7 +160,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 20
+			damage = 35
 			projectileSpeed = 3
 			targetKnockback = 10
 			effects = []
@@ -265,8 +265,8 @@ function WeaponsInit()
 			targetKnockback = 3
 			effects = []
 			
-			explosionProj = new Projectile()
-			with (explosionProj)
+			projectileChild = new Projectile()
+			with (projectileChild)
 			{
 				damage = 50
 				projectileSpeed = 0

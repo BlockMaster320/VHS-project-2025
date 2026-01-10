@@ -64,8 +64,8 @@ var bottomY = cameraH - margin
 var size = 1.6 * TILE_SIZE
 var center = size/2
 
-draw_set_color(c_dkgray)
-draw_set_alpha(.8)
+draw_set_color(c_black)
+draw_set_alpha(.9)
 
 draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY + 1., false)
 

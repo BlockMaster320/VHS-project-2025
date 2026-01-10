@@ -31,8 +31,7 @@ tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weap
 
 
 // Buffs
-weaponBuffs = []
-playerBuffs = []
+buffs = []
 
 // Misc ---------------------------------
 

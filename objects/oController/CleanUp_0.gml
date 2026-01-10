@@ -1,0 +1,2 @@
+surface_free(guiSurf)
+surface_free(guiUpscaledSurf)

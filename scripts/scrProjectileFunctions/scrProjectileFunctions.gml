@@ -104,10 +104,11 @@ function explosionUpdate()
 
 function explosiveDestroy()
 {
-	var explosion = instance_create_layer(x, y, "Instances", oProjectile, explosionProj)
+	var explosion = instance_create_layer(x, y, "Instances", oProjectile, projectileChild)
 	explosion.sprite_index = sExplosion
 	explosion.image_xscale = explosion.scale
 	explosion.image_yscale = explosion.scale
+	oCamera.currentShakeAmount += 25.
 	instance_destroy()
 }
 
@@ -123,8 +124,7 @@ function trashUpdate()
 
 function genericProjectileDraw()
 {	
-	//draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
-	draw_self()
+	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
 	//draw_self()
 }
 

@@ -27,8 +27,9 @@ if (oController.swapSlot or oController.scrollSlot != 0)
 if (oController.interact)
 {
 	// Weapon pickup
-	var weaponPickup = instance_place(x, y, oWeaponPickup)
-	if (weaponPickup and weaponPickup.myWeapon != -1)
+	var weaponPickup = instance_nearest(x, y, oWeaponPickup)
+	if (weaponPickup and point_distance(x, y, weaponPickup.x, weaponPickup.y) <= PICKUP_DISTANCE and
+		weaponPickup.myWeapon != -1)
 	{
 		if (weaponPickup.myWeapon.oneTimeUse)	// One time use weapons
 		{
@@ -45,10 +46,11 @@ if (oController.interact)
 			// Drop current weapon
 			var myWeaponID = weaponInventory[activeInventorySlot].index
 			if (myWeaponID != WEAPON.fists)
-				dropWeapon(myWeaponID)
+				dropWeapon(myWeaponID, weaponInventory[activeInventorySlot].remainingDurability)
 		
 			// Get new weapon
-			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
+			var activateWeapon = tempWeaponSlot.index == WEAPON.fists // Don't swap to it when holding one-time use weapon
+			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id, activateWeapon, weaponPickup.remainingDurability)
 			EvaluateWeaponBuffs()
 			instance_destroy(weaponPickup)
 		}
@@ -59,16 +61,9 @@ if (oController.interact)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
 		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
-		if (buffPickup.myBuff.target == BUFF_TARGET.weapon)
-		{
-			array_push(weaponBuffs, buffPickup.myBuff)
-			EvaluateWeaponBuffs()
-		}
-		else if (buffPickup.myBuff.target == BUFF_TARGET.player)
-		{
-			array_push(playerBuffs, buffPickup.myBuff)
-			EvaluatePlayerBuffs()
-		}
+		array_push(buffs, buffPickup.myBuff)
+		EvaluateWeaponBuffs()
+		EvaluatePlayerBuffs()
 		instance_destroy(buffPickup)
 	}
 }

@@ -57,7 +57,7 @@ function Projectile() constructor
 	targetKnockback = 5
 	effects = []
 	scale = 1
-	explosionProj = noone
+	projectileChild = noone
 	
 	// Generic attributes
 	sprite = sPlaceholderProjectile

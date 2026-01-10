@@ -18,4 +18,4 @@ mouseViewOffsetMult = 0.07
 currentShakeAmount = 0
 screenShakeRotAmount = 0
 camRot = 0
-screenshakeDecay = 0.2
+screenshakeDecay = 0.15

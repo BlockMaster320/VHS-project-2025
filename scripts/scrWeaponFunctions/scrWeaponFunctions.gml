@@ -1,21 +1,22 @@
 function nothingFunction() {}
 
 /// @param {enum/struct} weapon can be either an index from WEAPON enum or a specific Weapon struct
-function acquireWeapon(weapon, owner, active_ = true)
+function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 {
 	var newWeapon;
 	if (is_struct(weapon)) newWeapon = weapon
 	else newWeapon = json_parse(global.weaponDatabaseJSON[weapon])
 	newWeapon.active = active_
 	newWeapon.projectile.ownerID = owner
+	if (remDurability_ != -1) newWeapon.remainingDurability = remDurability_
 	return newWeapon
 }
 
 // Spawns a weapon pickup at the position and depth of the calling instance
-function dropWeapon(weaponID)
+function dropWeapon(weaponID, remainingDurability_=1)
 {
 	var weaponPickup = instance_create_depth(x, y, depth, oWeaponPickup)
-	with (weaponPickup) setupWeaponPickup(weaponID)
+	with (weaponPickup) setupWeaponPickup(weaponID, remainingDurability_)
 }
 
 // Converts 0-360 degree spread to 1-0 accuracy 

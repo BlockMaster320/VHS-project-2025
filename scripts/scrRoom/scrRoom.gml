@@ -85,13 +85,13 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			var yy = _roomY * TILE_SIZE + ROOM_SIZE_PX/2 + yOff
 			
 			var buff1 = instance_create_layer(xx, yy, "Instances", oBuffPickup)
-			with (buff1) { setupBuffPickupRarity(RARITY.common) }
+			var buff1ID = buff1.setupBuffPickupRarity(RARITY.common)
 			
 			var buff2 = instance_create_layer(xx - xOff, yy, "Instances", oBuffPickup)
-			with (buff2) { setupBuffPickupRarity(RARITY.common) }
+			var buff2ID = buff2.setupBuffPickupRarity(RARITY.common, [buff1ID])
 			
 			var buff3 = instance_create_layer(xx + xOff, yy, "Instances", oBuffPickup)
-			with (buff3) { setupBuffPickupRarity(RARITY.common) }
+			buff3.setupBuffPickupRarity(RARITY.common, [buff1ID, buff2ID])
 			
 			// Delete other choices on pickup
 			buff1.connectedInstances = [buff2, buff3]
