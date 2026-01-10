@@ -2,7 +2,7 @@
  * @struct	StateGraph
  *
  * @desc Struct which wraps state graph with defined transitions and states.
- * @param {Any} _startDestinationId - 
+ * @param {Any} _startDestinationId - Id of current state.
  * @param {Array<Struct.State>} _states - List of all states present in this state graph. State contains id.
  * @param {Array<Struct.BaseTransition>} _transitions - List of transitions defined by inheriting from BaseTransition. Has stateId and getNextState function.
  */
@@ -40,6 +40,14 @@ function StateGraph(_startDestinationId, _states, _transitions) constructor {
 	
 	static get = function() {
 		return currentState;
+	}
+	
+	static set = function(_stateId) {
+		var newState = firstOrNull(
+			states, 
+			function(elem) { return elem.id == startDestinationId }
+		);
+		currentState = (is_undefined(newState)) ? currentState : newState
 	}
 }
 

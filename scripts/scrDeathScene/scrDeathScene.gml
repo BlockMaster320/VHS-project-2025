@@ -18,6 +18,9 @@ function DeathScene(_deadCharacter) {
 			alpha = 0
 	
 			characterCreate(CHARACTER_TYPE.playerCleaner)
+			dir = -1;
+			characterState = CharacterState.Run
+			
 			toAnimation = function(_animationState) {
 				characterState = _animationState
 			}
@@ -68,7 +71,7 @@ function DeathScene(_deadCharacter) {
 			}),
 			// lobby & dialog
 			new TweenAction(function() {
-				inLobbyCleaner = instance_create_layer(xx + 32, yy, "Instances", oNPC)
+				inLobbyCleaner = instance_create_layer(oPlayer.x + 32, oPlayer.y, "Instances", oNPC)
 				with(inLobbyCleaner) { 
 					characterCreate(CHARACTER_TYPE.playerCleaner)
 				}
@@ -76,7 +79,7 @@ function DeathScene(_deadCharacter) {
 					oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner)	
 				}).Start()
 			})
-			// TODO: Cleaner will disappear
+			// TODO: Cleaner will disappear - exit after dialogue ends
 		]).start()
 	}
 }

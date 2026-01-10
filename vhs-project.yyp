@@ -142,6 +142,7 @@
     {"id":{"name":"scrNpcController","path":"scripts/scrNpcController/scrNpcController.yy",},},
     {"id":{"name":"scrPassenger1Controller","path":"scripts/scrPassenger1Controller/scrPassenger1Controller.yy",},},
     {"id":{"name":"scrPathfinding","path":"scripts/scrPathfinding/scrPathfinding.yy",},},
+    {"id":{"name":"scrPlayerCleanerController","path":"scripts/scrPlayerCleanerController/scrPlayerCleanerController.yy",},},
     {"id":{"name":"scrProjectileFunctions","path":"scripts/scrProjectileFunctions/scrProjectileFunctions.yy",},},
     {"id":{"name":"scrRoom","path":"scripts/scrRoom/scrRoom.yy",},},
     {"id":{"name":"scrRoomTransition","path":"scripts/scrRoomTransition/scrRoomTransition.yy",},},

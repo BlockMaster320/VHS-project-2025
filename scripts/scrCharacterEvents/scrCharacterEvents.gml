@@ -175,20 +175,7 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.playerCleaner: {
-			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.playerCleaner;
-			name = "Player cleaner";
-			portrait = sNPCPortrait;
-			
-			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner1);
-			anim = characterAnimation.getAnimation;
-			dir = -1;
-			characterState = CharacterState.Run
-
-		
-			stepEvent = DO NOTHING
-			drawEvent = DO NOTHING
+			controller = new PlayerCleanerController(id)
 		} break;
 		
 		case CHARACTER_TYPE.student: {
