@@ -13,7 +13,7 @@ function pathfindingInit()
 
 function findNewPath()
 {
-	var pathFound = mp_grid_path(oRoomManager.pathfindingGrid, myPath, x, y, pathTargetX, pathTargetY, true)
+	var pathFound = mp_grid_path(oController.pfGrid, myPath, x, y, pathTargetX, pathTargetY, true)
 	if (pathFound)
 	{
 		myPathPoint = 0

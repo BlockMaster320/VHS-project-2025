@@ -7,7 +7,7 @@ for (var i = CHARACTER_TYPE.enemyStartID+1; i < CHARACTER_TYPE.enemyEndID; i++)
 	with (button)
 	{
 		spawnXmin = other.x
-		spawnXmax = other.x + 150
+		spawnXmax = other.x + 500
 		spawnYmin = other.y + 20
 		spawnYmax = other.y + 170
 		enemyType = i
@@ -24,7 +24,15 @@ for (var i = CHARACTER_TYPE.enemyStartID+1; i < CHARACTER_TYPE.enemyEndID; i++)
 			var spawnX = random_range(spawnXmin, spawnXmax)
 			var spawnY = random_range(spawnYmin, spawnYmax)
 			var enemy = instance_create_layer(spawnX, spawnY, "Instances", oEnemy)
-			with (enemy) characterCreate(other.enemyType)
+			with (enemy)
+			{
+				characterCreate(other.enemyType)
+				while (place_meeting(x, y, global.tilemapCollision))
+				{
+					x = random_range(other.spawnXmin, other.spawnXmax)
+					y = random_range(other.spawnYmin, other.spawnYmax)
+				}
+			}
 		}
 	}
 }

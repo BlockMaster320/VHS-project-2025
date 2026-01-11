@@ -5,7 +5,7 @@ interactFunc = function()
 	with (oPlayer)
 	{
 		buffs = []
-		EvaluatePlayerBuffs()
+		EvaluatePlayerBuffs()	// Order is important!
 		EvaluateWeaponBuffs()
 		EvaluateOneTimeUseBuffs()
 	}

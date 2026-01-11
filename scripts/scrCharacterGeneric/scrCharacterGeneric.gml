@@ -78,6 +78,7 @@ function GetHit(character, proj)
 	// Kill
 	if (character.hp <= 0)
 	{
+		character.hp = 0
 		if (room != rmLobby and room != rmDebug and character.characterClass == CHARACTER_CLASS.enemy)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
@@ -85,7 +86,8 @@ function GetHit(character, proj)
 		//else if (character.object_index == oPlayer) game_restart()	// TEMP
 		else
 		{
-			character.onDeathEvent()
+			if (room != rmDebug or !charIsPlayer)
+				character.onDeathEvent()
 		}
 	}
 }

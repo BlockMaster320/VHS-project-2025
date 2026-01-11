@@ -27,7 +27,7 @@ function instanceInRange(object, distance)
 
 function collisionMargin(xx, yy, margin)
 {
-	return collision_circle(xx, yy, margin, oRoomManager.tileMapWall, false, false)
+	return collision_circle(xx, yy, margin, global.tilemapCollision, false, false)
 }
 
 function drawHitbox(xx, yy, spr, scaleX=1, scaleY=1, rot=0, thickness=1)

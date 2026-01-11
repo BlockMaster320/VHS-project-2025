@@ -131,5 +131,57 @@ draw_set_color(c_white)
 
 surface_reset_target()
 
+// Weapon stats
+if (showStats)
+{
+
+	surface_set_target(oController.guiSurf4x)
+
+	var topY = (bottomY - center*2)*4
+	rightX = cameraW*4 - margin*4
+	var width = 300
+	var leftX = rightX - width
+	var centerX = leftX + (rightX-leftX)/2
+
+	var textScale = 2
+	var textSpacing = 25
+	var currentWeapon = weaponInventory[activeInventorySlot]
+
+	bottomY = topY-textSpacing
+
+	var weaponStats = [
+		$"Damage: {currentWeapon.projectile.damage}",
+		$"Damage multiplier: {currentWeapon.projectile.damageMultiplier}x",
+		$"Attack speed: {currentWeapon.attackSpeed}/s",
+		$"Knockback: {currentWeapon.projectile.targetKnockback}",
+		$"Movement speed: {oPlayer.walkSpdDef}",
+	]
+
+	var height = textSpacing * (array_length(weaponStats)+1)
+	topY = bottomY-height
+
+	draw_set_color(c_black)
+	draw_set_alpha(.8)
+	draw_rectangle(leftX, bottomY, rightX, topY, false)
+	draw_set_color(c_white)
+
+	draw_set_halign(fa_center)
+	draw_set_valign(fa_middle)
+	draw_set_alpha(.9)
+
+	for (var i = 0; i < array_length(weaponStats); i++)
+	{
+		var yy_ = topY + i*textSpacing + textSpacing
+		draw_text_transformed(centerX, yy_, weaponStats[i], textScale, textScale, 0)
+	}
+
+	draw_set_halign(fa_left)
+	draw_set_valign(fa_top)
+	draw_set_alpha(1)
+
+	surface_reset_target()
+
+}
+
 // --------------------------------------------
 }

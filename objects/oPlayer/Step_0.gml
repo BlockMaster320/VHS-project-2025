@@ -60,8 +60,8 @@ if (oController.interact)
 	{
 		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
 		array_push(buffs, buffPickup.myBuff)
+		EvaluatePlayerBuffs()	// Order here might matter!
 		EvaluateWeaponBuffs()
-		EvaluatePlayerBuffs()
 		instance_destroy(buffPickup)
 	}
 }

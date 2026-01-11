@@ -340,6 +340,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	LockRoom = function() {
 		
 		oPlayer.walkSpd = oPlayer.walkSpdDef
+		oPlayer.showStats = false
 		
 		// Start door closing animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {
@@ -451,6 +452,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		if (cleared || !ds_list_empty(enemies)) return;
 		
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
+		oPlayer.showStats = true
 		
 		// Start door opening animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {

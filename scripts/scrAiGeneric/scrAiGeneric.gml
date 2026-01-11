@@ -54,6 +54,7 @@ function genericAiUpdate()
 
 function coordinationInit()
 {
+	coordinationParticipant = true
 	activeCoordination = false
 	hidingCoordination = false
 }
@@ -65,6 +66,7 @@ function coordinationUpdate()
 		show_debug_message("Hide boys!")
 		with (oEnemy)
 		{
+			if (!coordinationParticipant) continue
 			callRepositionCooldown.rndmize()
 			callHideCooldown.rndmize()
 			walkSpd = panickedWalkSpd
@@ -81,6 +83,7 @@ function coordinationUpdate()
 		show_debug_message("Show em!")
 		with (oEnemy)
 		{
+			if (!coordinationParticipant) continue
 			walkSpd = repositionWalkSpd
 			reachedPathEnd = true
 			wantsToHide = 0

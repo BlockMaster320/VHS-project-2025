@@ -194,7 +194,8 @@ function BuffCreate(buffType_)
 					with (player)
 					{
 						inventorySize++
-						weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id)
+						if (array_length(weaponInventory) < inventorySize)
+							weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id)
 					}
 				}
 			

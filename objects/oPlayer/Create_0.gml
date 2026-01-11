@@ -23,6 +23,7 @@ hp = maxHp
 // Inventory --------------------------
 
 activeInventorySlot = 0
+showStats = true
 
 // Weapons
 weaponInventory = array_create(inventorySize, noone)
