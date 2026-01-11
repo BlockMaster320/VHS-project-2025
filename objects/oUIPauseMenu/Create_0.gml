@@ -1,4 +1,5 @@
 var screen = new ScreenDefaults()
+lowerState = INPUT_STATE.playing
 
 resume_button = new Button(
 	"resume_game_button",
@@ -8,13 +9,20 @@ resume_button = new Button(
 	function() {
 		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
 		global.gameSpeed = 1
-		if (global.inputState == INPUT_STATE.pausedDialogue)
-			global.inputState = INPUT_STATE.dialogue
-		else
-			global.inputState = INPUT_STATE.playing
+		global.inputState = lowerState
+		lowerState = INPUT_STATE.playing
 	},
 ); 
 resume_button.padding = {x: 16, y:8}
+
+restart_button = new Button(
+	"restart_game_button",
+	UIGroups.PAUSE,
+	0, 0,
+	"Restart", 
+	game_restart
+); 
+restart_button.padding = {x: 16, y:8}
 
 // Debug button
 debug_room_button = new Button(
@@ -59,7 +67,7 @@ dynamic_column = new DynamicColumn(
 	screen.middle.x,
 	screen.middle.y,
 	0,
-	[resume_button, debug_room_button, exit_button],
+	[resume_button, restart_button, debug_room_button, exit_button],
 	Anchor.Center,
 	Anchor.Top,
 	function(width, height) {

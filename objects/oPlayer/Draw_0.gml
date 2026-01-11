@@ -17,7 +17,7 @@ var activeWeapon = -1
 for (var i = 0; i < inventorySize; i++)
 	if (weaponInventory[i].active)
 	{
-		weaponInventory[i].draw()
+		weaponInventory[i].draw(weaponAlpha)
 		activeWeapon = weaponInventory[i]
 	}
 if (tempWeaponSlot.active) tempWeaponSlot.draw()

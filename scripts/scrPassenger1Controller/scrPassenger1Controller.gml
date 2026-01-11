@@ -1,6 +1,6 @@
 /**
  * @struct	Passenger1Controller()
- * @extends EntityBase
+ * @extends NpcController
  * @desc Controller for passenger1 npc. Contains variables: [name], methods: [step, draw]
  *
  * @param {Asset.GMObject|Id.Instance} _gameObject - Game object referenced for NPC.
@@ -133,6 +133,7 @@ function Passenger1Controller(
 	}
 	
 	#macro IS_MOVING moveGraph.get().id == 0
+	#macro STUCK_FRAMES_THRESHOLD 60
 }
 
 function Tracer(
@@ -164,5 +165,3 @@ function Tracer(
 		return abs(oldX - x) <= distanceThreshold && abs(oldY - y) <= distanceThreshold
 	}
 }
-
-#macro STUCK_FRAMES_THRESHOLD 60

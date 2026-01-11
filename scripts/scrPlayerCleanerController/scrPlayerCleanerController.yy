@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrPlayerCleanerController",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrPlayerCleanerController",
+  "parent":{
+    "name":"Controllers",
+    "path":"folders/Objects/Characters/NPCs/Controllers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

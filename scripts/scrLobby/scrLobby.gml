@@ -23,6 +23,7 @@ function Lobby() constructor {
 		lobby_exit: {x: 580, y: 280},
 		terminal: {x: 170, y: 400},
 		platform_left: {x: 64, y: 160},
-		platform_right: {x: 500, y: 160}
+		platform_right: {x: 500, y: 160},
+		dungeon_entry: {x: 408, y:130}
 	}
 }

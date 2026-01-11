@@ -169,10 +169,10 @@ function genericWeaponUpdate()
 
 // Weapon draw ----------------------------------------
 
-function genericWeaponDraw()
+function genericWeaponDraw(_alpha = 1)
 {	
-	draw_sprite_ext(sprite, 0, roundPixelPos(xPos), roundPixelPos(yPos), flip, 1, drawDirection, c_white, 1)
+	draw_sprite_ext(sprite, 0, roundPixelPos(xPos), roundPixelPos(yPos), flip, 1, drawDirection, c_white, _alpha)
 	
 	if (index != WEAPON.fists)	// draw a hand holding the gun
-		draw_sprite_ext(sHands, 7, roundPixelPos(xPos) - 2 * flip, roundPixelPos(yPos) - 4, flip, 1, 0, c_white, 1)
+		draw_sprite_ext(sHands, 7, roundPixelPos(xPos) - 2 * flip, roundPixelPos(yPos) - 4, flip, 1, 0, c_white, _alpha)
 }

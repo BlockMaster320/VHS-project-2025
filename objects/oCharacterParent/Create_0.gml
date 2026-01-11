@@ -59,8 +59,13 @@ sprite_index = noone;
 sprite_frame = 0;
 image_speed = 0.1;
 depth = -y;
+alpha = 1
+weaponAlpha = 1
 	
 // Event functions
 stepEvent = noone
 drawEvent = noone
 onDeathEvent = function(){ instance_destroy() }
+
+// Dialogues
+inRange = false

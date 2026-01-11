@@ -1,10 +1,10 @@
 if (!talking) {
-	if (closest_NPC != noone){
+	if (instance_exists(closest_NPC)){
 		closest_NPC.inRange = false
 	}
 	
-	closest_NPC = instance_nearest(oPlayer.x, oPlayer.y, oNPC);
-	if (closest_NPC == noone) exit;
+    closest_NPC = instance_nearest(oPlayer.x, oPlayer.y, oNPC);
+	if (!instance_exists(closest_NPC) || closest_NPC == noone) exit;
 	var _distToClosestNPC = point_distance(oPlayer.x, oPlayer.y, closest_NPC.x, closest_NPC.y);
 	if (_distToClosestNPC > INTERACTION_DISTANCE) {
 		exit;
@@ -36,6 +36,12 @@ if (!talking) {
 			}
 		}
 	} else if (oController.next && !DlgTimerSkip() && !GetNextDlgLine()){
+		debug("Ending dialogue for character")
 		EndDlg()
+		if (is_callable(onComplete)) {
+			debug("Calling onComplete of the dialogue...")
+			onComplete()
+		}
+		onComplete = DO NOTHING
 	}
 }

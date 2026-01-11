@@ -90,4 +90,8 @@ if (global.gameSpeed > .0001)
 #endregion
 
 // Debug
+if (keyboard_check_pressed(ord("K"))) {
+	hp = 0
+	onDeathEvent()
+}
 if (keyboard_check(ord("T"))) game_restart()

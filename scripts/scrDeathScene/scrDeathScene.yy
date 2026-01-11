@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrCinemaBorders",
+  "%Name":"scrDeathScene",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrCinemaBorders",
+  "name":"scrDeathScene",
   "parent":{
-    "name":"Wrappers",
-    "path":"folders/Objects/CutScenes/Wrappers.yy",
+    "name":"CutScenes",
+    "path":"folders/Objects/CutScenes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
