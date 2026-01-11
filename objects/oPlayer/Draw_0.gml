@@ -42,6 +42,8 @@ if (activeWeapon != -1 and
 	draw_rectangle(left, top, right, bott, false)
 
 	var reloadFac = activeWeapon.primaryActionCooldown / (60 / activeWeapon.attackSpeed)
+	if (activeWeapon.projectile.projectileType == PROJECTILE_TYPE.ranged)
+		reloadFac = 1 - (activeWeapon.reloadProgress / (activeWeapon.reloadTime * 60))
 	var sliderX = lerp(right, left, reloadFac)
 	var h = 4
 	

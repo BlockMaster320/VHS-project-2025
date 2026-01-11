@@ -13,7 +13,7 @@ wvsp = lengthdir_y(walkSpd, walkDir) * sign(oController.down + oController.up)
 event_inherited()
 
 
-#region Weapon Inventory
+#region Weapon interaction
 
 // Swap active inventory slot
 if (oController.swapSlot or oController.scrollSlot != 0)
@@ -78,4 +78,4 @@ if (global.gameSpeed > .0001)
 #endregion
 
 // Debug
-if (keyboard_check(ord("R"))) game_restart()
+if (keyboard_check(ord("T"))) game_restart()

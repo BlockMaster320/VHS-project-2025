@@ -56,8 +56,8 @@ function WeaponsInit()
 		projectileAmount = 3	// number of projectile to be shot in the shoot frame
 		
 		// Non-modifiable attributes
-		magazineSize = -1
-		reloadTime = 0
+		magazineSize = 4
+		reloadTime = 1
 		
 		// Update some scene attributes
 		magazineAmmo = magazineSize	// Remaining bullets before reloading

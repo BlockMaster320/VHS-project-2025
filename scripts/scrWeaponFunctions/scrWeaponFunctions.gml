@@ -107,9 +107,9 @@ function genericWeaponUpdate()
 			holdingTrigger = true
 	}
 	
-	// Weapon durabilityMult
 	if (ownerIsPlayer) {	// player holds the gun
-		// Get rid of weapon after running out of durabilityMult
+		
+		// Get rid of weapon after running out of durability
 		if (remainingDurability <= 0) {
 			with (oPlayer) {
 				if (other.oneTimeUse)
@@ -119,6 +119,13 @@ function genericWeaponUpdate()
 				}
 				else weaponInventory[activeInventorySlot] = acquireWeapon(WEAPON.fists, id);
 			}
+		}
+		
+		// Reloading
+		if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
+		{
+			reloading = true
+			magazineAmmo = 0
 		}
 	}
 		
