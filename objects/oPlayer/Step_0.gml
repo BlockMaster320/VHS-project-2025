@@ -12,7 +12,6 @@ wvsp = lengthdir_y(walkSpd, walkDir) * sign(oController.down + oController.up)
 // Evaluate generic character movement
 event_inherited()
 
-
 #region Weapon interaction
 
 // Swap active inventory slot
@@ -80,6 +79,11 @@ if (interactable)
 // -----------------------
 
 // Update weapons
+if (dualWield)
+{
+	for (var i = 0; i < inventorySize; i++)
+		weaponInventory[i].active = true
+}
 if (global.gameSpeed > .0001)
 {
 	for (var i = 0; i < inventorySize; i++)

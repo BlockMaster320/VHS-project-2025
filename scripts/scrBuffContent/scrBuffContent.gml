@@ -11,12 +11,12 @@ enum BUFF_TARGET
 enum BUFF
 {
 	// Common
-	blast, precision, rapidFire, cloner, meleeKnockback, rangedReverseKnockback, sonicSpeed,
+	blast, precision, rapidFire, cloner, meleeKnockback, sonicSpeed,
 	inventorySizeIncrease,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
-	testRare,
+	dualWield,
 	rareIndex,	// Dummy buff for rarity indexing
 	
 	// --------------
@@ -158,29 +158,6 @@ function BuffCreate(buffType_)
 				break
 				
 				
-			case BUFF.rangedReverseKnockback:
-			
-				rarity = RARITY.common
-				
-				// negative ranged knockback
-				
-				buffRandomize = function()
-				{		
-					descriptionNeutralEffect = $"Invert ranged knockback"
-				}
-		
-				projectileBuffApply = function(proj)
-				{
-					if (proj.projectileType == PROJECTILE_TYPE.ranged)
-					{
-						proj.targetKnockback *= -1
-						proj.targetKnockback -= 10
-					}
-				}
-				
-				break
-				
-				
 			case BUFF.sonicSpeed:	// + speed (flat)
 		
 				rarity = RARITY.common
@@ -189,7 +166,7 @@ function BuffCreate(buffType_)
 		
 				buffRandomize = function()
 				{
-					descriptionNeutralEffect = $"Load of movement speed"
+					descriptionNeutralEffect = $"Load of\nmovement speed"
 				}
 		
 				characterBuffApply = function(character)
@@ -226,7 +203,7 @@ function BuffCreate(buffType_)
 	
 			// RARE ---------------------------------------------------------------
 	
-			case BUFF.testRare:
+			case BUFF.dualWield:
 
 				rarity = RARITY.rare
 				dmgMultRange = new Range(10, 15)
@@ -234,13 +211,12 @@ function BuffCreate(buffType_)
 				buffRandomize = function()
 				{
 					dmgMultRange.rndmize()
-					descriptionBuff = $"deal {dmgMultRange.value}% damage"
-					descriptionDebuff = $"Amogus"
+					descriptionNeutralEffect = $"DUAL WIELD"
 				}
 		
-				projectileBuffApply = function(projectile)
+				characterBuffApply = function(player)
 				{
-					projectile.damageMultiplier *= dmgMultRange.value
+					player.dualWield = true
 				}
 				
 				break

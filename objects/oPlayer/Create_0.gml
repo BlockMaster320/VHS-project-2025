@@ -12,6 +12,9 @@ function InitPlayerStats()
 	maxHp = 150
 	
 	inventorySize = 2
+	
+	// Buff specific
+	dualWield = false
 }
 InitPlayerStats()	// Do this, so we can reset player stats to default later
 

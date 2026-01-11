@@ -1,4 +1,19 @@
-//draw_sprite(sprite_index, 0, x, y)
+// DEBUG TELEPORT
+if (room = rmDebug)
+{
+	if (mouse_check_button(mb_right))
+	{
+		var off = 8
+		draw_line(mouse_x-off,mouse_y,mouse_x+off,mouse_y)
+		draw_line(mouse_x,mouse_y-off,mouse_x,mouse_y+off)
+		draw_circle(mouse_x, mouse_y, 5, true)
+	}
+	if (mouse_check_button_released(mb_right))
+	{
+		oPlayer.x = mouse_x
+		oPlayer.y = mouse_y
+	}
+}
 
 //draw_sprite(sCursor, 0, mouse_x, mouse_y)
 event_inherited();
@@ -13,11 +28,12 @@ if (SHOW_PATH_GRID)
 
 // Draw current weapon
 var activeWeapon = -1
-
+var weaponOff = 0
 for (var i = 0; i < inventorySize; i++)
 	if (weaponInventory[i].active)
 	{
-		weaponInventory[i].draw(weaponAlpha)
+		weaponInventory[i].draw(weaponAlpha, weaponOff)
+		weaponOff += dualWield*2	// Offset weapon when drawing multiple over each other
 		activeWeapon = weaponInventory[i]
 	}
 if (tempWeaponSlot.active) tempWeaponSlot.draw()
