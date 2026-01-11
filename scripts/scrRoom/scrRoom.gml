@@ -446,6 +446,10 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		}
 	}
 	
+	RemoveProjectiles = function(_objectId = oProjectile) {
+		instance_destroy(_objectId)
+	}
+	
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
 		if (cleared || !ds_list_empty(enemies)) return;

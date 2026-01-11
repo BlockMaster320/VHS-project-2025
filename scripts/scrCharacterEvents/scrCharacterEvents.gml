@@ -101,6 +101,8 @@ function characterCreate(_characterType) {
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
 			onDeathEvent = function() {
 				debug("player has died")
+				oRoomManager.killAllEnemies()
+				oRoomManager.killAllEnemyProjectiles()
 				DeathScene(self)
 			}
 			
