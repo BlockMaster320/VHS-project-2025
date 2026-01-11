@@ -33,10 +33,8 @@ debug_room_button = new Button(
 	function() {
 		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
 		global.gameSpeed = 1
-		if (global.inputState == INPUT_STATE.pausedDialogue)
-			global.inputState = INPUT_STATE.dialogue
-		else
-			global.inputState = INPUT_STATE.playing
+		global.inputState = lowerState
+		lowerState = INPUT_STATE.playing
 		room_goto(rmDebug)
 	},
 ); 

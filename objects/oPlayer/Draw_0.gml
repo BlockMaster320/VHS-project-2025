@@ -51,7 +51,7 @@ if (activeWeapon != -1 and
 }
 
 
-if (global.inputState != INPUT_STATE.dialogue and global.inputState != INPUT_STATE.pausedDialogue)
+if (global.inputState != INPUT_STATE.dialogue)
 {
 // UI -----------------------------------
 
