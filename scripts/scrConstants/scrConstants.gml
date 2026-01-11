@@ -52,12 +52,12 @@ function Constants()
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
 	// Hitboxes
-	#macro SHOW_HITBOXES false
+	global.SHOW_HITBOXES = false
 	// Debug pathfinding
-	#macro SHOW_PATH_GRID false
-	#macro PATH_DEBUG false
+	global.SHOW_PATH_GRID = false
+	global.PATH_DEBUG = false
 	// AI
-	#macro AI_DEBUG false
+	global.AI_DEBUG = false
 	
 	global.Ease = {
 

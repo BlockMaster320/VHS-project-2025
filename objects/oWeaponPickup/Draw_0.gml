@@ -1,6 +1,6 @@
 draw_self()
 
-if (SHOW_HITBOXES)
+if (global.SHOW_HITBOXES)
 {
 	draw_set_color(c_red)
 	draw_set_alpha(.8)

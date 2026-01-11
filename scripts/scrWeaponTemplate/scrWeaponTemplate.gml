@@ -33,6 +33,7 @@ function Weapon() constructor
 	remainingDurability = 1
 	magazineAmmo = magazineSize	// Remaining bullets before reloading
 	reloadProgress = 0
+	playerInventorySlot = -1
 	primaryActionCooldown = 0
 	secondaryActionCooldown = 0
 	

@@ -48,6 +48,7 @@ function Input()
 			interact = keyboard_check_pressed(ord("E"))
 			reload = keyboard_check_pressed(ord("R"))
 			
+			//if (instance_exists(oPlayer))
 			aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
 			
 			break

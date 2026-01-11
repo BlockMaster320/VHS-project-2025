@@ -44,7 +44,7 @@ function followPathStep()
 
 function followPathDraw()
 {
-	if (PATH_DEBUG)
+	if (global.PATH_DEBUG)
 	{	
 		if (path_exists(myPath))
 			draw_path(myPath, 0, 0, true)

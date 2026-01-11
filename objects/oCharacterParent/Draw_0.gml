@@ -31,7 +31,7 @@ if (is_callable(drawEvent)) {
 }
 
 
-if (SHOW_HITBOXES)
+if (global.SHOW_HITBOXES)
 {
 	drawHitbox(x, y, sprite_index, image_xscale, image_yscale)
 }

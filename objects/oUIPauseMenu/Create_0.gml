@@ -35,6 +35,7 @@ debug_room_button = new Button(
 		global.gameSpeed = 1
 		global.inputState = lowerState
 		lowerState = INPUT_STATE.playing
+		if (room != rmDebug) oController.prevRoom = room
 		room_goto(rmDebug)
 	},
 ); 

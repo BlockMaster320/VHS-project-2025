@@ -117,7 +117,7 @@ function genericWeaponUpdate()
 					tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false)
 					weaponInventory[activeInventorySlot].active = true
 				}
-				else weaponInventory[activeInventorySlot] = acquireWeapon(WEAPON.fists, id);
+				else weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
 			}
 		}
 		
@@ -147,6 +147,7 @@ function genericWeaponUpdate()
 	{
 		while (primaryActionCooldown <= 0)	// "while" instead of "if" for very high attack speeds
 		{
+			if (oPlayer.dualWield and random(1) < .8) break	// Spread out different weapons
 			primaryActionCooldown += 60 / attackSpeed
 			primaryAction()
 			if (oneTimeUse) remainingDurability = 0

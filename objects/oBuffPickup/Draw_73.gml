@@ -5,7 +5,7 @@ var alpha = 1
 if (!instanceInRange(oPlayer, PICKUP_DISTANCE)) // Suboptimal performance but shouldn't be a problem
 	alpha = 0.7
 	
-if (SHOW_HITBOXES)
+if (global.SHOW_HITBOXES)
 {
 	draw_set_color(c_red)
 	draw_set_alpha(.8)

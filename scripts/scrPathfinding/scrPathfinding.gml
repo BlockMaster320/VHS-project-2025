@@ -29,8 +29,7 @@ function findNewPath()
 
 function LineOfSightPoint(posX, posY)
 {
-	if (!instance_exists(oRoomManager)) return true
-	return !collision_line(x, y, posX, posY, oRoomManager.tileMapWall, false, true)
+	return !collision_line(x, y, posX, posY, global.tilemapCollision, false, true)
 }
 
 function LineOfSightObject(object, angleDiff = 6, originX = x, originY = y)

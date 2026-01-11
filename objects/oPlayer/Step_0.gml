@@ -49,6 +49,7 @@ if (oController.interact)
 			// Get new weapon
 			var activateWeapon = tempWeaponSlot.index == WEAPON.fists // Don't swap to it when holding one-time use weapon
 			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id, activateWeapon, weaponPickup.remainingDurability)
+			weaponInventory[activeInventorySlot].playerInventorySlot = activeInventorySlot
 			EvaluateWeaponBuffs()
 			instance_destroy(weaponPickup)
 		}
@@ -62,6 +63,7 @@ if (oController.interact)
 		array_push(buffs, buffPickup.myBuff)
 		EvaluatePlayerBuffs()	// Order here might matter!
 		EvaluateWeaponBuffs()
+		EvaluateOneTimeUseBuffs()
 		instance_destroy(buffPickup)
 	}
 }

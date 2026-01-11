@@ -32,7 +32,7 @@ updateUpscaleFactor()
 // Set default window scale to nice multiple
 //window_set_size(cameraW * 3, cameraH * 3)
 
-
+prevRoom = rmLobby
 room_goto(rmLobby)
 //room_goto(rmDebug)
 //room_goto(rmGame)

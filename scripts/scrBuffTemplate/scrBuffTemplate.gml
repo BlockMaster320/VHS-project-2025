@@ -72,6 +72,7 @@ function EvaluateWeaponBuffs()
 			var myWeaponID = weaponInventory[slot].index
 			var durability = weaponInventory[slot].remainingDurability
 			weaponInventory[slot] = acquireWeapon(myWeaponID, id, weaponInventory[slot].active, durability)
+			weaponInventory[slot].playerInventorySlot = slot
 			
 			// Apply buffs
 			for (var j = 0; j < array_length(buffs); j++)
@@ -88,7 +89,7 @@ function EvaluateOneTimeUseBuffs()
 	{
 		// Reset weapon stats to default
 		var myWeaponID = tempWeaponSlot.index
-		tempWeaponSlot = acquireWeapon(myWeaponID, id)
+		tempWeaponSlot = acquireWeapon(myWeaponID, id, myWeaponID != WEAPON.fists)
 			
 		// Apply buffs
 		for (var j = 0; j < array_length(buffs); j++)

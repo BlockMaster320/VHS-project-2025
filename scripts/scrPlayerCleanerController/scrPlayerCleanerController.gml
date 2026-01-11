@@ -113,6 +113,6 @@ function PlayerCleanerController(
 				if (variable_instance_exists(self, "myPath") && !is_undefined(myPath) && path_exists(myPath)) followPathDraw()
 			}
 		}
-		if (AI_DEBUG) debugDraw([string(gameObject.moveGraph.get().id)])
+		if (global.AI_DEBUG) debugDraw([string(gameObject.moveGraph.get().id)])
 	}
 }

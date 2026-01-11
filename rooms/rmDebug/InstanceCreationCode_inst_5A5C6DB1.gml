@@ -7,9 +7,9 @@ for (var i = CHARACTER_TYPE.enemyStartID+1; i < CHARACTER_TYPE.enemyEndID; i++)
 	with (button)
 	{
 		spawnXmin = other.x
-		spawnXmax = other.x + 500
-		spawnYmin = other.y + 20
-		spawnYmax = other.y + 170
+		spawnXmax = other.x + 300
+		spawnYmin = other.y + 50
+		spawnYmax = other.y + 300
 		enemyType = i
 		
 		// Cruel hack to get the enemy name

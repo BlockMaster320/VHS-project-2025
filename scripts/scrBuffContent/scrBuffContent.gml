@@ -74,7 +74,7 @@ function BuffCreate(buffType_)
 			
 				rarity = RARITY.common
 							
-				newStats = [ new Range(.25, .4),		// - spread %
+				newStats = [ new Range(.1, .15),		// - spread %
 							 new Range(.7, .8) ]	// - attack speed %
 		
 				buffRandomize = function()

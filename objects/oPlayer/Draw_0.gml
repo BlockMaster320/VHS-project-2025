@@ -18,11 +18,11 @@ if (room = rmDebug)
 //draw_sprite(sCursor, 0, mouse_x, mouse_y)
 event_inherited();
 
-if (SHOW_PATH_GRID)
+if (global.SHOW_PATH_GRID)
 {
-	draw_set_alpha(.5)
-	if (instance_exists(oRoomManager)) // This check has to be here
-		mp_grid_draw(oRoomManager.pathfindingGrid)
+	draw_set_alpha(.2)
+	if (!is_undefined(oController.pfGrid))
+		mp_grid_draw(oController.pfGrid)
 	draw_set_alpha(1)
 }
 
@@ -153,6 +153,7 @@ if (showStats)
 		$"Damage: {currentWeapon.projectile.damage}",
 		$"Damage multiplier: {currentWeapon.projectile.damageMultiplier}x",
 		$"Attack speed: {currentWeapon.attackSpeed}/s",
+		$"Projectile amount: {currentWeapon.projectileAmount}",
 		$"Knockback: {currentWeapon.projectile.targetKnockback}",
 		$"Movement speed: {oPlayer.walkSpdDef}",
 	]
