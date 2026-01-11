@@ -18,6 +18,13 @@ function lerpDirection(a, b, fac)
 	return lerp(a, a + angleDiff, fac)
 }
 
+function instanceInRange(object, distance)
+{
+	var inst = instance_nearest(x, y, object)
+	if (!inst) return noone
+	return point_distance(x, y, inst.x, inst.y) <= PICKUP_DISTANCE ? inst : noone
+}
+
 function collisionMargin(xx, yy, margin)
 {
 	return collision_circle(xx, yy, margin, oRoomManager.tileMapWall, false, false)

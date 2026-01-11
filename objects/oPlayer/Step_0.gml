@@ -27,9 +27,8 @@ if (oController.swapSlot or oController.scrollSlot != 0)
 if (oController.interact)
 {
 	// Weapon pickup
-	var weaponPickup = instance_nearest(x, y, oWeaponPickup)
-	if (weaponPickup and point_distance(x, y, weaponPickup.x, weaponPickup.y) <= PICKUP_DISTANCE and
-		weaponPickup.myWeapon != -1)
+	var weaponPickup = instanceInRange(oWeaponPickup, PICKUP_DISTANCE)
+	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
 		if (weaponPickup.myWeapon.oneTimeUse)	// One time use weapons
 		{
@@ -57,7 +56,7 @@ if (oController.interact)
 	}
 	
 	// Buff pickup
-	var buffPickup = instance_place(x, y, oBuffPickup)
+	var buffPickup = instanceInRange(oBuffPickup, PICKUP_DISTANCE)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
 		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)

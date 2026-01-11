@@ -7,7 +7,12 @@ function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 	if (is_struct(weapon)) newWeapon = weapon
 	else newWeapon = json_parse(global.weaponDatabaseJSON[weapon])
 	newWeapon.active = active_
-	newWeapon.projectile.ownerID = owner
+	var proj = newWeapon.projectile
+	while (proj != noone)
+	{
+		proj.ownerID = owner
+		proj = proj.projectileChild
+	}
 	if (remDurability_ != -1) newWeapon.remainingDurability = remDurability_
 	return newWeapon
 }

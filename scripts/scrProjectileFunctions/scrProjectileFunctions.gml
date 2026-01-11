@@ -6,7 +6,7 @@ function projectileHitDetectionArea()
 {
 	var hit = false
 	var collidingList = ds_list_create()
-	instance_place_list(x, y, oEnemy, collidingList, false)
+	instance_place_list(x, y, oCharacterParent, collidingList, false)
 	for (var i = 0; i < ds_list_size(collidingList); i++)
 	{
 		var colliding = collidingList[| i]
@@ -31,24 +31,23 @@ function projectileHitDetectionArea()
 ///@return true/false wether the bullet hit something
 function projectileHitDetection()
 {
-	var hit = false
-	var colliding = instance_place(x, y, oCharacterParent)
-	if (colliding != noone)
+	if (place_meeting(x, y, oCharacterParent))
 	{
+		var colliding = instance_nearest(x, y, oCharacterParent)
 		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
 			//if !(!is_undefined(oRoomManager.tileMapWall) and projectileType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
 			GetHit(colliding, id)
-			hit = true
+			return true
 		}
 	}
 	
 	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
-		hit = true
+		return true
 	
-	return hit
+	return false
 }
 
 function genericProjectileDestroy()

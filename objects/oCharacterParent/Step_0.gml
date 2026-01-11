@@ -18,15 +18,15 @@ if (abs(mvsp) < .001) mvsp = 0
 
 #region AOE collision
 
-var aoeList = ds_list_create()
-var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
-if (colliding)
-{
-	for (var i = 0; i < ds_list_size(aoeList); i++)
-	{
-		aoeList[| i].effect()
-	}
-}
+//var aoeList = ds_list_create()
+//var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
+//if (colliding)
+//{
+//	for (var i = 0; i < ds_list_size(aoeList); i++)
+//	{
+//		aoeList[| i].effect()
+//	}
+//}
 
 #endregion
 
