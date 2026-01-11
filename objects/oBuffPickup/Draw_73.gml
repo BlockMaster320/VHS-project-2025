@@ -3,7 +3,7 @@
 var alpha = 1
 
 if (!instanceInRange(oPlayer, PICKUP_DISTANCE)) // Suboptimal performance but shouldn't be a problem
-	alpha = .3
+	alpha = .5
 	
 if (SHOW_HITBOXES)
 {

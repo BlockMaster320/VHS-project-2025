@@ -288,7 +288,7 @@ function WeaponsInit()
 			
 			// Behaviour
 			update = trashUpdate
-			draw = genericProjectileDraw
+			draw = genericProjectileRotatingDraw
 			destroy = explosiveDestroy
 		}
 

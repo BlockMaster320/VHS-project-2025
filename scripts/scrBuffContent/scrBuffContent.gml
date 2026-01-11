@@ -12,6 +12,7 @@ enum BUFF
 {
 	// Common
 	blast, precision, rapidFire, cloner, meleeKnockback, rangedReverseKnockback, sonicSpeed,
+	inventorySizeIncrease,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
@@ -198,6 +199,29 @@ function BuffCreate(buffType_)
 				}
 			
 				break
+				
+				
+			case BUFF.inventorySizeIncrease:	// + inventory slot
+		
+				rarity = RARITY.common
+							
+				target = BUFF_TARGET.player
+		
+				buffRandomize = function()
+				{
+					descriptionNeutralEffect = $"+1 inventory slot"
+				}
+		
+				characterBuffApply = function(player)
+				{
+					with (player)
+					{
+						inventorySize++
+						weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id)
+					}
+				}
+			
+				break
 			
 	
 			// RARE ---------------------------------------------------------------
@@ -216,7 +240,7 @@ function BuffCreate(buffType_)
 		
 				projectileBuffApply = function(projectile)
 				{
-					proj.damageMultiplier *= dmgMultRange.value
+					projectile.damageMultiplier *= dmgMultRange.value
 				}
 				
 				break
@@ -224,6 +248,7 @@ function BuffCreate(buffType_)
 			
 			default:
 				show_debug_message("Unable to create a buff. Unknown buff type!")
+				with (other) instance_destroy()
 				break
 		}
 	}

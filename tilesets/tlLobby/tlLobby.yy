@@ -8,9 +8,12 @@
       ],},
   ],
   "macroPageTiles":{
-    "SerialiseHeight":0,
-    "SerialiseWidth":0,
-    "TileSerialiseData":[],
+    "SerialiseHeight":10,
+    "SerialiseWidth":12,
+    "TileCompressedData":[
+      -80,0,4,34,21,21,36,-8,0,4,41,29,29,38,-8,0,4,67,49,49,57,-8,0,4,65,49,50,59,
+    ],
+    "TileDataFormat":1,
   },
   "name":"tlLobby",
   "out_columns":9,

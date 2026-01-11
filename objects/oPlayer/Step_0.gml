@@ -19,7 +19,7 @@ event_inherited()
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	weaponInventory[activeInventorySlot].active = false
-	activeInventorySlot = !activeInventorySlot
+	activeInventorySlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
 	if (tempWeaponSlot.active != true)
 		weaponInventory[activeInventorySlot].active = true
 }
@@ -66,6 +66,18 @@ if (oController.interact)
 		instance_destroy(buffPickup)
 	}
 }
+
+
+// Custom interactable interact
+var interactable = instanceInRange(oCustomInteractable, PICKUP_DISTANCE)
+if (interactable)
+{
+	interactable.alpha = 1
+	if (oController.interact)
+		interactable.interactFunc()
+}
+	
+// -----------------------
 
 // Update weapons
 if (global.gameSpeed > .0001)

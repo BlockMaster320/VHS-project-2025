@@ -16,6 +16,25 @@ resume_button = new Button(
 ); 
 resume_button.padding = {x: 16, y:8}
 
+// Debug button
+debug_room_button = new Button(
+	"debug_room_game_button",
+	UIGroups.PAUSE,
+	0, 0,
+	"Debug Room", 
+	function() {
+		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
+		global.gameSpeed = 1
+		if (global.inputState == INPUT_STATE.pausedDialogue)
+			global.inputState = INPUT_STATE.dialogue
+		else
+			global.inputState = INPUT_STATE.playing
+		room_goto(rmDebug)
+	},
+); 
+debug_room_button.padding = {x: 16, y:8}
+// -----------
+
 exit_button = new Button(
 	"exit_game_button",
 	UIGroups.PAUSE,
@@ -40,7 +59,7 @@ dynamic_column = new DynamicColumn(
 	screen.middle.x,
 	screen.middle.y,
 	0,
-	[resume_button, exit_button],
+	[resume_button, debug_room_button, exit_button],
 	Anchor.Center,
 	Anchor.Top,
 	function(width, height) {

@@ -2,7 +2,7 @@
 
 /// Detects all of the colliding enemies
 ///@return true/false wether the bullet hit something
-function projectileHitDetectionArea()
+function projectileHitDetectionArea(includeWalls=false)
 {
 	var hit = false
 	var collidingList = ds_list_create()
@@ -21,7 +21,7 @@ function projectileHitDetectionArea()
 	}
 	ds_list_destroy(collidingList)
 	
-	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
+	if (lifetime <= 0 or (includeWalls and place_meeting(x, y, global.tilemapCollision)))
 		hit = true
 	
 	return hit
@@ -130,5 +130,5 @@ function genericProjectileDraw()
 function genericProjectileRotatingDraw()
 {
 	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
-	drawRot += 5
+	drawRot += 5 * global.gameSpeed
 }

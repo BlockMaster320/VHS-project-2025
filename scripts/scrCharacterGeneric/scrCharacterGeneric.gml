@@ -11,7 +11,7 @@ enum CHARACTER_TYPE
 	student,
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,
-	targetDummy, ghoster, dropper
+	enemyStartID /*dummy const*/, targetDummy, ghoster, dropper, enemyEndID /*dummy const*/
 }
 
 enum CharacterState {
@@ -77,7 +77,7 @@ function GetHit(character, proj)
 	// Kill
 	if (character.hp <= 0)
 	{
-		if (room != rmLobby and character.characterClass == CHARACTER_CLASS.enemy)
+		if (room != rmLobby and room != rmDebug and character.characterClass == CHARACTER_CLASS.enemy)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}

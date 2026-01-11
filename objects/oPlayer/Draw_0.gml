@@ -79,11 +79,13 @@ for (var i = 0; i < inventorySize; i++)
 	var xx = rightX - (size * (inventorySize-1 - i)) - center
 	var yy = bottomY - center
 	
-	var weaponDurFac = weaponInventory[i].remainingDurability / 1
-	if (weaponInventory[i].durabilityMult == 0) weaponDurFac = 0
-	draw_set_alpha(.8)
-	draw_rectangle(xx - center, yy - center, lerp(xx-center, xx+center, weaponDurFac), yy + center + 1., false)
-	draw_set_alpha(1)
+	if (weaponInventory[i].durabilityMult != 0)
+	{
+		var weaponDurFac = weaponInventory[i].remainingDurability / 1
+		draw_set_alpha(.8)
+		draw_rectangle(xx - center, yy - center, lerp(xx-center, xx+center, weaponDurFac), yy + center + 1., false)
+		draw_set_alpha(1)
+	}
 	
 	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
 }
