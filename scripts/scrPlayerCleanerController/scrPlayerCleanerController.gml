@@ -8,7 +8,8 @@
  */
 function PlayerCleanerController(
 	_gameObject,
-	_name = undefined
+	_name = undefined,
+	_isStatic = false,
 ) : NpcController(_gameObject, _name) constructor {
 	with(gameObject) {
 		// Info
@@ -27,14 +28,15 @@ function PlayerCleanerController(
 		// Movement
 		oldPosition = {x: x, y: y}
 		moveGraph = new StateGraph(
-			1,
-			[new State(0), new State(1)],
+			CharacterState.Idle,
+			[new State(CharacterState.Run), new State(CharacterState.Idle)],
 			[
-				new Transition(0, LAMBDA { return 0 }),
-				new Transition(1, LAMBDA { return 1 }),
+				new Transition(CharacterState.Run, LAMBDA { return CharacterState.Run }),
+				new Transition(CharacterState.Idle, LAMBDA { return CharacterState.Idle }),
 			]
 		)
 	}
+	isStataic = _isStatic
 		
 	/// @function	goToTheDungeon()
 	/// @desc Method which triggers clenaer npc to run to the exit of the lobby.
@@ -51,28 +53,33 @@ function PlayerCleanerController(
 	}
 	
 	step = function() {
+		if (!isStataic) {
+			with(gameObject) {
+				// End path
+				if (variable_instance_exists(self, "reachedPathEnd") && reachedPathEnd) {
+					// something at the end of the path
+				}
+			
+				// Check move conditions
+				characterState = moveGraph.get().id
+				if (moveGraph.get().id == CharacterState.Run) {
+					followPathStep()
+				}
+			}
+		}
 		with(gameObject) {
-			// End path
-			if (reachedPathEnd) {
-				// something at the end of the path
-			}
-			
-			// Check move conditions
-			characterState = (IS_MOVING) ? CharacterState.Run : CharacterState.Idle
-			if (IS_MOVING) {
-				followPathStep()
-			}
-			
 			hMove = sign(x - oldPosition.x)
 			dir = (hMove != 0) ? sign(hMove) : dir
+			
+			oldPosition = {x: x, y: y}
 		}
 	}
 	
 	draw = function() {
-		with(gameObject) {
-			if (!is_undefined(myPath) && path_exists(myPath)) followPathDraw()
+		if (!isStataic) {
+			with(gameObject) {
+				if (variable_instance_exists(self, "myPath") && !is_undefined(myPath) && path_exists(myPath)) followPathDraw()
+			}
 		}
 	}
-	
-	#macro IS_MOVING moveGraph.get().id == 0
 }

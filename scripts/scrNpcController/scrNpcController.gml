@@ -20,9 +20,6 @@ function NpcController(
     name = (is_undefined(_name)) ? object_get_name(_gameObject.object_index) : _name;
 	gameObject.controller = self
 	gameObject.name = name
-	with(gameObject) {
-		dir = 1
-	}
 
 	/**
 	 * @function	step()
