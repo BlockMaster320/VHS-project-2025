@@ -66,3 +66,6 @@ weaponAlpha = 1
 stepEvent = noone
 drawEvent = noone
 onDeathEvent = function(){ instance_destroy() }
+
+// Dialogues
+inRange = false

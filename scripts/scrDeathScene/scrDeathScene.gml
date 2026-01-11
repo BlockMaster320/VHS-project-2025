@@ -75,11 +75,16 @@ function DeathScene(_deadCharacter) {
 				inLobbyCleaner = instance_create_layer(oPlayer.x + 32, oPlayer.y, "Instances", oNPC)
 				with(inLobbyCleaner) { 
 					controller = new PlayerCleanerController(id, "Cleaner", false)
-					moveGraph.set(CharacterState.Idle)
 					dir = -1
 				}
 				oCinemaBorders.cinema.Set(CinemaBordersState.NONE, DO {
-					oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner)	
+					oDialogues.startDialogue(
+						CHARACTER_TYPE.playerCleaner, 
+						function() { 
+							debug("Calling controller.goTotheDungeon() for cleaner npc...")
+							inLobbyCleaner.controller.goToTheDungeon()
+						}
+					) 	
 				}).Start()
 			})
 			// TODO: Cleaner will disappear - exit after dialogue ends

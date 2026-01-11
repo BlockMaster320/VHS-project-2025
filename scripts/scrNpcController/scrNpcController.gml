@@ -47,6 +47,23 @@ function NpcController(
 	) {
 		return mp_grid_path(getLobby().pfGrid, gameObject.myPath, gameObject.x, gameObject.y, _x, _y, 1)
 	}
+	/**
+	  * @param {Array.String} _data - Array to be printed. Each element is above than other.
+	 */
+	static debugDraw = function(_data, _offset = 15, _gap = 15) {
+		with(gameObject) {
+			var baseY = y - sprite_yoffset - _offset;
+		
+		    for (var i = 0; i < array_length(_data); i++) {
+		        draw_text(
+		            x - (string_width(_data[i]) / 2),
+		            baseY - i * _gap,
+		            _data[i]
+		        );
+		    }
+		}
+		
+	}
 	
 	gameObject.stepEvent = DO { step() }
 	gameObject.drawEvent = DO { draw() }

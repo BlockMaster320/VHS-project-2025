@@ -1,6 +1,7 @@
 DlgConstants()
 dialogues = new DialogueSystem()
 current_dialogue = noone
+onComplete = DO NOTHING
 
 closest_NPC = noone
 talking = false
@@ -22,7 +23,8 @@ for (var i = 0; i < 2; ++i){
 //var _test_NPC = instance_create_layer(FLOOR_CENTER_X + 60, FLOOR_CENTER_Y + 20, "Instances", oNPC)
 //with(_test_NPC) { characterCreate(CHARACTER_TYPE.mechanic); }
 
-startDialogue = function(_characterType) {
+startDialogue = function(_characterType, _onComplete = function() {}) {
 	debug("Starting dialogue for character: " + string(_characterType))
+	onComplete = _onComplete
 	StartDlg(_characterType)	
 }

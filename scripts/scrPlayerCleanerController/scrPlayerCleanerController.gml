@@ -26,6 +26,7 @@ function PlayerCleanerController(
 		anim = characterAnimation.getAnimation;
 		
 		// Movement
+		FollowPathInit()
 		oldPosition = {x: x, y: y}
 		moveGraph = new StateGraph(
 			CharacterState.Idle,
@@ -35,20 +36,40 @@ function PlayerCleanerController(
 				new Transition(CharacterState.Idle, LAMBDA { return CharacterState.Idle }),
 			]
 		)
+		
+		// Lobby
+		dungeonEntryIntroY = getLobby().positions.dungeon_entry.y + 20
+		dungeonEntryOutroY = getLobby().positions.dungeon_entry.y
 	}
 	isStataic = _isStatic
 		
 	/// @function	goToTheDungeon()
 	/// @desc Method which triggers clenaer npc to run to the exit of the lobby.
 	goToTheDungeon = function() {
+		debug("goToTheDungeon called")
 		with(gameObject) {
-			moveGraph.set(0)
-			FollowPathInit()
-			var successToFindPath = controller.updatePath(getLobby().positions.dungeon_entry.x, getLobby().positions.dungeon_entry.y)
-			debugIf(
-				!successToFindPath,
-				"Failed to get new path"
-			)
+			moveGraph.set(1)
+			debug("MOVEGRAPH = " + string(moveGraph.get().id))
+			//FollowPathInit()
+			var dungeonEnterPosition = getLobby().positions.dungeon_entry
+			var successToFindPath = controller.updatePath(dungeonEnterPosition.x, dungeonEnterPosition.y)
+			if (!successToFindPath) {
+				debug("Failed to get new path for NPC: " + string(name))
+				new TweenProperty(
+					x + 64, 
+					function() {return x},
+					function(_value) {x = _value},
+					2000,
+				).start()
+				new TweenProperty(
+					0, 
+					function() {return alpha},
+					function(_value) {alpha = _value},
+					2000,
+					global.Ease.EaseInCubic
+				).start()
+			}
+			
 		}
 	}
 	
@@ -72,6 +93,17 @@ function PlayerCleanerController(
 			dir = (hMove != 0) ? sign(hMove) : dir
 			
 			oldPosition = {x: x, y: y}
+			
+			if (reachedPathEnd) {
+				new TweenProperty(
+					0, 
+					function() {return alpha},
+					function(_value) {alpha = _value},
+					500,
+					global.Ease.Linear,
+					DO { instance_destroy(self)	}
+				).start()
+			}
 		}
 	}
 	
@@ -81,5 +113,6 @@ function PlayerCleanerController(
 				if (variable_instance_exists(self, "myPath") && !is_undefined(myPath) && path_exists(myPath)) followPathDraw()
 			}
 		}
+		if (AI_DEBUG) debugDraw([string(gameObject.moveGraph.get().id)])
 	}
 }

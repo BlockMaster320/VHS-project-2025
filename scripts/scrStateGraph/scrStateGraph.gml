@@ -43,9 +43,12 @@ function StateGraph(_startDestinationId, _states, _transitions) constructor {
 	}
 	
 	static set = function(_stateId) {
+		stateId = _stateId
 		var newState = firstOrNull(
 			states, 
-			function(elem) { return elem.id == startDestinationId }
+			function(elem) { 
+				return elem.id == stateId
+			}
 		);
 		currentState = (is_undefined(newState)) ? currentState : newState
 	}
