@@ -11,8 +11,11 @@ enum PROJECTILE_EFFECT
 
 enum PROJECTILE_TYPE
 {
-	ranged, melee
+	ranged, melee, explosion
 }
+
+#macro durabilityInSeconds 10	// By default, the weapon is durable of this
+								//	amount of seconds of non-stop shooting
 
 function WeaponsInit()
 {
@@ -53,11 +56,10 @@ function WeaponsInit()
 		projectileAmount = 3	// number of projectile to be shot in the shoot frame
 		
 		// Non-modifiable attributes
-		magazineSize = -1
-		reloadTime = 0
+		magazineSize = 4
+		reloadTime = 1
 		
 		// Update some scene attributes
-		remainingDurability = durability
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
@@ -65,7 +67,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 20
+			damage = 10
 			projectileSpeed = 2
 			targetKnockback = 5
 			effects = []
@@ -102,17 +104,19 @@ function WeaponsInit()
 		attackSpeed = 1			// shots/damage amount per second
 		spread = 0				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		durabilityMult = 0
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 1
+			damage = 35
 			projectileSpeed = 3
 			targetKnockback = 5
 			effects = []
 			lifetime = 5
+			scale = 2
 	
 			// Generic attributes
 			sprite = sMeleeHitbox
@@ -148,12 +152,15 @@ function WeaponsInit()
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false
 		
+		// Update some scene attributes
+		remainingDurability = durabilityMult
+		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 20
+			damage = 35
 			projectileSpeed = 3
 			targetKnockback = 10
 			effects = []
@@ -194,7 +201,6 @@ function WeaponsInit()
 		reloadTime = 2
 		
 		// Update some scene attributes
-		remainingDurability = durability
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
@@ -233,7 +239,7 @@ function WeaponsInit()
 		sprite = sTrashBag
 		name = "Garbage"
 		description = "This weapon is garbage"
-		durability = 1
+		durabilityMult = 1
 	
 		// Modifiable attributes
 		projectile = noone
@@ -247,7 +253,6 @@ function WeaponsInit()
 		reloadTime = 0
 		
 		// Update some scene attributes
-		remainingDurability = durability
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
@@ -255,18 +260,36 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
+			damage = 0
 			projectileSpeed = 3
-			targetKnockback = 15
+			targetKnockback = 3
 			effects = []
+			
+			projectileChild = new Projectile()
+			with (projectileChild)
+			{
+				damage = 50
+				projectileSpeed = 0
+				targetKnockback = 20
+				effects = []
+				scale = 4
+				lifetime = 1
+				
+				sprite = sExplosion
+				projectileType = PROJECTILE_TYPE.explosion
+				
+				update = explosionUpdate
+				draw = genericProjectileDraw
+			}
 	
 			// Generic attributes
 			sprite = sTrashBag
 			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
-			update = rotatingProjectileUpdate
-			draw = genericProjectileDraw
+			update = trashUpdate
+			draw = genericProjectileRotatingDraw
+			destroy = explosiveDestroy
 		}
 
 		// Weapon actions

@@ -1,7 +1,8 @@
 // Push away near enemies
-var collidingEnemy = instance_place(x, y, oEnemy)
-if (collidingEnemy)
+if (place_meeting(x, y, oEnemy))
 {
+	var collidingEnemy = instance_place(x, y, oEnemy)
+
 	var pushForce = .2
 	var dir = point_direction(x, y, collidingEnemy.x, collidingEnemy.y) + 180
 	mhsp += lengthdir_x(pushForce, dir)

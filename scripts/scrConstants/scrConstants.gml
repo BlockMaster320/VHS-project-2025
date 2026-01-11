@@ -8,6 +8,9 @@ function Constants()
 		cutscene,
 	}
 	
+	// Gameplay
+	#macro PICKUP_DISTANCE 25
+	
 	// Map generation settings
 	#macro TILE_SIZE 16		// size of 1 tile in pixels
 	#macro ROOM_SIZE 30		// size of each room in tiles

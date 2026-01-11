@@ -18,15 +18,15 @@ if (abs(mvsp) < .001) mvsp = 0
 
 #region AOE collision
 
-var aoeList = ds_list_create()
-var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
-if (colliding)
-{
-	for (var i = 0; i < ds_list_size(aoeList); i++)
-	{
-		aoeList[| i].effect()
-	}
-}
+//var aoeList = ds_list_create()
+//var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
+//if (colliding)
+//{
+//	for (var i = 0; i < ds_list_size(aoeList); i++)
+//	{
+//		aoeList[| i].effect()
+//	}
+//}
 
 #endregion
 
@@ -81,7 +81,7 @@ vsp = wvsp + mvsp
 
 // Horizontal
 var _xx = x;
-if (place_meeting(x + hsp, y, global.tilemapCollision))	// tile collision
+if (place_meeting(x + hsp * global.gameSpeed, y, global.tilemapCollision))	// tile collision
 {
 	while (!place_meeting(x + sign(hsp), y, global.tilemapCollision)) {
 		x += sign(hsp)
@@ -89,7 +89,7 @@ if (place_meeting(x + hsp, y, global.tilemapCollision))	// tile collision
 	x = round(x)
 	hsp = 0;
 }
-if (place_meeting(x + hsp, y, oCollider))				// object collision
+if (place_meeting(x + hsp * global.gameSpeed, y, oCollider))				// object collision
 {
 	while (!place_meeting(x + sign(hsp), y, oCollider)) {
 		x += sign(hsp)
@@ -102,13 +102,13 @@ x += hspClamped
 
 
 // Vertical
-if (place_meeting(x, y + vsp, oCollider))				// tile collision
+if (place_meeting(x, y + vsp * global.gameSpeed, oCollider))				// tile collision
 {
 	while (!place_meeting(x, y + sign(vsp),oCollider)) y += sign(vsp)
 	y = round(y)
 	vsp = 0;
 }
-if (place_meeting(x, y + vsp, global.tilemapCollision))	// object collision
+if (place_meeting(x, y + vsp * global.gameSpeed, global.tilemapCollision))	// object collision
 {
 	while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
 	y = round(y)

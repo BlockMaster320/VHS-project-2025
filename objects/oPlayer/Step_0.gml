@@ -13,13 +13,13 @@ wvsp = lengthdir_y(walkSpd, walkDir) * sign(oController.down + oController.up)
 event_inherited()
 
 
-#region Weapon Inventory
+#region Weapon interaction
 
 // Swap active inventory slot
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	weaponInventory[activeInventorySlot].active = false
-	activeInventorySlot = !activeInventorySlot
+	activeInventorySlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
 	if (tempWeaponSlot.active != true)
 		weaponInventory[activeInventorySlot].active = true
 }
@@ -27,7 +27,7 @@ if (oController.swapSlot or oController.scrollSlot != 0)
 if (oController.interact)
 {
 	// Weapon pickup
-	var weaponPickup = instance_place(x, y, oWeaponPickup)
+	var weaponPickup = instanceInRange(oWeaponPickup, PICKUP_DISTANCE)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
 		if (weaponPickup.myWeapon.oneTimeUse)	// One time use weapons
@@ -45,33 +45,39 @@ if (oController.interact)
 			// Drop current weapon
 			var myWeaponID = weaponInventory[activeInventorySlot].index
 			if (myWeaponID != WEAPON.fists)
-				dropWeapon(myWeaponID)
+				dropWeapon(myWeaponID, weaponInventory[activeInventorySlot].remainingDurability)
 		
 			// Get new weapon
-			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id)
+			var activateWeapon = tempWeaponSlot.index == WEAPON.fists // Don't swap to it when holding one-time use weapon
+			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id, activateWeapon, weaponPickup.remainingDurability)
 			EvaluateWeaponBuffs()
 			instance_destroy(weaponPickup)
 		}
 	}
 	
 	// Buff pickup
-	var buffPickup = instance_place(x, y, oBuffPickup)
+	var buffPickup = instanceInRange(oBuffPickup, PICKUP_DISTANCE)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
 		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
-		if (buffPickup.myBuff.target == BUFF_TARGET.weapon)
-		{
-			array_push(weaponBuffs, buffPickup.myBuff)
-			EvaluateWeaponBuffs()
-		}
-		else if (buffPickup.myBuff.target == BUFF_TARGET.player)
-		{
-			array_push(playerBuffs, buffPickup.myBuff)
-			EvaluatePlayerBuffs()
-		}
+		array_push(buffs, buffPickup.myBuff)
+		EvaluateWeaponBuffs()
+		EvaluatePlayerBuffs()
 		instance_destroy(buffPickup)
 	}
 }
+
+
+// Custom interactable interact
+var interactable = instanceInRange(oCustomInteractable, PICKUP_DISTANCE)
+if (interactable)
+{
+	interactable.alpha = 1
+	if (oController.interact)
+		interactable.interactFunc()
+}
+	
+// -----------------------
 
 // Update weapons
 if (global.gameSpeed > .0001)
@@ -84,8 +90,8 @@ if (global.gameSpeed > .0001)
 #endregion
 
 // Debug
-if (keyboard_check(ord("R"))) game_restart()
 if (keyboard_check_pressed(ord("K"))) {
 	hp = 0
 	onDeathEvent()
 }
+if (keyboard_check(ord("T"))) game_restart()

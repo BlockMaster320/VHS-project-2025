@@ -1,21 +1,27 @@
 function nothingFunction() {}
 
 /// @param {enum/struct} weapon can be either an index from WEAPON enum or a specific Weapon struct
-function acquireWeapon(weapon, owner, active_ = true)
+function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 {
 	var newWeapon;
 	if (is_struct(weapon)) newWeapon = weapon
 	else newWeapon = json_parse(global.weaponDatabaseJSON[weapon])
 	newWeapon.active = active_
-	newWeapon.projectile.ownerID = owner
+	var proj = newWeapon.projectile
+	while (proj != noone)
+	{
+		proj.ownerID = owner
+		proj = proj.projectileChild
+	}
+	if (remDurability_ != -1) newWeapon.remainingDurability = remDurability_
 	return newWeapon
 }
 
 // Spawns a weapon pickup at the position and depth of the calling instance
-function dropWeapon(weaponID)
+function dropWeapon(weaponID, remainingDurability_=1)
 {
 	var weaponPickup = instance_create_depth(x, y, depth, oWeaponPickup)
-	with (weaponPickup) setupWeaponPickup(weaponID)
+	with (weaponPickup) setupWeaponPickup(weaponID, remainingDurability_)
 }
 
 // Converts 0-360 degree spread to 1-0 accuracy 
@@ -101,8 +107,8 @@ function genericWeaponUpdate()
 			holdingTrigger = true
 	}
 	
-	// Weapon durability
 	if (ownerIsPlayer) {	// player holds the gun
+		
 		// Get rid of weapon after running out of durability
 		if (remainingDurability <= 0) {
 			with (oPlayer) {
@@ -113,6 +119,13 @@ function genericWeaponUpdate()
 				}
 				else weaponInventory[activeInventorySlot] = acquireWeapon(WEAPON.fists, id);
 			}
+		}
+		
+		// Reloading
+		if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
+		{
+			reloading = true
+			magazineAmmo = 0
 		}
 	}
 		
@@ -136,7 +149,8 @@ function genericWeaponUpdate()
 		{
 			primaryActionCooldown += 60 / attackSpeed
 			primaryAction()
-			remainingDurability--
+			if (oneTimeUse) remainingDurability = 0
+			else remainingDurability -= durabilityMult / (attackSpeed * durabilityInSeconds)
 			if (magazineAmmo > 0) magazineAmmo--
 			
 			if (ownerIsPlayer)	// Screenshake

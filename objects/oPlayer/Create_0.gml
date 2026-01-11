@@ -23,15 +23,15 @@ activeInventorySlot = 0
 
 // Weapons
 weaponInventory = array_create(inventorySize, noone)
-//weaponInventory[0] = acquireWeapon(1, id) // Fists
-weaponInventory[0] = acquireWeapon(WEAPON.sword, id) // For testing
-weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false) // Fists
+for (var i = 0; i < inventorySize; i++)
+	weaponInventory[i] = acquireWeapon(WEAPON.fists, id, i==activeInventorySlot) // Fists
+//weaponInventory[0] = acquireWeapon(WEAPON.sword, id)				// For testing
+//weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false)	// For testing
 tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 
 
 // Buffs
-weaponBuffs = []
-playerBuffs = []
+buffs = []
 
 // Misc ---------------------------------
 

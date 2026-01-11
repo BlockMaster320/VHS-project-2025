@@ -202,7 +202,7 @@ function characterCreate(_characterType) {
 			walkSpd = .5
 			
 			// Dialogues
-			name = "Ghoster";
+			name = "Target dummy";
 			portrait = sNPCPortrait;
 			
 			// Animation

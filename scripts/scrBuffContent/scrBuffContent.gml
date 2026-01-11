@@ -12,6 +12,7 @@ enum BUFF
 {
 	// Common
 	blast, precision, rapidFire, cloner, meleeKnockback, rangedReverseKnockback, sonicSpeed,
+	inventorySizeIncrease,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
@@ -20,6 +21,11 @@ enum BUFF
 	
 	// --------------
 	length
+}
+
+function toPercent(val)
+{
+	return round(val*100)
 }
 
 function BuffCreate(buffType_)
@@ -47,14 +53,18 @@ function BuffCreate(buffType_)
 				{
 					dmgMultRange.rndmize()
 					attackSpdMultRange.rndmize()
-					descriptionBuff = $"{dmgMultRange.value*100}% damage"
-					descriptionDebuff = $"{attackSpdMultRange.value*100}% attack speed"
+					descriptionBuff = $"{round(dmgMultRange.value*100)}% damage"
+					descriptionDebuff = $"{round(attackSpdMultRange.value*100)}% attack speed"
+				}
+				
+				weaponBuffApply = function(weapon)
+				{
+					weapon.attackSpeed *= attackSpdMultRange.value
 				}
 		
-				buffApply = function(weapon)
+				projectileBuffApply = function(proj)
 				{
-					weapon.projectile.damageMultiplier = dmgMultRange.value
-					weapon.attackSpeed *= attackSpdMultRange.value
+					proj.damageMultiplier *= dmgMultRange.value
 				}
 			
 				break
@@ -73,7 +83,7 @@ function BuffCreate(buffType_)
 					descriptionDebuff = $"{round(newStats[1].value*100)}% attack speed"
 				}
 		
-				buffApply = function(weapon)
+				weaponBuffApply = function(weapon)
 				{
 					weapon.spread *= newStats[0].value
 					weapon.attackSpeed *= newStats[1].value
@@ -95,7 +105,7 @@ function BuffCreate(buffType_)
 					descriptionDebuff = $"{round(spreadToAccuracy(newStats[1].value)*100)}% accuracy"
 				}
 		
-				buffApply = function(weapon)
+				weaponBuffApply = function(weapon)
 				{
 					weapon.attackSpeed *= newStats[0].value
 					weapon.spread += newStats[1].value
@@ -118,7 +128,7 @@ function BuffCreate(buffType_)
 					descriptionDebuff = $"{round(spreadToAccuracy(spreadMultRange.value)*100)}% accuracy"
 				}
 		
-				buffApply = function(weapon)
+				weaponBuffApply = function(weapon)
 				{
 					weapon.projectileAmount *= projAmountMultRange.value
 					weapon.spread += spreadMultRange.value
@@ -139,10 +149,10 @@ function BuffCreate(buffType_)
 					descriptionNeutralEffect = $"Big melee knockback"
 				}
 		
-				buffApply = function(weapon)
-				{
-					if (weapon.projectile.projectileType == PROJECTILE_TYPE.melee)
-						weapon.projectile.targetKnockback += 40
+				projectileBuffApply = function(proj)
+				{	
+					if (proj.projectileType == PROJECTILE_TYPE.melee)
+						proj.targetKnockback += 40
 				}
 				
 				break
@@ -159,12 +169,12 @@ function BuffCreate(buffType_)
 					descriptionNeutralEffect = $"Invert ranged knockback"
 				}
 		
-				buffApply = function(weapon)
+				projectileBuffApply = function(proj)
 				{
-					if (weapon.projectile.projectileType == PROJECTILE_TYPE.ranged)
+					if (proj.projectileType == PROJECTILE_TYPE.ranged)
 					{
-						weapon.projectile.targetKnockback *= -1
-						weapon.projectile.targetKnockback -= 10
+						proj.targetKnockback *= -1
+						proj.targetKnockback -= 10
 					}
 				}
 				
@@ -182,10 +192,33 @@ function BuffCreate(buffType_)
 					descriptionNeutralEffect = $"Load of movement speed"
 				}
 		
-				buffApply = function(weapon)
+				characterBuffApply = function(character)
 				{
-					oPlayer.walkSpdDef += 2
-					oPlayer.walkSpdSprint += 2
+					character.walkSpdDef += 1.5
+					character.walkSpdSprint += 1.5
+				}
+			
+				break
+				
+				
+			case BUFF.inventorySizeIncrease:	// + inventory slot
+		
+				rarity = RARITY.common
+							
+				target = BUFF_TARGET.player
+		
+				buffRandomize = function()
+				{
+					descriptionNeutralEffect = $"+1 inventory slot"
+				}
+		
+				characterBuffApply = function(player)
+				{
+					with (player)
+					{
+						inventorySize++
+						weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id)
+					}
 				}
 			
 				break
@@ -205,9 +238,9 @@ function BuffCreate(buffType_)
 					descriptionDebuff = $"Amogus"
 				}
 		
-				buffApply = function(weapon)
+				projectileBuffApply = function(projectile)
 				{
-					weapon.projectile.damageMultiplier = dmgMultRange.value
+					projectile.damageMultiplier *= dmgMultRange.value
 				}
 				
 				break
@@ -215,6 +248,7 @@ function BuffCreate(buffType_)
 			
 			default:
 				show_debug_message("Unable to create a buff. Unknown buff type!")
+				with (other) instance_destroy()
 				break
 		}
 	}

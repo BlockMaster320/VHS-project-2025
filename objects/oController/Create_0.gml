@@ -29,4 +29,5 @@ updateUpscaleFactor()
 
 
 room_goto(rmLobby)
+//room_goto(rmDebug)
 //room_goto(rmGame)

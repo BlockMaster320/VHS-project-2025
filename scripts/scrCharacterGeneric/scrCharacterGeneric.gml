@@ -11,7 +11,7 @@ enum CHARACTER_TYPE
 	student,
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,
-	targetDummy, ghoster, dropper,
+	enemyStartID /*dummy const*/, targetDummy, ghoster, dropper, enemyEndID /*dummy const*/,
 	playerCleaner
 }
 
@@ -33,8 +33,26 @@ function GetHit(character, proj)
 	character.hp -= damageDealt
 	character.effects = array_union(character.effects, proj.effects)
 	
-	character.mhsp += lengthdir_x(proj.targetKnockback, proj.dir)
-	character.mvsp += lengthdir_y(proj.targetKnockback, proj.dir)
+	// Overly complicated knockback calculation
+	//	to avoid overstacking on knockback when hit
+	//  by multiple projectiles
+	var knockbackDir = proj.dir
+	if (proj.projectileType == PROJECTILE_TYPE.explosion)
+		knockbackDir = point_direction(proj.x, proj.y, character.x, character.y)
+	var mhsp = lengthdir_x(proj.targetKnockback, knockbackDir)
+	var mvsp = lengthdir_y(proj.targetKnockback, knockbackDir)
+	var velocity = sqrt(sqr(character.mhsp + mhsp) + sqr(character.mvsp + mvsp))
+	if (velocity > proj.targetKnockback)
+	{
+		character.mhsp = max(abs(character.mhsp), abs(mhsp)) * sign(character.mhsp + mhsp)
+		character.mvsp = max(abs(character.mvsp), abs(mvsp)) * sign(character.mvsp + mvsp)
+	}
+	else
+	{
+		character.mhsp += mhsp
+		character.mvsp += mvsp 
+	}
+	
 	
 	if (character.characterType == CHARACTER_TYPE.ghoster)
 	{
@@ -46,8 +64,11 @@ function GetHit(character, proj)
 	
 	
 	// Feedback
-	var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
-	damageNumber.Init(damageDealt)
+	if (damageDealt > 0)
+	{
+		var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
+		damageNumber.Init(damageDealt)
+	}
 	
 	character.hitFlash()
 	if (charIsPlayer)
@@ -57,7 +78,7 @@ function GetHit(character, proj)
 	// Kill
 	if (character.hp <= 0)
 	{
-		if (room != rmLobby and character.characterClass == CHARACTER_CLASS.enemy)
+		if (room != rmLobby and room != rmDebug and character.characterClass == CHARACTER_CLASS.enemy)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}

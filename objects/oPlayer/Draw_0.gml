@@ -42,6 +42,8 @@ if (activeWeapon != -1 and
 	draw_rectangle(left, top, right, bott, false)
 
 	var reloadFac = activeWeapon.primaryActionCooldown / (60 / activeWeapon.attackSpeed)
+	if (activeWeapon.projectile.projectileType == PROJECTILE_TYPE.ranged)
+		reloadFac = 1 - (activeWeapon.reloadProgress / (activeWeapon.reloadTime * 60))
 	var sliderX = lerp(right, left, reloadFac)
 	var h = 4
 	
@@ -49,20 +51,25 @@ if (activeWeapon != -1 and
 }
 
 
+if (global.inputState != INPUT_STATE.dialogue and global.inputState != INPUT_STATE.pausedDialogue)
+{
 // UI -----------------------------------
 
 surface_set_target(oController.guiSurf)
 
 var margin = 2 * TILE_SIZE
-var size = 1.3 * TILE_SIZE
-
-draw_set_color(c_dkgray)
-draw_set_alpha(.6)
-
 var rightX = cameraW - margin
 var bottomY = cameraH - margin
+
+// Inventory
+
+var size = 1.6 * TILE_SIZE
 var center = size/2
-draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY, false)
+
+draw_set_color(c_black)
+draw_set_alpha(.9)
+
+draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY + 1., false)
 
 draw_set_alpha(1)
 draw_set_color(c_white)
@@ -72,10 +79,41 @@ for (var i = 0; i < inventorySize; i++)
 	var xx = rightX - (size * (inventorySize-1 - i)) - center
 	var yy = bottomY - center
 	
-	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
+	if (weaponInventory[i].durabilityMult != 0)
+	{
+		var weaponDurFac = weaponInventory[i].remainingDurability / 1
+		draw_set_alpha(.8)
+		draw_rectangle(xx - center, yy - center, lerp(xx-center, xx+center, weaponDurFac), yy + center + 1., false)
+		draw_set_alpha(1)
+	}
 	
-	if (activeInventorySlot == i)
-		draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
+	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
 }
 
+var xx = rightX - (size * (inventorySize-1 - activeInventorySlot)) - center
+var yy = bottomY - center
+draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
+
+// Health
+
+var w = 40
+var x1 = margin
+var y1 = cameraH - margin
+var x2 = x1 + w
+var y2 = y1 - w
+
+var healthFac = hp / maxHp
+
+//draw_circle()
+draw_set_color(c_black)
+draw_roundrect(x1, y1, x2, y2, false)
+draw_set_color(c_maroon)
+draw_roundrect(x1, y1, x2, lerp(y1, y2, healthFac), false)
+draw_set_color(c_white)
+draw_roundrect(x1, y1, x2, y2, true)
+draw_set_color(c_white)
+
 surface_reset_target()
+
+// --------------------------------------------
+}

@@ -2,9 +2,17 @@
 
 var alpha = 1
 
-if (!place_meeting(x, y, oPlayer)) // Suboptimal performance but shouldn't be a problem
+if (!instanceInRange(oPlayer, PICKUP_DISTANCE)) // Suboptimal performance but shouldn't be a problem
 	alpha = .5
 	
+if (SHOW_HITBOXES)
+{
+	draw_set_color(c_red)
+	draw_set_alpha(.8)
+	draw_circle(x, y, PICKUP_DISTANCE, true)
+	draw_set_alpha(1)
+	draw_set_color(c_white)
+}
 
 var yOff = -20
 var w = 100

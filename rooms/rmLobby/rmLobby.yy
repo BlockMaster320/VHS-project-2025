@@ -57,6 +57,7 @@
     {"name":"inst_526D33CF","path":"rooms/rmLobby/rmLobby.yy",},
     {"name":"inst_5A43F7DA","path":"rooms/rmLobby/rmLobby.yy",},
     {"name":"inst_24F74F45","path":"rooms/rmLobby/rmLobby.yy",},
+    {"name":"inst_6C278B76","path":"rooms/rmLobby/rmLobby.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -133,6 +134,7 @@
         {"$GMRInstance":"v2","%Name":"inst_1C521F3A","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1C521F3A","objectId":{"name":"oGameEnter","path":"objects/oGameEnter/oGameEnter.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":3.0,"scaleY":1.0,"x":384.0,"y":112.0,},
         {"$GMRInstance":"v2","%Name":"inst_DFCF089","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_DFCF089","objectId":{"name":"oLobby","path":"objects/oLobby/oLobby.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":32.0,"y":0.0,},
         {"$GMRInstance":"v2","%Name":"inst_24F74F45","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_24F74F45","objectId":{"name":"oEnemy","path":"objects/oEnemy/oEnemy.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":384.0,"y":304.0,},
+        {"$GMRInstance":"v2","%Name":"inst_6C278B76","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6C278B76","objectId":{"name":"oWeaponPickup","path":"objects/oWeaponPickup/oWeaponPickup.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":400.0,"y":368.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRTileLayer":"","%Name":"TilesDec2","depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"TilesDec2","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":32,"SerialiseWidth":37,"TileCompressedData":[
           -329,-2147483648,-4,0,-33,-2147483648,-4,0,-15,-2147483648,1,0,-16,-2147483648,-5,0,-14,-2147483648,

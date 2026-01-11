@@ -39,9 +39,11 @@ function genericAiUpdate()
 	}
 	else if (lookAtPlayerTimer.value <= 0 and (whsp != 0 or wvsp != 0))
 		lookDirTarget = walkDir
+		
+	var lookLerpFac = .15
 					
 	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value -= global.gameSpeed
-	lookDir = lerpDirection(lookDir, lookDirTarget, .2)
+	lookDir = lerpDirection(lookDir, lookDirTarget, lookLerpFac)
 	if (is_struct(myWeapon))
 		myWeapon.aimDirection = lookDir
 }

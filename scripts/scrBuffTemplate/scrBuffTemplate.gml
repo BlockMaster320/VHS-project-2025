@@ -37,7 +37,9 @@ function Buff() constructor
 	target = BUFF_TARGET.weapon
 	
 	buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
-	buffApply = function(){ show_debug_message("Buff function is undefined!") }
+	weaponBuffApply = function(weapon){  }
+	projectileBuffApply = function(projectile){  }
+	characterBuffApply = function(character){  }
 }
 
 function GetBuffIndex(rarity)
@@ -48,6 +50,18 @@ function GetBuffIndex(rarity)
 	return irandom_range(start_, end_)
 }
 
+function applyWeaponBuff(weapon, buff)
+{
+	buff.weaponBuffApply(weapon)
+				
+	var proj = weapon.projectile
+	while (proj != noone)
+	{
+		buff.projectileBuffApply(proj)
+		proj = proj.projectileChild
+	}
+}
+
 function EvaluateWeaponBuffs()
 {
 	with (oPlayer)
@@ -56,12 +70,13 @@ function EvaluateWeaponBuffs()
 		{
 			// Reset weapon stats to default
 			var myWeaponID = weaponInventory[slot].index
-			weaponInventory[slot] = acquireWeapon(myWeaponID, id, weaponInventory[slot].active)
+			var durability = weaponInventory[slot].remainingDurability
+			weaponInventory[slot] = acquireWeapon(myWeaponID, id, weaponInventory[slot].active, durability)
 			
 			// Apply buffs
-			for (var j = 0; j < array_length(weaponBuffs); j++)
+			for (var j = 0; j < array_length(buffs); j++)
 			{
-				weaponBuffs[j].buffApply(weaponInventory[slot])
+				applyWeaponBuff(weaponInventory[slot], buffs[j])
 			}
 		}
 	}
@@ -76,9 +91,9 @@ function EvaluateOneTimeUseBuffs()
 		tempWeaponSlot = acquireWeapon(myWeaponID, id)
 			
 		// Apply buffs
-		for (var j = 0; j < array_length(weaponBuffs); j++)
+		for (var j = 0; j < array_length(buffs); j++)
 		{
-			weaponBuffs[j].buffApply(tempWeaponSlot)
+			applyWeaponBuff(tempWeaponSlot, buffs[j])
 		}
 	}
 }
@@ -91,13 +106,13 @@ function EvaluatePlayerBuffs()
 		InitPlayerStats()
 		
 		// Apply buffs
-		for (var j = 0; j < array_length(playerBuffs); j++)
+		for (var j = 0; j < array_length(buffs); j++)
 		{
-			playerBuffs[j].buffApply(-1)
+			buffs[j].characterBuffApply(id)
 		}
 		
 		walkSpdDef = min(walkSpdDef, TILE_SIZE)
 		walkSpdSprint = min(walkSpdSprint, TILE_SIZE)
-		walkSpd = walkSpdDef
+		walkSpd = walkSpdSprint
 	}
 }
