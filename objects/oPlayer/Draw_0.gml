@@ -153,6 +153,7 @@ if (showStats)
 		$"Damage: {currentWeapon.projectile.damage}",
 		$"Damage multiplier: {currentWeapon.projectile.damageMultiplier}x",
 		$"Attack speed: {currentWeapon.attackSpeed}/s",
+		$"Spread: {currentWeapon.spread} deg",
 		$"Projectile amount: {currentWeapon.projectileAmount}",
 		$"Knockback: {currentWeapon.projectile.targetKnockback}",
 		$"Movement speed: {oPlayer.walkSpdDef}",

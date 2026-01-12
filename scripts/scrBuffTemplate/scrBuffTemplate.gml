@@ -75,10 +75,11 @@ function EvaluateWeaponBuffs()
 			weaponInventory[slot].playerInventorySlot = slot
 			
 			// Apply buffs
-			for (var j = 0; j < array_length(buffs); j++)
-			{
-				applyWeaponBuff(weaponInventory[slot], buffs[j])
-			}
+			repeat (buffApplyAmount)
+				for (var j = 0; j < array_length(buffs); j++)
+				{
+					applyWeaponBuff(weaponInventory[slot], buffs[j])
+				}
 		}
 	}
 }
@@ -92,26 +93,30 @@ function EvaluateOneTimeUseBuffs()
 		tempWeaponSlot = acquireWeapon(myWeaponID, id, myWeaponID != WEAPON.fists)
 			
 		// Apply buffs
-		for (var j = 0; j < array_length(buffs); j++)
-		{
-			applyWeaponBuff(tempWeaponSlot, buffs[j])
-		}
+		repeat (buffApplyAmount)
+			for (var j = 0; j < array_length(buffs); j++)
+			{
+				applyWeaponBuff(tempWeaponSlot, buffs[j])
+			}
 	}
 }
 
 function EvaluatePlayerBuffs()
 {
 	with (oPlayer)
-	{	
+	{
 		// Reset to default stats
 		InitPlayerStats()
 		
 		// Apply buffs
 		for (var j = 0; j < array_length(buffs); j++)
 		{
-			buffs[j].characterBuffApply(id)
+			var applyAmount = buffApplyAmount
+			if (buffs[j].buffType == BUFF.doubleBuff) applyAmount = 1
+			repeat (applyAmount)
+				buffs[j].characterBuffApply(id)
 		}
-		
+			
 		walkSpdDef = min(walkSpdDef, TILE_SIZE)
 		walkSpdSprint = min(walkSpdSprint, TILE_SIZE)
 		walkSpd = walkSpdSprint

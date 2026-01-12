@@ -15,6 +15,7 @@ function InitPlayerStats()
 	
 	// Buff specific
 	dualWield = false
+	buffApplyAmount = 1
 }
 InitPlayerStats()	// Do this, so we can reset player stats to default later
 

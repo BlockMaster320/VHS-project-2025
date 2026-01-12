@@ -214,9 +214,10 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 	var yy = yPos + lengthdir_y(posOff, drawDirection-30)
 	
 	shader_set(shFlash)
-		flashFac = flashFrequency >= .0001 ? (flashFrameCounter mod (60 / flashFrequency)) / (60 / flashFrequency) : 0
+		flashFac = (flashFrameCounter mod (60 / flashFrequency)) / (60 / flashFrequency)
 		if (roundFac) flashFac = round(flashFac)
 		else flashFac = sin(flashFac * 2 * pi) * .5 + .5
+		if (flashFrequency <= .0001) flashFac = 0
 		shader_set_uniform_f(flashFacLoc, flashFac)
 		draw_sprite_ext(sprite, 0, roundPixelPos(xx), roundPixelPos(yy), flip, 1, drawDirection, c_white, _alpha)	
 	shader_reset()

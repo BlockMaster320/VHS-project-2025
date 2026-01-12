@@ -102,7 +102,7 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 1			// shots/damage amount per second
-		spread = 0				// weapon accuracy in degrees
+		spread = 4				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		durabilityMult = 0
 		shootOnHold = false
@@ -149,7 +149,7 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 2			// shots/damage amount per second
-		spread = 0				// weapon accuracy in degrees
+		spread = 10				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false
 		
@@ -293,7 +293,7 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 1			// shots/damage amount per second
-		spread = 0				// weapon accuracy in degrees
+		spread = 5				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		oneTimeUse = true
 		

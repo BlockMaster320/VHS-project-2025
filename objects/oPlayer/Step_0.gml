@@ -60,7 +60,10 @@ if (oController.interact)
 	if (buffPickup and buffPickup.myBuff != -1)
 	{
 		//array_push(buffsInventory[activeInventorySlot], buffPickup.myBuff)
-		array_push(buffs, buffPickup.myBuff)
+		if (buffPickup.myBuff.buffType == BUFF.doubleBuff)
+			array_insert(buffs, 0, buffPickup.myBuff)
+		else
+			array_push(buffs, buffPickup.myBuff)
 		EvaluatePlayerBuffs()	// Order here might matter!
 		EvaluateWeaponBuffs()
 		EvaluateOneTimeUseBuffs()
