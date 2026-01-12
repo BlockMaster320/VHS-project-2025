@@ -56,7 +56,7 @@ if (!is_undefined(currentRoom) && !currentRoom.discovered) {    // make the room
 }
 
 if (keyboard_check_pressed(ord("C")))    // clear all enemies
-    with (oEnemy) oRoomManager.currentRoom.KillEnemy(id);
+   killAllEnemies()
    
 
 /*

@@ -25,6 +25,7 @@ enum CharacterState {
 function GetHit(character, proj)
 {
 	var charIsPlayer = character.object_index == oPlayer
+	var oldHp = character.hp
 	
 	// Stat changes
 	
@@ -83,10 +84,9 @@ function GetHit(character, proj)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}
-		//else if (character.object_index == oPlayer) game_restart()	// TEMP
 		else
 		{
-			if (room != rmDebug or !charIsPlayer)
+			if ((room != rmDebug or !charIsPlayer) and oldHp > 0)
 				character.onDeathEvent()
 		}
 	}

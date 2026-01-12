@@ -39,3 +39,12 @@ playerRoomYPrev = 0;
 
 playerRoomXpx = 0
 playerRoomYpx = 0
+
+// Helpers
+killAllEnemies = function() {
+	with (oEnemy) oRoomManager.currentRoom.KillEnemy(id);
+}
+
+killAllEnemyProjectiles = function() {
+	oRoomManager.currentRoom.RemoveProjectiles();
+}
