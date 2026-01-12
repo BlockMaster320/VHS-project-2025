@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrSlasher",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrSlasher",
+  "parent":{
+    "name":"Enemies",
+    "path":"folders/Objects/Content/Enemies.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

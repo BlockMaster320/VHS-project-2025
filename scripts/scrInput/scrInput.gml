@@ -22,6 +22,10 @@ function Input()
 	gui_x = 0
 	gui_y = 0
 	gui_pressed = 0
+	
+	// General
+	aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
+	//aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y);
 
 	switch (global.inputState)
 	{
@@ -49,7 +53,6 @@ function Input()
 			reload = keyboard_check_pressed(ord("R"))
 			
 			//if (instance_exists(oPlayer))
-			aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
 			
 			break
 			

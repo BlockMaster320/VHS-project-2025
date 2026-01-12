@@ -75,7 +75,10 @@ if (interactable)
 {
 	interactable.alpha = 1
 	if (oController.interact)
+	{
 		interactable.interactFunc()
+		interactable.hitFlash()
+	}
 }
 	
 // -----------------------

@@ -79,22 +79,64 @@ function meleeWeaponShoot()
 
 function weaponUpdatePosition()	// Called by every weapon
 {
-	if (projectile.ownerID.object_index == oPlayer)
-	{
-		aimDirection = point_direction(xPos, yPos, mouse_x, mouse_y)
+	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
+	
+	if (ownerIsPlayer)
 		drawDirection = oController.aimDir
-	}
 	else drawDirection = aimDirection
 	
 	flip = (abs(drawDirection % 360) > 90 && abs(drawDirection % 360) < 270) ? -1 : 1;
 	if (flip < 0) drawDirection += 180;
-
+	
 	xPos = projectile.ownerID.x + (drawOffsetX * flip)
 	yPos = projectile.ownerID.y + drawOffsetY
+	
+	if (ownerIsPlayer)
+		aimDirection = point_direction(xPos, yPos, device_mouse_x(0), device_mouse_y(0))
+	
+}
+
+function weaponPlayerUpdateLogic()
+{
+	// Get rid of weapon after running out of durability
+	if (remainingDurability <= 0) {
+		with (oPlayer)
+		{
+			if (other.oneTimeUse)
+			{
+				tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false)
+				weaponInventory[activeInventorySlot].active = true
+			}
+			else weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
+			
+			ignoreInputBuffer.reset()
+		}
+	}
+	
+	// Detect weapon shooting input
+	if (oController.primaryButtonPress or (shootOnHold and oController.primaryButton))
+		if (oPlayer.ignoreInputBuffer.value <= 0)
+			holdingTrigger = true
+			
+	if (oPlayer.ignoreInputBuffer.value > 0)
+		oPlayer.ignoreInputBuffer.value--
+		
+	// Reloading
+	if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
+	{
+		reloading = true
+		magazineAmmo = 0
+	}
+}
+
+function weaponPostDraw()
+{
+	flashFrameCounter++
+	flashFrequency = 0
 }
 
 function genericWeaponUpdate()
-{
+{	
 	weaponUpdatePosition() // All weapons should call this
 	
 	primaryActionCooldown = max(primaryActionCooldown - global.gameSpeed, -1)
@@ -102,43 +144,26 @@ function genericWeaponUpdate()
 	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
 	
 	if (ownerIsPlayer)
-	{
-		if (oController.primaryButtonPress or (shootOnHold and oController.primaryButton))
-			holdingTrigger = true
-	}
-	
-	if (ownerIsPlayer) {	// player holds the gun
-		
-		// Get rid of weapon after running out of durability
-		if (remainingDurability <= 0) {
-			with (oPlayer) {
-				if (other.oneTimeUse)
-				{
-					tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false)
-					weaponInventory[activeInventorySlot].active = true
-				}
-				else weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
-			}
-		}
-		
-		// Reloading
-		if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
-		{
-			reloading = true
-			magazineAmmo = 0
-		}
-	}
+		weaponPlayerUpdateLogic()
 		
 	// Reloading
-	if (reloading and magazineAmmo != magazineSize)
+	if (magazineAmmo == 0 and !reloading)
+	{
+		flashFrequency = 1
+		roundFac = false
+	}
+	else if (reloading and magazineAmmo != magazineSize)
 	{
 		if (reloadProgress > reloadTime * 60)
 		{
 			reloadProgress = 0
 			reloading = false
 			magazineAmmo = magazineSize
+			flashFrameCounter = 0
 		}
 		reloadProgress += global.gameSpeed
+		flashFrequency = 3
+		roundFac = true
 	}
 	else reloadProgress = 0
 	
@@ -150,8 +175,9 @@ function genericWeaponUpdate()
 			if (oPlayer.dualWield and random(1) < .8) break	// Spread out different weapons
 			primaryActionCooldown += 60 / attackSpeed
 			primaryAction()
+			var effectiveAttackSpeed = clamp(attackSpeed, .7, 5)	// To punish high attack speed with more durability damage
 			if (oneTimeUse) remainingDurability = 0
-			else remainingDurability -= durabilityMult / (attackSpeed * durabilityInSeconds)
+			else remainingDurability -= durabilityMult / (effectiveAttackSpeed * durabilityInSeconds)
 			if (magazineAmmo > 0) magazineAmmo--
 			
 			if (ownerIsPlayer)	// Screenshake
@@ -167,6 +193,18 @@ function genericWeaponUpdate()
 	holdingTrigger = false
 }
 
+// Fan
+
+function fanUpdate()
+{
+	weaponUpdatePosition() // All weapons should call this
+	
+	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
+	
+	if (ownerIsPlayer)
+		weaponPlayerUpdateLogic()
+}
+
 
 // Weapon draw ----------------------------------------
 
@@ -174,8 +212,17 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 {
 	var xx = xPos + lengthdir_x(posOff, drawDirection-30)
 	var yy = yPos + lengthdir_y(posOff, drawDirection-30)
-	draw_sprite_ext(sprite, 0, roundPixelPos(xx), roundPixelPos(yy), flip, 1, drawDirection, c_white, _alpha)
+	
+	shader_set(shFlash)
+		flashFac = flashFrequency >= .0001 ? (flashFrameCounter mod (60 / flashFrequency)) / (60 / flashFrequency) : 0
+		if (roundFac) flashFac = round(flashFac)
+		else flashFac = sin(flashFac * 2 * pi) * .5 + .5
+		shader_set_uniform_f(flashFacLoc, flashFac)
+		draw_sprite_ext(sprite, 0, roundPixelPos(xx), roundPixelPos(yy), flip, 1, drawDirection, c_white, _alpha)	
+	shader_reset()
 	
 	if (index != WEAPON.fists)	// draw a hand holding the gun
 		draw_sprite_ext(sHands, 7, roundPixelPos(xPos) - 2 * flip, roundPixelPos(yPos) - 4, flip, 1, 0, c_white, _alpha)
+		
+	weaponPostDraw()
 }

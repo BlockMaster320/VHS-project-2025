@@ -111,13 +111,12 @@ function explosiveDestroy()
 	instance_destroy()
 }
 
-// ---------------------------------------------
+// Garbage
 
-function trashUpdate()
+function garbageUpdate()
 {
 	explosiveUpdate()
 }
-
 
 // Projectile draw ----------------------------------------
 

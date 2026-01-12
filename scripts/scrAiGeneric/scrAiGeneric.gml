@@ -87,6 +87,7 @@ function coordinationUpdate()
 			walkSpd = repositionWalkSpd
 			reachedPathEnd = true
 			wantsToHide = 0
+			aimingAtPlayer = true
 			state = AI_STATE.reposition
 			activeCoordination = false
 			hidingCoordination = false
@@ -111,6 +112,7 @@ function idleAiTransition()
 {
 	if (seesPlayer)
 	{
+		aimingAtPlayer = true
 		state = AI_STATE.reposition
 		walkSpd = repositionWalkSpd
 	}
@@ -210,7 +212,10 @@ function repositionAiUpdate()
 			repositionSuddenStopDelay.rndmize()
 			reachedPathEnd = true
 		}
-		else repositionSuddenStopDelay.value -= global.gameSpeed
+		else
+		{
+			repositionSuddenStopDelay.value -= global.gameSpeed
+		}
 	}
 						
 	// Reposition
@@ -237,7 +242,7 @@ function shootAiInit()
 	noTargetDurationMax = new Range(30, 180)
 	
 	inactiveTime = 0
-	inactiveThreshold = new Range(0, 30)
+	inactiveThreshold = new Range(0, 30)	// Moment before shooting
 	
 	noTargetDuration = 0
 	shootingDuration = 0
@@ -251,6 +256,9 @@ function shootAiSetupState()
 	
 	noTargetDurationMax.rndmize()
 	noTargetDuration = 0
+	
+	lookDir = lookDirTarget
+	myWeapon.aimDirection = lookDir
 	
 	if (myWeapon.projectile.projectileType == PROJECTILE_TYPE.melee)
 		aimingAtPlayer = false
@@ -294,6 +302,11 @@ function shootAiUpdate()
 	if (inactiveTime < inactiveThreshold.value)
 	{
 		inactiveTime += global.gameSpeed
+		if (myWeapon.projectile.projectileType == PROJECTILE_TYPE.melee)
+		{
+			myWeapon.flashFrequency = 10
+			myWeapon.roundFac = true
+		}
 		return
 	}
 						
@@ -323,6 +336,7 @@ function reloadAiTransition()
 	{
 		walkSpd = repositionWalkSpd
 		myWeapon.reloading = false
+		aimingAtPlayer = true
 		state = AI_STATE.reposition
 		followingPath = false
 		reachedPathEnd = true
@@ -337,18 +351,24 @@ function hideAiInit()
 {
 	panickedWalkSpd = 2
 	giveUpHidingTimer = new Range(120, 400)
+	isSafe = new Range(20, 30)	// I don't see the player, I might be already safe
 }
 
 function hideAiTransition()
 {
-	if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0)
+	if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0 or isSafe.value <= 0)
 	{
 		giveUpHidingTimer.rndmize()
+		isSafe.rndmize()
 		state = AI_STATE.reload
 		myWeapon.reloading = true
 		walkSpd = shootingWalkSpd
 	}
 	else giveUpHidingTimer.value -= global.gameSpeed
+	
+	// TODO, why does this crash??????
+	//if (!seesPlayer) isSafe.value -= global.gameSpeed
+	//else isSafe.value = isSafe.rndmize()
 }
 
 function hideAiUpdate()
@@ -382,6 +402,7 @@ function restAiTransition()
 		restTime.reset()
 		walkSpd = repositionWalkSpd
 		myWeapon.holdingTrigger = false
+		aimingAtPlayer = true
 		
 		state = AI_STATE.reposition
 		updateRate.value = 0
@@ -426,6 +447,8 @@ function debugAiLineDraw()
 	draw_line(x, y, xx1, yy1)
 	draw_line(x, y, xx2, yy2)
 					
+	draw_set_color(c_blue)
+	draw_line(x, y, x+lengthdir_x(50, lookDir), y+lengthdir_y(50, lookDir))
 		
 	var col = LineOfSightPoint(oPlayer.x, oPlayer.y) ? c_green : c_red
 	draw_set_color(col)

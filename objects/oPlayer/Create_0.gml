@@ -36,6 +36,7 @@ for (var i = 0; i < inventorySize; i++)
 //weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false)	// For testing
 tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 
+ignoreInputBuffer = new Cooldown(40)	// To prevent the player from shooting right away
 
 // Buffs
 buffs = []

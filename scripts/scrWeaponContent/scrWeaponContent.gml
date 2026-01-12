@@ -25,7 +25,7 @@ function WeaponsInit()
 		fists,
 		
 		// Player focused (droppable?)
-		defaultGun, garbage, sword,
+		defaultGun, garbage, sword, fan,
 		
 		// Monsters focused
 		ghosterGun,
@@ -105,6 +105,7 @@ function WeaponsInit()
 		spread = 0				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		durabilityMult = 0
+		shootOnHold = false
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -186,6 +187,54 @@ function WeaponsInit()
 	}
 		
 	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.fan])
+	{
+		// Generic attributes
+		sprite = sPlaceholderGun
+		name = "Fan"
+		description = "Wheeeeeeeeee"
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 2			// shots/damage amount per second
+		spread = 0				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		
+		// Update some scene attributes
+		remainingDurability = durabilityMult
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 35
+			projectileSpeed = 3
+			targetKnockback = 10
+			effects = []
+			scale = 4
+	
+			// Generic attributes
+			sprite = sMeleeHitbox
+			lifetime = 5
+			projectileType = PROJECTILE_TYPE.melee
+			
+			// Behaviour
+			update = genericMeleeHitUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = fanUpdate
+		draw = genericWeaponDraw
+	}
+		
+	// -----------------------------------------------------------------------------
 
 	with (weaponDatabase[WEAPON.ghosterGun])
 	{
@@ -198,7 +247,7 @@ function WeaponsInit()
 		
 		// Non-modifiable attributes
 		magazineSize = 6
-		reloadTime = 2
+		reloadTime = 4
 		
 		// Update some scene attributes
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
@@ -287,7 +336,7 @@ function WeaponsInit()
 			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
-			update = trashUpdate
+			update = garbageUpdate
 			draw = genericProjectileRotatingDraw
 			destroy = explosiveDestroy
 		}

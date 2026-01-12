@@ -317,6 +317,50 @@ function characterCreate(_characterType) {
 			
 		} break;
 		
+		// Melee slasher - enemy with a sword
+		case CHARACTER_TYPE.meleeSlasher: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.meleeSlasher;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Melee slasher";
+			portrait = sNPCPortrait;
+			
+			// Animation
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
+			anim = characterAnimation.getAnimation;
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.sword, id)
+			
+			// AI
+			slasherAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				slasherAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				slasherAiDraw()	// AI visualization
+			}
+			
+		} break;
+		
 		// --------------------------------------------------------------------------------
 		
 		default:

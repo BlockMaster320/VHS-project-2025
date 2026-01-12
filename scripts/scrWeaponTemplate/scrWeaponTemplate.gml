@@ -36,6 +36,12 @@ function Weapon() constructor
 	playerInventorySlot = -1
 	primaryActionCooldown = 0
 	secondaryActionCooldown = 0
+	// Info flash
+	flashFrameCounter = 0
+	flashFrequency = 0	// Flash the weapon amount/s when something is happening to it
+	flashFacLoc = shader_get_uniform(shFlash, "flashFac")
+	roundFac = false
+	flashFac = 0
 	
 	// Weapon actions
 	primaryAction = rangedWeaponShoot
@@ -80,7 +86,6 @@ function Projectile() constructor
 	draw = function(){show_debug_message("Unset projectile draw!")}
 	destroy = genericProjectileDestroy
 }
-
 
 
 

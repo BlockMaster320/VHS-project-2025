@@ -11,7 +11,7 @@ enum CHARACTER_TYPE
 	student,
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,
-	enemyStartID /*dummy const*/, targetDummy, ghoster, dropper, enemyEndID /*dummy const*/,
+	enemyStartID /*dummy const*/, targetDummy, ghoster, meleeSlasher, dropper, enemyEndID /*dummy const*/,
 	playerCleaner
 }
 
