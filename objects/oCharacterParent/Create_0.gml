@@ -51,7 +51,7 @@ dir = 1;
 
 characterState = CharacterState.Idle;
 inRange = false
-	
+
 // animation control
 characterAnimation = noone;
 anim = noone;
@@ -61,11 +61,13 @@ image_speed = 0.1;
 depth = -y;
 alpha = 1
 weaponAlpha = 1
+handsAlpha = 1
 	
 // Event functions
 stepEvent = noone
 drawEvent = noone
 onDeathEvent = function(){ instance_destroy() }
+
 
 // Dialogues
 inRange = false
