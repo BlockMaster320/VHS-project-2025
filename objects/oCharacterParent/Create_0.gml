@@ -61,6 +61,7 @@ image_speed = 0.1;
 depth = -y;
 alpha = 1
 weaponAlpha = 1
+handsAlpha = 1
 	
 // Event functions
 stepEvent = noone

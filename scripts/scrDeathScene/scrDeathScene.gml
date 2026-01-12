@@ -5,6 +5,7 @@ function DeathScene(_deadCharacter) {
 		
 		alpha = 0
 		weaponAlpha = 0
+		handsAlpha = 0
 
 		// this code spawns NPC
 		cleaner = instance_create_layer(xx + 32, yy, "Instances", oNPC)
@@ -69,6 +70,7 @@ function DeathScene(_deadCharacter) {
 				room_goto(rmLobby);
 				alpha = 1
 				weaponAlpha = 1
+				handsAlpha = 1
 			}),
 			// lobby & dialog
 			new TweenAction(function() {

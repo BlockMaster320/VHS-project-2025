@@ -60,7 +60,7 @@ function getCharacterDrawEvent(_characterType) {
 
 					imageSpeedHands = animationFrames.speeds[floor(spriteFrameHands) - start];
 				
-					draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
+					draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, handsAlpha)
 				}
 			};
 		}
@@ -101,8 +101,10 @@ function characterCreate(_characterType) {
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
 			onDeathEvent = function() {
 				debug("player has died")
-				oRoomManager.killAllEnemies()
-				oRoomManager.killAllEnemyProjectiles()
+				if (instance_exists(oRoomManager)) {
+					oRoomManager.killAllEnemies()
+					oRoomManager.killAllEnemyProjectiles()
+				}
 				DeathScene(self)
 			}
 			
