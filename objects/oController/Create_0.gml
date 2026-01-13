@@ -33,12 +33,23 @@ upscaleMult = 4
 windowWidthPrev = window_get_width()
 windowHeightPrev = window_get_height()
 guiSurf = surface_create(cameraW, cameraH)
-guiSurf4x = surface_create(cameraW*6, cameraH*6)	// Hacky way to downscale pixel art font
 guiUpscaledSurf = -1
 updateUpscaleFactor()
 
 // Set default window scale to nice multiple
 //window_set_size(cameraW * 3, cameraH * 3)
+
+// Particle systems ----------------------------
+walkDustSys = part_system_create()
+walkDust = part_type_create()
+walkDustSpawnFreq = 2.41	// times per second
+part_type_size(walkDust,1,2,0,0)
+part_type_life(walkDust,30,60)
+part_type_speed(walkDust,.4,.8,-.01,0)
+part_type_alpha2(walkDust, .5, 0)
+//part_type_gravity(walkDust,.002,90)
+part_type_sprite(walkDust,sDust,false,false,true)
+
 
 prevRoom = rmLobby
 room_goto(rmLobby)

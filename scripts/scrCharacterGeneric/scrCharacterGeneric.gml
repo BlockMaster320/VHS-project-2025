@@ -92,6 +92,7 @@ function GetHit(character, proj)
 	// Stat changes
 	
 	var damageDealt = proj.damage * proj.damageMultiplier
+	if (proj.objDealNoDamage) damageDealt = 0
 	
 	CalculateKnockback(character, proj)
 	

@@ -41,29 +41,7 @@ if (tempWeaponSlot.active) tempWeaponSlot.draw()
 //draw_text(x, y - 20, $"Health: {hp}")
 
 // Reload / cooldown state
-if (activeWeapon != -1 and
-	( (activeWeapon.projectile.projType == PROJECTILE_TYPE.ranged and activeWeapon.reloading) or
-	  (activeWeapon.projectile.projType == PROJECTILE_TYPE.melee and activeWeapon.primaryActionCooldown >= 0)
-	))
-{
-	var w = .1
-	var yOff = 13
-
-	var left = x - 10
-	var right = x + 10
-	var top = y + yOff
-	var bott = y + yOff + w
-
-	draw_rectangle(left, top, right, bott, false)
-
-	var reloadFac = activeWeapon.primaryActionCooldown / (60 / activeWeapon.attackSpeed)
-	if (activeWeapon.projectile.projType == PROJECTILE_TYPE.ranged)
-		reloadFac = 1 - (activeWeapon.reloadProgress / (activeWeapon.reloadTime * 60))
-	var sliderX = lerp(right, left, reloadFac)
-	var h = 4
-	
-	draw_rectangle(sliderX - w/2, top - h/2, sliderX + w/2, bott + h/2, false)
-}
+drawReloadState(activeWeapon)
 
 
 if (global.inputState != INPUT_STATE.dialogue)

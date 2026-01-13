@@ -159,6 +159,17 @@ function weaponPostDraw()
 	flashFrequency = 0
 }
 
+// Calculate durability, reduce ammo from magazine
+function evaluateWeaponShoot()
+{
+	primaryAction()
+	
+	var effectiveAttackSpeed = clamp(attackSpeed, .7, 5)	// To punish high attack speed with more durability damage
+	if (oneTimeUse) remainingDurability = 0
+	else remainingDurability -= durabilityMult / (effectiveAttackSpeed * durabilityInSeconds)
+	if (magazineAmmo > 0) magazineAmmo--
+}
+
 function genericWeaponUpdate()
 {	
 	weaponUpdatePosition() // All weapons should call this
@@ -179,11 +190,7 @@ function genericWeaponUpdate()
 		{
 			if (oPlayer.dualWield and random(1) < .8) break	// Spread out different weapons
 			primaryActionCooldown += 60 / attackSpeed
-			primaryAction()
-			var effectiveAttackSpeed = clamp(attackSpeed, .7, 5)	// To punish high attack speed with more durability damage
-			if (oneTimeUse) remainingDurability = 0
-			else remainingDurability -= durabilityMult / (effectiveAttackSpeed * durabilityInSeconds)
-			if (magazineAmmo > 0) magazineAmmo--
+			evaluateWeaponShoot()
 			
 			if (ownerIsPlayer)	// Screenshake
 			{
@@ -202,19 +209,24 @@ function genericWeaponUpdate()
 
 function fanInit()
 {
-	fanProj = instance_create_layer(0, 0, "Instances", oProjectile, projectile)
-	with (fanProj)
-	{
-		sprite_index = sMeleeHitbox
-		image_xscale = scale * xScaleMult
-		image_yscale = scale * yScaleMult
-		//if (ownerID.object_index != oPlayer) effects = []
-	}
+	//repeat (projectileAmount)
+	//{
+	//	var fanProj = instance_create_layer(0, 0, "Instances", oProjectile, projectile)
+	//	with (fanProj)
+	//	{
+	//		sprite_index = sMeleeHitbox
+	//		image_xscale = scale * xScaleMult
+	//		image_yscale = scale * yScaleMult
+	//		//if (ownerID.object_index != oPlayer) effects = []
+	//	}
+	//	array_push(fanProjectiles, fanProj)
+	//}
 }
 
 function fanDestroy()
 {
-	instance_destroy(fanProj)
+	//for (var i = 0; i < array_length(fanProjectiles); i++)
+	//	instance_destroy(fanProjectiles[i])
 }
 
 function fanUpdate()
@@ -223,13 +235,10 @@ function fanUpdate()
 	
 	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
 	
-	fanProj.targetKnockback = projectile.targetKnockback	// Quick solution
-	fanProj.attackSpeed = attackSpeed
-	
-	fanProj.dir = aimDirection
-	fanProj.dir += random_range(-spread/2, spread/2)
-	fanProj.drawRot = fanProj.dir
-	fanProj.image_angle = fanProj.dir
+	with (projectile)
+	{
+		attackSpeed = other.attackSpeed
+	}
 	
 	if (ownerIsPlayer)
 		weaponPlayerUpdateLogic()
@@ -237,8 +246,12 @@ function fanUpdate()
 	weaponReloading()
 	
 	if (active and holdingTrigger and (magazineAmmo > 0 or magazineAmmo == -1))
-		fanProj.hitboxActive = true
-	else fanProj.hitboxActive = false
+	{
+		primaryAction()
+	
+		remainingDurability -= durabilityMult / (oController.gameFPS * durabilityInSeconds)
+		if (magazineAmmo > 0) magazineAmmo -= global.gameSpeed
+	}
 	
 	holdingTrigger = false
 }
@@ -264,4 +277,31 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 		draw_sprite_ext(sHands, 7, roundPixelPos(xPos) - 2 * flip, roundPixelPos(yPos) - 4, flip, 1, 0, c_white, _alpha)
 		
 	weaponPostDraw()
+}
+
+function drawReloadState(weapon)
+{
+	if (weapon != -1 and
+	( (weapon.projectile.projType == PROJECTILE_TYPE.ranged and weapon.reloading) or
+	  (weapon.projectile.projType == PROJECTILE_TYPE.melee and weapon.primaryActionCooldown >= 0)
+	))
+	{
+		var w = .1
+		var yOff = 13
+
+		var left = x - 10
+		var right = x + 10
+		var top = y + yOff
+		var bott = y + yOff + w
+
+		draw_rectangle(left, top, right, bott, false)
+
+		var reloadFac = weapon.primaryActionCooldown / (60 / weapon.attackSpeed)
+		if (weapon.projectile.projType == PROJECTILE_TYPE.ranged)
+			reloadFac = 1 - (weapon.reloadProgress / (weapon.reloadTime * 60))
+		var sliderX = lerp(right, left, reloadFac)
+		var h = 4
+	
+		draw_rectangle(sliderX - w/2, top - h/2, sliderX + w/2, bott + h/2, false)
+	}
 }

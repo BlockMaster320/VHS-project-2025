@@ -68,6 +68,8 @@ stepEvent = noone
 drawEvent = noone
 onDeathEvent = function(){ instance_destroy() }
 
+// Particles
+walkDustTimeCounter = 0	// In seconds
 
 // Dialogues
 inRange = false

@@ -129,6 +129,22 @@ if (place_meeting(x, y + vsp * global.gameSpeed, global.tilemapCollision))	// ob
 var vspClamped = abs(min(vsp * global.gameSpeed, TILE_SIZE)) * sign(vsp)
 y += vspClamped
 
+// Walk particles
+if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
+{
+	var moveDir = point_direction(x, y, xprevious, yprevious)
+	var spread = 70
+	part_type_direction(oController.walkDust, moveDir-spread, moveDir+spread, random_range(-2, 2), 0)
+	part_particles_create(oController.walkDustSys, random_range(x-4,x+4), random_range(bbox_bottom-4, bbox_bottom+4), oController.walkDust, 4)
+	walkDustTimeCounter = 1 / oController.walkDustSpawnFreq
+	
+	if (object_index == oPlayer)
+		audio_play_sound(sndFootstep1, 0, false)
+}
+
+if (x != xprevious or y != yprevious)
+	walkDustTimeCounter -= 1/60 * global.gameSpeed
+else walkDustTimeCounter = 0
 
 #endregion
 

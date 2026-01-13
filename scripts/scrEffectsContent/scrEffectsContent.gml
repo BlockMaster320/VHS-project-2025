@@ -20,23 +20,28 @@ function createEffect(effectType_, source_=noone)
 				
 				if (source == noone)
 				{
-					show_debug_message("EffectCreate -> fanAreaDmg effect: source of the effect (weapon) is undefined!")
+					show_debug_message("EffectCreate -> fanAreaDmg effect: source of the effect (projectile) is undefined!")
 					break
 				}
 				
-				applyDurDef = .3
-				durationDef = .3
+				// The projectile will likely be destroyed, save important variables
+				attackSpeed = source.attackSpeed
+				damage = source.damage
+				damageMultiplier = source.damageMultiplier
+				
+				applyDurDef = 1 / attackSpeed
+				durationDef = applyDurDef
 				duration = durationDef
 				
 				applyEffect = function(character)
 				{
-					duration -= 1/60 * global.gameSpeed * source.attackSpeed
+					duration -= 1/60 * global.gameSpeed
 					if (applyCounter <= .0001)
 					{
-						DealDamage(character, source.damage*source.damageMultiplier)
+						DealDamage(character, damage*damageMultiplier)
 						applyCounter = applyDurDef
 					}
-					else applyCounter -= 1/60 * global.gameSpeed * source.attackSpeed
+					else applyCounter -= 1/60 * global.gameSpeed
 				}
 				
 				break

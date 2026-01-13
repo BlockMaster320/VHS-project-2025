@@ -18,7 +18,7 @@ function slasherAiInit()
 			
 	// Shoot
 	shootAiInit()
-	inactiveThreshold = new Range(40, 40)	// Weapon windup	
+	inactiveThreshold = new Range(60, 60)	// Weapon windup	
 	shootingWalkSpd = 0
 			
 	// Hide

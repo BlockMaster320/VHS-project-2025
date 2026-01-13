@@ -15,10 +15,7 @@ function projectileHitDetectionArea(includeWalls=false)
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
 			//if !(!is_undefined(oRoomManager.tileMapWall) and projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
-			var dmgPrev = damage
-			if (objDealNoDamage) damage = 0
 			GetHit(colliding, id)
-			damage = dmgPrev
 			hit = true
 		}
 	}
@@ -93,8 +90,11 @@ function genericMeleeHitUpdate()
 
 function fanProjUpdate()
 {	
-	if (hitboxActive)
+	//if (hitboxActive)
 		projectileHitDetectionArea()
+		
+	if (lifetime <= 0) destroy()
+	lifetime = 0
 		
 	if (instance_exists(ownerID))	// Actually important in the case
 	{								//  when owner dies in the same frame

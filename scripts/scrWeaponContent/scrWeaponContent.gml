@@ -193,14 +193,15 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 2			// shots/damage amount per second
-		spread = 3				// weapon accuracy in degrees
+		attackSpeed = 4			// shots/damage amount per second
+		spread = 5				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
-		//magazineSize = 4
-		//reloadTime = 1
+		magazineSize = 120 * global.gameSpeed
+		reloadTime = 1
 		
 		// Update some scene attributes
 		remainingDurability = durabilityMult
+		magazineAmmo = magazineSize	// Remaining bullets before reloading
 		
 		// Scene attributes
 		windProjX = 0
@@ -213,15 +214,15 @@ function WeaponsInit()
 			// Modifiable attributes
 			damage = 10
 			projectileSpeed = 3
-			targetKnockback = 5
+			targetKnockback = 4.5
 			effects = [ EFFECT.fanAreaDmg ]
 			scale = 2
 			xScaleMult = 4
 	
 			// Generic attributes
 			sprite = sMeleeHitbox
-			lifetime = 5
-			projType = PROJECTILE_TYPE.melee
+			lifetime = 1
+			projType = PROJECTILE_TYPE.ranged
 			objDealNoDamage = true
 			
 			// Scene attributes
@@ -232,10 +233,10 @@ function WeaponsInit()
 			draw = fanProjDraw
 		}
 		
-		fanProj = noone
+		fanProjectiles = []
 		
 		// Weapon actions
-		primaryAction = nothingFunction
+		primaryAction = meleeWeaponShoot
 		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
 	
 		// Weapon functions

@@ -29,7 +29,7 @@ function dropperAiInit()
 	
 	if (projType == PROJECTILE_TYPE.melee)
 	{
-		inactiveThreshold = new Range(40, 40)		
+		inactiveThreshold = new Range(60, 60)		
 		shootingWalkSpd = 0
 	}
 			
