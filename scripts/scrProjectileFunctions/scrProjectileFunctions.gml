@@ -122,12 +122,12 @@ function garbageUpdate()
 
 function genericProjectileDraw()
 {	
-	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
+	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, color, 1)
 	//draw_self()
 }
 
 function genericProjectileRotatingDraw()
 {
-	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, c_white, 1)
+	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, color, 1)
 	drawRot += 5 * global.gameSpeed
 }

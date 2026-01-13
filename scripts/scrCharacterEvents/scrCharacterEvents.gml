@@ -296,7 +296,7 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			var weaponID = choose(WEAPON.sword, WEAPON.defaultGun, WEAPON.garbage)
+			var weaponID = choose(WEAPON.sword, WEAPON.shotgun, WEAPON.garbage)
 			myWeapon = acquireWeapon(weaponID, id)
 			
 			// AI

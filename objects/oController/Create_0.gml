@@ -1,8 +1,15 @@
 Constants()
 
-global.gameSpeed = 1
-//game_set_speed(240, gamespeed_fps)
-//global.gameSpeed = 0.25
+gameFPS = display_get_frequency()
+//gameFPS = 500
+game_set_speed(gameFPS, gamespeed_fps)	// Experimental
+defaultGameSpeed = 60 / gameFPS
+global.gameSpeed = defaultGameSpeed
+
+window_set_cursor(cr_cross)
+//window_set_cursor(cr_none)
+//cursor_sprite = sCursor
+display_set_timing_method(tm_sleep)		// Turn off vsync
 
 global.inputState = INPUT_STATE.playing
 

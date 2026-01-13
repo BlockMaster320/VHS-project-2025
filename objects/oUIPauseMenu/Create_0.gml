@@ -8,7 +8,7 @@ resume_button = new Button(
 	"Resume", 
 	function() {
 		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
-		global.gameSpeed = 1
+		global.gameSpeed = oController.defaultGameSpeed
 		global.inputState = lowerState
 		lowerState = INPUT_STATE.playing
 	},
@@ -32,7 +32,7 @@ debug_room_button = new Button(
 	"Debug Room", 
 	function() {
 		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
-		global.gameSpeed = 1
+		global.gameSpeed = oController.defaultGameSpeed
 		global.inputState = lowerState
 		lowerState = INPUT_STATE.playing
 		if (room != rmDebug) oController.prevRoom = room

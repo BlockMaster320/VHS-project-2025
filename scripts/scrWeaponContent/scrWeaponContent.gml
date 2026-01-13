@@ -25,7 +25,7 @@ function WeaponsInit()
 		fists,
 		
 		// Player focused (droppable?)
-		defaultGun, garbage, sword, fan,
+		shotgun, garbage, sword, fan,
 		
 		// Monsters focused
 		ghosterGun,
@@ -43,7 +43,7 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 
-	with (weaponDatabase[WEAPON.defaultGun])
+	with (weaponDatabase[WEAPON.shotgun])
 	{
 		// Generic attributes
 		sprite = sPlaceholderGun
@@ -68,12 +68,13 @@ function WeaponsInit()
 		{
 			// Modifiable attributes
 			damage = 10
-			projectileSpeed = 2
+			projectileSpeed = 3
 			targetKnockback = 5
 			effects = []
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
+			sprite = sPlayerProjectile
+			color = #FFD665
 			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
@@ -263,7 +264,8 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
+			sprite = sEnemyProjectile
+			color = #D8362B
 			projectileType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour

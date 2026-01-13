@@ -214,7 +214,7 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 	var yy = yPos + lengthdir_y(posOff, drawDirection-30)
 	
 	shader_set(shFlash)
-		flashFac = (flashFrameCounter mod (60 / flashFrequency)) / (60 / flashFrequency)
+		flashFac = ((flashFrameCounter/global.gameSpeed) mod (60 / flashFrequency)) / (60 / flashFrequency)
 		if (roundFac) flashFac = round(flashFac)
 		else flashFac = sin(flashFac * 2 * pi) * .5 + .5
 		if (flashFrequency <= .0001) flashFac = 0

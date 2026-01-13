@@ -34,17 +34,10 @@ for (var i = 0; i < inventorySize; i++)
 	weaponInventory[i].playerInventorySlot = i
 }
 //weaponInventory[0] = acquireWeapon(WEAPON.sword, id)				// For testing
-//weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false)	// For testing
+//weaponInventory[1] = acquireWeapon(WEAPON.shotgun, id, false)	// For testing
 tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 
 ignoreInputBuffer = new Cooldown(40)	// To prevent the player from shooting right away
 
 // Buffs
 buffs = []
-
-// Misc ---------------------------------
-
-window_set_cursor(cr_cross)
-//window_set_cursor(cr_none)
-//cursor_sprite = sCursor
-//display_set_timing_method(tm_sleep)		// Turn off vsync

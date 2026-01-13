@@ -67,7 +67,7 @@ function Projectile() constructor
 	projectileChild = noone
 	
 	// Generic attributes
-	sprite = sPlaceholderProjectile
+	sprite = sEnemyProjectile
 	projectileAuthority = PROJECTILE_AUTHORITY.self
 	projectileType = PROJECTILE_TYPE.ranged
 	ownerID = -1
