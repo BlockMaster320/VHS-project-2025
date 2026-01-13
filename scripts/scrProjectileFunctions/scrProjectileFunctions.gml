@@ -14,8 +14,11 @@ function projectileHitDetectionArea(includeWalls=false)
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
-			//if !(!is_undefined(oRoomManager.tileMapWall) and projectileType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+			//if !(!is_undefined(oRoomManager.tileMapWall) and projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+			var dmgPrev = damage
+			if (objDealNoDamage) damage = 0
 			GetHit(colliding, id)
+			damage = dmgPrev
 			hit = true
 		}
 	}
@@ -38,7 +41,7 @@ function projectileHitDetection()
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
-			//if !(!is_undefined(oRoomManager.tileMapWall) and projectileType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+			//if !(!is_undefined(oRoomManager.tileMapWall) and projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
 			GetHit(colliding, id)
 			return true
 		}
@@ -86,6 +89,20 @@ function genericMeleeHitUpdate()
 	
 }
 
+// Fan
+
+function fanProjUpdate()
+{	
+	if (hitboxActive)
+		projectileHitDetectionArea()
+		
+	if (instance_exists(ownerID))	// Actually important in the case
+	{								//  when owner dies in the same frame
+		x = ownerID.x
+		y = ownerID.y
+	}
+}
+
 // The projectile that spawns the explosionš
 function explosiveUpdate()
 {
@@ -105,9 +122,9 @@ function explosiveDestroy()
 {
 	var explosion = instance_create_layer(x, y, "Instances", oProjectile, projectileChild)
 	explosion.sprite_index = sExplosion
-	explosion.image_xscale = explosion.scale
-	explosion.image_yscale = explosion.scale
-	oCamera.currentShakeAmount += 25.
+	explosion.image_xscale = explosion.scale * explosion.xScaleMult
+	explosion.image_yscale = explosion.scale * explosion.yScaleMult
+	oCamera.currentShakeAmount += 25
 	instance_destroy()
 }
 
@@ -122,12 +139,22 @@ function garbageUpdate()
 
 function genericProjectileDraw()
 {	
-	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, color, 1)
+	draw_sprite_ext (
+		sprite, 0, roundPixelPos(x), roundPixelPos(y),
+		scale * xScaleMult, scale * yScaleMult,
+		drawRot, color, 1
+	)
 	//draw_self()
 }
 
 function genericProjectileRotatingDraw()
 {
-	draw_sprite_ext(sprite, 0, roundPixelPos(x), roundPixelPos(y), scale, scale, drawRot, color, 1)
+	genericProjectileDraw()
 	drawRot += 5 * global.gameSpeed
+}
+
+function fanProjDraw()
+{
+	if (hitboxActive)
+		genericProjectileDraw()
 }

@@ -48,6 +48,7 @@ if (oController.interact)
 		
 			// Get new weapon
 			var activateWeapon = tempWeaponSlot.index == WEAPON.fists // Don't swap to it when holding one-time use weapon
+			weaponInventory[activeInventorySlot].destroy()
 			weaponInventory[activeInventorySlot] = acquireWeapon(weaponPickup.myWeapon, id, activateWeapon, weaponPickup.remainingDurability)
 			weaponInventory[activeInventorySlot].playerInventorySlot = activeInventorySlot
 			EvaluateWeaponBuffs()

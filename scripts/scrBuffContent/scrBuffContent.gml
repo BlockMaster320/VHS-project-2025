@@ -151,7 +151,7 @@ function BuffCreate(buffType_)
 		
 				projectileBuffApply = function(proj)
 				{	
-					if (proj.projectileType == PROJECTILE_TYPE.melee)
+					if (proj.projType == PROJECTILE_TYPE.melee)
 						proj.targetKnockback += 40
 				}
 				
@@ -201,8 +201,8 @@ function BuffCreate(buffType_)
 		
 				rarity = RARITY.common
 							
-				newStats = [ new Range(20, 20),		// + flat damage
-							 new Range(1.3, 1.3) ]	// + game speed
+				newStats = [ new Range(30, 30),		// + flat damage
+							 new Range(1.2, 1.2) ]	// + game speed
 		
 				buffRandomize = function()
 				{

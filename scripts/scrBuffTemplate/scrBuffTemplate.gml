@@ -71,6 +71,7 @@ function EvaluateWeaponBuffs()
 			// Reset weapon stats to default
 			var myWeaponID = weaponInventory[slot].index
 			var durability = weaponInventory[slot].remainingDurability
+			weaponInventory[slot].destroy()
 			weaponInventory[slot] = acquireWeapon(myWeaponID, id, weaponInventory[slot].active, durability)
 			weaponInventory[slot].playerInventorySlot = slot
 			
@@ -90,6 +91,7 @@ function EvaluateOneTimeUseBuffs()
 	{
 		// Reset weapon stats to default
 		var myWeaponID = tempWeaponSlot.index
+		tempWeaponSlot.destroy()
 		tempWeaponSlot = acquireWeapon(myWeaponID, id, myWeaponID != WEAPON.fists)
 			
 		// Apply buffs
@@ -119,6 +121,7 @@ function EvaluatePlayerBuffs()
 			
 		walkSpdDef = min(walkSpdDef, TILE_SIZE)
 		walkSpdSprint = min(walkSpdSprint, TILE_SIZE)
-		walkSpd = walkSpdSprint
+		if (room != rmDebug)
+			walkSpd = walkSpdSprint
 	}
 }

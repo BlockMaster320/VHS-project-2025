@@ -16,7 +16,7 @@ if (abs(mvsp) < .001) mvsp = 0
 
 #endregion
 
-#region AOE collision
+#region AOE collision	(not implemented)
 
 //var aoeList = ds_list_create()
 //var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
@@ -67,6 +67,18 @@ if (is_callable(stepEvent)) {
 	stepEvent(); 
 } else {
 	warning("stepEvent is not callable for NPC: " + string(name) );
+}
+
+#endregion
+
+#region Apply effects
+
+for (var i = array_length(effects)-1; i >= 0; i--)
+{
+	if (effects[i].duration <= .00001)
+		array_delete(effects, i, 1)
+	else
+		effects[i].applyEffect(id)
 }
 
 #endregion

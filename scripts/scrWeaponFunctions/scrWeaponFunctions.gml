@@ -13,6 +13,7 @@ function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 		proj.ownerID = owner
 		proj = proj.projectileChild
 	}
+	newWeapon.create()
 	if (remDurability_ != -1) newWeapon.remainingDurability = remDurability_
 	return newWeapon
 }
@@ -70,8 +71,8 @@ function meleeWeaponShoot()
 		bullet.image_angle = bullet.dir
 		bullet.drawRot = bullet.dir
 		bullet.sprite_index = sMeleeHitbox
-		bullet.image_xscale = projectile.scale
-		bullet.image_yscale = projectile.scale
+		bullet.image_xscale = projectile.scale * projectile.xScaleMult
+		bullet.image_yscale = projectile.scale * projectile.yScaleMult
 	}
 }
 
@@ -129,24 +130,8 @@ function weaponPlayerUpdateLogic()
 	}
 }
 
-function weaponPostDraw()
+function weaponReloading()
 {
-	flashFrameCounter++
-	flashFrequency = 0
-}
-
-function genericWeaponUpdate()
-{	
-	weaponUpdatePosition() // All weapons should call this
-	
-	primaryActionCooldown = max(primaryActionCooldown - global.gameSpeed, -1)
-	
-	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
-	
-	if (ownerIsPlayer)
-		weaponPlayerUpdateLogic()
-		
-	// Reloading
 	if (magazineAmmo == 0 and !reloading)
 	{
 		flashFrequency = 1
@@ -166,6 +151,26 @@ function genericWeaponUpdate()
 		roundFac = true
 	}
 	else reloadProgress = 0
+}
+
+function weaponPostDraw()
+{
+	flashFrameCounter++
+	flashFrequency = 0
+}
+
+function genericWeaponUpdate()
+{	
+	weaponUpdatePosition() // All weapons should call this
+	
+	primaryActionCooldown = max(primaryActionCooldown - global.gameSpeed, -1)
+	
+	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
+	
+	if (ownerIsPlayer)
+		weaponPlayerUpdateLogic()
+		
+	weaponReloading()
 	
 	// Shooting
 	if (active and holdingTrigger and primaryActionCooldown <= 0 and (magazineAmmo > 0 or magazineAmmo == -1))
@@ -195,14 +200,47 @@ function genericWeaponUpdate()
 
 // Fan
 
+function fanInit()
+{
+	fanProj = instance_create_layer(0, 0, "Instances", oProjectile, projectile)
+	with (fanProj)
+	{
+		sprite_index = sMeleeHitbox
+		image_xscale = scale * xScaleMult
+		image_yscale = scale * yScaleMult
+		if (ownerID.object_index != oPlayer) effects = []
+	}
+}
+
+function fanDestroy()
+{
+	instance_destroy(fanProj)
+}
+
 function fanUpdate()
 {
 	weaponUpdatePosition() // All weapons should call this
 	
 	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
 	
+	fanProj.targetKnockback = projectile.targetKnockback	// Quick solution
+	fanProj.attackSpeed = attackSpeed
+	
+	fanProj.dir = aimDirection
+	fanProj.dir += random_range(-spread/2, spread/2)
+	fanProj.drawRot = fanProj.dir
+	fanProj.image_angle = fanProj.dir
+	
 	if (ownerIsPlayer)
 		weaponPlayerUpdateLogic()
+		
+	weaponReloading()
+	
+	if (active and holdingTrigger and (magazineAmmo > 0 or magazineAmmo == -1))
+		fanProj.hitboxActive = true
+	else fanProj.hitboxActive = false
+	
+	holdingTrigger = false
 }
 
 

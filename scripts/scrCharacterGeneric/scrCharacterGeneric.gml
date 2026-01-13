@@ -22,23 +22,13 @@ enum CharacterState {
 	Dead
 }
 
-function GetHit(character, proj)
+function CalculateKnockback(character, proj)
 {
-	var charIsPlayer = character.object_index == oPlayer
-	var oldHp = character.hp
-	
-	// Stat changes
-	
-	var damageDealt = proj.damage * proj.damageMultiplier
-	
-	character.hp -= damageDealt
-	character.effects = array_union(character.effects, proj.effects)
-	
 	// Overly complicated knockback calculation
 	//	to avoid overstacking on knockback when hit
 	//  by multiple projectiles
 	var knockbackDir = proj.dir
-	if (proj.projectileType == PROJECTILE_TYPE.explosion)
+	if (proj.projType == PROJECTILE_TYPE.explosion)
 		knockbackDir = point_direction(proj.x, proj.y, character.x, character.y)
 	var mhsp = lengthdir_x(proj.targetKnockback, knockbackDir)
 	var mvsp = lengthdir_y(proj.targetKnockback, knockbackDir)
@@ -53,18 +43,12 @@ function GetHit(character, proj)
 		character.mhsp += mhsp
 		character.mvsp += mvsp 
 	}
+}
+
+function HitFeedback(character, damageDealt)
+{
+	var charIsPlayer = character.object_index == oPlayer
 	
-	
-	if (character.characterType == CHARACTER_TYPE.ghoster)
-	{
-		character.wantsToHide += damageDealt * .02
-	}
-	
-	// Iterate through applied effects
-	// TODO..
-	
-	
-	// Feedback
 	if (damageDealt > 0)
 	{
 		var damageNumber = instance_create_layer(character.x, character.y, "Instances", oDamageNumber)
@@ -74,9 +58,17 @@ function GetHit(character, proj)
 	character.hitFlash()
 	if (charIsPlayer)
 		oCamera.currentShakeAmount += damageDealt * .7
+}
+
+function DealDamage(character, damageDealt)
+{
+	var charIsPlayer = character.object_index == oPlayer
+	var oldHp = character.hp
 	
+	character.hp -= damageDealt
+	if (damageDealt > 0)
+		HitFeedback(character, damageDealt)
 	
-	// Kill
 	if (character.hp <= 0)
 	{
 		character.hp = 0
@@ -90,4 +82,45 @@ function GetHit(character, proj)
 				character.onDeathEvent()
 		}
 	}
+}
+
+function GetHit(character, proj)
+{
+	var charIsPlayer = character.object_index == oPlayer
+	var oldHp = character.hp
+	
+	// Stat changes
+	
+	var damageDealt = proj.damage * proj.damageMultiplier
+	
+	CalculateKnockback(character, proj)
+	
+	if (character.characterType == CHARACTER_TYPE.ghoster)
+	{
+		character.wantsToHide += damageDealt * .02
+	}
+	
+	// Add projectile effects
+	//character.effects = array_union(character.effects, proj.effects)
+	for (var i = 0; i < array_length(proj.effects); i++)
+	{
+		var newEffect = createEffect(proj.effects[i], proj)
+		if (!newEffect.allowDuplicateApplication)
+		{
+			var alreadyApplied = false
+			for (var j = 0; j < array_length(character.effects); j++)
+				if (character.effects[j].effectType == newEffect.effectType)
+				{
+					character.effects[j].duration = character.effects[j].durationDef
+					alreadyApplied = true
+					break
+				}
+			
+			if (!alreadyApplied) array_push(character.effects, newEffect)
+		}
+		else array_push(character.effects, newEffect)
+	}
+	
+	// Deal damage and possibly kill
+	DealDamage(character, damageDealt)
 }

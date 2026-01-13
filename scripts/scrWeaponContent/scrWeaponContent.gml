@@ -4,11 +4,6 @@ enum PROJECTILE_AUTHORITY
 	monster
 }
 
-enum PROJECTILE_EFFECT
-{
-	nothing
-}
-
 enum PROJECTILE_TYPE
 {
 	ranged, melee, explosion
@@ -75,7 +70,7 @@ function WeaponsInit()
 			// Generic attributes
 			sprite = sPlayerProjectile
 			color = #FFD665
-			projectileType = PROJECTILE_TYPE.ranged
+			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -122,7 +117,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sMeleeHitbox
-			projectileType = PROJECTILE_TYPE.melee
+			projType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
 			update = genericMeleeHitUpdate
@@ -171,7 +166,7 @@ function WeaponsInit()
 			// Generic attributes
 			sprite = sMeleeHitbox
 			lifetime = 5
-			projectileType = PROJECTILE_TYPE.melee
+			projType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
 			update = genericMeleeHitUpdate
@@ -199,40 +194,55 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 2			// shots/damage amount per second
-		spread = 0				// weapon accuracy in degrees
+		spread = 3				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		//magazineSize = 4
+		//reloadTime = 1
 		
 		// Update some scene attributes
 		remainingDurability = durabilityMult
+		
+		// Scene attributes
+		windProjX = 0
+		windProjY = 0
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 35
+			damage = 10
 			projectileSpeed = 3
-			targetKnockback = 10
-			effects = []
-			scale = 4
+			targetKnockback = 5
+			effects = [ EFFECT.fanAreaDmg ]
+			scale = 2
+			xScaleMult = 4
 	
 			// Generic attributes
 			sprite = sMeleeHitbox
 			lifetime = 5
-			projectileType = PROJECTILE_TYPE.melee
+			projType = PROJECTILE_TYPE.melee
+			objDealNoDamage = true
+			
+			// Scene attributes
+			attackSpeed = other.attackSpeed // Cruel hack
 			
 			// Behaviour
-			update = genericMeleeHitUpdate
-			draw = genericProjectileDraw
+			update = fanProjUpdate
+			draw = fanProjDraw
 		}
-	
+		
+		fanProj = noone
+		
 		// Weapon actions
-		primaryAction = meleeWeaponShoot
+		primaryAction = nothingFunction
 		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
 	
 		// Weapon functions
+		create = fanInit
 		update = fanUpdate
 		draw = genericWeaponDraw
+		destroy = fanDestroy
 	}
 		
 	// -----------------------------------------------------------------------------
@@ -266,7 +276,7 @@ function WeaponsInit()
 			// Generic attributes
 			sprite = sEnemyProjectile
 			color = #D8362B
-			projectileType = PROJECTILE_TYPE.ranged
+			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -327,7 +337,7 @@ function WeaponsInit()
 				lifetime = 1
 				
 				sprite = sExplosion
-				projectileType = PROJECTILE_TYPE.explosion
+				projType = PROJECTILE_TYPE.explosion
 				
 				update = explosionUpdate
 				draw = genericProjectileDraw
@@ -335,7 +345,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sTrashBag
-			projectileType = PROJECTILE_TYPE.ranged
+			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = garbageUpdate

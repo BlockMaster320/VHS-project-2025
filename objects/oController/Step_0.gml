@@ -1,6 +1,7 @@
 if (instance_exists(oRoomManager))
 	pfGrid = oRoomManager.pathfindingGrid
 	
+// Change refresh rate based on the active display
 //if (gameFPS != display_get_frequency())
 //{
 //	gameFPS = display_get_frequency()
@@ -10,4 +11,4 @@ if (instance_exists(oRoomManager))
 //	global.gameSpeed *= prevGameSpeed / defaultGameSpeed
 //}
 
-show_debug_message($"{game_get_speed(gamespeed_fps)} FPS")
+//show_debug_message($"{game_get_speed(gamespeed_fps)} FPS")

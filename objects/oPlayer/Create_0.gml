@@ -14,6 +14,7 @@ function InitPlayerStats()
 	inventorySize = 2
 	
 	// Buff specific
+	global.gameSpeed = oController.defaultGameSpeed
 	dualWield = false
 	buffApplyAmount = 1
 }

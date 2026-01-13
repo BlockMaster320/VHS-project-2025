@@ -7,7 +7,7 @@ function spawnBuffs()
 	{
 		var rowAmount = 2
 		var xx = x + 70 * (i mod rowAmount)
-		var yy = y + 60 * (i div rowAmount)
+		var yy = y + 60 * (i div rowAmount) + (xx-x)*.5
 		var buff = instance_create_layer(xx, yy, "Instances", oBuffPickup)
 		buff.setupBuffPickupID(i)
 		if (instance_exists(buff))

@@ -4,7 +4,7 @@ function dropperAiInit()
 {
 	genericAiInit()
 	
-	var projType = myWeapon.projectile.projectileType
+	var projType = myWeapon.projectile.projType
 	
 	// Coordination
 	coordinationInit()

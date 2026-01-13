@@ -132,6 +132,7 @@
     {"id":{"name":"scrDlgConstants","path":"scripts/scrDlgConstants/scrDlgConstants.yy",},},
     {"id":{"name":"scrDrawGuiController","path":"scripts/scrDrawGuiController/scrDrawGuiController.yy",},},
     {"id":{"name":"scrDropper","path":"scripts/scrDropper/scrDropper.yy",},},
+    {"id":{"name":"scrEffectsContent","path":"scripts/scrEffectsContent/scrEffectsContent.yy",},},
     {"id":{"name":"scrEnemyFunctions","path":"scripts/scrEnemyFunctions/scrEnemyFunctions.yy",},},
     {"id":{"name":"scrFollowPath","path":"scripts/scrFollowPath/scrFollowPath.yy",},},
     {"id":{"name":"scrGenericPF","path":"scripts/scrGenericPF/scrGenericPF.yy",},},

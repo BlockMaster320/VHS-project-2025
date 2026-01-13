@@ -15,7 +15,6 @@ if (room = rmDebug)
 	}
 }
 
-//draw_sprite(sCursor, 0, mouse_x, mouse_y)
 event_inherited();
 
 if (global.SHOW_PATH_GRID)
@@ -43,8 +42,8 @@ if (tempWeaponSlot.active) tempWeaponSlot.draw()
 
 // Reload / cooldown state
 if (activeWeapon != -1 and
-	( (activeWeapon.projectile.projectileType == PROJECTILE_TYPE.ranged and activeWeapon.reloading) or
-	  (activeWeapon.projectile.projectileType == PROJECTILE_TYPE.melee and activeWeapon.primaryActionCooldown >= 0)
+	( (activeWeapon.projectile.projType == PROJECTILE_TYPE.ranged and activeWeapon.reloading) or
+	  (activeWeapon.projectile.projType == PROJECTILE_TYPE.melee and activeWeapon.primaryActionCooldown >= 0)
 	))
 {
 	var w = .1
@@ -58,7 +57,7 @@ if (activeWeapon != -1 and
 	draw_rectangle(left, top, right, bott, false)
 
 	var reloadFac = activeWeapon.primaryActionCooldown / (60 / activeWeapon.attackSpeed)
-	if (activeWeapon.projectile.projectileType == PROJECTILE_TYPE.ranged)
+	if (activeWeapon.projectile.projType == PROJECTILE_TYPE.ranged)
 		reloadFac = 1 - (activeWeapon.reloadProgress / (activeWeapon.reloadTime * 60))
 	var sliderX = lerp(right, left, reloadFac)
 	var h = 4
@@ -135,16 +134,19 @@ surface_reset_target()
 if (showStats)
 {
 
-	surface_set_target(oController.guiSurf4x)
+	surface_set_target(oController.guiUpscaledSurf)
+	
+	margin *= oController.upscaleMult
+	
+	var textScale = round(oController.upscaleMult * .5)
+	var textSpacing = 12 * textScale
 
-	var topY = (bottomY - center*2)*4
-	rightX = cameraW*4 - margin*4
-	var width = 300
+	var topY = (bottomY - center*2)*oController.upscaleMult
+	rightX = cameraW*oController.upscaleMult - margin
+	var width = 8 * 20 * textScale
 	var leftX = rightX - width
 	var centerX = leftX + (rightX-leftX)/2
 
-	var textScale = 2
-	var textSpacing = 25
 	var currentWeapon = weaponInventory[activeInventorySlot]
 
 	bottomY = topY-textSpacing
@@ -171,9 +173,11 @@ if (showStats)
 	draw_set_valign(fa_middle)
 	draw_set_alpha(.9)
 
+	centerX = roundPixelPos(centerX)
 	for (var i = 0; i < array_length(weaponStats); i++)
 	{
 		var yy_ = topY + i*textSpacing + textSpacing
+		yy_ = roundPixelPos(yy_)
 		draw_text_transformed(centerX, yy_, weaponStats[i], textScale, textScale, 0)
 	}
 

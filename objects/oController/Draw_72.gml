@@ -15,3 +15,7 @@ surface_reset_target()
 surface_set_target(guiSurf4x)
 draw_clear_alpha(0, 0)
 surface_reset_target()
+
+surface_set_target(guiUpscaledSurf)
+draw_clear_alpha(0, 0)
+surface_reset_target()

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrEffectsContent",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrEffectsContent",
+  "parent":{
+    "name":"Content",
+    "path":"folders/Objects/Content.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

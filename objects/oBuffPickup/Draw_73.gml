@@ -14,10 +14,15 @@ if (global.SHOW_HITBOXES)
 	draw_set_color(c_white)
 }
 
-var yOff = -20
-var w = 70
-var h = 30
+//var scale = .5
+var scale = round(.5 * oController.upscaleMult) / oController.upscaleMult
+//var rowAmount = (myBuff.descriptionBuff != "default") + (myBuff.descriptionDebuff != "default") + (myBuff.descriptionNeutralEffect != "default")
+
+var rowAmount = 3
 var margin = 4
+var yOff = -20
+var w = 150 * scale
+var h = 9 * rowAmount * scale + margin*2
 
 var left = x - w/2
 var right = x + w/2
@@ -30,9 +35,11 @@ draw_set_alpha(alpha)
 draw_set_color(c_black)
 draw_rectangle(left, top, right, bott, false)
 
-var scale = .5
 var textLineOff = 15 * scale
 var yy = top + margin
+
+centerX = roundPixelPos(centerX)
+yy = roundPixelPos(yy)
 
 draw_set_halign(fa_center)
 

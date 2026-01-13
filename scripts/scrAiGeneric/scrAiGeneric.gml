@@ -63,7 +63,7 @@ function coordinationUpdate()
 {
 	if (callHideCooldown.value <= 0)
 	{
-		show_debug_message("Hide boys!")
+		show_debug_message("Hide coordination!")
 		with (oEnemy)
 		{
 			if (!coordinationParticipant) continue
@@ -80,7 +80,7 @@ function coordinationUpdate()
 	else if (!activeCoordination) callHideCooldown.value -= global.gameSpeed
 	if (callRepositionCooldown.value <= 0 and hidingCoordination)
 	{
-		show_debug_message("Show em!")
+		show_debug_message("Reposition coordination!")
 		with (oEnemy)
 		{
 			if (!coordinationParticipant) continue
@@ -260,7 +260,7 @@ function shootAiSetupState()
 	lookDir = lookDirTarget
 	myWeapon.aimDirection = lookDir
 	
-	if (myWeapon.projectile.projectileType == PROJECTILE_TYPE.melee)
+	if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
 		aimingAtPlayer = false
 }
 
@@ -302,7 +302,7 @@ function shootAiUpdate()
 	if (inactiveTime < inactiveThreshold.value)
 	{
 		inactiveTime += global.gameSpeed
-		if (myWeapon.projectile.projectileType == PROJECTILE_TYPE.melee)
+		if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
 		{
 			myWeapon.flashFrequency = 10
 			myWeapon.roundFac = true
@@ -350,7 +350,7 @@ function reloadAiTransition()
 function hideAiInit()
 {
 	panickedWalkSpd = 2
-	giveUpHidingTimer = new Range(120, 400)
+	giveUpHidingTimer = new Range(120, 180)
 	isSafe = new Range(20, 30)	// I don't see the player, I might be already safe
 }
 
@@ -366,9 +366,8 @@ function hideAiTransition()
 	}
 	else giveUpHidingTimer.value -= global.gameSpeed
 	
-	// TODO, why does this crash??????
-	//if (!seesPlayer) isSafe.value -= global.gameSpeed
-	//else isSafe.value = isSafe.rndmize()
+	if (!seesPlayer) isSafe.value -= global.gameSpeed
+	else isSafe.rndmize()
 }
 
 function hideAiUpdate()

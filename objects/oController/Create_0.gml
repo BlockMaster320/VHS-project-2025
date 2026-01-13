@@ -1,6 +1,7 @@
 Constants()
 
-gameFPS = display_get_frequency()
+//gameFPS = display_get_frequency()
+gameFPS = 60
 //gameFPS = 500
 game_set_speed(gameFPS, gamespeed_fps)	// Experimental
 defaultGameSpeed = 60 / gameFPS
@@ -30,9 +31,9 @@ pfGrid = undefined
 application_surface_draw_enable(false)
 upscaleMult = 4
 windowWidthPrev = window_get_width()
-windowHeightPrev = window_get_width()
+windowHeightPrev = window_get_height()
 guiSurf = surface_create(cameraW, cameraH)
-guiSurf4x = surface_create(cameraW*4, cameraH*4)	// Hacky way to downscale pixel art font
+guiSurf4x = surface_create(cameraW*6, cameraH*6)	// Hacky way to downscale pixel art font
 guiUpscaledSurf = -1
 updateUpscaleFactor()
 
