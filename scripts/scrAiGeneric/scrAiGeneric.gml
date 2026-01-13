@@ -412,6 +412,10 @@ function restAiTransition()
 function restAiUpdate()
 {
 	restTime.value -= global.gameSpeed
+	
+	if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee and
+		myWeapon.shootOnHold)
+		myWeapon.holdingTrigger = true
 }
 
 #endregion

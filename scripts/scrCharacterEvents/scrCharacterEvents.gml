@@ -296,8 +296,9 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			var weaponID = choose(WEAPON.sword, WEAPON.shotgun, WEAPON.garbage)
+			var weaponID = choose(WEAPON.sword, WEAPON.shotgun, WEAPON.garbage, WEAPON.fan)
 			myWeapon = acquireWeapon(weaponID, id)
+			myWeapon.projectile.damage *= .5
 			
 			// AI
 			dropperAiInit()

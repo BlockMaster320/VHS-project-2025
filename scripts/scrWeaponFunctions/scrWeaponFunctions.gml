@@ -208,7 +208,7 @@ function fanInit()
 		sprite_index = sMeleeHitbox
 		image_xscale = scale * xScaleMult
 		image_yscale = scale * yScaleMult
-		if (ownerID.object_index != oPlayer) effects = []
+		//if (ownerID.object_index != oPlayer) effects = []
 	}
 }
 
