@@ -282,8 +282,8 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 function drawReloadState(weapon)
 {
 	if (weapon != -1 and
-	( (weapon.projectile.projType == PROJECTILE_TYPE.ranged and weapon.reloading) or
-	  (weapon.projectile.projType == PROJECTILE_TYPE.melee and weapon.primaryActionCooldown >= 0)
+	( ((weapon.projectile.projType == PROJECTILE_TYPE.ranged or weapon.index == WEAPON.fan) and weapon.reloading) or
+	  ( weapon.projectile.projType == PROJECTILE_TYPE.melee and weapon.primaryActionCooldown > 0)
 	))
 	{
 		var w = .1
@@ -297,7 +297,7 @@ function drawReloadState(weapon)
 		draw_rectangle(left, top, right, bott, false)
 
 		var reloadFac = weapon.primaryActionCooldown / (60 / weapon.attackSpeed)
-		if (weapon.projectile.projType == PROJECTILE_TYPE.ranged)
+		if (weapon.projectile.projType == PROJECTILE_TYPE.ranged or weapon.index == WEAPON.fan)
 			reloadFac = 1 - (weapon.reloadProgress / (weapon.reloadTime * 60))
 		var sliderX = lerp(right, left, reloadFac)
 		var h = 4

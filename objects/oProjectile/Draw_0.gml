@@ -1,3 +1,9 @@
+if (skipFirstFrameDraw)
+{
+	skipFirstFrameDraw = false
+	return;
+}
+
 draw()
 
 if (global.SHOW_HITBOXES)

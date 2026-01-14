@@ -64,7 +64,11 @@ function genericBulletLifespan()
 
 function genericBulletUpdate()
 {
-	if (projectileHitDetection()) destroy()
+	if (projectileHitDetection())
+	{
+		destroy()
+		return
+	}
 	genericBulletLifespan()
 }
 
@@ -75,7 +79,11 @@ function genericMeleeHitUpdate()
 		var hit = projectileHitDetectionArea()
 		if (hit) hitboxActive = false
 	}
-	if (lifetime <= 0) destroy()
+	if (lifetime <= 0)
+	{
+		destroy()
+		return
+	}
 	lifetime -= global.gameSpeed
 	
 	if (instance_exists(ownerID))	// Actually important in the case
@@ -90,32 +98,42 @@ function genericMeleeHitUpdate()
 
 function fanProjUpdate()
 {	
-	//if (hitboxActive)
-		projectileHitDetectionArea()
-		
-	if (lifetime <= 0) destroy()
-	lifetime = 0
-		
-	if (instance_exists(ownerID))	// Actually important in the case
-	{								//  when owner dies in the same frame
-		x = ownerID.x
-		y = ownerID.y
+	if (lifetime <= 0)
+	{
+		destroy()
+		return;
 	}
+	lifetime = 0
+	
+	projectileHitDetectionArea()
+		
+	//if (instance_exists(ownerID))	// Actually important in the case
+	//{								//  when owner dies in the same frame
+	//	x = ownerID.x
+	//	y = ownerID.y
+	//}
 }
 
 // The projectile that spawns the explosionš
 function explosiveUpdate()
 {
 	if (projectileHitDetection())
+	{
 		destroy()
+		return;
+	}
 	genericBulletLifespan()
 }
 
 function explosionUpdate()
 {
-	if (lifetime <= 0) destroy()
+	if (lifetime <= 0)
+	{
+		destroy()
+		return
+	}
 	projectileHitDetectionArea()
-	lifetime--
+	lifetime = 0
 }
 
 function explosiveDestroy()
@@ -125,6 +143,7 @@ function explosiveDestroy()
 	explosion.image_xscale = explosion.scale * explosion.xScaleMult
 	explosion.image_yscale = explosion.scale * explosion.yScaleMult
 	oCamera.currentShakeAmount += 25
+	
 	instance_destroy()
 }
 
@@ -155,6 +174,5 @@ function genericProjectileRotatingDraw()
 
 function fanProjDraw()
 {
-	if (hitboxActive)
-		genericProjectileDraw()
+	genericProjectileDraw()
 }

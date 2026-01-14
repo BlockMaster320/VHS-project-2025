@@ -3,10 +3,13 @@ if (room = rmDebug)
 {
 	if (mouse_check_button(mb_right))
 	{
-		var off = 8
-		draw_line(mouse_x-off,mouse_y,mouse_x+off,mouse_y)
-		draw_line(mouse_x,mouse_y-off,mouse_x,mouse_y+off)
-		draw_circle(mouse_x, mouse_y, 5, true)
+		//var off = 8
+		//draw_line(mouse_x-off,mouse_y,mouse_x+off,mouse_y)
+		//draw_line(mouse_x,mouse_y-off,mouse_x,mouse_y+off)
+		//draw_circle(mouse_x, mouse_y, 5, true)
+		draw_set_alpha(.5)
+		draw_sprite(oPlayer.sprite_index, 0, mouse_x, mouse_y)
+		draw_set_alpha(1)
 	}
 	if (mouse_check_button_released(mb_right))
 	{

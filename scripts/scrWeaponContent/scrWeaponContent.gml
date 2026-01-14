@@ -222,11 +222,12 @@ function WeaponsInit()
 			// Generic attributes
 			sprite = sMeleeHitbox
 			lifetime = 1
-			projType = PROJECTILE_TYPE.ranged
+			projType = PROJECTILE_TYPE.melee
 			objDealNoDamage = true
 			
 			// Scene attributes
 			attackSpeed = other.attackSpeed // Cruel hack
+			skipFirstFrameDraw = true
 			
 			// Behaviour
 			update = fanProjUpdate

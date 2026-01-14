@@ -30,7 +30,7 @@ function createEffect(effectType_, source_=noone)
 				damageMultiplier = source.damageMultiplier
 				
 				applyDurDef = 1 / attackSpeed
-				durationDef = applyDurDef
+				durationDef = applyDurDef - .1
 				duration = durationDef
 				
 				applyEffect = function(character)

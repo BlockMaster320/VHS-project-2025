@@ -78,13 +78,13 @@ function Projectile() constructor
 	
 	// Scene attributes
 	lifetime = (5 * 60) / global.gameSpeed
-	xPos = 0
-	yPos = 0
 	dir = 0
 	drawRot = 0
 	color = c_white
 	hitboxActive = true
 	objDealNoDamage = false	// When true, the projectile object itself doesn't deal damage
+	skipFirstFrameDraw = false	// Collisions aren't detected on the first frame of create,
+						//  so it sometimes makes sense to hide the projectile
 	
 	// Behaviour
 	update = function(){show_debug_message("Unset projectile update!")}
