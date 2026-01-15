@@ -205,6 +205,7 @@
     {"id":{"name":"sPassenger1Portrait","path":"sprites/sPassenger1Portrait/sPassenger1Portrait.yy",},},
     {"id":{"name":"sPlaceholderBuff","path":"sprites/sPlaceholderBuff/sPlaceholderBuff.yy",},},
     {"id":{"name":"sPlaceholderGun","path":"sprites/sPlaceholderGun/sPlaceholderGun.yy",},},
+    {"id":{"name":"sPlant","path":"sprites/sPlant/sPlant.yy",},},
     {"id":{"name":"sPlayerProjectile","path":"sprites/sPlayerProjectile/sPlayerProjectile.yy",},},
     {"id":{"name":"sPlayerSmol","path":"sprites/sPlayerSmol/sPlayerSmol.yy",},},
     {"id":{"name":"spr_crt_example_games","path":"sprites/spr_crt_example_games/spr_crt_example_games.yy",},},
