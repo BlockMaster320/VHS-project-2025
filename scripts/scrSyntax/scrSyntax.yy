@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrSyntax",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrSyntax",
+  "parent":{
+    "name":"Extensions",
+    "path":"folders/Objects/Extensions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

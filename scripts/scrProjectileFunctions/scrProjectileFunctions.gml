@@ -1,8 +1,9 @@
 // Projectile update ------------------------------------
 
+/// Detects all of the colliding enemies
 ///@return true/false wether the bullet hit something
-function projectileHitDetection()
-{	
+function projectileHitDetectionArea(includeWalls=false)
+{
 	var hit = false
 	var collidingList = ds_list_create()
 	instance_place_list(x, y, oCharacterParent, collidingList, false)
@@ -13,34 +14,77 @@ function projectileHitDetection()
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
+			//if !(!is_undefined(oRoomManager.tileMapWall) and projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
 			GetHit(colliding, id)
 			hit = true
 		}
 	}
+	ds_list_destroy(collidingList)
 	
-	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
+	if (lifetime <= 0 or (includeWalls and place_meeting(x, y, global.tilemapCollision)))
 		hit = true
 	
 	return hit
 }
 
-function genericBulletUpdate()
+/// Detects one of the colliding enemies - faster variant of projectileHitDetectArea
+///@return true/false wether the bullet hit something
+function projectileHitDetection()
 {
-	if (projectileHitDetection()) instance_destroy()
-	lifetime--
+	if (place_meeting(x, y, oCharacterParent))
+	{
+		var colliding = instance_nearest(x, y, oCharacterParent)
+		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+			colliding != ownerID and
+			colliding.characterClass != CHARACTER_CLASS.NPC)
+		{
+			//if !(!is_undefined(oRoomManager.tileMapWall) and projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+			GetHit(colliding, id)
+			return true
+		}
+	}
+	
+	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
+		return true
+	
+	return false
+}
+
+function genericProjectileDestroy()
+{
+	instance_destroy()
+}
+
+function genericBulletLifespan()
+{
+	lifetime -= global.gameSpeed
 	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir)
 	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir)
+}
+
+function genericBulletUpdate()
+{
+	if (projectileHitDetection())
+	{
+		destroy()
+		return
+	}
+	genericBulletLifespan()
 }
 
 function genericMeleeHitUpdate()
 {
 	if (hitboxActive)
 	{
-		var hit = projectileHitDetection()
+		var hit = projectileHitDetectionArea()
 		if (hit) hitboxActive = false
 	}
-	if (lifetime <= 0) instance_destroy()
-	lifetime--
+	if (lifetime <= 0)
+	{
+		destroy()
+		return
+	}
+	lifetime -= global.gameSpeed
 	
 	if (instance_exists(ownerID))	// Actually important in the case
 	{								//  when owner dies in the same frame
@@ -50,17 +94,85 @@ function genericMeleeHitUpdate()
 	
 }
 
-function rotatingProjectileUpdate()
-{
-	genericBulletUpdate()
-	drawRot += 5
+// Fan
+
+function fanProjUpdate()
+{	
+	if (lifetime <= 0)
+	{
+		destroy()
+		return;
+	}
+	lifetime = 0
+	
+	projectileHitDetectionArea()
+		
+	//if (instance_exists(ownerID))	// Actually important in the case
+	//{								//  when owner dies in the same frame
+	//	x = ownerID.x
+	//	y = ownerID.y
+	//}
 }
 
+// The projectile that spawns the explosionš
+function explosiveUpdate()
+{
+	if (projectileHitDetection())
+	{
+		destroy()
+		return;
+	}
+	genericBulletLifespan()
+}
+
+function explosionUpdate()
+{
+	if (lifetime <= 0)
+	{
+		destroy()
+		return
+	}
+	projectileHitDetectionArea()
+	lifetime = 0
+}
+
+function explosiveDestroy()
+{
+	var explosion = instance_create_layer(x, y, "Instances", oProjectile, projectileChild)
+	explosion.sprite_index = sExplosion
+	explosion.image_xscale = explosion.scale * explosion.xScaleMult
+	explosion.image_yscale = explosion.scale * explosion.yScaleMult
+	oCamera.currentShakeAmount += 25
+	
+	instance_destroy()
+}
+
+// Garbage
+
+function garbageUpdate()
+{
+	explosiveUpdate()
+}
 
 // Projectile draw ----------------------------------------
 
 function genericProjectileDraw()
 {	
-	draw_sprite_ext(sprite, 0, x, y, scale, scale, drawRot, c_white, 1)
+	draw_sprite_ext (
+		sprite, 0, roundPixelPos(x), roundPixelPos(y),
+		scale * xScaleMult, scale * yScaleMult,
+		drawRot, color, 1
+	)
 	//draw_self()
+}
+
+function genericProjectileRotatingDraw()
+{
+	genericProjectileDraw()
+	drawRot += 5 * global.gameSpeed
+}
+
+function fanProjDraw()
+{
+	genericProjectileDraw()
 }

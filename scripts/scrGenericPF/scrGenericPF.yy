@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrGenericPF",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrGenericPF",
+  "parent":{
+    "name":"PathFinding",
+    "path":"folders/Objects/Characters/PathFinding.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

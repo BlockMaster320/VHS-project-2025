@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scrCinemaBorders",
   "parent":{
-    "name":"CutScenes",
-    "path":"folders/Objects/CutScenes.yy",
+    "name":"Wrappers",
+    "path":"folders/Objects/CutScenes/Wrappers.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -8,9 +8,13 @@ function Constants()
 		cutscene,
 	}
 	
+	// Gameplay
+	#macro PICKUP_DISTANCE 25
+	
 	// Map generation settings
 	#macro TILE_SIZE 16		// size of 1 tile in pixels
 	#macro ROOM_SIZE 30		// size of each room in tiles
+	#macro ROOM_SIZE_PX ROOM_SIZE * TILE_SIZE	// size of each room in pixels
 	#macro ROOM_SCAN_X 1	// where to start scanning the rooms
 	#macro ROOM_SCAN_Y 1
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
@@ -48,12 +52,12 @@ function Constants()
 	#macro SHOW_STACKTRACE false
 	#macro SHOW_DEBUG false
 	// Hitboxes
-	#macro SHOW_HITBOXES false
+	global.SHOW_HITBOXES = false
 	// Debug pathfinding
-	#macro SHOW_PATH_GRID false
-	#macro PATH_DEBUG false
+	global.SHOW_PATH_GRID = false
+	global.PATH_DEBUG = false
 	// AI
-	#macro AI_DEBUG true
+	global.AI_DEBUG = false
 	
 	global.Ease = {
 
@@ -73,12 +77,12 @@ function Constants()
 	    // --- Quartic ---
 	    EaseInQuart: function(t) { return t * t * t * t; },
 	    EaseOutQuart: function(t) { t -= 1; return 1 - t * t * t * t; },
-	    EaseInOutQuart: function(t) { return (t < 0.5) ? 8 * t * t * t * t : 1 - 8 * pow(t - 1, 4); },
+	    EaseInOutQuart: function(t) { return (t < 0.5) ? 8 * t * t * t * t : 1 - 8 * power(t - 1, 4); },
 
 	    // --- Quintic ---
 	    EaseInQuint: function(t) { return t * t * t * t * t; },
 	    EaseOutQuint: function(t) { t -= 1; return 1 + t * t * t * t * t; },
-	    EaseInOutQuint: function(t) { return (t < 0.5) ? 16 * pow(t, 5) : 1 + 16 * pow(t - 1, 5); },
+	    EaseInOutQuint: function(t) { return (t < 0.5) ? 16 * power(t, 5) : 1 + 16 * power(t - 1, 5); },
 
 	    // --- Sinusoidal ---
 	    EaseInSine: function(t) { return 1 - cos(t * pi / 2); },
@@ -86,14 +90,14 @@ function Constants()
 	    EaseInOutSine: function(t) { return -0.5 * (cos(pi * t) - 1); },
 
 	    // --- Exponential ---
-	    EaseInExpo: function(t) { return (t == 0) ? 0 : pow(2, 10 * (t - 1)); },
-	    EaseOutExpo: function(t) { return (t == 1) ? 1 : 1 - pow(2, -10 * t); },
+	    EaseInExpo: function(t) { return (t == 0) ? 0 : power(2, 10 * (t - 1)); },
+	    EaseOutExpo: function(t) { return (t == 1) ? 1 : 1 - power(2, -10 * t); },
 	    EaseInOutExpo: function(t) {
 	        if (t == 0) return 0;
 	        if (t == 1) return 1;
 	        t *= 2;
-	        if (t < 1) return 0.5 * pow(2, 10 * (t - 1));
-	        return 0.5 * (2 - pow(2, -10 * (t - 1)));
+	        if (t < 1) return 0.5 * power(2, 10 * (t - 1));
+	        return 0.5 * (2 - power(2, -10 * (t - 1)));
 	    },
 
 	    // --- Circular ---
@@ -105,5 +109,6 @@ function Constants()
 	        t -= 2;
 	        return 0.5 * (sqrt(1 - t * t) + 1);
 	    }
+	
 	};
 }

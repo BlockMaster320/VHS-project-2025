@@ -1,1 +1,1 @@
-setupWeaponPickup(WEAPON.defaultGun)
+setupWeaponPickup(WEAPON.shotgun)

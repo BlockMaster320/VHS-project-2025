@@ -109,6 +109,11 @@ function TweenSequence(_tweens) : BaseTween() constructor {
 			}
 		})  
 	}
+	
+	/// @function	start()
+	static start = function() {
+		controller.add(self)	
+	}
 
 	/// @function	destroy()
 	/// @desc Destroy methods which removes itself from controller and clears ds list if provided.

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrDeathScene",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrDeathScene",
+  "parent":{
+    "name":"CutScenes",
+    "path":"folders/Objects/CutScenes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

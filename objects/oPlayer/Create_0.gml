@@ -4,31 +4,41 @@ characterCreate(CHARACTER_TYPE.player);
 
 // Player attributes ------------------------
 
-walkSpd = 10
-hp = 150
+function InitPlayerStats()
+{
+	walkSpdDef = 1.7
+	walkSpdSprint = 2.5	// Use when running between cleared rooms
+	walkSpd = walkSpdDef
+	maxHp = 150
+	
+	inventorySize = 2
+	
+	// Buff specific
+	global.gameSpeed = oController.defaultGameSpeed
+	dualWield = false
+	buffApplyAmount = 1
+}
+InitPlayerStats()	// Do this, so we can reset player stats to default later
+
+hp = maxHp
 
 // Inventory --------------------------
 
-#macro INVENTORY_SIZE 2
 activeInventorySlot = 0
+showStats = true
 
 // Weapons
-weaponInventory = array_create(INVENTORY_SIZE, noone)
-//weaponInventory[0] = acquireWeapon(1, id) // Fists
-weaponInventory[0] = acquireWeapon(WEAPON.sword, id) // For testing
-weaponInventory[1] = acquireWeapon(WEAPON.defaultGun, id, false) // Fists
+weaponInventory = array_create(inventorySize, noone)
+for (var i = 0; i < inventorySize; i++)
+{
+	weaponInventory[i] = acquireWeapon(WEAPON.fists, id, i==activeInventorySlot) // Fists
+	weaponInventory[i].playerInventorySlot = i
+}
+//weaponInventory[0] = acquireWeapon(WEAPON.sword, id)				// For testing
+//weaponInventory[1] = acquireWeapon(WEAPON.shotgun, id, false)	// For testing
 tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 
+ignoreInputBuffer = new Cooldown(40)	// To prevent the player from shooting right away
 
 // Buffs
-activeBuffs = []
-//buffsInventory = array_create(INVENTORY_SIZE)
-//for (var i = 0; i < array_length(buffsInventory); i++)
-//	buffsInventory[i] = array_create(0)
-
-// Misc ---------------------------------
-
-window_set_cursor(cr_cross)
-//window_set_cursor(cr_none)
-//cursor_sprite = sCursor
-//display_set_timing_method(tm_sleep)		// Turn off vsync
+buffs = []

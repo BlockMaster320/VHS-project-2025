@@ -20,6 +20,8 @@ function getCharacterStepEvent(_characterType){
 							characterState = CharacterState.Idle
 						}
 				        break;
+					case CharacterState.Dead:
+						break;
 				}
 			};
 		}
@@ -29,8 +31,10 @@ function getCharacterStepEvent(_characterType){
 				//show_debug_message("mechanic step");
 			};
 		}
-		
-		default: { return function() {}; }
+
+		default: { 
+			return DO NOTHING
+		}
 	}
 }
 
@@ -56,7 +60,7 @@ function getCharacterDrawEvent(_characterType) {
 
 					imageSpeedHands = animationFrames.speeds[floor(spriteFrameHands) - start];
 				
-					draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, 1)
+					draw_sprite_ext(sHands, spriteFrameHands, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, handsAlpha)
 				}
 			};
 		}
@@ -67,7 +71,9 @@ function getCharacterDrawEvent(_characterType) {
 			};
 		}
 		
-		default: { return function() {}; }
+		default: {
+			return DO NOTHING
+		}
 	}
 }
 
@@ -80,11 +86,10 @@ function characterCreate(_characterType) {
 		case CHARACTER_TYPE.player: {		
 			characterClass = CHARACTER_CLASS.player;
 			characterType = CHARACTER_TYPE.player;
-			characterType = CHARACTER_TYPE.player;
 			name = "Player";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sPlayer;
+			sprite_index = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
 			anim = characterAnimation.getAnimation;
 			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
@@ -94,7 +99,34 @@ function characterCreate(_characterType) {
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
+			onDeathEvent = function() {
+				debug("player has died")
+				if (instance_exists(oRoomManager)) {
+					oRoomManager.killAllEnemies()
+					oRoomManager.killAllEnemyProjectiles()
+				}
+				DeathScene(self)
+			}
 			
+		} break;
+		
+		
+		case CHARACTER_TYPE.dummyPlayer: {		
+			characterClass = CHARACTER_CLASS.NPC;
+			characterType = CHARACTER_TYPE.dummyPlayer;
+			name = "Dummy Player";
+			portrait = sNPCPortrait;
+			
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
+			anim = characterAnimation.getAnimation;
+			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
+			animHands = handsAnimation.getAnimation;
+			spriteFrameHands = 0;
+			imageSpeedHands = 0;
+			
+			stepEvent = DO NOTHING;
+			drawEvent = DO NOTHING;
 		} break;
 		
 		// NPCs -----------------------------------------------------------
@@ -103,10 +135,10 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.mechanic;
 			name = "Mechanic";
-			portrait = sNPCPortrait;
+			portrait = sMechanicPortrait;
 			
-			sprite_index = sMechanic;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
@@ -128,17 +160,41 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 1"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger2: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 2"
+			)
+		} break;
+		case CHARACTER_TYPE.passenger3: {
+			controller = new Passenger1Controller(
+				id, 
+				"Passanger 3"
+			)
+		} break;
+		
+		case CHARACTER_TYPE.playerCleaner: {
+			controller = new PlayerCleanerController(id)
+		} break;
+		
+		case CHARACTER_TYPE.student: {
 			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.passenger1;
-			name = "Passanger";
+			characterType = CHARACTER_TYPE.student;
+			name = "Mechanic";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sPassanger1;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
+			dir = -1;
 			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.passenger1);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.passenger1);
+			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
+			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
 		} break;
 		
 		// Enemies ---------------------------------------------------------------
@@ -150,7 +206,7 @@ function characterCreate(_characterType) {
 			walkSpd = .5
 			
 			// Dialogues
-			name = "Ghoster";
+			name = "Target dummy";
 			portrait = sNPCPortrait;
 			
 			// Animation
@@ -230,8 +286,8 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			// Animation
-			sprite_index = sMechanic;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
@@ -240,8 +296,9 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			var weaponID = choose(WEAPON.sword, WEAPON.defaultGun, WEAPON.garbage)
+			var weaponID = choose(WEAPON.sword, WEAPON.shotgun, WEAPON.fan)
 			myWeapon = acquireWeapon(weaponID, id)
+			myWeapon.projectile.damage *= .5
 			
 			// AI
 			dropperAiInit()
@@ -265,20 +322,50 @@ function characterCreate(_characterType) {
 			
 		} break;
 		
-		case CHARACTER_TYPE.student: {
-			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.student;
-			name = "Mechanic";
+		// Melee slasher - enemy with a sword
+		case CHARACTER_TYPE.meleeSlasher: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.meleeSlasher;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Melee slasher";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sMechanic;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			// Animation
+			sprite_index = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
 			anim = characterAnimation.getAnimation;
-			dir = -1;
 			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.sword, id)
+			
+			// AI
+			slasherAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				slasherAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				slasherAiDraw()	// AI visualization
+			}
+			
 		} break;
+		
 		// --------------------------------------------------------------------------------
 		
 		default:

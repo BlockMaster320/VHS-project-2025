@@ -39,9 +39,11 @@ function genericAiUpdate()
 	}
 	else if (lookAtPlayerTimer.value <= 0 and (whsp != 0 or wvsp != 0))
 		lookDirTarget = walkDir
+		
+	var lookLerpFac = .15
 					
-	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value--
-	lookDir = lerpDirection(lookDir, lookDirTarget, .2)
+	if (lookAtPlayerTimer.value > 0) lookAtPlayerTimer.value -= global.gameSpeed
+	lookDir = lerpDirection(lookDir, lookDirTarget, lookLerpFac)
 	if (is_struct(myWeapon))
 		myWeapon.aimDirection = lookDir
 }
@@ -52,6 +54,7 @@ function genericAiUpdate()
 
 function coordinationInit()
 {
+	coordinationParticipant = true
 	activeCoordination = false
 	hidingCoordination = false
 }
@@ -60,9 +63,10 @@ function coordinationUpdate()
 {
 	if (callHideCooldown.value <= 0)
 	{
-		show_debug_message("Hide boys!")
+		show_debug_message("Hide coordination!")
 		with (oEnemy)
 		{
+			if (!coordinationParticipant) continue
 			callRepositionCooldown.rndmize()
 			callHideCooldown.rndmize()
 			walkSpd = panickedWalkSpd
@@ -73,21 +77,23 @@ function coordinationUpdate()
 			hidingCoordination = true
 		}
 	}
-	else if (!activeCoordination) callHideCooldown.value--
+	else if (!activeCoordination) callHideCooldown.value -= global.gameSpeed
 	if (callRepositionCooldown.value <= 0 and hidingCoordination)
 	{
-		show_debug_message("Show em!")
+		show_debug_message("Reposition coordination!")
 		with (oEnemy)
 		{
+			if (!coordinationParticipant) continue
 			walkSpd = repositionWalkSpd
 			reachedPathEnd = true
 			wantsToHide = 0
+			aimingAtPlayer = true
 			state = AI_STATE.reposition
 			activeCoordination = false
 			hidingCoordination = false
 		}
 	}
-	if (callRepositionCooldown.value >= 0 and hidingCoordination) callRepositionCooldown.value--
+	if (callRepositionCooldown.value >= 0 and hidingCoordination) callRepositionCooldown.value -= global.gameSpeed
 }
 
 #endregion
@@ -106,6 +112,7 @@ function idleAiTransition()
 {
 	if (seesPlayer)
 	{
+		aimingAtPlayer = true
 		state = AI_STATE.reposition
 		walkSpd = repositionWalkSpd
 	}
@@ -118,7 +125,7 @@ function idleAiUpdate()
 		FindValidPathTarget(new Range(20, 120))
 		moveCooldown.rndmize()
 	}
-	if (reachedPathEnd) moveCooldown.value--
+	if (reachedPathEnd) moveCooldown.value -= global.gameSpeed
 }
 
 #endregion
@@ -129,7 +136,7 @@ function repositionAiInit()
 {
 	repositionWalkSpd = 1
 	
-	optimalRange = new Range(80, 180)
+	optimalRange = new Range(80, 140)
 	
 	wantsToHide = 0
 	wantsToHideMult = 1
@@ -181,8 +188,8 @@ function repositionAiUpdate()
 {
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_)
-	else wantsToHide -= .01
+		wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_) * global.gameSpeed
+	else wantsToHide -= .01 * global.gameSpeed
 						
 	wantsToHide = max(wantsToHide, 0)
 						
@@ -205,7 +212,10 @@ function repositionAiUpdate()
 			repositionSuddenStopDelay.rndmize()
 			reachedPathEnd = true
 		}
-		else repositionSuddenStopDelay.value--
+		else
+		{
+			repositionSuddenStopDelay.value -= global.gameSpeed
+		}
 	}
 						
 	// Reposition
@@ -215,7 +225,7 @@ function repositionAiUpdate()
 		var dir2 = playerDir + 180 - 120
 							
 		var foundPath = FindValidPathTargetReposition(optimalRange, true, new Range(dir1, dir2))
-		if (!foundPath) patience -= patienceDec
+		if (!foundPath) patience -= patienceDec * global.gameSpeed
 		else patience = 1
 		updateRate.rndmize()
 	}
@@ -232,7 +242,7 @@ function shootAiInit()
 	noTargetDurationMax = new Range(30, 180)
 	
 	inactiveTime = 0
-	inactiveThreshold = new Range(0, 30)
+	inactiveThreshold = new Range(0, 30)	// Moment before shooting
 	
 	noTargetDuration = 0
 	shootingDuration = 0
@@ -247,7 +257,10 @@ function shootAiSetupState()
 	noTargetDurationMax.rndmize()
 	noTargetDuration = 0
 	
-	if (myWeapon.projectile.projectileType == PROJECTILE_TYPE.melee)
+	lookDir = lookDirTarget
+	myWeapon.aimDirection = lookDir
+	
+	if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
 		aimingAtPlayer = false
 }
 
@@ -281,19 +294,24 @@ function shootAiUpdate()
 {	
 	// Run away if player is too close for too long
 	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * wantsToHideMult * (playerDist - optimalRange.min_)
-	else wantsToHide -= .01
+		wantsToHide += -.0002 * wantsToHideMult * (playerDist - optimalRange.min_) * global.gameSpeed
+	else wantsToHide -= .01 * global.gameSpeed
 						
 	wantsToHide = max(wantsToHide, 0)
 	
 	if (inactiveTime < inactiveThreshold.value)
 	{
-		inactiveTime++
+		inactiveTime += global.gameSpeed
+		if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
+		{
+			myWeapon.flashFrequency = 10
+			myWeapon.roundFac = true
+		}
 		return
 	}
 						
 	myWeapon.holdingTrigger = true
-	shootingDuration++
+	shootingDuration += global.gameSpeed
 						
 	if (shootMoveCooldown.value <= 0 and reachedPathEnd and myWeapon.primaryActionCooldown > 10)	// Find new position
 	{
@@ -302,9 +320,9 @@ function shootAiUpdate()
 	}
 	else if (myWeapon.primaryActionCooldown < 10)
 		followingPath = false
-	if (reachedPathEnd) shootMoveCooldown.value--
+	if (reachedPathEnd) shootMoveCooldown.value -= global.gameSpeed
 						
-	if (!seesPlayerWell) noTargetDuration++
+	if (!seesPlayerWell) noTargetDuration += global.gameSpeed
 	else noTargetDuration = 0
 }
 
@@ -318,6 +336,7 @@ function reloadAiTransition()
 	{
 		walkSpd = repositionWalkSpd
 		myWeapon.reloading = false
+		aimingAtPlayer = true
 		state = AI_STATE.reposition
 		followingPath = false
 		reachedPathEnd = true
@@ -331,19 +350,24 @@ function reloadAiTransition()
 function hideAiInit()
 {
 	panickedWalkSpd = 2
-	giveUpHidingTimer = new Range(120, 400)
+	giveUpHidingTimer = new Range(120, 180)
+	isSafe = new Range(20, 30)	// I don't see the player, I might be already safe
 }
 
 function hideAiTransition()
 {
-	if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0)
+	if ((!seesPlayer and reachedPathEnd) or giveUpHidingTimer.value <= 0 or isSafe.value <= 0)
 	{
 		giveUpHidingTimer.rndmize()
+		isSafe.rndmize()
 		state = AI_STATE.reload
 		myWeapon.reloading = true
 		walkSpd = shootingWalkSpd
 	}
-	else giveUpHidingTimer.value--
+	else giveUpHidingTimer.value -= global.gameSpeed
+	
+	if (!seesPlayer) isSafe.value -= global.gameSpeed
+	else isSafe.rndmize()
 }
 
 function hideAiUpdate()
@@ -377,6 +401,7 @@ function restAiTransition()
 		restTime.reset()
 		walkSpd = repositionWalkSpd
 		myWeapon.holdingTrigger = false
+		aimingAtPlayer = true
 		
 		state = AI_STATE.reposition
 		updateRate.value = 0
@@ -386,7 +411,50 @@ function restAiTransition()
 
 function restAiUpdate()
 {
-	restTime.value--
+	restTime.value -= global.gameSpeed
+	
+	if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee and
+		myWeapon.shootOnHold)
+		myWeapon.holdingTrigger = true
 }
 
 #endregion
+
+// Draw util -----------------------------------
+function genericAiDebugDraw()
+{
+	var offset = 4
+	var yy = y + 8
+	var halign = draw_get_halign()
+	var scale = .5
+				
+	draw_set_halign(fa_center)
+	draw_text_transformed(x, yy + offset * 0, $"{stateStrings[state]}", scale, scale, 0)
+	//draw_text(x, yy + offset * 1, $"Scared: {wantsToHide}")
+	//draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
+	//draw_text(x, yy + offset * 3, $"Patience: {patience}")
+	//draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
+	draw_text_transformed(x, yy + offset * 1, $"Path end: {reachedPathEnd}", scale, scale, 0)
+	//draw_text(x, yy + offset * 2, $"Sees player well: {LineOfSightObject(oPlayer)}")
+	//draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
+	draw_set_halign(halign)
+}
+
+function debugAiLineDraw()
+{
+	var objDir = point_direction(x, y, oPlayer.x, oPlayer.y)
+	var xx1 = x + lengthdir_x(30, objDir - 5)
+	var yy1 = y + lengthdir_y(30, objDir - 5)
+	var xx2 = x + lengthdir_x(30, objDir + 5)
+	var yy2 = y + lengthdir_y(30, objDir + 5)
+	draw_line(x, y, xx1, yy1)
+	draw_line(x, y, xx2, yy2)
+					
+	draw_set_color(c_blue)
+	draw_line(x, y, x+lengthdir_x(50, lookDir), y+lengthdir_y(50, lookDir))
+		
+	var col = LineOfSightPoint(oPlayer.x, oPlayer.y) ? c_green : c_red
+	draw_set_color(col)
+	draw_line(x, y, oPlayer.x, oPlayer.y)
+	draw_set_color(c_white)
+}

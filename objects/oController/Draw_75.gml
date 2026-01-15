@@ -1,6 +1,6 @@
-
 surface_set_target(guiUpscaledSurf)
-draw_clear_alpha(0, 0)
+//draw_clear_alpha(0, 0)
+//draw_surface_ext(guiSurf4x, 0, 0, upscaleMult/6, upscaleMult/6, 0, c_white, 1)
 draw_surface_ext(guiSurf, 0, 0, upscaleMult, upscaleMult, 0, c_white, 1)
 surface_reset_target()
 

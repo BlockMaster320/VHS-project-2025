@@ -6,8 +6,10 @@ function Input()
 	right = 0
 	primaryButton = 0
 	secondaryButton = 0	
-	selectSlot = 0
+	scrollSlot = 0
 	swapSlot = 0
+	interact = 0
+	reload = 0
 	scrollSlot = 0
 	escapeButton = 0
 	next = 0
@@ -20,6 +22,10 @@ function Input()
 	gui_x = 0
 	gui_y = 0
 	gui_pressed = 0
+	
+	// General
+	aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
+	//aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y);
 
 	switch (global.inputState)
 	{
@@ -37,16 +43,16 @@ function Input()
 			secondaryButton = mouse_check_button(mb_right)
 	
 			// Weapon slots
-			//for (var i = 1; i <= INVENTORY_SIZE; i++)
+			//for (var i = 1; i <= inventorySize; i++)
 			//	if (keyboard_check_pressed(ord(string(i))))
 			//		selectSlot = i
-			swapSlot = keyboard_check_pressed(vk_space)
-				
+			swapSlot = keyboard_check_pressed(vk_space)	
 			scrollSlot = mouse_wheel_up() - mouse_wheel_down()
 			
 			interact = keyboard_check_pressed(ord("E"))
+			reload = keyboard_check_pressed(ord("R"))
 			
-			aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
+			//if (instance_exists(oPlayer))
 			
 			break
 			

@@ -1,1 +1,1 @@
-setupBuffPickupID(0)
+setupBuffPickupRarity(RARITY.common)

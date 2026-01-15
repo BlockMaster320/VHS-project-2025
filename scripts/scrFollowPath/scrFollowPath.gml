@@ -35,7 +35,7 @@ function followPathStep()
 		//var targetVectorX = targetPointX - x
 		//var targetVectorY = targetPointY - y
 		var targetPointDir = point_direction(x, y, targetPointX, targetPointY)
-		var spd = min(walkSpd, targetPointDist) * global.gameSpeed
+		var spd = min(walkSpd, targetPointDist)
 	
 		whsp = lengthdir_x(spd, targetPointDir)
 		wvsp = lengthdir_y(spd, targetPointDir)
@@ -44,7 +44,7 @@ function followPathStep()
 
 function followPathDraw()
 {
-	if (PATH_DEBUG)
+	if (global.PATH_DEBUG)
 	{	
 		if (path_exists(myPath))
 			draw_path(myPath, 0, 0, true)

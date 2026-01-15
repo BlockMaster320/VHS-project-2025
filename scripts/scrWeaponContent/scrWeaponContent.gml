@@ -4,15 +4,13 @@ enum PROJECTILE_AUTHORITY
 	monster
 }
 
-enum PROJECTILE_EFFECT
-{
-	nothing
-}
-
 enum PROJECTILE_TYPE
 {
-	ranged, melee
+	ranged, melee, explosion
 }
+
+#macro durabilityInSeconds 10	// By default, the weapon is durable of this
+								//	amount of seconds of non-stop shooting
 
 function WeaponsInit()
 {
@@ -22,7 +20,7 @@ function WeaponsInit()
 		fists,
 		
 		// Player focused (droppable?)
-		defaultGun, garbage, sword,
+		shotgun, garbage, sword, fan,
 		
 		// Monsters focused
 		ghosterGun,
@@ -40,7 +38,7 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 
-	with (weaponDatabase[WEAPON.defaultGun])
+	with (weaponDatabase[WEAPON.shotgun])
 	{
 		// Generic attributes
 		sprite = sPlaceholderGun
@@ -48,16 +46,15 @@ function WeaponsInit()
 		description = "This weapon is a weapon"
 	
 		// Modifiable attributes
-		attackSpeed = 3			// shots/damage amount per second
-		spread = 30				// weapon accuracy in degrees
-		projectileAmount = 5	// number of projectile to be shot in the shoot frame
+		attackSpeed = 2			// shots/damage amount per second
+		spread = 25				// weapon accuracy in degrees
+		projectileAmount = 3	// number of projectile to be shot in the shoot frame
 		
 		// Non-modifiable attributes
-		magazineSize = -1
-		reloadTime = 0
+		magazineSize = 4
+		reloadTime = 1
 		
 		// Update some scene attributes
-		remainingDurability = durability
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
@@ -71,8 +68,9 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
-			projectileType = PROJECTILE_TYPE.ranged
+			sprite = sPlayerProjectile
+			color = #FFD665
+			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -100,23 +98,26 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 1			// shots/damage amount per second
-		spread = 0				// weapon accuracy in degrees
+		spread = 4				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		durabilityMult = 0
+		shootOnHold = false
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 1
+			damage = 35
 			projectileSpeed = 3
 			targetKnockback = 5
 			effects = []
 			lifetime = 5
+			scale = 2
 	
 			// Generic attributes
 			sprite = sMeleeHitbox
-			projectileType = PROJECTILE_TYPE.melee
+			projType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
 			update = genericMeleeHitUpdate
@@ -144,16 +145,19 @@ function WeaponsInit()
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 2			// shots/damage amount per second
-		spread = 0				// weapon accuracy in degrees
+		spread = 10				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false
+		
+		// Update some scene attributes
+		remainingDurability = durabilityMult
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 20
+			damage = 35
 			projectileSpeed = 3
 			targetKnockback = 10
 			effects = []
@@ -162,7 +166,7 @@ function WeaponsInit()
 			// Generic attributes
 			sprite = sMeleeHitbox
 			lifetime = 5
-			projectileType = PROJECTILE_TYPE.melee
+			projType = PROJECTILE_TYPE.melee
 			
 			// Behaviour
 			update = genericMeleeHitUpdate
@@ -179,6 +183,71 @@ function WeaponsInit()
 	}
 		
 	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.fan])
+	{
+		// Generic attributes
+		sprite = sPlaceholderGun
+		name = "Fan"
+		description = "Wheeeeeeeeee"
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 4			// shots/damage amount per second
+		spread = 5				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		magazineSize = 120 * global.gameSpeed
+		reloadTime = 1
+		
+		// Update some scene attributes
+		remainingDurability = durabilityMult
+		magazineAmmo = magazineSize	// Remaining bullets before reloading
+		
+		// Scene attributes
+		windProjX = 0
+		windProjY = 0
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 10
+			projectileSpeed = 3
+			targetKnockback = 4.5
+			effects = [ EFFECT.fanAreaDmg ]
+			scale = 2
+			xScaleMult = 4
+	
+			// Generic attributes
+			sprite = sMeleeHitbox
+			lifetime = 1
+			projType = PROJECTILE_TYPE.melee
+			objDealNoDamage = true
+			
+			// Scene attributes
+			attackSpeed = other.attackSpeed // Cruel hack
+			skipFirstFrameDraw = true
+			
+			// Behaviour
+			update = fanProjUpdate
+			draw = fanProjDraw
+		}
+		
+		fanProjectiles = []
+		
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		create = fanInit
+		update = fanUpdate
+		draw = genericWeaponDraw
+		destroy = fanDestroy
+	}
+		
+	// -----------------------------------------------------------------------------
 
 	with (weaponDatabase[WEAPON.ghosterGun])
 	{
@@ -191,10 +260,9 @@ function WeaponsInit()
 		
 		// Non-modifiable attributes
 		magazineSize = 6
-		reloadTime = 2
+		reloadTime = 4
 		
 		// Update some scene attributes
-		remainingDurability = durability
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
@@ -208,8 +276,9 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			sprite = sPlaceholderProjectile
-			projectileType = PROJECTILE_TYPE.ranged
+			sprite = sEnemyProjectile
+			color = #D8362B
+			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -233,12 +302,12 @@ function WeaponsInit()
 		sprite = sTrashBag
 		name = "Garbage"
 		description = "This weapon is garbage"
-		durability = 1
+		durabilityMult = 1
 	
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 1			// shots/damage amount per second
-		spread = 30				// weapon accuracy in degrees
+		spread = 5				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		oneTimeUse = true
 		
@@ -247,7 +316,6 @@ function WeaponsInit()
 		reloadTime = 0
 		
 		// Update some scene attributes
-		remainingDurability = durability
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
 	
 		// Weapon projectile/hurtbox
@@ -255,18 +323,36 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
+			damage = 0
 			projectileSpeed = 3
-			targetKnockback = 15
+			targetKnockback = 3
 			effects = []
+			
+			projectileChild = new Projectile()
+			with (projectileChild)
+			{
+				damage = 50
+				projectileSpeed = 0
+				targetKnockback = 20
+				effects = []
+				scale = 4
+				lifetime = 1
+				
+				sprite = sExplosion
+				projType = PROJECTILE_TYPE.explosion
+				
+				update = explosionUpdate
+				draw = genericProjectileDraw
+			}
 	
 			// Generic attributes
 			sprite = sTrashBag
-			projectileType = PROJECTILE_TYPE.ranged
+			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
-			update = rotatingProjectileUpdate
-			draw = genericProjectileDraw
+			update = garbageUpdate
+			draw = genericProjectileRotatingDraw
+			destroy = explosiveDestroy
 		}
 
 		// Weapon actions

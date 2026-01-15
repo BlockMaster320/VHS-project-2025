@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPlaceholderProjectile",
-    "path":"sprites/sPlaceholderProjectile/sPlaceholderProjectile.yy",
+    "name":"sEnemyProjectile",
+    "path":"sprites/sEnemyProjectile/sEnemyProjectile.yy",
   },
   "spriteMaskId":null,
   "visible":true,

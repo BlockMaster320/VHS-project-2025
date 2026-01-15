@@ -3,13 +3,30 @@ if (characterType == noone) {
 	show_message("Character is not set up correctly: " + object_get_name(object_index));
 }
 
-#region Calculate knockback
+if (characterType != CHARACTER_TYPE.player and global.gameSpeed < .0001)
+	return;
 
-mhsp *= frictionMult
-mvsp *= frictionMult
+#region Momentum friction
+
+mhsp *= 1 - (1 - frictionMult) * global.gameSpeed
+mvsp *= 1 - (1 - frictionMult) * global.gameSpeed
 
 if (abs(mhsp) < .001) mhsp = 0
 if (abs(mvsp) < .001) mvsp = 0
+
+#endregion
+
+#region AOE collision	(not implemented)
+
+//var aoeList = ds_list_create()
+//var colliding = instance_place_list(x, y, oAreaEffect, aoeList, false)
+//if (colliding)
+//{
+//	for (var i = 0; i < ds_list_size(aoeList); i++)
+//	{
+//		aoeList[| i].effect()
+//	}
+//}
 
 #endregion
 
@@ -46,7 +63,23 @@ image_speed = animationFrames.speeds[max(0, floor(sprite_frame) - start)];
 //image_index = floor(image_fake_index)
 	
 // STEP EVENT OF THE SPECIFIC CHARACTER --------------------
-stepEvent();
+if (is_callable(stepEvent)) {
+	stepEvent(); 
+} else {
+	warning("stepEvent is not callable for NPC: " + string(name) );
+}
+
+#endregion
+
+#region Apply effects
+
+for (var i = array_length(effects)-1; i >= 0; i--)
+{
+	if (effects[i].duration <= .00001)
+		array_delete(effects, i, 1)
+	else
+		effects[i].applyEffect(id)
+}
 
 #endregion
 
@@ -56,14 +89,11 @@ stepEvent();
 hsp = whsp + mhsp
 vsp = wvsp + mvsp
 
-if (room = rmLobby)	// REPLACE LATER plz
-	if (y < 120) room_goto(rmGame)
-
 /// Tilemap and object collision
 
 // Horizontal
 var _xx = x;
-if (place_meeting(x + hsp, y, global.tilemapCollision))	// tile collision
+if (place_meeting(x + hsp * global.gameSpeed, y, global.tilemapCollision))	// tile collision
 {
 	while (!place_meeting(x + sign(hsp), y, global.tilemapCollision)) {
 		x += sign(hsp)
@@ -71,7 +101,7 @@ if (place_meeting(x + hsp, y, global.tilemapCollision))	// tile collision
 	x = round(x)
 	hsp = 0;
 }
-if (place_meeting(x + hsp, y, oCollider))				// object collision
+if (place_meeting(x + hsp * global.gameSpeed, y, oCollider))				// object collision
 {
 	while (!place_meeting(x + sign(hsp), y, oCollider)) {
 		x += sign(hsp)
@@ -79,24 +109,42 @@ if (place_meeting(x + hsp, y, oCollider))				// object collision
 	x = round(x)
 	hsp = 0;
 }
-x += hsp
+var hspClamped = abs(min(hsp * global.gameSpeed, TILE_SIZE)) * sign(hsp) // Simpler than improving collision code lmao
+x += hspClamped
 
 
 // Vertical
-if (place_meeting(x, y + vsp, oCollider))				// tile collision
+if (place_meeting(x, y + vsp * global.gameSpeed, oCollider))				// tile collision
 {
 	while (!place_meeting(x, y + sign(vsp),oCollider)) y += sign(vsp)
 	y = round(y)
 	vsp = 0;
 }
-if (place_meeting(x, y + vsp, global.tilemapCollision))	// object collision
+if (place_meeting(x, y + vsp * global.gameSpeed, global.tilemapCollision))	// object collision
 {
 	while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
 	y = round(y)
 	vsp = 0;
 }
-y += vsp
+var vspClamped = abs(min(vsp * global.gameSpeed, TILE_SIZE)) * sign(vsp)
+y += vspClamped
 
+// Walk particles
+if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
+{
+	var moveDir = point_direction(x, y, xprevious, yprevious)
+	var spread = 70
+	part_type_direction(oController.walkDust, moveDir-spread, moveDir+spread, random_range(-2, 2), 0)
+	part_particles_create(oController.walkDustSys, random_range(x-4,x+4), random_range(bbox_bottom-4, bbox_bottom+4), oController.walkDust, 4)
+	walkDustTimeCounter = 1 / oController.walkDustSpawnFreq
+	
+	if (object_index == oPlayer)
+		audio_play_sound(sndFootstep1, 0, false)
+}
+
+if (x != xprevious or y != yprevious)
+	walkDustTimeCounter -= 1/60 * global.gameSpeed
+else walkDustTimeCounter = 0
 
 #endregion
 

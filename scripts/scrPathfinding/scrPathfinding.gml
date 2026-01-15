@@ -13,7 +13,7 @@ function pathfindingInit()
 
 function findNewPath()
 {
-	var pathFound = mp_grid_path(oRoomManager.pathfindingGrid, myPath, x, y, pathTargetX, pathTargetY, true)
+	var pathFound = mp_grid_path(oController.pfGrid, myPath, x, y, pathTargetX, pathTargetY, true)
 	if (pathFound)
 	{
 		myPathPoint = 0
@@ -29,7 +29,7 @@ function findNewPath()
 
 function LineOfSightPoint(posX, posY)
 {
-	return !collision_line(x, y, posX, posY, oRoomManager.tileMapWall, false, true)
+	return !collision_line(x, y, posX, posY, global.tilemapCollision, false, true)
 }
 
 function LineOfSightObject(object, angleDiff = 6, originX = x, originY = y)
