@@ -6,6 +6,11 @@ enum RoomCategory {
 	ENEMIES
 }
 
+enum ScannedObjectType {
+	INTERACTABLE,
+	NPC
+}
+
 // Contains IDs of tiles in the position of the tile in all the tileset layers
 function Tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
 	tileWall = _tileWall;
@@ -14,15 +19,16 @@ function Tile(_tileWall, _tileDec1, _tileDec2, _tileDec3) constructor {
 	tileDec3 = _tileDec3;
 }
 
-function Interactable(_objectID, _x, _y) constructor {
-	objectID = _objectID;
+function ScannedObject(_instanceID, _x, _y, _objectType) constructor {
+	objectType = _objectType;
+	instanceID = _instanceID;
 	roomX = _x;
 	roomY = _y;
 }
 
-function RoomType(_tiles, _interactables, _category = noone) constructor {
+function RoomType(_tiles, _scannedObjects, _category = noone) constructor {
 	tiles = _tiles;
-	interactables = _interactables;
+	scannedObjects = _scannedObjects;
 	category = _category;
 }
 
@@ -68,18 +74,23 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			}
 		}
 		
-	    // Spawn the room's interactables
-		for (var _i = 0; _i < ds_list_size(_roomType.interactables); _i++) {
-			var _interactable = _roomType.interactables[| _i];
-			var _x = _roomX * TILE_SIZE + _interactable.roomX - TILE_SIZE;	// that "- TILE_SIZE" is a magic offset which corrects the position
-			var _y = _roomY * TILE_SIZE + _interactable.roomY - TILE_SIZE;
-			instance_create_layer(_x, _y, "Instances", _interactable.objectID);
+	    // Spawn the room's scanned objects
+		for (var _i = 0; _i < ds_list_size(_roomType.scannedObjects); _i++) {
+			var _scannedObject = _roomType.scannedObjects[| _i];
+			var _x = _roomX * TILE_SIZE + _scannedObject.roomX - TILE_SIZE;	// that "- TILE_SIZE" is a magic offset which corrects the position
+			var _y = _roomY * TILE_SIZE + _scannedObject.roomY - TILE_SIZE;
+			var _instance = instance_create_layer(_x, _y, "Instances", _scannedObject.instanceID.object_index);
+			
+			if (_scannedObject.objectType = ScannedObjectType.NPC) {	// setup the NPC
+				with (_instance)
+					characterCreate(_scannedObject.instanceID.characterType);
+			}
 		}
 		
 		// Spawn weapon and buff pickups
 		if (roomTypeIndex == RoomCategory.SHOP)
 		{
-			var xOff = 9 * TILE_SIZE
+			var xOff = 7 * TILE_SIZE
 			var yOff = 1 * TILE_SIZE
 			var xx = _roomX * TILE_SIZE + ROOM_SIZE_PX/2
 			var yy = _roomY * TILE_SIZE + ROOM_SIZE_PX/2 + yOff
@@ -321,13 +332,17 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		}
 		
 		if (roomTypeIndex == RoomCategory.ENTRANCE)
-			draw_circle_color(_x, _y, 10, c_green, c_green, false);
+			//draw_circle_color(_x, _y, 10, c_green, c_green, false);
+			draw_sprite_ext(sMinimapIcons, 0, _x, _y, 2, 2, 0, c_white, 1);
 		if (roomTypeIndex == RoomCategory.EXIT)
-			draw_circle_color(_x, _y, 10, c_blue, c_blue, false);
+			//draw_circle_color(_x, _y, 10, c_blue, c_blue, false);
+			draw_sprite_ext(sMinimapIcons, 3, _x, _y, 2, 2, 0, c_white, 1);
 		if (roomTypeIndex == RoomCategory.CIRCUITS)
-			draw_circle_color(_x, _y, 10, c_orange, c_orange, false);
+			//draw_circle_color(_x, _y, 10, c_orange, c_orange, false);
+			draw_sprite_ext(sMinimapIcons, 2, _x, _y, 2, 2, 0, c_white, 1);
 		if (roomTypeIndex == RoomCategory.SHOP)
-			draw_circle_color(_x, _y, 10, c_fuchsia, c_fuchsia, false);
+			//draw_circle_color(_x, _y, 10, c_fuchsia, c_fuchsia, false);
+			draw_sprite_ext(sMinimapIcons, 1, _x, _y, 2, 2, 0, c_white, 1);
 
 		draw_circle_color(MINIMAP_SURF_W * 0.5,  MINIMAP_SURF_H * 0.5, 5, c_red, c_red, false);
 		
@@ -425,10 +440,10 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 				}
 			}
 			
-			var _interactables = roomTypes[other.roomTypeIndex].interactables
-			for (var _i = 0; _i < ds_list_size(_interactables); _i++) {
-				var _x = _interactables[| _i].roomX div TILE_SIZE - 1;
-				var _y = _interactables[| _i].roomY div TILE_SIZE - 1;
+			var _scannedObjects = roomTypes[other.roomTypeIndex].scannedObjects
+			for (var _i = 0; _i < ds_list_size(_scannedObjects); _i++) {
+				var _x = _scannedObjects[| _i].roomX div TILE_SIZE - 1;
+				var _y = _scannedObjects[| _i].roomY div TILE_SIZE - 1;
 				wallGrid[# _x, _y] = 1;
 			}
 			
@@ -490,7 +505,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 }
 
 
-// Scans and saves all room types (their tiles and interactables)
+// Scans and saves all room types (their tiles and objects)
 function ScanRooms() {
 	// Scan room tiles
 	var _roomX = ROOM_SCAN_X;
@@ -509,25 +524,26 @@ function ScanRooms() {
 	        }
 	    }
 	
-		var _interactables = ds_list_create();
-	    roomTypes[_room] = new RoomType(_tiles, _interactables, noone);
+		var _scannedObjects = ds_list_create();
+	    roomTypes[_room] = new RoomType(_tiles, _scannedObjects, noone);
 	    _roomY += ROOM_SIZE + ROOM_OFFSET;
 	}
 
 	// Scan room interactables
-	with (oInteractable) {
+	with (oObject) {
 		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		var _interactable = new Interactable(object_index, _roomX, _roomY);
+		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.INTERACTABLE);
 		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].interactables, _interactable);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
 	}
 	
+	// Scan NPCs
 	with (oNPC) {
 		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		var _interactable = new Interactable(object_index, _roomX, _roomY);
+		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.NPC);
 		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].interactables, _interactable);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
 	}
 }

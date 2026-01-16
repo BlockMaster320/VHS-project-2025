@@ -147,7 +147,7 @@ function characterCreate(_characterType) {
 		
 		case CHARACTER_TYPE.shopkeeper: {
 			characterClass = CHARACTER_CLASS.NPC;
-			characterType = CHARACTER_TYPE.mechanic;
+			characterType = CHARACTER_TYPE.shopkeeper;
 			name = "Shopkeeper";
 			portrait = sNPCPortrait;
 			

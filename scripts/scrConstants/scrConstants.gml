@@ -12,13 +12,14 @@ function Constants()
 	#macro PICKUP_DISTANCE 25
 	
 	// Map generation settings
+	#macro FLOORS 2			// number of floors (exluding the boss fight floor)
 	#macro TILE_SIZE 16		// size of 1 tile in pixels
 	#macro ROOM_SIZE 34		// size of each room in tiles
 	#macro ROOM_SIZE_PX ROOM_SIZE * TILE_SIZE	// size of each room in pixels
 	#macro ROOM_SCAN_X 1	// where to start scanning the rooms
 	#macro ROOM_SCAN_Y 1
 	#macro ROOM_OFFSET 1	// offset between the rooms for the scanning
-	#macro ROOM_COUNT 5		// number of rooms to scan
+	#macro ROOM_COUNT 7		// number of rooms to scan
 	#macro GENERATION_FALLOFF 0.4
 	#macro MAX_DEPTH 3
 	#macro SHOP_SPAWN_CHANCE 0.5

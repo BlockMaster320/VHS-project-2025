@@ -6,7 +6,7 @@ characterCreate(CHARACTER_TYPE.player);
 
 function InitPlayerStats()
 {
-	walkSpdDef = 1.7
+	walkSpdDef = 1.7 //7
 	walkSpdSprint = 2.5	// Use when running between cleared rooms
 	walkSpd = walkSpdDef
 	maxHp = 150

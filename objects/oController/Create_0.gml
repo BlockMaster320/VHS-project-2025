@@ -1,5 +1,8 @@
 Constants()
 
+// Floor state ----------------------------
+currentFloor = 0;
+
 //gameFPS = display_get_frequency()
 gameFPS = 60
 //gameFPS = 500

@@ -8,8 +8,8 @@
   "name":"oGameEnter",
   "overriddenProperties":[],
   "parent":{
-    "name":"Interactables",
-    "path":"folders/Objects/Interactables.yy",
+    "name":"RoomObjects",
+    "path":"folders/Objects/RoomObjects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

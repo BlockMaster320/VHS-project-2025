@@ -50,7 +50,12 @@ function DialogueSystem() constructor
 										new DialogueLine("You messed it down there a bit. Be careful, I may not be there next time.", ["I'll be careful.", "Okay"], [1, 1]),
 										new DialogueLine("I hope I won't see you down again anymore. And now more cleaning again...", [], [])
 									])])
-
+	ds_map_add(dlgs, CHARACTER_TYPE.shopkeeper, [new Dialogue(
+									[
+										new DialogueLine("Found these laying around. I will let you take one if you ask nicely.", ["Can i please take one?", "Haha make me."], [1, 2]),
+										new DialogueLine("Of course :)", [], []),
+										new DialogueLine("tady bude animace jak ho slapne", [], []),
+									])])
 }
 
 function StartDlg(_NPCType)

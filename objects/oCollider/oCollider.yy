@@ -6,12 +6,12 @@
   "name":"oCollider",
   "overriddenProperties":[],
   "parent":{
-    "name":"Interactables",
-    "path":"folders/Objects/Interactables.yy",
+    "name":"RoomObjects",
+    "path":"folders/Objects/RoomObjects.yy",
   },
   "parentObjectId":{
-    "name":"oInteractable",
-    "path":"objects/oInteractable/oInteractable.yy",
+    "name":"oObject",
+    "path":"objects/oObject/oObject.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
