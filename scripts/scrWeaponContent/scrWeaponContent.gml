@@ -20,7 +20,7 @@ function WeaponsInit()
 		fists,
 		
 		// Player focused (droppable?)
-		shotgun, garbage, sword, fan,
+		shotgun, sword, fan, sniper, machineGun, garbage,
 		
 		// Monsters focused
 		ghosterGun,
@@ -50,7 +50,6 @@ function WeaponsInit()
 		spread = 25				// weapon accuracy in degrees
 		projectileAmount = 3	// number of projectile to be shot in the shoot frame
 		
-		// Non-modifiable attributes
 		magazineSize = 4
 		reloadTime = 1
 		
@@ -62,8 +61,8 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
-			projectileSpeed = 3
+			damage = 15
+			projectileSpeed = 4
 			targetKnockback = 5
 			effects = []
 	
@@ -144,13 +143,10 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 2			// shots/damage amount per second
+		attackSpeed = 1.5			// shots/damage amount per second
 		spread = 10				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false
-		
-		// Update some scene attributes
-		remainingDurability = durabilityMult
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -199,10 +195,6 @@ function WeaponsInit()
 		magazineSize = 120 * global.gameSpeed
 		reloadTime = 1
 		
-		// Update some scene attributes
-		remainingDurability = durabilityMult
-		magazineAmmo = magazineSize	// Remaining bullets before reloading
-		
 		// Scene attributes
 		windProjX = 0
 		windProjY = 0
@@ -234,8 +226,6 @@ function WeaponsInit()
 			draw = fanProjDraw
 		}
 		
-		fanProjectiles = []
-		
 		// Weapon actions
 		primaryAction = meleeWeaponShoot
 		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
@@ -245,6 +235,102 @@ function WeaponsInit()
 		update = fanUpdate
 		draw = genericWeaponDraw
 		destroy = fanDestroy
+	}
+		
+	// -----------------------------------------------------------------------------
+
+	with (weaponDatabase[WEAPON.sniper])
+	{
+		// Generic attributes
+		sprite = sPlaceholderGun
+		name = "Sniper"
+		description = "Pew"
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 3			// shots/damage amount per second
+		spread = 2				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		magazineSize = 1
+		reloadTime = 1
+		durabilityMult = 3
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 50
+			projectileSpeed = 9
+			targetKnockback = 5
+			effects = [ ]
+			scale = 1
+	
+			// Generic attributes
+			sprite = sPlayerProjectile
+			color = #FFD665
+			projType = PROJECTILE_TYPE.ranged
+			
+			// Behaviour
+			update = genericBulletUpdate
+			draw = genericProjectileDraw
+		}
+		
+		// Weapon actions
+		primaryAction = rangedWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
+	}
+		
+	// -----------------------------------------------------------------------------
+
+	with (weaponDatabase[WEAPON.machineGun])
+	{
+		// Generic attributes
+		sprite = sPlaceholderGun
+		name = "Machine Gun"
+		description = "PewPewPewPew"
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 7			// shots/damage amount per second
+		spread = 20				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		magazineSize = 30
+		reloadTime = 3
+		durabilityMult = .7
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 10
+			projectileSpeed = 2.5
+			targetKnockback = 1
+			effects = [ ]
+			scale = 1
+	
+			// Generic attributes
+			sprite = sPlayerProjectile
+			color = #FFD665
+			projType = PROJECTILE_TYPE.ranged
+			
+			// Behaviour
+			update = genericBulletUpdate
+			draw = genericProjectileDraw
+		}
+		
+		// Weapon actions
+		primaryAction = rangedWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
 	}
 		
 	// -----------------------------------------------------------------------------

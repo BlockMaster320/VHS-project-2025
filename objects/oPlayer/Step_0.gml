@@ -17,9 +17,15 @@ event_inherited()
 // Swap active inventory slot
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
+	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
+	swapSlot(newSlot)
+}
+	
+function swapSlot(newSlot)
+{
 	weaponInventory[activeInventorySlot].active = false
-	activeInventorySlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
-	if (tempWeaponSlot.active != true)
+	activeInventorySlot = clamp(newSlot, 0, inventorySize)
+	if (tempWeaponSlot.active != true and inventorySize > 0)
 		weaponInventory[activeInventorySlot].active = true
 }
 
@@ -95,7 +101,7 @@ if (dualWield)
 }
 if (global.gameSpeed > .0001)
 {
-	for (var i = 0; i < inventorySize; i++)
+	for (var i = 0; i < max(inventorySize,1); i++)
 		weaponInventory[i].update()
 	tempWeaponSlot.update()
 }

@@ -6,14 +6,24 @@ function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 	var newWeapon;
 	if (is_struct(weapon)) newWeapon = weapon
 	else newWeapon = json_parse(global.weaponDatabaseJSON[weapon])
-	newWeapon.active = active_
+	
+	// Init some weapon and projectile attributes
+	with (newWeapon)
+	{
+		active = active_
+		
+		magazineAmmo = magazineSize
+	}
 	var proj = newWeapon.projectile
+	
 	while (proj != noone)
 	{
 		proj.ownerID = owner
+		proj.srcWeapon = newWeapon
+		
 		proj = proj.projectileChild
 	}
-	newWeapon.create()
+	
 	if (remDurability_ != -1) newWeapon.remainingDurability = remDurability_
 	return newWeapon
 }
@@ -199,6 +209,8 @@ function genericWeaponUpdate()
 					shakeMult *= 1.8
 				oCamera.currentShakeAmount += (1 / (attackSpeed + 1)) * shakeMult
 			}
+			
+			if (magazineAmmo <= 0) break
 		}
 	}
 	
@@ -282,8 +294,8 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 function drawReloadState(weapon)
 {
 	if (weapon != -1 and
-	( ((weapon.projectile.projType == PROJECTILE_TYPE.ranged or weapon.index == WEAPON.fan) and weapon.reloading) or
-	  ( weapon.projectile.projType == PROJECTILE_TYPE.melee and weapon.primaryActionCooldown > 0)
+	( ((weapon.magazineSize != -1) and weapon.reloading) or
+	  ( weapon.magazineSize == -1 and weapon.primaryActionCooldown > 0)
 	))
 	{
 		var w = .1
@@ -297,7 +309,7 @@ function drawReloadState(weapon)
 		draw_rectangle(left, top, right, bott, false)
 
 		var reloadFac = weapon.primaryActionCooldown / (60 / weapon.attackSpeed)
-		if (weapon.projectile.projType == PROJECTILE_TYPE.ranged or weapon.index == WEAPON.fan)
+		if (weapon.magazineSize != -1)
 			reloadFac = 1 - (weapon.reloadProgress / (weapon.reloadTime * 60))
 		var sliderX = lerp(right, left, reloadFac)
 		var h = 4

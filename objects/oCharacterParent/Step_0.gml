@@ -75,10 +75,10 @@ if (is_callable(stepEvent)) {
 
 for (var i = array_length(effects)-1; i >= 0; i--)
 {
+	effects[i].applyEffect(id)
+
 	if (effects[i].duration <= .00001)
 		array_delete(effects, i, 1)
-	else
-		effects[i].applyEffect(id)
 }
 
 #endregion

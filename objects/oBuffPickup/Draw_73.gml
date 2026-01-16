@@ -1,9 +1,10 @@
-// Show buff description
+if (point_distance(x,y,oPlayer.x,oPlayer.y) > cameraW) return
 
 var alpha = 1
-
-if (!instanceInRange(oPlayer, PICKUP_DISTANCE)) // Suboptimal performance but shouldn't be a problem
+if (!instanceInRange(oPlayer, PICKUP_DISTANCE))
 	alpha = 0.7
+
+// Show buff description
 	
 if (global.SHOW_HITBOXES)
 {
@@ -14,54 +15,37 @@ if (global.SHOW_HITBOXES)
 	draw_set_color(c_white)
 }
 
-//var scale = .5
-var scale = round(.5 * oController.upscaleMult) / oController.upscaleMult
-//var rowAmount = (myBuff.descriptionBuff != "default") + (myBuff.descriptionDebuff != "default") + (myBuff.descriptionNeutralEffect != "default")
-
-var rowAmount = 3
-var margin = 4
-var yOff = -20
-var w = 150 * scale
-var h = 9 * rowAmount * scale + margin*2
-
-var left = x - w/2
-var right = x + w/2
-var top = y + yOff - h
-var bott = y + yOff
-var centerX = x
-
 draw_set_alpha(alpha)
 
 draw_set_color(c_black)
 draw_rectangle(left, top, right, bott, false)
 
-var textLineOff = 15 * scale
-var yy = top + margin
-
-centerX = roundPixelPos(centerX)
-yy = roundPixelPos(yy)
+var yy = top + margin - textLineOff/2
 
 draw_set_halign(fa_center)
+//draw_set_valign(fa_middle)
 
-if (myBuff.descriptionBuff != "default")
+if (myBuff.descriptionBuff != "")
 {
 	draw_set_color(c_green)
-	draw_text_transformed(centerX, yy, myBuff.descriptionBuff, scale, scale, 0)
-	yy += textLineOff
+	draw_text_transformed(roundPixelPos(centerX), roundPixelPos(yy), myBuff.descriptionBuff, scale, scale, 0)
+	yy += (lineH + textLineOff) * (string_count("\n", myBuff.descriptionBuff)+1)
+	
 }
-if (myBuff.descriptionDebuff != "default")
+if (myBuff.descriptionDebuff != "")
 {
 	draw_set_color(c_red)
-	draw_text_transformed(centerX, yy, myBuff.descriptionDebuff, scale, scale, 0)
-	yy += textLineOff
+	draw_text_transformed(roundPixelPos(centerX), roundPixelPos(yy), myBuff.descriptionDebuff, scale, scale, 0)
+	yy += (lineH + textLineOff) * (string_count("\n", myBuff.descriptionDebuff)+1)
 }
-if (myBuff.descriptionNeutralEffect != "default")
+if (myBuff.descriptionNeutralEffect != "")
 {
 	draw_set_color(c_yellow)
-	draw_text_transformed(centerX, yy, myBuff.descriptionNeutralEffect, scale, scale, 0)
+	draw_text_transformed(roundPixelPos(centerX), roundPixelPos(yy), myBuff.descriptionNeutralEffect, scale, scale, 0)
 }
 
 draw_set_halign(fa_left)
+//draw_set_valign(fa_top)
 
 draw_set_color(c_white)
 draw_set_alpha(1.)

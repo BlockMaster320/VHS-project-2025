@@ -5,7 +5,7 @@ function spawnWeapons()
 {
 	for (var i = 0; i < WEAPON_AMOUNT; i++)
 	{
-		var rowAmount = 6
+		var rowAmount = 999
 		var xx = x + 30 * (i mod rowAmount)
 		var yy = y + 40 * (i div rowAmount)
 		var weapon = instance_create_layer(xx, yy, "Instances", oWeaponPickup)

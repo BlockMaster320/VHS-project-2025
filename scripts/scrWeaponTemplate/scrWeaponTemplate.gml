@@ -57,7 +57,7 @@ function Weapon() constructor
 // Projectiles -------------------------------------------
 
 // Projectile type reference
-function Projectile() constructor
+function Projectile(srcWeapon=noone) constructor
 {	
 	// Modifiable attributes
 	damage = 10
@@ -84,7 +84,7 @@ function Projectile() constructor
 	hitboxActive = true
 	objDealNoDamage = false	// When true, the projectile object itself doesn't deal damage
 	skipFirstFrameDraw = false	// Collisions aren't detected on the first frame of create,
-						//  so it sometimes makes sense to hide the projectile
+								//  so it sometimes makes sense to hide the projectile
 	
 	// Behaviour
 	update = function(){show_debug_message("Unset projectile update!")}
