@@ -6,8 +6,8 @@
   "name":"oBroom",
   "overriddenProperties":[],
   "parent":{
-    "name":"Interactables",
-    "path":"folders/Objects/Interactables.yy",
+    "name":"RoomObjects",
+    "path":"folders/Objects/RoomObjects.yy",
   },
   "parentObjectId":{
     "name":"oCollider",

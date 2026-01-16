@@ -13,8 +13,8 @@
     "path":"folders/Objects/Items.yy",
   },
   "parentObjectId":{
-    "name":"oInteractable",
-    "path":"objects/oInteractable/oInteractable.yy",
+    "name":"oObject",
+    "path":"objects/oObject/oObject.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

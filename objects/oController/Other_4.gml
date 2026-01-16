@@ -12,3 +12,9 @@ else if (room = rmDebug)
 		? getPathfindingGrid(wallGrid)
 		: undefined
 }
+
+// Boss fight setup
+if (currentFloor = FLOORS) {
+	oPlayer.x = 775;
+	oPlayer.y = 850;
+}

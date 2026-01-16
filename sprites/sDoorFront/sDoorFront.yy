@@ -33,8 +33,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Interactables",
-    "path":"folders/Sprites/Interactables.yy",
+    "name":"RoomObjects",
+    "path":"folders/Sprites/RoomObjects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -16,7 +16,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":24,
+  "height":25,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"22e6a00e-b8b4-4d12-ba7c-d6b7498872a5","blendMode":0,"displayName":"default","isLocked":false,"name":"22e6a00e-b8b4-4d12-ba7c-d6b7498872a5","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Interactables",
-    "path":"folders/Sprites/Interactables.yy",
+    "name":"RoomObjects",
+    "path":"folders/Sprites/RoomObjects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -63,7 +63,7 @@
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
-    "seqHeight":24.0,
+    "seqHeight":25.0,
     "seqWidth":16.0,
     "showBackdrop":true,
     "showBackdropImage":false,
