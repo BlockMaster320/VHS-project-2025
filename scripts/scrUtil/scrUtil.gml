@@ -62,6 +62,20 @@ function drawHitbox(xx, yy, spr, scaleX=1, scaleY=1, rot=0, thickness=1)
 	draw_set_color(c_white)
 }
 
+function Alarm(time, func_, considerGameSpeed=false) constructor
+{
+	counter = time
+	func = func_
+	
+	function update()
+	{
+		if (considerGameSpeed)
+			counter -= global.gameSpeed
+		else
+			counter--
+	}
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)

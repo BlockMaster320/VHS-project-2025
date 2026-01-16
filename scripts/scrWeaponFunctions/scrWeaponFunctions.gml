@@ -136,13 +136,14 @@ function weaponPlayerUpdateLogic()
 	if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
 	{
 		reloading = true
+		holdingTrigger = false
 		magazineAmmo = 0
 	}
 }
 
 function weaponReloading()
 {
-	if (magazineAmmo == 0 and !reloading)
+	if (magazineAmmo == 0 and !reloading)	// For enemies running to hide before reloading
 	{
 		flashFrequency = 1
 		roundFac = false
@@ -169,10 +170,17 @@ function weaponPostDraw()
 	flashFrequency = 0
 }
 
+// Generic shooting function - should probably be used by all weapons
+function genericWeaponShoot()
+{
+	primaryAction()
+	audio_play_sound(shootSound, 0, false)
+}
+
 // Calculate durability, reduce ammo from magazine
 function evaluateWeaponShoot()
 {
-	primaryAction()
+	genericWeaponShoot()
 	
 	var effectiveAttackSpeed = clamp(attackSpeed, .7, 5)	// To punish high attack speed with more durability damage
 	if (oneTimeUse) remainingDurability = 0
@@ -219,28 +227,6 @@ function genericWeaponUpdate()
 
 // Fan
 
-function fanInit()
-{
-	//repeat (projectileAmount)
-	//{
-	//	var fanProj = instance_create_layer(0, 0, "Instances", oProjectile, projectile)
-	//	with (fanProj)
-	//	{
-	//		sprite_index = sMeleeHitbox
-	//		image_xscale = scale * xScaleMult
-	//		image_yscale = scale * yScaleMult
-	//		//if (ownerID.object_index != oPlayer) effects = []
-	//	}
-	//	array_push(fanProjectiles, fanProj)
-	//}
-}
-
-function fanDestroy()
-{
-	//for (var i = 0; i < array_length(fanProjectiles); i++)
-	//	instance_destroy(fanProjectiles[i])
-}
-
 function fanUpdate()
 {
 	weaponUpdatePosition() // All weapons should call this
@@ -249,7 +235,7 @@ function fanUpdate()
 	
 	with (projectile)
 	{
-		attackSpeed = other.attackSpeed
+		attackSpeed = other.attackSpeed	// Cruel hack (to make buffs work)
 	}
 	
 	if (ownerIsPlayer)
@@ -260,11 +246,32 @@ function fanUpdate()
 	if (active and holdingTrigger and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
 		primaryAction()
+		if (holdingTriggerPrev == false)
+		{
+			audio_play_sound(shootSound, 0, false)
+			
+			loopingFanSound = audio_play_sound(sndFanBlast, 0, true, 0)
+			audio_sound_gain(loopingFanSound, 1, 500)
+			//audio_stop_sound(loopingFanSound)
+		}
 	
 		remainingDurability -= durabilityMult / (oController.gameFPS * durabilityInSeconds)
 		if (magazineAmmo > 0) magazineAmmo -= global.gameSpeed
 	}
+	else if (audio_exists(loopingFanSound))
+	{
+		if (audio_sound_get_gain(loopingFanSound) == 1)
+			audio_sound_gain(loopingFanSound, 0, 500)
+			
+		if (audio_is_playing(loopingFanSound))
+			audio_sound_pitch(loopingFanSound, audio_sound_get_pitch(loopingFanSound)-.05)
+			
+		if (audio_sound_get_gain(loopingFanSound) == 0)
+			audio_stop_sound(loopingFanSound)
+	}
 	
+	
+	holdingTriggerPrev = holdingTrigger
 	holdingTrigger = false
 }
 

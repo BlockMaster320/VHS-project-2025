@@ -186,6 +186,7 @@ function WeaponsInit()
 		sprite = sPlaceholderGun
 		name = "Fan"
 		description = "Wheeeeeeeeee"
+		shootSound = sndFanClick
 	
 		// Modifiable attributes
 		projectile = noone
@@ -196,8 +197,8 @@ function WeaponsInit()
 		reloadTime = 1
 		
 		// Scene attributes
-		windProjX = 0
-		windProjY = 0
+		holdingTriggerPrev = false
+		loopingFanSound = -1
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -231,10 +232,8 @@ function WeaponsInit()
 		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
 	
 		// Weapon functions
-		create = fanInit
 		update = fanUpdate
 		draw = genericWeaponDraw
-		destroy = fanDestroy
 	}
 		
 	// -----------------------------------------------------------------------------

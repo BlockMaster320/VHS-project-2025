@@ -23,6 +23,9 @@ show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
 
+// Custom alarm system
+alarms = []	// Array of "Alarm" structs
+
 // Procedural pathfinding
 wallGrid = undefined
 pfGrid = undefined
