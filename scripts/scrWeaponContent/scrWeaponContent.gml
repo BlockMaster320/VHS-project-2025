@@ -11,6 +11,9 @@ enum PROJECTILE_TYPE
 
 #macro durabilityInSeconds 10	// By default, the weapon is durable of this
 								//	amount of seconds of non-stop shooting
+								
+#macro enemyProjectileCol #D8362B
+#macro playerProjectileCol #FFD665
 
 function WeaponsInit()
 {
@@ -68,7 +71,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sPlayerProjectile
-			color = #FFD665
+			color = playerProjectileCol
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
@@ -363,7 +366,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sEnemyProjectile
-			color = #D8362B
+			color = enemyProjectileCol
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour

@@ -59,7 +59,7 @@ function Weapon() constructor
 // Projectiles -------------------------------------------
 
 // Projectile type reference
-function Projectile(srcWeapon=noone) constructor
+function Projectile() constructor
 {	
 	// Modifiable attributes
 	damage = 10
@@ -80,6 +80,7 @@ function Projectile(srcWeapon=noone) constructor
 	
 	// Scene attributes
 	lifetime = (5 * 60) / global.gameSpeed
+	srcWeapon = noone
 	dir = 0
 	drawRot = 0
 	color = c_white

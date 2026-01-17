@@ -27,9 +27,9 @@ function dropperAiInit()
 	// Shoot
 	shootAiInit()
 	
+	inactiveThreshold = new Range(100, 100)	// Windup frames	
 	if (projType == PROJECTILE_TYPE.melee)
 	{
-		inactiveThreshold = new Range(100, 100)	// Windup frames	
 		shootingWalkSpd = 0
 	}
 			

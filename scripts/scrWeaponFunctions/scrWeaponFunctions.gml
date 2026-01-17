@@ -21,6 +21,12 @@ function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 		proj.ownerID = owner
 		proj.srcWeapon = newWeapon
 		
+		if (proj.sprite == sPlayerProjectile and proj.ownerID.object_index != oPlayer)
+		{
+			proj.sprite = sEnemyProjectile
+			proj.color = enemyProjectileCol
+		}
+		
 		proj = proj.projectileChild
 	}
 	
@@ -139,11 +145,15 @@ function weaponPlayerUpdateLogic()
 		oPlayer.ignoreInputBuffer.value--
 		
 	// Reloading
-	if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
+	if ( !reloading and	
+	   ( (oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0))
 	{
 		reloading = true
 		holdingTrigger = false
 		magazineAmmo = 0
+		
+		var reloadSound = audio_play_sound(sndReload, 0, false, 1)
+		audio_sound_gain(reloadSound, 0, reloadTime * 1000 + 200)
 	}
 }
 
@@ -183,7 +193,7 @@ function genericWeaponShoot()
 	var gain = 1
 	var pitch = random_range(.7, 1.6)
 	if (projectile.ownerID != oPlayer) gain = .3
-	audio_play_sound(shootSound, 0, false,1 ,0 , pitch)
+	audio_play_sound(shootSound, 0, false, 1 ,0 , pitch)
 }
 
 // Calculate durability, reduce ammo from magazine
@@ -247,11 +257,6 @@ function fanUpdate()
 	
 	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
 	
-	with (projectile)
-	{
-		attackSpeed = other.attackSpeed	// Cruel hack (to make buffs work)
-	}
-	
 	if (ownerIsPlayer)
 		weaponPlayerUpdateLogic()
 		
@@ -263,7 +268,7 @@ function fanUpdate()
 	if (active and holdingTrigger and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
 		primaryAction()
-		if (holdingTriggerPrev == false)
+		if (holdingTriggerPrev == false or !audio_is_playing(loopingFanSound))
 		{
 			audio_play_sound(shootSound, 0, false, 1)
 			audio_sound_gain(shootSound, 1, 0)

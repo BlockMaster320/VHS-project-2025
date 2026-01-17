@@ -380,6 +380,13 @@ function hideAiTransition()
 		state = AI_STATE.reload
 		myWeapon.reloading = true
 		walkSpd = shootingWalkSpd
+		
+		if (myWeapon.magazineSize != -1)
+		{
+			var gain = .3
+			var reloadSound = audio_play_sound(sndReload, 0, false, gain)
+			audio_sound_gain(reloadSound, 0, myWeapon.reloadTime * 1000 + 200)
+		}
 	}
 	else giveUpHidingTimer.value -= global.gameSpeed
 	

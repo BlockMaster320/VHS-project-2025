@@ -386,7 +386,10 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		// Spawn enemies
 		var mapWidth  = tilemap_get_width(global.tilemapCollision);
 		var mapHeight = tilemap_get_height(global.tilemapCollision);
-		var spawnEnemies = 6
+		var spawnEnemies = 10
+		
+		audio_resume_sound(oController.actionMusic)
+		audio_sound_gain(oController.actionMusic, actionMusicFightGain, 3000)
 		
 		while (spawnEnemies > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
@@ -472,6 +475,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
 		oPlayer.showStats = true
+		audio_sound_gain(oController.actionMusic, actionMusicRestGain, 3000)
 		
 		// Start door opening animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {
