@@ -18,10 +18,10 @@ event_inherited()
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
-	swapSlot(newSlot)
+	SwapSlot(newSlot)
 }
 	
-function swapSlot(newSlot)
+function SwapSlot(newSlot)
 {
 	weaponInventory[activeInventorySlot].active = false
 	activeInventorySlot = clamp(newSlot, 0, inventorySize)

@@ -114,15 +114,17 @@ function BuffCreate(buffType_)
 				
 				rarity = RARITY.common
 				
-				newStats = [ new iRange(3, 3) ]		// + projectile amount
+				newStats = [ new iRange(3, 3), 		// + projectile amount
+							 new Range(1.2, 1.2) ]	// - more spread
 													// - inventory slot
 												
 				descriptionBuff = $"{newStats[0].value}x projectile amount"
-				descriptionDebuff = $"-1 inventory slot"
+				descriptionDebuff = $"-1 inventory slot\n{toPercent(1/newStats[1].value)}% accuracy"
 				
 				weaponBuffApply = function(weapon)
 				{
 					weapon.projectileAmount *= newStats[0].value
+					weapon.spread *= newStats[1].value
 				}
 				
 				characterBuffApply = function(player)
@@ -132,7 +134,7 @@ function BuffCreate(buffType_)
 					{
 						player.inventorySize--
 						if (player.activeInventorySlot == prevSize-1)
-							player.swapSlot(player.inventorySize-1)
+							player.SwapSlot(player.inventorySize-1)
 					}
 				}
 				
