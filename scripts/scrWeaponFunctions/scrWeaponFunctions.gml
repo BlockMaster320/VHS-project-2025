@@ -115,10 +115,15 @@ function weaponPlayerUpdateLogic()
 		{
 			if (other.oneTimeUse)
 			{
+				tempWeaponSlot.destroy()
 				tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false)
 				weaponInventory[activeInventorySlot].active = true
 			}
-			else weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
+			else
+			{
+				weaponInventory[other.playerInventorySlot].destroy()
+				weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
+			}
 			
 			ignoreInputBuffer.reset()
 		}
