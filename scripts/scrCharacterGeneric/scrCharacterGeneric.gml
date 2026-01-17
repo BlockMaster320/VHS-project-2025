@@ -62,6 +62,7 @@ function HitFeedback(character, damageDealt)
 
 function DealDamage(character, damageDealt)
 {
+	if (!instance_exists(character)) return
 	var charIsPlayer = character.object_index == oPlayer
 	var oldHp = character.hp
 	

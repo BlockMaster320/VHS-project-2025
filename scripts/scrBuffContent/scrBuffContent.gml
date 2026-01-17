@@ -120,7 +120,7 @@ function BuffCreate(buffType_)
 				descriptionBuff = $"{newStats[0].value}x projectile amount"
 				descriptionDebuff = $"-1 inventory slot"
 				
-				projectileBuffApply = function(proj)
+				weaponBuffApply = function(weapon)
 				{
 					weapon.projectileAmount *= newStats[0].value
 				}
@@ -281,22 +281,6 @@ function BuffCreate(buffType_)
 				
 				
 			case BUFF.burn:
-			
-				rarity = RARITY.common
-				projAmountMultRange = new iRange(3, 3)
-				durability = new Range(.8, .8)
-				spreadMultRange = new Range(1.2, 1.5)
-		
-				descriptionBuff = $"{projAmountMultRange.value}x projectile amount"
-				descriptionDebuff = $"{toPercent(durability.value)}% weapon durability\n{toPercent(1/spreadMultRange.value)}% accuracy"
-		
-				weaponBuffApply = function(weapon)
-				{
-					weapon.projectileAmount *= projAmountMultRange.value
-					if (weapon.durabilityMult > 0)
-						weapon.durabilityMult *= 1/durability.value
-					weapon.spread *= spreadMultRange.value
-				}
 			
 				rarity = RARITY.common
 				

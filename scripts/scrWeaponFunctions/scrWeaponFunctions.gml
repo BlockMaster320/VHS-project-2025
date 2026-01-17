@@ -193,7 +193,7 @@ function evaluateWeaponShoot()
 	var effectiveAttackSpeed = clamp(attackSpeed, .7, 5)	// To punish high attack speed with more durability damage
 	if (oneTimeUse) remainingDurability = 0
 	else remainingDurability -= durabilityMult / (effectiveAttackSpeed * durabilityInSeconds)
-	if (magazineAmmo > 0) magazineAmmo--
+	if (magazineAmmo > 0) magazineAmmo = max(magazineAmmo - 1, 0)
 }
 
 function genericWeaponUpdate()
@@ -274,7 +274,7 @@ function fanUpdate()
 		}
 	
 		remainingDurability -= durabilityMult / (oController.gameFPS * durabilityInSeconds)
-		if (magazineAmmo > 0) magazineAmmo -= global.gameSpeed
+		if (magazineAmmo > 0) magazineAmmo = max(magazineAmmo - global.gameSpeed, 0)
 	}
 	else if (audio_exists(loopingFanSound))
 	{
