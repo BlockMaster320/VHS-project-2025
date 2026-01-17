@@ -41,6 +41,8 @@ windowHeightPrev = window_get_height()
 guiSurf = surface_create(cameraW, cameraH)
 guiUpscaledSurf = -1
 updateUpscaleFactor()
+surfaceDrawPositionX = 0
+surfaceDrawPositionY = 0
 
 // Set default window scale to nice multiple
 //window_set_size(cameraW * 3, cameraH * 3)

@@ -89,6 +89,7 @@ function updateUpscaleFactor()
 	// Get nearest integer multiple of camera width
 	var smallestError = infinity
 	var targetW = window_get_width()
+	var targetH = window_get_height()
 	var safetyMargin = 30
 
 	for (var mult = 1; mult < 10; mult++) // Set a limit, just to be safe
@@ -98,11 +99,23 @@ function updateUpscaleFactor()
 	
 		if (error < smallestError) smallestError = error*/
 		
-		if (targetW < cameraW * mult + safetyMargin)
+		if (targetW < cameraW * mult + safetyMargin or targetH < cameraH * mult + safetyMargin)
 		{
 			oController.upscaleMult = mult
 			surface_resize(application_surface, cameraW * oController.upscaleMult, cameraH * oController.upscaleMult)
-			display_set_gui_size(window_get_width(), window_get_height())
+			//display_set_gui_size(window_get_width(), window_get_height())
+			if (targetW > targetH*(16/9))
+			{
+				display_set_gui_size(targetH*(16/9), targetH)
+				surfaceDrawPositionX = (targetW - targetH*(16/9)) / 2
+				surfaceDrawPositionY = 0
+			}
+			else
+			{
+				display_set_gui_size(targetW, targetW*(9/16))
+				surfaceDrawPositionY = (targetH - targetW*(9/16)) / 2
+				surfaceDrawPositionX = 0
+			}
 			//display_set_gui_size(cameraW * oController.upscaleMult, cameraH * oController.upscaleMult)
 			break
 		}
