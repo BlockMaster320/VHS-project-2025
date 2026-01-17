@@ -139,7 +139,12 @@ if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
 	walkDustTimeCounter = 1 / oController.walkDustSpawnFreq
 	
 	if (object_index == oPlayer)
-		audio_play_sound(sndFootstep1, 0, false)
+	{
+		var sound = choose(sndFootstep1, sndFootstep2, sndFootstep3, sndFootstep4, sndFootstep5, sndFootstep6)
+		var gain = .4
+		var pitch = random_range(.7, 1.7)
+		audio_play_sound(sound, 0, false, gain, 0, pitch)
+	}
 }
 
 if (x != xprevious or y != yprevious)

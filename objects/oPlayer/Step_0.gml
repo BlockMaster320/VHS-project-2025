@@ -87,6 +87,7 @@ if (interactable)
 	if (oController.interact)
 	{
 		interactable.interactFunc()
+		audio_play_sound(sndClick, 0, false, 1, 0, random_range(.8, 1.2))
 		interactable.hitFlash()
 	}
 }

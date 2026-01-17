@@ -174,7 +174,10 @@ function weaponPostDraw()
 function genericWeaponShoot()
 {
 	primaryAction()
-	audio_play_sound(shootSound, 0, false)
+	var gain = 1
+	var pitch = random_range(.7, 1.6)
+	if (projectile.ownerID != oPlayer) gain = .3
+	audio_play_sound(shootSound, 0, false,1 ,0 , pitch)
 }
 
 // Calculate durability, reduce ammo from magazine
@@ -243,13 +246,18 @@ function fanUpdate()
 		
 	weaponReloading()
 	
+	//var soundGain = 1
+	//if (projectile.ownerID != oPlayer) soundGain = .4
+	
 	if (active and holdingTrigger and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
 		primaryAction()
 		if (holdingTriggerPrev == false)
 		{
-			audio_play_sound(shootSound, 0, false)
+			audio_play_sound(shootSound, 0, false, 1)
+			audio_sound_gain(shootSound, 1, 0)
 			
+			if (audio_is_playing(loopingFanSound)) audio_stop_sound(loopingFanSound)
 			loopingFanSound = audio_play_sound(sndFanBlast, 0, true, 0)
 			audio_sound_gain(loopingFanSound, 1, 500)
 			//audio_stop_sound(loopingFanSound)
@@ -262,6 +270,9 @@ function fanUpdate()
 	{
 		if (audio_sound_get_gain(loopingFanSound) == 1)
 			audio_sound_gain(loopingFanSound, 0, 500)
+			
+		if (audio_is_playing(shootSound))
+			audio_sound_gain(shootSound, 0, 100)
 			
 		if (audio_is_playing(loopingFanSound))
 			audio_sound_pitch(loopingFanSound, audio_sound_get_pitch(loopingFanSound)-.05)
