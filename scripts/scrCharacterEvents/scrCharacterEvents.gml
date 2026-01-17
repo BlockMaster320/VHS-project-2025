@@ -189,7 +189,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesCompanion);
 			anim = characterAnimation.getAnimation;
 			dir = -1;
 			
@@ -211,7 +211,7 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			sprite_index = sEnemy;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesPanicEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Weapon
@@ -243,7 +243,7 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			sprite_index = sEnemy;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesRangedEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
@@ -287,7 +287,7 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesBasicEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
@@ -335,7 +335,7 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			sprite_index = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
+			characterAnimation = new CharacterAnimation(GetAnimationFramesRunnerEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding

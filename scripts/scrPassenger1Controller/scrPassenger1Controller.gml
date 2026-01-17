@@ -18,7 +18,7 @@ function Passenger1Controller(
 		characterType = CHARACTER_TYPE.passenger1;
 		
 		// graphics
-		portrait = sNPCPortrait;
+		portrait = sPassenger1Portrait;
 		sprite_index = sCharacters;
 		characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
 		anim = characterAnimation.getAnimation;
