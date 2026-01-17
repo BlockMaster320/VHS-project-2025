@@ -33,7 +33,6 @@ debug_room_button = new Button(
 	function() {
 		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
 		global.gameSpeed = oController.defaultGameSpeed
-		global.inputState = lowerState
 		lowerState = INPUT_STATE.playing
 		if (room != rmDebug) oController.prevRoom = room
 		room_goto(rmDebug)

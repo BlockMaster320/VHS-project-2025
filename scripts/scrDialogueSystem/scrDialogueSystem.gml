@@ -68,11 +68,20 @@ function StartDlg(_NPCType)
 	global.inputState = INPUT_STATE.dialogue
 }
 
+function StartDlgEx(_dialogue)
+{
+	current_dialogue = _dialogue
+	SetCurrentLine(0)
+	talking = true
+	global.inputState = INPUT_STATE.dialogue
+}
+
 function EndDlg()
 {
 	talking = false
 	global.inputState = INPUT_STATE.playing
 	waiting_for_answer = false
+	current_dialogue = noone
 	
 	DisableDlgOptions()
 }

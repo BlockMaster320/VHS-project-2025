@@ -12,6 +12,8 @@ function InitPlayerStats()
 	maxHp = 150
 	
 	inventorySize = 2
+	hp = maxHp
+	characterState = CharacterState.Idle
 	
 	// Buff specific
 	global.gameSpeed = oController.defaultGameSpeed

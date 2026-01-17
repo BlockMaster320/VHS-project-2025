@@ -24,7 +24,7 @@ function Input()
 	gui_pressed = 0
 	
 	// General
-	aimDir = point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0));
+	aimDir = instance_exists(oPlayer) ? point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0)) : point_direction(0,0,0,0);
 	//aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y);
 
 	switch (global.inputState)
