@@ -138,13 +138,11 @@ if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
 	part_particles_create(oController.walkDustSys, random_range(x-4,x+4), random_range(bbox_bottom-4, bbox_bottom+4), oController.walkDust, 4)
 	walkDustTimeCounter = 1 / oController.walkDustSpawnFreq
 	
-	if (object_index == oPlayer)
-	{
-		var sound = choose(sndFootstep1, sndFootstep2, sndFootstep3, sndFootstep4, sndFootstep5, sndFootstep6)
-		var gain = .4
-		var pitch = random_range(.7, 1.7)
-		audio_play_sound(sound, 0, false, gain, 0, pitch)
-	}
+	var sound = choose(sndFootstep1, sndFootstep2, sndFootstep3, sndFootstep4, sndFootstep5, sndFootstep6)
+	var gain = .4
+	if (object_index != oPlayer) gain *= .1
+	var pitch = random_range(.7, 1.7)
+	audio_play_sound(sound, 0, false, gain, 0, pitch)
 }
 
 if (x != xprevious or y != yprevious)
