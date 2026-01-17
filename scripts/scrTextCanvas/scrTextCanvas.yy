@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrTextCanvas",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrTextCanvas",
+  "parent":{
+    "name":"Wrappers",
+    "path":"folders/Objects/CutScenes/Wrappers.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
