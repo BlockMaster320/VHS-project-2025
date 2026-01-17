@@ -78,6 +78,46 @@ function GetAnimationFramesPlayer(characterState, _offset = 0) {
 	};
 }
 
+// Basic enemy
+function GetAnimationFramesBasicEnemy(characterState, _offset = 77) {
+	switch(characterState) {
+	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
+	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
+	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	};
+}
+
+// Runner enemy
+function GetAnimationFramesRunnerEnemy(characterState, _offset = 88) {
+	switch(characterState) {
+	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
+	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
+	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	};
+}
+
+// Ranged enemy
+function GetAnimationFramesRangedEnemy(characterState, _offset = 99) {
+	switch(characterState) {
+	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
+	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
+	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	};
+}
+
+// Panic enemy
+function GetAnimationFramesPanicEnemy(characterState, _offset = 110) {
+	switch(characterState) {
+	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
+	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
+	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	};
+}
+
 function GetAnimationFramesHands(characterState) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: [0,3], speeds: [.08, .08, .08, .08]}
