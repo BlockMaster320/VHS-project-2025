@@ -42,8 +42,8 @@ function WeaponsInit()
 	{
 		// Generic attributes
 		sprite = sPlaceholderGun
-		name = "Some generic weapon"
-		description = "This weapon is a weapon"
+		name = "Shotgun"
+		description = "PPPeeewww"
 	
 		// Modifiable attributes
 		attackSpeed = 2			// shots/damage amount per second
@@ -91,8 +91,8 @@ function WeaponsInit()
 	{
 		// Generic attributes
 		sprite = sFists
-		name = "Probably fists"
-		description = "We will see"
+		name = "Fists"
+		description = "Dont' talk about it..."
 	
 		// Modifiable attributes
 		projectile = noone

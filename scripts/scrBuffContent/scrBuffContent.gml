@@ -46,7 +46,7 @@ function BuffCreate(buffType_)
 			case BUFF.blast:
 			
 				rarity = RARITY.common
-				dmgMultRange = new Range(3, 3.5)
+				dmgMultRange = new Range(2, 2.5)
 				attackSpdMultRange = new Range(.4, .6)
 		
 				dmgMultRange.rndmize()
@@ -197,7 +197,7 @@ function BuffCreate(buffType_)
 				rarity = RARITY.common
 							
 				newStats = [ new Range(30, 30),		// + flat damage
-							 new Range(1.2, 1.2) ]	// + game speed
+							 new Range(1.3, 1.3) ]	// + game speed
 		
 				descriptionBuff = $"+{newStats[0].value} damage flat"
 				descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"	

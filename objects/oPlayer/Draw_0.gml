@@ -45,7 +45,7 @@ if (tempWeaponSlot.active) tempWeaponSlot.draw()
 
 // Reload / cooldown state
 if (activeWeapon != -1)
-	drawReloadState(activeWeapon)
+	drawReloadState(activeWeapon,,,.5)
 
 
 if (global.inputState != INPUT_STATE.dialogue)
@@ -58,7 +58,7 @@ var margin = 2 * TILE_SIZE
 var rightX = cameraW - margin
 var bottomY = cameraH - margin
 
-// Inventory
+// Inventory ----------------------------------------------
 
 var size = 1.6 * TILE_SIZE
 var center = size/2
@@ -84,14 +84,45 @@ for (var i = 0; i < inventorySize; i++)
 		draw_set_alpha(1)
 	}
 	
+	drawReloadState(weaponInventory[i], xx, yy+5, 1)
+	
 	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
 }
 
+var holdingTempWeapon = tempWeaponSlot.index != WEAPON.fists
+
 var xx = rightX - (size * (inventorySize-1 - activeInventorySlot)) - center
 var yy = bottomY - center
+if (holdingTempWeapon) draw_set_alpha(.7)
 draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
+draw_set_alpha(1)
 
-// Health
+// Temp slot
+var tempSlotRightX = rightX - size*inventorySize - size*.5
+var tempSlotLeftX = tempSlotRightX - size
+var tempSlotAlpha = holdingTempWeapon ? .9 : .7
+	
+draw_set_color(c_black)
+draw_set_alpha(tempSlotAlpha)
+draw_rectangle(tempSlotLeftX, bottomY - size, tempSlotRightX, bottomY, false)
+draw_set_alpha(1)
+draw_set_color(c_white)
+
+var textSize = round(.5 * oController.upscaleMult) / oController.upscaleMult
+
+if (holdingTempWeapon)
+{
+	draw_sprite_ext(tempWeaponSlot.sprite, 0, tempSlotRightX - center, bottomY - center, 1, 1, 0, c_white, 1)
+	draw_rectangle(tempSlotLeftX, bottomY - size, tempSlotRightX, bottomY, true)
+}
+
+draw_set_alpha(.9)
+draw_set_halign(fa_center)
+draw_text_transformed(tempSlotRightX - center, bottomY+1, "Carry", 1, 1, 0)
+draw_set_halign(fa_left)
+draw_set_alpha(1)
+
+// Health ----------------------------------------------
 
 var w = 40
 var x1 = margin
@@ -112,7 +143,7 @@ draw_set_color(c_white)
 
 surface_reset_target()
 
-// Weapon stats
+// Weapon stats ----------------------------------------------
 if (showStats and inventorySize > 0)
 {
 
@@ -130,16 +161,24 @@ if (showStats and inventorySize > 0)
 	var centerX = leftX + (rightX-leftX)/2
 
 	var currentWeapon = weaponInventory[activeInventorySlot]
+	if (tempWeaponSlot.index != WEAPON.fists)
+		currentWeapon = tempWeaponSlot
+		
+	var proj = currentWeapon.projectile
+	while (proj.projectileChild != noone) // Check the stats of the last spawned
+		proj = proj.projectileChild		  //  projectile, since that's the one usually hitting the enemy
 
 	bottomY = topY-textSpacing
 
 	var weaponStats = [
-		$"Damage: {currentWeapon.projectile.damage}",
-		$"Damage multiplier: {currentWeapon.projectile.damageMultiplier}x",
+		$"{currentWeapon.name}",
+		$"\"{currentWeapon.description}\"",
+		$"Damage: {proj.damage}",
+		$"Damage multiplier: {proj.damageMultiplier}x",
 		$"Attack speed: {currentWeapon.attackSpeed}/s",
 		$"Spread: {currentWeapon.spread} deg",
 		$"Projectile amount: {currentWeapon.projectileAmount}",
-		$"Knockback: {currentWeapon.projectile.targetKnockback}",
+		$"Knockback: {proj.targetKnockback}",
 		$"Movement speed: {oPlayer.walkSpdDef}",
 	]
 
