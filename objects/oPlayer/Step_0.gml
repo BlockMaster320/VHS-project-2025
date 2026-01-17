@@ -17,9 +17,15 @@ event_inherited()
 // Swap active inventory slot
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
+	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
+	swapSlot(newSlot)
+}
+	
+function swapSlot(newSlot)
+{
 	weaponInventory[activeInventorySlot].active = false
-	activeInventorySlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
-	if (tempWeaponSlot.active != true)
+	activeInventorySlot = clamp(newSlot, 0, inventorySize)
+	if (tempWeaponSlot.active != true and inventorySize > 0)
 		weaponInventory[activeInventorySlot].active = true
 }
 
@@ -42,6 +48,7 @@ if (oController.interact)
 		else									// Inventory slot weapons
 		{
 			// Drop current weapon
+			weaponInventory[activeInventorySlot].destroy()
 			var myWeaponID = weaponInventory[activeInventorySlot].index
 			if (myWeaponID != WEAPON.fists and room != rmDebug)
 				dropWeapon(myWeaponID, weaponInventory[activeInventorySlot].remainingDurability)
@@ -81,6 +88,7 @@ if (interactable)
 	if (oController.interact)
 	{
 		interactable.interactFunc()
+		audio_play_sound(sndClick, 0, false, 1, 0, random_range(.8, 1.2))
 		interactable.hitFlash()
 	}
 }
@@ -95,7 +103,7 @@ if (dualWield)
 }
 if (global.gameSpeed > .0001)
 {
-	for (var i = 0; i < inventorySize; i++)
+	for (var i = 0; i < max(inventorySize,1); i++)
 		weaponInventory[i].update()
 	tempWeaponSlot.update()
 }

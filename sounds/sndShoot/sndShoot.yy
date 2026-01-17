@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndFootstep1",
+  "%Name":"sndShoot",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.585941,
-  "name":"sndFootstep1",
+  "duration":0.25004536,
+  "name":"sndShoot",
   "parent":{
-    "name":"Characters",
-    "path":"folders/Sound/Characters.yy",
+    "name":"Weapons",
+    "path":"folders/Sound/Weapons.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndFootstep1.ogg",
+  "soundFile":"sndShoot.ogg",
   "type":0,
   "volume":1.0,
 }

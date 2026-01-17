@@ -44,7 +44,8 @@ if (tempWeaponSlot.active) tempWeaponSlot.draw()
 //draw_text(x, y - 20, $"Health: {hp}")
 
 // Reload / cooldown state
-drawReloadState(activeWeapon)
+if (activeWeapon != -1)
+	drawReloadState(activeWeapon)
 
 
 if (global.inputState != INPUT_STATE.dialogue)
@@ -112,7 +113,7 @@ draw_set_color(c_white)
 surface_reset_target()
 
 // Weapon stats
-if (showStats)
+if (showStats and inventorySize > 0)
 {
 
 	surface_set_target(oController.guiUpscaledSurf)

@@ -30,13 +30,13 @@ function Cooldown(defaultVal_) constructor
 function Buff() constructor
 {
 	sprite = sPlaceholderBuff
-	descriptionBuff = "default"	// Don't change the default unless you have a good reason to
-	descriptionDebuff = "default"
-	descriptionNeutralEffect = "default"
+	descriptionBuff = ""	// Don't change the default unless you have a good reason to
+	descriptionDebuff = ""
+	descriptionNeutralEffect = ""
 	rarity = RARITY.common
 	target = BUFF_TARGET.weapon
 	
-	buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
+	//buffRandomize = function(){ show_debug_message("Buff initiazation and randomization is undefined!") }
 	weaponBuffApply = function(weapon){  }
 	projectileBuffApply = function(projectile){  }
 	characterBuffApply = function(character){  }
@@ -118,6 +118,9 @@ function EvaluatePlayerBuffs()
 			repeat (applyAmount)
 				buffs[j].characterBuffApply(id)
 		}
+			
+		if (inventorySize < 1)
+			weaponInventory[0] = acquireWeapon(WEAPON.fists, id, true)
 			
 		walkSpdDef = min(walkSpdDef, TILE_SIZE)
 		walkSpdSprint = min(walkSpdSprint, TILE_SIZE)

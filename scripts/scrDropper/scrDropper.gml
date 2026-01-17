@@ -124,6 +124,7 @@ function dropperAiDraw()
 
 function dropperOnDeath()
 {
+	myWeapon.destroy()
 	dropWeapon(myWeapon.index)
 	
 	instance_destroy()
