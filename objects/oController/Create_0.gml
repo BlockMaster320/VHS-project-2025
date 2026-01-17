@@ -55,6 +55,4 @@ part_type_sprite(walkDust,sDust,false,false,true)
 
 
 prevRoom = rmLobby
-room_goto(rmLobby)
-//room_goto(rmDebug)
-//room_goto(rmGame)
+IntroScene()
