@@ -230,6 +230,11 @@ function genericWeaponUpdate()
 
 // Fan
 
+function fanDestroy()
+{
+	audio_stop_sound(loopingFanSound)
+}
+
 function fanUpdate()
 {
 	weaponUpdatePosition() // All weapons should call this

@@ -234,6 +234,7 @@ function WeaponsInit()
 		// Weapon functions
 		update = fanUpdate
 		draw = genericWeaponDraw
+		destroy = fanDestroy
 	}
 		
 	// -----------------------------------------------------------------------------

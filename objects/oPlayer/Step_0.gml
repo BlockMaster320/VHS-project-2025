@@ -48,6 +48,7 @@ if (oController.interact)
 		else									// Inventory slot weapons
 		{
 			// Drop current weapon
+			weaponInventory[activeInventorySlot].destroy()
 			var myWeaponID = weaponInventory[activeInventorySlot].index
 			if (myWeaponID != WEAPON.fists and room != rmDebug)
 				dropWeapon(myWeaponID, weaponInventory[activeInventorySlot].remainingDurability)

@@ -12,7 +12,7 @@ enum BUFF
 {
 	// Common
 	blast, precision, rapidFire, cloner, meleeKnockback, noKnockback, sonicSpeed, aderral,
-	inventorySizeIncrease, fatBullets, hotReload, heavyHitter,
+	inventorySizeIncrease, fatBullets, hotReload, burn,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
@@ -111,21 +111,29 @@ function BuffCreate(buffType_)
 				
 	
 			case BUFF.cloner:
-
+				
 				rarity = RARITY.common
-				projAmountMultRange = new iRange(3, 3)
-				durability = new Range(.8, .8)
-				spreadMultRange = new Range(1.2, 1.5)
-		
-				descriptionBuff = $"{projAmountMultRange.value}x projectile amount"
-				descriptionDebuff = $"{toPercent(durability.value)}% weapon durability\n{toPercent(1/spreadMultRange.value)}% accuracy"
-		
-				weaponBuffApply = function(weapon)
+				
+				newStats = [ new iRange(3, 3) ]		// + projectile amount
+													// - inventory slot
+												
+				descriptionBuff = $"{newStats[0].value}x projectile amount"
+				descriptionDebuff = $"-1 inventory slot"
+				
+				projectileBuffApply = function(proj)
 				{
-					weapon.projectileAmount *= projAmountMultRange.value
-					if (weapon.durabilityMult > 0)
-						weapon.durabilityMult *= 1/durability.value
-					weapon.spread *= spreadMultRange.value
+					weapon.projectileAmount *= newStats[0].value
+				}
+				
+				characterBuffApply = function(player)
+				{
+					var prevSize = player.inventorySize
+					if (prevSize > 0)
+					{
+						player.inventorySize--
+						if (player.activeInventorySlot == prevSize-1)
+							player.swapSlot(player.inventorySize-1)
+					}
 				}
 				
 				break
@@ -272,31 +280,36 @@ function BuffCreate(buffType_)
 				break
 				
 				
-			case BUFF.heavyHitter:
+			case BUFF.burn:
+			
+				rarity = RARITY.common
+				projAmountMultRange = new iRange(3, 3)
+				durability = new Range(.8, .8)
+				spreadMultRange = new Range(1.2, 1.5)
+		
+				descriptionBuff = $"{projAmountMultRange.value}x projectile amount"
+				descriptionDebuff = $"{toPercent(durability.value)}% weapon durability\n{toPercent(1/spreadMultRange.value)}% accuracy"
+		
+				weaponBuffApply = function(weapon)
+				{
+					weapon.projectileAmount *= projAmountMultRange.value
+					if (weapon.durabilityMult > 0)
+						weapon.durabilityMult *= 1/durability.value
+					weapon.spread *= spreadMultRange.value
+				}
 			
 				rarity = RARITY.common
 				
-				newStats = [ new Range(1.5, 1.5),	// + % damage
-							 new iRange(15,20)]		// + flat damage
-													// - inventory slot
+				newStats = [ new Range(.7,.8) ]		// + burn
+							 						// - % damage
 				
 				descriptionBuff = $"Projectile burn"
-				descriptionDebuff = $"-1 inventory slot"
+				descriptionDebuff = $"{toPercent(newStats[0].value)}% damage"
 				
 				projectileBuffApply = function(proj)
 				{
 					array_push(proj.effects, EFFECT.burn)
-				}
-				
-				characterBuffApply = function(player)
-				{
-					var prevSize = player.inventorySize
-					if (prevSize > 0)
-					{
-						player.inventorySize--
-						if (player.activeInventorySlot == prevSize-1)
-							player.swapSlot(player.inventorySize-1)
-					}
+					proj.damageMultiplier *= newStats[0].value
 				}
 				
 				break
