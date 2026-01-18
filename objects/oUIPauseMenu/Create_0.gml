@@ -35,7 +35,7 @@ debug_room_button = new Button(
 		global.gameSpeed = oController.defaultGameSpeed
 		lowerState = INPUT_STATE.playing
 		if (room != rmDebug) oController.prevRoom = room
-		room_goto(rmDebug)
+		RoomTransition(rmDebug)
 	},
 ); 
 debug_room_button.padding = {x: 16, y:8}
