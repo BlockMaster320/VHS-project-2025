@@ -68,7 +68,7 @@ function Input()
 			
 		case INPUT_STATE.dialogue:
 		
-			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left)
+			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left) or keyboard_check_pressed(vk_enter)
 			clicked = mouse_check_button_pressed(mb_left)
 			
 			break

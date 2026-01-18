@@ -20,6 +20,7 @@ function Weapon() constructor
 	drawOffsetY = 3
 	
 	shootSound = sndShoot
+	shootSoundInstance = -1
 	
 	// Scene attributes
 	index = 0	// Index in the global weapon database

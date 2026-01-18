@@ -100,8 +100,12 @@ function SetCurrentLine(_lineIdx)
 
 function DlgTimerTick()
 {
-	if (timer <= 2*string_length(current_line.text)) 
+	if (timer <= 2*string_length(current_line.text))
+	{
 		timer++
+		var pitch = random_range(.98, 1.02)
+		audio_play_sound(sndDialogue, 0, false, 1, 0, pitch)
+	}
 }
 
 function DlgTimerSkip()

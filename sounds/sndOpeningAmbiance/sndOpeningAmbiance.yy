@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndFanBlast",
+  "%Name":"sndOpeningAmbiance",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":4.9243765,
-  "name":"sndFanBlast",
+  "duration":26.12034,
+  "name":"sndOpeningAmbiance",
   "parent":{
-    "name":"Weapons",
-    "path":"folders/Sound/Weapons.yy",
+    "name":"Ambiance",
+    "path":"folders/Sound/Ambiance.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndFanBlast.ogg",
+  "soundFile":"sndOpeningAmbiance.ogg",
   "type":0,
-  "volume":0.59,
+  "volume":0.45,
 }

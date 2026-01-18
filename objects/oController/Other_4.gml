@@ -18,3 +18,10 @@ if (currentFloor = FLOORS) {
 	oPlayer.x = 775;
 	oPlayer.y = 850;
 }
+
+if (room == rmLobby)
+{
+	audio_sound_gain(subwayAmbiance, 0, 0)
+	audio_resume_sound(subwayAmbiance)
+	audio_sound_gain(subwayAmbiance, 1, 4000)
+}

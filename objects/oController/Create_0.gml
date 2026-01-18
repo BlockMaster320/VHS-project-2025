@@ -50,11 +50,19 @@ appWindowYprev = window_get_y()
 // Set default window scale to nice multiple
 //window_set_size(cameraW * 3, cameraH * 3)
 
-// Music ----------------------------------------------
+// Sound ----------------------------------------------
+
+// Music
 #macro actionMusicFightGain 1
 #macro actionMusicRestGain .3
 actionMusic = audio_play_sound(sndActionMusic, 0, true, 0)
 audio_pause_sound(actionMusic)
+
+// Ambiance
+openingAmbiance = audio_play_sound(sndOpeningAmbiance, 0, true)
+audio_pause_sound(openingAmbiance)
+subwayAmbiance = audio_play_sound(sndSubwayAmbiance, 0, true)
+audio_pause_sound(subwayAmbiance)
 
 // Particle systems ----------------------------
 walkDustSys = part_system_create()

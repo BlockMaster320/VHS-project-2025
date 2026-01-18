@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndFanBlast",
+  "%Name":"sndAlarmClock",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":4.9243765,
-  "name":"sndFanBlast",
+  "duration":4.4370747,
+  "name":"sndAlarmClock",
   "parent":{
-    "name":"Weapons",
-    "path":"folders/Sound/Weapons.yy",
+    "name":"Ambiance",
+    "path":"folders/Sound/Ambiance.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndFanBlast.ogg",
+  "soundFile":"sndAlarmClock.ogg",
   "type":0,
-  "volume":0.59,
+  "volume":1.0,
 }

@@ -1,23 +1,50 @@
 function IntroScene() {
+	if (debug_mode)	// Skip intro for debugging
+	{
+		RoomTransition(rmLobby)
+		return;
+	}
+	
 	new TweenSequence([
-		TweenWait(1000),
+		new TweenAction(function() {
+			audio_sound_gain(oController.openingAmbiance, 0, 0)
+			audio_resume_sound(oController.openingAmbiance)
+			audio_sound_gain(oController.openingAmbiance, 1, 5000)
+		}),
+		TweenWait(3000),
+		new TweenAction(function() {
+			audio_play_sound(sndAlarmClock, 0, false)
+		}),
+		TweenWait(audio_sound_length(sndAlarmClock)*1000 + 200),
 		new TweenAction(function() {
 			oDialogues.startDialogueEx(
 				new Dialogue([
-					new DialogueLine("Lying in my bed...", [], [1]),
-					new DialogueLine("Shutting down alarm clock...", [], [2]),
-					new DialogueLine("I realized something reeeeaaaalllly important!", [], [3]),
-					new DialogueLine("O.O", [], [4]),
-					new DialogueLine("I almost overslept my last exam of cloning techniques!", [], [5]),
-					new DialogueLine("I need to get to the school as fast as i can, ...", [], [6]),
-					new DialogueLine("... so subway is the only solution ...", [], [7]),
-					new DialogueLine("... and I hope nothing bad will happen.", [], []),
+					new DialogueLine("...", [], []),
 				]),
 				DO {
-					getCinemaBorders().SetInstantly(CinemaBordersState.WHOLE)
-					RoomTransition(rmLobby)
+					new TweenSequence([
+						
+						TweenWait(2000),
+						new TweenAction(function() {
+							oDialogues.startDialogueEx(
+								new Dialogue([
+									new DialogueLine("Uhh...", [], [1]),
+									new DialogueLine("Wait...", [], [2]),
+									new DialogueLine("THE CLONING TECHNIQUES EXAM IS IN 2 HOURS", [], [3]),
+									new DialogueLine("Welp, let's hope those manifesting classes pay off today.", [], [4]),
+									new DialogueLine("Surely more than four people will pass this time.", [], []),
+								]),
+								DO {
+									getCinemaBorders().SetInstantly(CinemaBordersState.WHOLE)
+									audio_sound_gain(oController.openingAmbiance, 0, 2000)
+									RoomTransition(rmLobby)
+								}
+							)
+						}),
+						
+					]).start()
 				}
 			)
-		})
+		}),
 	]).start()
 }

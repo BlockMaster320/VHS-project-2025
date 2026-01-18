@@ -270,12 +270,11 @@ function fanUpdate()
 		primaryAction()
 		if (holdingTriggerPrev == false or !audio_is_playing(loopingFanSound))
 		{
-			audio_play_sound(shootSound, 0, false, 1)
-			audio_sound_gain(shootSound, 1, 0)
+			shootSoundInstance = audio_play_sound(shootSound, 0, false)
 			
 			if (audio_is_playing(loopingFanSound)) audio_stop_sound(loopingFanSound)
 			loopingFanSound = audio_play_sound(sndFanBlast, 0, true, 0)
-			audio_sound_gain(loopingFanSound, 1, 500)
+			audio_sound_gain(loopingFanSound, 1, 700)
 			//audio_stop_sound(loopingFanSound)
 		}
 	
@@ -287,8 +286,8 @@ function fanUpdate()
 		if (audio_sound_get_gain(loopingFanSound) == 1)
 			audio_sound_gain(loopingFanSound, 0, 500)
 			
-		if (audio_is_playing(shootSound))
-			audio_sound_gain(shootSound, 0, 100)
+		if (audio_exists(shootSoundInstance) and audio_is_playing(shootSoundInstance))
+			audio_sound_gain(shootSoundInstance, 0, 100)
 			
 		if (audio_is_playing(loopingFanSound))
 			audio_sound_pitch(loopingFanSound, audio_sound_get_pitch(loopingFanSound)-.05)

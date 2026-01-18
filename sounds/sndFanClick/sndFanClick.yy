@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndFanClick.ogg",
   "type":0,
-  "volume":0.51,
+  "volume":0.56,
 }

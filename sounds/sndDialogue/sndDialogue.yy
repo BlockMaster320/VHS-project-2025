@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndFanBlast",
+  "%Name":"sndDialogue",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":4.9243765,
-  "name":"sndFanBlast",
+  "duration":0.33814058,
+  "name":"sndDialogue",
   "parent":{
-    "name":"Weapons",
-    "path":"folders/Sound/Weapons.yy",
+    "name":"Characters",
+    "path":"folders/Sound/Characters.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndFanBlast.ogg",
+  "soundFile":"sndDialogue.ogg",
   "type":0,
-  "volume":0.59,
+  "volume":0.77,
 }
