@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndSubwayAmbiance",
+  "%Name":"sndEscalator",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":44.450115,
-  "name":"sndSubwayAmbiance",
+  "duration":17.37517,
+  "name":"sndEscalator",
   "parent":{
     "name":"Ambiance",
     "path":"folders/Sound/Ambiance.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndSubwayAmbiance.ogg",
+  "soundFile":"sndEscalator.ogg",
   "type":0,
-  "volume":0.17,
+  "volume":1.0,
 }

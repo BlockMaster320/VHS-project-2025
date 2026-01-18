@@ -5,6 +5,7 @@ function Input()
 	left = 0
 	right = 0
 	primaryButton = 0
+	primaryButtonPress = 0
 	secondaryButton = 0	
 	scrollSlot = 0
 	swapSlot = 0
@@ -38,9 +39,12 @@ function Input()
 			right = keyboard_check(vk_right) or keyboard_check(ord("D")) or gamepad_button_check(0,gp_padr)
 			
 			// Weapon usage
-			primaryButton = mouse_check_button(mb_left)
-			primaryButtonPress = mouse_check_button_pressed(mb_left)
-			secondaryButton = mouse_check_button(mb_right)
+			if (room != rmLobby)
+			{
+				primaryButton = mouse_check_button(mb_left)
+				primaryButtonPress = mouse_check_button_pressed(mb_left)
+				secondaryButton = mouse_check_button(mb_right)
+			}
 	
 			// Weapon slots
 			//for (var i = 1; i <= inventorySize; i++)
