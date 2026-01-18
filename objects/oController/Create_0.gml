@@ -43,9 +43,18 @@ guiUpscaledSurf = -1
 updateUpscaleFactor()
 surfaceDrawPositionX = 0
 surfaceDrawPositionY = 0
+fullscreenPrev = window_get_fullscreen()
+appWindowXprev = window_get_x()
+appWindowYprev = window_get_y()
 
 // Set default window scale to nice multiple
 //window_set_size(cameraW * 3, cameraH * 3)
+
+// Music ----------------------------------------------
+#macro actionMusicFightGain 1
+#macro actionMusicRestGain .3
+actionMusic = audio_play_sound(sndActionMusic, 0, true, 0)
+audio_pause_sound(actionMusic)
 
 // Particle systems ----------------------------
 walkDustSys = part_system_create()

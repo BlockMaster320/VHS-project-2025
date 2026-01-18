@@ -144,6 +144,9 @@ function explosiveDestroy()
 	explosion.image_yscale = explosion.scale * explosion.yScaleMult
 	oCamera.currentShakeAmount += 25
 	
+	var pitch = random_range(.7, 1.5)
+	audio_play_sound(sndGarbageExplosion, 0, false, 1, 0, pitch)
+	
 	instance_destroy()
 }
 

@@ -21,6 +21,12 @@ function acquireWeapon(weapon, owner, active_ = true, remDurability_=-1)
 		proj.ownerID = owner
 		proj.srcWeapon = newWeapon
 		
+		if (proj.sprite == sPlayerProjectile and proj.ownerID.object_index != oPlayer)
+		{
+			proj.sprite = sEnemyProjectile
+			proj.color = enemyProjectileCol
+		}
+		
 		proj = proj.projectileChild
 	}
 	
@@ -115,12 +121,18 @@ function weaponPlayerUpdateLogic()
 		{
 			if (other.oneTimeUse)
 			{
+				tempWeaponSlot.destroy()
 				tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false)
 				weaponInventory[activeInventorySlot].active = true
 			}
-			else weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
+			else
+			{
+				weaponInventory[other.playerInventorySlot].destroy()
+				weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
+			}
 			
 			ignoreInputBuffer.reset()
+			EvaluateWeaponBuffs()
 		}
 	}
 	
@@ -133,11 +145,15 @@ function weaponPlayerUpdateLogic()
 		oPlayer.ignoreInputBuffer.value--
 		
 	// Reloading
-	if ((oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0)
+	if ( !reloading and	
+	   ( (oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0))
 	{
 		reloading = true
 		holdingTrigger = false
 		magazineAmmo = 0
+		
+		var reloadSound = audio_play_sound(sndReload, 0, false, 1)
+		audio_sound_gain(reloadSound, 0, reloadTime * 1000 + 200)
 	}
 }
 
@@ -177,7 +193,7 @@ function genericWeaponShoot()
 	var gain = 1
 	var pitch = random_range(.7, 1.6)
 	if (projectile.ownerID != oPlayer) gain = .3
-	audio_play_sound(shootSound, 0, false,1 ,0 , pitch)
+	audio_play_sound(shootSound, 0, false, 1 ,0 , pitch)
 }
 
 // Calculate durability, reduce ammo from magazine
@@ -188,7 +204,7 @@ function evaluateWeaponShoot()
 	var effectiveAttackSpeed = clamp(attackSpeed, .7, 5)	// To punish high attack speed with more durability damage
 	if (oneTimeUse) remainingDurability = 0
 	else remainingDurability -= durabilityMult / (effectiveAttackSpeed * durabilityInSeconds)
-	if (magazineAmmo > 0) magazineAmmo--
+	if (magazineAmmo > 0) magazineAmmo = max(magazineAmmo - 1, 0)
 }
 
 function genericWeaponUpdate()
@@ -241,11 +257,6 @@ function fanUpdate()
 	
 	var ownerIsPlayer = projectile.ownerID.object_index == oPlayer
 	
-	with (projectile)
-	{
-		attackSpeed = other.attackSpeed	// Cruel hack (to make buffs work)
-	}
-	
 	if (ownerIsPlayer)
 		weaponPlayerUpdateLogic()
 		
@@ -257,7 +268,7 @@ function fanUpdate()
 	if (active and holdingTrigger and (magazineAmmo > 0 or magazineAmmo == -1))
 	{
 		primaryAction()
-		if (holdingTriggerPrev == false)
+		if (holdingTriggerPrev == false or !audio_is_playing(loopingFanSound))
 		{
 			audio_play_sound(shootSound, 0, false, 1)
 			audio_sound_gain(shootSound, 1, 0)
@@ -269,7 +280,7 @@ function fanUpdate()
 		}
 	
 		remainingDurability -= durabilityMult / (oController.gameFPS * durabilityInSeconds)
-		if (magazineAmmo > 0) magazineAmmo -= global.gameSpeed
+		if (magazineAmmo > 0) magazineAmmo = max(magazineAmmo - global.gameSpeed, 0)
 	}
 	else if (audio_exists(loopingFanSound))
 	{
@@ -314,29 +325,51 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 	weaponPostDraw()
 }
 
-function drawReloadState(weapon)
+//function drawReloadState(weapon)
+//{
+//	if (weapon != -1)
+//	{
+//		drawReloadState(weapon, x, y, .5)
+//	}
+//}
+
+function drawReloadState(weapon, xx=x, yy=y, magazineStateAlpha=0)
 {
-	if (weapon != -1 and
-	( ((weapon.magazineSize != -1) and weapon.reloading) or
-	  ( weapon.magazineSize == -1 and weapon.primaryActionCooldown > 0)
-	))
+	if (weapon == -1) return
+	
+	var w = .1
+	var yOff = 13
+
+	var left = xx - 10
+	var right = xx + 10
+	var top = yy + yOff
+	var bott = yy + yOff + w
+
+	var reloadFac = 0
+	
+	if ((weapon.magazineSize != -1) and weapon.reloading) or
+		(weapon.magazineSize == -1 and weapon.primaryActionCooldown > 0)
 	{
-		var w = .1
-		var yOff = 13
-
-		var left = x - 10
-		var right = x + 10
-		var top = y + yOff
-		var bott = y + yOff + w
-
-		draw_rectangle(left, top, right, bott, false)
-
-		var reloadFac = weapon.primaryActionCooldown / (60 / weapon.attackSpeed)
+		reloadFac = weapon.primaryActionCooldown / (60 / weapon.attackSpeed)
 		if (weapon.magazineSize != -1)
 			reloadFac = 1 - (weapon.reloadProgress / (weapon.reloadTime * 60))
-		var sliderX = lerp(right, left, reloadFac)
-		var h = 4
-	
-		draw_rectangle(sliderX - w/2, top - h/2, sliderX + w/2, bott + h/2, false)
 	}
+	else if (magazineStateAlpha != 0 and weapon.magazineSize != -1)
+	{
+		reloadFac = weapon.magazineAmmo / weapon.magazineSize
+		reloadFac = 1 - reloadFac
+		
+		draw_set_alpha(magazineStateAlpha)
+	}
+	else return;
+	
+	// Horizontal bar
+	draw_rectangle(left, top, right, bott, false)
+	
+	// Vertical progress bar
+	var h = 4
+	var sliderX = lerp(right, left, reloadFac)
+	draw_rectangle(sliderX - w/2, top - h/2, sliderX + w/2, bott + h/2, false)
+	
+	draw_set_alpha(1)
 }

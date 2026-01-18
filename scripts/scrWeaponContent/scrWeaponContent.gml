@@ -11,6 +11,9 @@ enum PROJECTILE_TYPE
 
 #macro durabilityInSeconds 10	// By default, the weapon is durable of this
 								//	amount of seconds of non-stop shooting
+								
+#macro enemyProjectileCol #D8362B
+#macro playerProjectileCol #FFD665
 
 function WeaponsInit()
 {
@@ -42,8 +45,8 @@ function WeaponsInit()
 	{
 		// Generic attributes
 		sprite = sPlaceholderGun
-		name = "Some generic weapon"
-		description = "This weapon is a weapon"
+		name = "Shotgun"
+		description = "PPPeeewww"
 	
 		// Modifiable attributes
 		attackSpeed = 2			// shots/damage amount per second
@@ -68,7 +71,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sPlayerProjectile
-			color = #FFD665
+			color = playerProjectileCol
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
@@ -91,8 +94,8 @@ function WeaponsInit()
 	{
 		// Generic attributes
 		sprite = sFists
-		name = "Probably fists"
-		description = "We will see"
+		name = "Fists"
+		description = "Dont' talk about it..."
 	
 		// Modifiable attributes
 		projectile = noone
@@ -143,7 +146,7 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 1.5			// shots/damage amount per second
+		attackSpeed = 1.8			// shots/damage amount per second
 		spread = 10				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false
@@ -153,7 +156,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 35
+			damage = 40
 			projectileSpeed = 3
 			targetKnockback = 10
 			effects = []
@@ -363,7 +366,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sEnemyProjectile
-			color = #D8362B
+			color = enemyProjectileCol
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
@@ -389,11 +392,12 @@ function WeaponsInit()
 		name = "Garbage"
 		description = "This weapon is garbage"
 		durabilityMult = 1
+		shootSound = sndGarbageThrow
 	
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 1			// shots/damage amount per second
-		spread = 5				// weapon accuracy in degrees
+		spread = 8				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		oneTimeUse = true
 		

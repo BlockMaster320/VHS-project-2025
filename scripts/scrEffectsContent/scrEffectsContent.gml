@@ -25,9 +25,10 @@ function createEffect(effectType_, source_=noone)
 				}
 				
 				// The projectile will likely be destroyed, save important variables
-				attackSpeed = source.attackSpeed
+				attackSpeed = source.srcWeapon.attackSpeed
 				damage = source.damage
 				damageMultiplier = source.damageMultiplier
+				projectileAmount = source.srcWeapon.projectileAmount
 				
 				durationDef = 1 / attackSpeed
 				duration = durationDef
@@ -39,7 +40,7 @@ function createEffect(effectType_, source_=noone)
 					duration -= 1/60 * global.gameSpeed
 					if (applyCounter <= .00001)
 					{
-						DealDamage(character, damage*damageMultiplier)
+						DealDamage(character, damage*damageMultiplier*projectileAmount)
 						applyCounter = applyDurDef
 					}
 					else applyCounter -= 1/60 * global.gameSpeed

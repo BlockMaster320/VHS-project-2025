@@ -1,1 +1,0 @@
-setupBuffPickupRarity(RARITY.common)

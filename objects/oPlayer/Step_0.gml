@@ -18,10 +18,10 @@ event_inherited()
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
 	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
-	swapSlot(newSlot)
+	SwapSlot(newSlot)
 }
 	
-function swapSlot(newSlot)
+function SwapSlot(newSlot)
 {
 	weaponInventory[activeInventorySlot].active = false
 	activeInventorySlot = clamp(newSlot, 0, inventorySize)
@@ -35,6 +35,9 @@ if (oController.interact)
 	var weaponPickup = instanceInRange(oWeaponPickup, PICKUP_DISTANCE)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
+		var pitch = random_range(.7, 1.6)
+		audio_play_sound(sndPickup, 0, false, 1, 0, pitch)
+		
 		if (weaponPickup.myWeapon.oneTimeUse)	// One time use weapons
 		{
 			// Deactivate current slot

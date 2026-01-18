@@ -124,5 +124,8 @@ function updateUpscaleFactor()
 	if (surface_exists(guiUpscaledSurf)) surface_free(guiUpscaledSurf)
 	guiUpscaledSurf = surface_create(cameraW * upscaleMult, cameraH * upscaleMult)
 	
+	// Buff pickups cache drawing constants, recalculate them
+	with (oBuffPickup) { setupDrawing() }
+	
 	show_debug_message($"Resized application surface to {cameraW * oController.upscaleMult}x{cameraH * oController.upscaleMult}")
 }

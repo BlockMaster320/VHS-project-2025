@@ -27,9 +27,9 @@ function dropperAiInit()
 	// Shoot
 	shootAiInit()
 	
+	inactiveThreshold = new Range(100, 100)	// Windup frames	
 	if (projType == PROJECTILE_TYPE.melee)
 	{
-		inactiveThreshold = new Range(100, 100)	// Windup frames	
 		shootingWalkSpd = 0
 	}
 			
@@ -61,11 +61,19 @@ function dropperAiUpdate()
 						
 			case AI_STATE.shoot:
 				shootAiTransition()
-				if (shootingDuration >= 2)
+				if (shootingDuration >= 60)
 				{
 					walkSpd = 0
 					myWeapon.holdingTrigger = false
 					state = AI_STATE.rest
+				}
+				else if (shootingDuration >= 2)
+				{
+					if (!myWeapon.shootOnHold)
+					{
+						myWeapon.holdingTrigger = false
+						state = AI_STATE.rest
+					}
 				}
 				break
 						
