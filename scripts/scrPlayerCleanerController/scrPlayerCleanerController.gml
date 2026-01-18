@@ -21,7 +21,7 @@ function PlayerCleanerController(
 		portrait = sStudentPortrait;
 			
 		// Graphics
-		sprite_index = sCharacters;
+		drawnSprite = sCharacters;
 		characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner1);
 		anim = characterAnimation.getAnimation;
 		

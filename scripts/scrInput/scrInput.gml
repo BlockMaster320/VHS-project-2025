@@ -79,4 +79,5 @@ function Input()
 	}
 
 	pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
+	fullscreenButton = keyboard_check_pressed(vk_f11)
 }

@@ -47,6 +47,7 @@ function DeathScene(_deadCharacter) {
 		new TweenSequence([
 			new TweenAction(function() {
 				audio_sound_gain(oController.actionMusic, 0, 0)
+				audio_sound_gain(oController.subwayAmbiance, 0, 0)
 			}),
 			// start cinema borders
 			getCinemaBorders().Set(CinemaBordersState.CINEMA).GetTween(),

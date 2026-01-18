@@ -80,6 +80,9 @@ questNPC = CHARACTER_TYPE.student
 
 prevRoom = rmLobby
 
+//
+instance_create_layer(0,0,"Instances", oPlayer)
+
 // Custscenes
 introCutscene = true
 IntroScene()

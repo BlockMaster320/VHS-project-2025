@@ -107,8 +107,12 @@ function EvaluatePlayerBuffs()
 {
 	with (oPlayer)
 	{
+		var prevHP = hp
+		
 		// Reset to default stats
 		InitPlayerStats()
+		
+		hp = prevHP
 		
 		// Apply buffs
 		for (var j = 0; j < array_length(buffs); j++)

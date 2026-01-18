@@ -33,8 +33,10 @@ function IntroScene() {
 									new DialogueLine("Uhh...", [], [1]),
 									new DialogueLine("Wait...", [], [2]),
 									new DialogueLine("THE CLONING TECHNIQUES EXAM IS IN 2 HOURS", [], [3]),
-									new DialogueLine("Welp, let's hope those manifesting classes pay off today.", [], [4]),
-									new DialogueLine("Surely more than four people will pass this time.", [], []),
+									new DialogueLine("Welp", [], [4]),
+									new DialogueLine("Let's hope those manifesting classes pay off today.", [], [5]),
+									new DialogueLine("Surely more than four people will pass this time.", [], [6]),
+									new DialogueLine("Time to go.", [], []),
 								]),
 								DO {
 									global.inputState = INPUT_STATE.cutscene

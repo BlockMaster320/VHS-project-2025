@@ -11,13 +11,13 @@ if (hitFlashCooldown.value > 0)
 {
 	shader_set(shHitFlash)
 		shader_set_uniform_f(flashFacLoc, flashFac)
-		draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
+		draw_sprite_ext(drawnSprite, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
 	shader_reset()
 	
 	flashFac = lerp(flashFac, 1, flashFacMixFac)
 	hitFlashCooldown.value -= global.gameSpeed
 }
-else draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
+else draw_sprite_ext(drawnSprite, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
 
 if (inRange)
 	draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 10, "[E]")

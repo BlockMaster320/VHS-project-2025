@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndOpeningAmbiance.ogg",
   "type":0,
-  "volume":0.45,
+  "volume":0.22,
 }

@@ -75,9 +75,13 @@ if (oController.interact)
 			array_insert(buffs, 0, buffPickup.myBuff)
 		else
 			array_push(buffs, buffPickup.myBuff)
-		EvaluatePlayerBuffs()	// Order here might matter!
+			
+		oCamera.currentShakeAmount += 15
+			
+		EvaluatePlayerBuffs()	// Order matters here!
 		EvaluateWeaponBuffs()
 		EvaluateOneTimeUseBuffs()
+		
 		instance_destroy(buffPickup)
 	}
 }
