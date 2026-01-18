@@ -1,4 +1,5 @@
 if (!talking) {
+	if (!instance_exists(oPlayer)) exit
 	if (instance_exists(closest_NPC)){
 		closest_NPC.inRange = false
 	}

@@ -28,3 +28,9 @@ startDialogue = function(_characterType, _onComplete = function() {}) {
 	onComplete = _onComplete
 	StartDlg(_characterType)	
 }
+
+startDialogueEx = function(_dialogue, _onComplete = function() {}) {
+	debug("Starting custom dialogue")
+	onComplete = _onComplete
+	StartDlgEx(_dialogue)	
+}

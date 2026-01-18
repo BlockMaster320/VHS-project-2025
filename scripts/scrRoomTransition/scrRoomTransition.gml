@@ -5,13 +5,27 @@
  * @param {Asset.GMRoom} _room - Room target to transition
  */
 function RoomTransition(_room){
+	debug("Calling RoomTransition(" + string(_room) + ") ...")
 	nextRoom = _room
 	global.inputState = INPUT_STATE.cutscene
-	oCinemaBorders.cinema.Set(CinemaBordersState.WHOLE, function() {
-		if (SHOW_DEBUG) show_debug_message("Moving to " + string(nextRoom))
+	
+	if (getCinemaBorders().currentHeight == CinemaBordersState.WHOLE) {
+		debug("Moving to " + string(nextRoom))
 		oController.prevRoom = room
 		room_goto(nextRoom);
-		oCinemaBorders.cinema.Set(CinemaBordersState.NONE).Start()
+		debug("Starting opening borders...")
+		getCinemaBorders().Set(CinemaBordersState.NONE).Start()
+		global.inputState = INPUT_STATE.playing
+		return	
+	}
+	
+	debug("Starting closing borders...")
+	getCinemaBorders().Set(CinemaBordersState.WHOLE, function() {
+		debug("Moving to " + string(nextRoom))
+		oController.prevRoom = room
+		room_goto(nextRoom);
+		debug("Starting opening borders...")
+		getCinemaBorders().Set(CinemaBordersState.NONE).Start()
 		global.inputState = INPUT_STATE.playing
 	}).Start();
 }

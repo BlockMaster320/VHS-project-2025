@@ -1,8 +1,15 @@
+function getCinemaBorders() {
+    if (!variable_global_exists("__CinemaBorders") || is_undefined(global.__CinemaBorders)) {
+        global.__CinemaBorders = new CinemaBorders()
+    }
+    return global.__CinemaBorders;
+}
+
 /// @struct	CinemaBorders
 /// @desc Helper struct which wraps current state of cut scene borders. Provide helper functions for hide and show animations.
 /// @param {real} [_duration] [1500] - Duration of animation for hiding/showing borders
 /// @param {real} [_currentHeightState] [CinemaBordersState.NONE] - If undefined, _hiddenHeight is provided.
-function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NONE) constructor {
+function CinemaBorders(_duration=1000, _currentHeightState=CinemaBordersState.NONE) constructor {
 	static name			= "CinemaBorders"
 	if (SHOW_DEBUG) show_debug_message(name + " is being created.")
 
@@ -23,7 +30,7 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 	
 	/// @function	Set()
 	/// @desc Method which sets target animation and on complete callback when finished.
-	/// @param {CinemaBordersState} _target - Target state of cienma for animation.
+	/// @param {Enum.CinemaBordersState} _target - Target state of cienma for animation.
 	/// @param {function} _onComplete - Callback which is triggered when showing ends.
 	/// @return {struct.CinemaBorders}
 	Set = function(_target, _onComplete = function() {}) {
@@ -40,10 +47,21 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 		return self
 	}
 	
+	/// @function	SetInstantly()
+	/// @desc Method which sets instantly state of the cinema borders.
+	/// @param {Enum.CinemaBordersState} _target - Instant state (height) of cienma.
+	/// @return {struct.CinemaBorders}
+	SetInstantly = function(_target) {
+		debug("CinemaBorders: set instantly target " + string(_target))
+		target = _target
+		currentHeight = _target
+		return self
+	}
+	
 	/// @function	Start()
 	/// @desc Start method which tries to run current tween if defined and not started.
 	Start = function() {
-		if (tween.progress == Progress.NOT_STARTED && !is_undefined(tween)) tween.start()
+		if (!is_undefined(tween) && tween.progress == Progress.NOT_STARTED) tween.start()
 	}
 	
 	/// @function	GetTween()
@@ -74,6 +92,10 @@ function CinemaBorders(_duration=1500, _currentHeightState=CinemaBordersState.NO
 	
 	State = function() {
 		return is_undefined(tween) ? Progress.FINISHED : tween.progress
+	}
+	
+	GetState = function() {
+		return {target: target, animationState: self.State()}
 	}
 	
 	enum CinemaBordersState {
