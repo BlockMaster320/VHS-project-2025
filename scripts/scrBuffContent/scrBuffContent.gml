@@ -11,7 +11,7 @@ enum BUFF_TARGET
 enum BUFF
 {
 	// Common
-	blast, precision, rapidFire, cloner, meleeKnockback, noKnockback, sonicSpeed, aderral,
+	blast, precision, rapidFire, cloner, sonicSpeed, aderral,
 	inventorySizeIncrease, fatBullets, hotReload, burn,
 	commonIndex,	// Dummy buff for rarity indexing
 
@@ -20,7 +20,9 @@ enum BUFF
 	rareIndex,	// Dummy buff for rarity indexing
 	
 	// --------------
-	length
+	length,
+	
+	meleeKnockback, noKnockback	// Unused for now
 }
 
 function toPercent(val)
@@ -46,13 +48,13 @@ function BuffCreate(buffType_)
 			case BUFF.blast:
 			
 				rarity = RARITY.common
-				dmgMultRange = new Range(2, 2.5)
-				attackSpdMultRange = new Range(.4, .6)
+				dmgMultRange = new Range(2, 2)
+				attackSpdMultRange = new Range(.7, .8)
 		
 				dmgMultRange.rndmize()
 				attackSpdMultRange.rndmize()
 				descriptionBuff = $"{round(dmgMultRange.value*100)}% damage"
-				descriptionDebuff = $"{round(attackSpdMultRange.value*100)}% attack speed"
+				descriptionDebuff = $"-1 inventory slot\n{round(attackSpdMultRange.value*100)}% attack speed"
 				
 				weaponBuffApply = function(weapon)
 				{
@@ -63,7 +65,18 @@ function BuffCreate(buffType_)
 				{
 					proj.damageMultiplier *= dmgMultRange.value
 				}
-			
+				
+				characterBuffApply = function(player)
+				{
+					var prevSize = player.inventorySize
+					if (prevSize > 0)
+					{
+						player.inventorySize--
+						if (player.activeInventorySlot == prevSize-1)
+							player.SwapSlot(player.inventorySize-1)
+					}
+				}
+				
 				break
 				
 				
@@ -96,7 +109,7 @@ function BuffCreate(buffType_)
 				rarity = RARITY.common
 							
 				newStats = [ new Range(2.5, 3),		// + attack speed %
-							 new Range(1.8, 2) ]	// - accuracy
+							 new Range(2.5, 3.) ]	// - accuracy
 		
 				descriptionBuff = $"{round(newStats[0].value*100)}% attack speed"
 				descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
@@ -114,12 +127,12 @@ function BuffCreate(buffType_)
 				
 				rarity = RARITY.common
 				
-				newStats = [ new iRange(3, 3), 		// + projectile amount
-							 new Range(1.2, 1.2) ]	// - more spread
-													// - inventory slot
+				newStats = [ new iRange(2, 2), 		// + projectile amount
+							 new Range(1.5, 2.),	// - more spread
+							 new Range(.7, .7) ]	// - less % dmg
 												
 				descriptionBuff = $"{newStats[0].value}x projectile amount"
-				descriptionDebuff = $"-1 inventory slot\n{toPercent(1/newStats[1].value)}% accuracy"
+				descriptionDebuff = $"{toPercent(newStats[2].value)}% damage\n{toPercent(1/newStats[1].value)}% accuracy"
 				
 				weaponBuffApply = function(weapon)
 				{
@@ -127,15 +140,9 @@ function BuffCreate(buffType_)
 					weapon.spread *= newStats[1].value
 				}
 				
-				characterBuffApply = function(player)
+				projectileBuffApply = function(proj)
 				{
-					var prevSize = player.inventorySize
-					if (prevSize > 0)
-					{
-						player.inventorySize--
-						if (player.activeInventorySlot == prevSize-1)
-							player.SwapSlot(player.inventorySize-1)
-					}
+					proj.damageMultiplier *= newStats[2].value
 				}
 				
 				break
@@ -197,7 +204,7 @@ function BuffCreate(buffType_)
 				rarity = RARITY.common
 							
 				newStats = [ new Range(30, 30),		// + flat damage
-							 new Range(1.3, 1.3) ]	// + game speed
+							 new Range(1.4, 1.4) ]	// + game speed
 		
 				descriptionBuff = $"+{newStats[0].value} damage flat"
 				descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"	
