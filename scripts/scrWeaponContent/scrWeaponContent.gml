@@ -392,6 +392,7 @@ function WeaponsInit()
 		name = "Garbage"
 		description = "This weapon is garbage"
 		durabilityMult = 1
+		shootSound = sndGarbageThrow
 	
 		// Modifiable attributes
 		projectile = noone

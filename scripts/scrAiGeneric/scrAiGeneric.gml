@@ -274,6 +274,10 @@ function shootAiSetupState()
 	lookDir = lookDirTarget
 	myWeapon.aimDirection = lookDir
 	
+	var pitch = random_range(.7, 1.5)
+	var windup = audio_play_sound(sndWindup, 0, false, 1, 0, pitch)
+	audio_sound_gain(windup, 0, inactiveThreshold.value / 60 * 1000 + 200)
+	
 	if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
 		aimingAtPlayer = false
 }

@@ -235,7 +235,7 @@ function BuffCreate(buffType_)
 						inventorySize++
 						if (array_length(weaponInventory) < inventorySize)
 						{
-							weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id)
+							weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id, false)
 						}
 						if (inventorySize == 1) weaponInventory[activeInventorySlot].active = true
 					}

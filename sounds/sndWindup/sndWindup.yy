@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndShoot",
+  "%Name":"sndWindup",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.25004536,
-  "name":"sndShoot",
+  "duration":4.0870976,
+  "name":"sndWindup",
   "parent":{
-    "name":"Weapons",
-    "path":"folders/Sound/Weapons.yy",
+    "name":"Characters",
+    "path":"folders/Sound/Characters.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndShoot.ogg",
+  "soundFile":"sndWindup.ogg",
   "type":0,
-  "volume":0.66,
+  "volume":0.37,
 }

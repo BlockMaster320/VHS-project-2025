@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndShoot",
+  "%Name":"sndGarbageThrow",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.25004536,
-  "name":"sndShoot",
+  "duration":0.4138322,
+  "name":"sndGarbageThrow",
   "parent":{
     "name":"Weapons",
     "path":"folders/Sound/Weapons.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndShoot.ogg",
+  "soundFile":"sndGarbageThrow.ogg",
   "type":0,
-  "volume":0.66,
+  "volume":0.61,
 }
