@@ -22,7 +22,7 @@ global.inputState = INPUT_STATE.playing
 WeaponsInit()
 buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 
-show_debug_overlay(true)
+//show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
 
@@ -54,7 +54,7 @@ appWindowYprev = window_get_y()
 
 // Music
 #macro actionMusicFightGain 1
-#macro actionMusicRestGain .3
+#macro actionMusicRestGain .4
 actionMusic = audio_play_sound(sndActionMusic, 0, true, 0)
 audio_pause_sound(actionMusic)
 
@@ -75,6 +75,11 @@ part_type_alpha2(walkDust, .5, 0)
 //part_type_gravity(walkDust,.002,90)
 part_type_sprite(walkDust,sDust,false,false,true)
 
+// Highlight if there is a new interaction
+questNPC = CHARACTER_TYPE.student
 
 prevRoom = rmLobby
+
+// Custscenes
+introCutscene = true
 IntroScene()

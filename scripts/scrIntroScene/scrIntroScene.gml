@@ -10,6 +10,7 @@ function IntroScene() {
 			audio_sound_gain(oController.openingAmbiance, 0, 0)
 			audio_resume_sound(oController.openingAmbiance)
 			audio_sound_gain(oController.openingAmbiance, 1, 5000)
+			global.inputState = INPUT_STATE.dialogue
 		}),
 		TweenWait(3000),
 		new TweenAction(function() {
@@ -22,6 +23,7 @@ function IntroScene() {
 					new DialogueLine("...", [], []),
 				]),
 				DO {
+					global.inputState = INPUT_STATE.cutscene
 					new TweenSequence([
 						
 						TweenWait(2000),
@@ -35,8 +37,9 @@ function IntroScene() {
 									new DialogueLine("Surely more than four people will pass this time.", [], []),
 								]),
 								DO {
-									getCinemaBorders().SetInstantly(CinemaBordersState.WHOLE)
-									audio_sound_gain(oController.openingAmbiance, 0, 2000)
+									global.inputState = INPUT_STATE.cutscene
+									audio_sound_gain(oController.openingAmbiance, 0, 1000)
+									
 									RoomTransition(rmLobby)
 								}
 							)

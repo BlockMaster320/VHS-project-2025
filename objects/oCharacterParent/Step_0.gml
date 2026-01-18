@@ -140,9 +140,19 @@ if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
 	
 	var sound = choose(sndFootstep1, sndFootstep2, sndFootstep3, sndFootstep4, sndFootstep5, sndFootstep6)
 	var gain = .3
-	if (object_index != oPlayer) gain *= .2
+	if (object_index != oPlayer)
+	{
+		gain *= .4
+		
+		var playerDist = point_distance(x, y, oPlayer.x, oPlayer.y)
+		var maxDist = 300
+		var volume = 1 - power(playerDist / maxDist, 2)
+		volume = clamp(volume, 0, 1)
+		gain *= volume
+	}
 	var pitch = random_range(.7, 1.7)
 	audio_play_sound(sound, 0, false, gain, 0, pitch)
+	//show_debug_message(gain)
 }
 
 if (x != xprevious or y != yprevious)

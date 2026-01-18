@@ -18,7 +18,7 @@ function PlayerCleanerController(
 		
 		// Dialog
 		name = "Player cleaner";
-		portrait = sNPCPortrait;
+		portrait = sStudentPortrait;
 			
 		// Graphics
 		sprite_index = sCharacters;

@@ -37,7 +37,7 @@ function DialogueSystem() constructor
 										new DialogueLine("Man, I failed it twice already and I was about to fail it again...", [], [3]),
 										new DialogueLine("but I guess those manifesting classes finally paid off.", ["What do you mean?"], [4]),
 										new DialogueLine("The metro is stuck or something, idk.", [], [5]),
-										new DialogueLine("Ask the guy in yellow, I'm going home.", [], [6]),
+										new DialogueLine("Ask the tech guy with a mustache, I'm going home.", [], [6]),
 										new DialogueLine("Silver league's calling, I can feel it!", [], [])
 									])])
 									

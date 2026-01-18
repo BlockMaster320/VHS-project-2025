@@ -1,6 +1,6 @@
 draw_self()
 
-var alpha = instanceInRange(oPlayer, PICKUP_DISTANCE) ? 1 : .5
+var alpha = instanceInRange(oPlayer, PICKUP_DISTANCE) ? 1 : .2
 draw_set_alpha(alpha)
 draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 15, "[E]")
 draw_set_alpha(1)

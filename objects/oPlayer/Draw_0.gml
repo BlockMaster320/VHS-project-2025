@@ -49,7 +49,7 @@ if (activeWeapon != -1)
 
 
 // UI --------------------------------------------------------
-if (room == rmLobby) return;
+if (room == rmLobby or room == rmMenu) return;
 
 if (global.inputState != INPUT_STATE.dialogue)
 {

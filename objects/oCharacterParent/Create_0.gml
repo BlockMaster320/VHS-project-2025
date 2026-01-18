@@ -44,7 +44,7 @@ function hitFlash()
 characterType = noone;
 characterClass = noone;
 name = "";
-portrait = sNPCPortrait;
+portrait = sStudentPortrait;
 myWeapon = noone	// Non-player only
 harmed_duration = 0;
 dir = 1;

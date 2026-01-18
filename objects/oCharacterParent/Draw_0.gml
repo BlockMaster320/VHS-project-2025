@@ -19,8 +19,15 @@ if (hitFlashCooldown.value > 0)
 }
 else draw_sprite_ext(sprite_index, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
 
-if (inRange){
-	draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 15, "[E]")
+if (inRange)
+	draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 10, "[E]")
+else if (characterType == oController.questNPC)
+{
+	var questAlpha = sin((current_time*2*pi)/2000)*.25+.75
+	var yOff = sin((current_time*2*pi)/1500) * 1.5
+	draw_set_alpha(questAlpha)
+	draw_sprite(sQuest, 0, roundPixelPos(x) , roundPixelPos(y - sprite_yoffset - 5 + yOff))
+	draw_set_alpha(1)
 }
 		
 // DRAW EVENT OF THE SPECIFIC CHARACTER --------------------

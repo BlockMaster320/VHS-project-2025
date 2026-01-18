@@ -206,7 +206,7 @@ function BuffCreate(buffType_)
 				newStats = [ new Range(30, 30),		// + flat damage
 							 new Range(1.4, 1.4) ]	// + game speed
 		
-				descriptionBuff = $"+{newStats[0].value} damage flat"
+				descriptionBuff = $"+{newStats[0].value} damage"
 				descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"	
 				
 				projectileBuffApply = function(proj)

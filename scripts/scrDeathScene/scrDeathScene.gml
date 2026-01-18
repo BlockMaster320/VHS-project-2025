@@ -45,8 +45,12 @@ function DeathScene(_deadCharacter) {
 	
 		global.inputState = INPUT_STATE.cutscene
 		new TweenSequence([
+			new TweenAction(function() {
+				audio_sound_gain(oController.actionMusic, 0, 0)
+			}),
 			// start cinema borders
 			getCinemaBorders().Set(CinemaBordersState.CINEMA).GetTween(),
+			TweenWait(500),
 			// animate cleaner to playerF
 			new TweenAction(function() {
 				cleaner.showCharacter.start()
