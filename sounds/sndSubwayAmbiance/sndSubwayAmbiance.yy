@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":128,
-  "compression":0,
+  "compression":2,
   "conversionMode":0,
   "duration":44.450115,
   "name":"sndSubwayAmbiance",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndSubwayAmbiance.ogg",
   "type":0,
-  "volume":0.17,
+  "volume":0.15,
 }
