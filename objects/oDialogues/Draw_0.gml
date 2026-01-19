@@ -26,15 +26,25 @@ safeDraw(function() {
 	var text = string_copy(current_line.text, 0, timer/2)
 	var textWidth = string_width(text)
 	var textHeight = string_height(text)
-
+	
+	// NPC
+	var drawNPC = !is_undefined(closest_NPC) && closest_NPC != noone
+	var portraitWidth = drawNPC ? sprite_get_width(closest_NPC.portrait) : 0
+	
+	// Adjust top if it's a multiline text and options
+	if (waiting_for_answer){
+		var textLines = (string_height_ext(text, textHeight, textboxWidth - portraitWidth) / textHeight) - 1
+		top -= textLines * 16
+	}
+	
 	draw_set_alpha(0.9)
 	draw_roundrect_colour_ext(left, top, right, bottom, 30, 30, c_black, c_black, false);
 	draw_set_alpha(1)
 	draw_set_color(c_white)
 	
-	draw_text_ext(left + PADDING_H, top + PADDING_V, text, textHeight, textboxWidth)
+	draw_text_ext(left + PADDING_H, top + PADDING_V, text, textHeight, textboxWidth - portraitWidth)
 	
-	if (!is_undefined(closest_NPC) && closest_NPC != noone) draw_sprite_ext(closest_NPC.portrait, 0, right - 64, top + 1, 1, 1, 0, -1, 1);
+	if (drawNPC) draw_sprite_ext(closest_NPC.portrait, 0, textboxRight - portraitWidth + 5, bottom - portraitWidth, 1, 1, 0, -1, 1);
 
 	surface_reset_target()
 })
