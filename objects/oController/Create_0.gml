@@ -36,6 +36,9 @@ pfGrid = undefined
 // Lighting -------------------------------------
 lightSurface = -1
 draw_set_circle_precision(32)
+texelSizeLoc = shader_get_uniform(shLightFilter, "texSize")
+lightTexW = -1
+lightTexH = -1
 timeLocLight = shader_get_uniform(shLightFilter, "time")
 safetyMargin = 10
 //timeLocShadow = shader_get_uniform(shShadowFilter, "time")

@@ -8,7 +8,12 @@ if (!surface_exists(guiUpscaledSurf))
 	guiUpscaledSurf = surface_create(cameraW * upscaleMult, cameraH * upscaleMult)
 	
 if (!surface_exists(lightSurface))
+{
 	lightSurface = surface_create(cameraW+safetyMargin*2, cameraH+safetyMargin*2)
+	var tex = surface_get_texture(lightSurface)
+	lightTexW = texture_get_texel_width(tex)
+	lightTexH = texture_get_texel_height(tex)
+}
 	
 
 surface_set_target(guiSurf)

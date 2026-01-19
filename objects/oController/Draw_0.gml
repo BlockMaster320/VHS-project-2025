@@ -9,8 +9,8 @@ var shadowLightAlpha = .8	// These shouldn't add up over one - that would cause 
 var overlayLightAlpha = .1
 var vignetteAlpha = .1
 var shadowCol = make_color_hsv(0,0,100)
-var shadowLightSize = 150 
-var overlayLightSize = 150
+var shadowLightSize = 120 
+var overlayLightSize = 120
 
 surface_set_target(lightSurface)
 
