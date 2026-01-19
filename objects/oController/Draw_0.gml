@@ -8,7 +8,7 @@ var camOffY = oCamera.y
 var shadowLightAlpha = .8	// These shouldn't add up over one - that would cause clipping
 var overlayLightAlpha = .1
 var vignetteAlpha = .1
-var shadowCol = make_color_hsv(0,0,150)
+var shadowCol = make_color_hsv(0,0,100)
 var shadowLightSize = 150 
 var overlayLightSize = 150
 

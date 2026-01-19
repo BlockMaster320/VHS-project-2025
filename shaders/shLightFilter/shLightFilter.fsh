@@ -15,7 +15,7 @@ void main()
 	//col.rgb = pow(col.rgb, vec3(2.2));
 	//col.rgb += .5;
 	col.rgb = 1.-col.rgb;
-	col.rgb *= .9;
+	col.rgb *= .8;
 	col.rgb = 1.-col.rgb;
 	col.rgb += vec3(rand((mod(time,999999.)) + v_vTexcoord.x * 10.123 + v_vTexcoord.y*3516.126)) * .07;
 	

@@ -22,7 +22,7 @@ global.inputState = INPUT_STATE.playing
 WeaponsInit()
 buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 
-//show_debug_overlay(true)
+show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
 
