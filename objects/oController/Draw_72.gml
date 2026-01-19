@@ -7,6 +7,9 @@ if (!surface_exists(guiSurf))
 if (!surface_exists(guiUpscaledSurf))
 	guiUpscaledSurf = surface_create(cameraW * upscaleMult, cameraH * upscaleMult)
 	
+if (!surface_exists(lightSurface))
+	lightSurface = surface_create(window_get_width(), window_get_height())
+	
 
 surface_set_target(guiSurf)
 draw_clear_alpha(0, 0)

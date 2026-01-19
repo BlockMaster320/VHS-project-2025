@@ -33,6 +33,12 @@ alarms = []	// Array of "Alarm" structs
 wallGrid = undefined
 pfGrid = undefined
 
+// Lighting -------------------------------------
+lightSurface = -1
+draw_set_circle_precision(32)
+timeLocLight = shader_get_uniform(shLightFilter, "time")
+//timeLocShadow = shader_get_uniform(shShadowFilter, "time")
+
 // Pixel art upscaling --------------------------------
 application_surface_draw_enable(false)
 upscaleMult = 4
@@ -46,9 +52,6 @@ surfaceDrawPositionY = 0
 fullscreenPrev = window_get_fullscreen()
 appWindowXprev = window_get_x()
 appWindowYprev = window_get_y()
-
-// Set default window scale to nice multiple
-//window_set_size(cameraW * 3, cameraH * 3)
 
 // Sound ----------------------------------------------
 
