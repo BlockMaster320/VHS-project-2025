@@ -13,7 +13,7 @@ interactionFunction = function() {
 	}
 	
 	audio_play_sound(sndPowerOn, 0, false)
-	oCamera.currentShakeAmount += 15
+	oCamera.currentShakeAmount += 10
 	global.powerOn = true
 }
 

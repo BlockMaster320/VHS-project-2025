@@ -127,6 +127,7 @@ function weaponPlayerUpdateLogic()
 			}
 			else
 			{
+				audio_play_sound(sndWeaponBreak, 0, false)
 				weaponInventory[other.playerInventorySlot].destroy()
 				weaponInventory[other.playerInventorySlot] = acquireWeapon(WEAPON.fists, id);
 			}

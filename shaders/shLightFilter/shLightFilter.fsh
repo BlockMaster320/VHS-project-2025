@@ -14,7 +14,10 @@ void main()
 	vec4 col = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
 	//col.rgb = pow(col.rgb, vec3(2.2));
 	//col.rgb += .5;
-	col.rgb += vec3(rand(time + v_vTexcoord.x * 10.123 + v_vTexcoord.y*3516.126)) * .07;
+	col.rgb = 1.-col.rgb;
+	col.rgb *= .9;
+	col.rgb = 1.-col.rgb;
+	col.rgb += vec3(rand((mod(time,999999.)) + v_vTexcoord.x * 10.123 + v_vTexcoord.y*3516.126)) * .07;
 	
 	//col.rgb *= vec3(1., .9, .8);
     gl_FragColor = col;

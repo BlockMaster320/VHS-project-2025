@@ -76,7 +76,8 @@ if (oController.interact)
 		else
 			array_push(buffs, buffPickup.myBuff)
 			
-		oCamera.currentShakeAmount += 15
+		oCamera.currentShakeAmount += 10
+		audio_play_sound(sndBuffPickup, 0, false)
 			
 		EvaluatePlayerBuffs()	// Order matters here!
 		EvaluateWeaponBuffs()

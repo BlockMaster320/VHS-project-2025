@@ -14,7 +14,7 @@ if (instance_exists(oCamera))
 	
 	shader_set(shLightFilter)
 		shader_set_uniform_f(timeLocLight, current_time)
-		draw_surface_ext(lightSurface, oCamera.x, oCamera.y, guiToCamera, guiToCamera, 0, c_white, 1)
+		draw_surface_ext(lightSurface, oCamera.x - safetyMargin, oCamera.y - safetyMargin, 1, 1, 0, c_white, 1)
 	shader_reset()
 	
 	gpu_set_blendmode(bm_normal)

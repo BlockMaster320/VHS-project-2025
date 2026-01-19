@@ -37,6 +37,7 @@ pfGrid = undefined
 lightSurface = -1
 draw_set_circle_precision(32)
 timeLocLight = shader_get_uniform(shLightFilter, "time")
+safetyMargin = 10
 //timeLocShadow = shader_get_uniform(shShadowFilter, "time")
 
 // Pixel art upscaling --------------------------------
@@ -84,7 +85,7 @@ questNPC = CHARACTER_TYPE.student
 prevRoom = rmLobby
 
 //
-instance_create_layer(0,0,"Instances", oPlayer)
+instance_create_layer(-50,-50,"Instances", oPlayer)
 
 // Custscenes
 introCutscene = true
