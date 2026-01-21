@@ -70,7 +70,7 @@ function createEffect(effectType_, source_=noone)
 					duration -= 1/60 * global.gameSpeed
 					if (applyCounter <= .00001)
 					{
-						DealDamage(character, 5)
+						DealDamage(character, 5, .3)
 						applyCounter = applyDurDef
 					}
 					else applyCounter -= 1/60 * global.gameSpeed

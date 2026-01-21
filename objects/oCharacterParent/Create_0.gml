@@ -44,7 +44,7 @@ function hitFlash()
 characterType = noone;
 characterClass = noone;
 name = "";
-portrait = sNPCPortrait;
+portrait = sStudentPortrait;
 myWeapon = noone	// Non-player only
 harmed_duration = 0;
 dir = 1;
@@ -55,7 +55,8 @@ inRange = false
 // animation control
 characterAnimation = noone;
 anim = noone;
-sprite_index = noone;
+sprite_index = noone;	// Used for hitbox
+drawnSprite = noone		// Used for drawing
 sprite_frame = 0;
 image_speed = 0.1;
 depth = -y;

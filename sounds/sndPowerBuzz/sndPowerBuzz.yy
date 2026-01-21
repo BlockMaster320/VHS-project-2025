@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sndPowerBuzz",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":2,
+  "conversionMode":0,
+  "duration":14.435442,
+  "name":"sndPowerBuzz",
+  "parent":{
+    "name":"Ambiance",
+    "path":"folders/Sound/Ambiance.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sndPowerBuzz.ogg",
+  "type":0,
+  "volume":0.69,
+}

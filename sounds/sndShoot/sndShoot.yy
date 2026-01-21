@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndShoot.ogg",
   "type":0,
-  "volume":0.66,
+  "volume":0.52,
 }

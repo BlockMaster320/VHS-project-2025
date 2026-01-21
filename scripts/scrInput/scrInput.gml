@@ -5,6 +5,7 @@ function Input()
 	left = 0
 	right = 0
 	primaryButton = 0
+	primaryButtonPress = 0
 	secondaryButton = 0	
 	scrollSlot = 0
 	swapSlot = 0
@@ -38,9 +39,12 @@ function Input()
 			right = keyboard_check(vk_right) or keyboard_check(ord("D")) or gamepad_button_check(0,gp_padr)
 			
 			// Weapon usage
-			primaryButton = mouse_check_button(mb_left)
-			primaryButtonPress = mouse_check_button_pressed(mb_left)
-			secondaryButton = mouse_check_button(mb_right)
+			if (room != rmLobby)
+			{
+				primaryButton = mouse_check_button(mb_left)
+				primaryButtonPress = mouse_check_button_pressed(mb_left)
+				secondaryButton = mouse_check_button(mb_right)
+			}
 	
 			// Weapon slots
 			//for (var i = 1; i <= inventorySize; i++)
@@ -68,15 +72,12 @@ function Input()
 			
 		case INPUT_STATE.dialogue:
 		
-			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left)
+			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left) or keyboard_check_pressed(vk_enter)
 			clicked = mouse_check_button_pressed(mb_left)
 			
-			break
-			
-		case INPUT_STATE.cutscene:
-		
 			break
 	}
 
 	pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
+	fullscreenButton = keyboard_check_pressed(vk_f11)
 }

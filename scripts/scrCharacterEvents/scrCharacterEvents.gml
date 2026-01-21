@@ -79,6 +79,7 @@ function getCharacterDrawEvent(_characterType) {
 
 
 function characterCreate(_characterType) {
+	
 	switch(_characterType) {
 		
 		// Player -----------------------------------------------------------
@@ -89,7 +90,7 @@ function characterCreate(_characterType) {
 			name = "Player";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sCharacters;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
 			anim = characterAnimation.getAnimation;
 			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
@@ -117,7 +118,7 @@ function characterCreate(_characterType) {
 			name = "Dummy Player";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sCharacters;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
 			anim = characterAnimation.getAnimation;
 			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
@@ -137,7 +138,7 @@ function characterCreate(_characterType) {
 			name = "Mechanic";
 			portrait = sMechanicPortrait;
 			
-			sprite_index = sCharacters;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			
@@ -151,7 +152,7 @@ function characterCreate(_characterType) {
 			name = "Shopkeeper";
 			portrait = sNPCPortrait;
 			
-			sprite_index = sShopkeeper;
+			drawnSprite = sShopkeeper;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
 			
@@ -186,9 +187,9 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.student;
 			name = "Mechanic";
-			portrait = sNPCPortrait;
+			portrait = sStudentPortrait;
 			
-			sprite_index = sCharacters;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesCompanion);
 			anim = characterAnimation.getAnimation;
 			dir = -1;
@@ -210,7 +211,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			// Animation
-			sprite_index = sEnemy;
+			drawnSprite = sEnemy;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesPanicEnemy);
 			anim = characterAnimation.getAnimation;
 			
@@ -242,7 +243,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			// Animation
-			sprite_index = sEnemy;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesRangedEnemy);
 			anim = characterAnimation.getAnimation;
 			
@@ -286,7 +287,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			// Animation
-			sprite_index = sCharacters;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesBasicEnemy);
 			anim = characterAnimation.getAnimation;
 			
@@ -335,7 +336,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			// Animation
-			sprite_index = sCharacters;
+			drawnSprite = sCharacters;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesRunnerEnemy);
 			anim = characterAnimation.getAnimation;
 			
@@ -373,4 +374,8 @@ function characterCreate(_characterType) {
 			show_message("Attempting to create undefined character type!")
 			break
 	}
+	
+	if (characterClass == CHARACTER_CLASS.enemy)
+		sprite_index = sEnemy
+	else sprite_index = sCharacters
 }

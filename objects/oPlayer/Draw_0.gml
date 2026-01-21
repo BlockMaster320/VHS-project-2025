@@ -48,9 +48,11 @@ if (activeWeapon != -1)
 	drawReloadState(activeWeapon,,,.5)
 
 
+// UI --------------------------------------------------------
+if (room == rmLobby or room == rmMenu) return;
+
 if (global.inputState != INPUT_STATE.dialogue)
 {
-// UI -----------------------------------
 
 surface_set_target(oController.guiSurf)
 
@@ -58,7 +60,7 @@ var margin = 2 * TILE_SIZE
 var rightX = cameraW - margin
 var bottomY = cameraH - margin
 
-// Inventory ----------------------------------------------
+// Inventory ----------------------------------------
 
 var size = 1.6 * TILE_SIZE
 var center = size/2

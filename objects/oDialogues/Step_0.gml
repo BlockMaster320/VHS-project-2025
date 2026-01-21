@@ -39,6 +39,22 @@ if (!talking) {
 	} else if (oController.next && !DlgTimerSkip() && !GetNextDlgLine()){
 		debug("Ending dialogue for character")
 		EndDlg()
+		
+		if (instance_exists(closest_NPC) and closest_NPC.characterType == oController.questNPC)
+		{	// Change quest marker
+			// Not very robust solution, but good enough for now
+			switch (closest_NPC.characterType)
+			{
+				case CHARACTER_TYPE.student:
+					oController.questNPC = CHARACTER_TYPE.mechanic
+					break
+					
+				case CHARACTER_TYPE.mechanic:
+					oController.questNPC = noone
+					break
+			}
+		}
+		
 		if (is_callable(onComplete)) {
 			debug("Calling onComplete of the dialogue...")
 			onComplete()

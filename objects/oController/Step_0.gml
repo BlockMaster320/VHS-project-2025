@@ -1,6 +1,7 @@
 if (instance_exists(oRoomManager))
 	pfGrid = oRoomManager.pathfindingGrid
-	
+
+// Custom alarm system (currently unused, but should work?)
 for (var i = array_length(alarms)-1; i >= 0; i--)
 {
 	alarms[i].update()
@@ -10,6 +11,9 @@ for (var i = array_length(alarms)-1; i >= 0; i--)
 		array_delete(alarms, i, 1)
 	}
 }
+
+// Fullscreen switching
+if (fullscreenButton) window_set_fullscreen(!window_get_fullscreen())
 	
 // Change refresh rate based on the active display
 //if (gameFPS != display_get_frequency())
