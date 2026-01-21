@@ -18,6 +18,7 @@ function Input()
 	menuInteraction = 0
 	menuInteractionPress = 0
 	pause = 0
+	skipCutScene = 0
 	
 	// UI
 	gui_x = 0
@@ -69,10 +70,14 @@ function Input()
 	
 			break
 			
+		case INPUT_STATE.cutscene:
+			skipCutScene = keyboard_check_pressed(vk_enter)
+			
+			// NO BREAK ON PURPOSE
 			
 		case INPUT_STATE.dialogue:
 		
-			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left) or keyboard_check_pressed(vk_enter)
+			next = keyboard_check_pressed(vk_space) or keyboard_check_pressed(ord("E")) or mouse_check_button_pressed(mb_left)
 			clicked = mouse_check_button_pressed(mb_left)
 			
 			break

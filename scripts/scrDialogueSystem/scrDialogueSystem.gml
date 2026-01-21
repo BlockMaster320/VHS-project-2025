@@ -80,7 +80,9 @@ function StartDlg(_NPCType)
 	
 	SetCurrentLine(0)
 	talking = true
-	global.inputState = INPUT_STATE.dialogue
+	if (global.inputState != INPUT_STATE.cutscene){
+		global.inputState = INPUT_STATE.dialogue
+	}
 }
 
 function StartDlgEx(_dialogue)
@@ -88,7 +90,9 @@ function StartDlgEx(_dialogue)
 	current_dialogue = _dialogue
 	SetCurrentLine(0)
 	talking = true
-	global.inputState = INPUT_STATE.dialogue
+	if (global.inputState != INPUT_STATE.cutscene){
+		global.inputState = INPUT_STATE.dialogue
+	}
 }
 
 function EndDlg()

@@ -63,11 +63,12 @@ function TweenController() constructor {
  * @descr Creates tween sequence which stores array of tweens. When started, it run throught all tweens one by one and executes them.
  * @param {Array.BaseTween|Id.DsList} _tweens - Array or ds_list of tweens
  */
-function TweenSequence(_tweens) : BaseTween() constructor {
+function TweenSequence(_tweens, _skippableTo = undefined) : BaseTween() constructor {
     tweens		= _tweens;
     index		= 0;
     finished	= false;
     controller	= getTweenController();
+	skippableTo = (is_undefined(_skippableTo) || _skippableTo > 0) ? _skippableTo : array_length(_tweens) + _skippableTo;
 
 	/// @function	ContinueWith(_tween, _onComplete = function() {})
 	/// @desc Builder helper function which adds tween animation at the end of the current array of tweens. Returns the same object - could be chained after each other.
@@ -97,6 +98,11 @@ function TweenSequence(_tweens) : BaseTween() constructor {
 			onComplete()
 	        return
 	    }
+		
+		if (!is_undefined(skippableTo) && oController.skipCutScene)
+		{
+			index = skippableTo
+		}
 			
 		accessListItem(tweens, index, function(element){
 			// Start current tween if not started yet
