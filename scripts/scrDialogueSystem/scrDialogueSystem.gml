@@ -15,7 +15,6 @@ function DialogueLine(_text, _answers, _next) constructor
 function DialogueSystem() constructor
 {
 	static dlgs = ds_map_create()
-	static dlgs_selector = ds_map_create()
 	
 	ds_map_add(dlgs, noone, [new Dialogue(
 									[
@@ -60,12 +59,16 @@ function DialogueSystem() constructor
 										new DialogueLine("Of course :)", [], []),
 										new DialogueLine("tady bude animace jak ho slapne", [], []),
 									])])
-									
-	ds_map_add(dlgs_selector, CHARACTER_TYPE.passenger1, 
-		function(){
-			return irandom(array_length(self.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
-		}
-	)
+}
+
+function SelectDlg(_NPCType)
+{
+	switch (_NPCType){
+		case CHARACTER_TYPE.passenger1:
+			return irandom(array_length(dialogues.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
+		default:
+			return 0
+	}
 }
 
 function StartDlg(_NPCType)
@@ -73,13 +76,8 @@ function StartDlg(_NPCType)
 	if (!ds_map_exists(dialogues.dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue - T.N. IMO this does not work
 		_NPCType = noone
 		
-	var selector = dialogues.dlgs_selector[? _NPCType]
-	if (is_undefined(selector)){
-		current_dialogue = dialogues.dlgs[? _NPCType][0]
-	} else {
-		var dlgIdx = selector()
-		current_dialogue = dialogues.dlgs[? _NPCType][dlgIdx]
-	}
+	current_dialogue = dialogues.dlgs[? _NPCType][SelectDlg(_NPCType)]
+	
 	SetCurrentLine(0)
 	talking = true
 	global.inputState = INPUT_STATE.dialogue
