@@ -18,6 +18,7 @@ for (var i = 0; i < 2; ++i){
 	options[i].idx = i
 }
 
+mouseOnSkip = false
 
 // TEMP: spawn NPC for testing
 //var _test_NPC = instance_create_layer(FLOOR_CENTER_X + 60, FLOOR_CENTER_Y + 20, "Instances", oNPC)

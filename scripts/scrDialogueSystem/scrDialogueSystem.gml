@@ -100,6 +100,7 @@ function EndDlg()
 	talking = false
 	global.inputState = INPUT_STATE.playing
 	waiting_for_answer = false
+	current_dialogue.seen = true
 	current_dialogue = noone
 	
 	DisableDlgOptions()
