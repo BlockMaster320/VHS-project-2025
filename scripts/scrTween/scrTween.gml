@@ -18,6 +18,30 @@ function TweenAction(_action) : BaseTween() constructor {
 	}
 }
 
+/// @struct	TweenDialogue
+/// @desc Tween action is struct which contains single dialogue. It contains necessary stuff for twine integration into sequences and after dialogue ends, action is marked finished immediately.
+/// @param {Struct.Dialogue} _dialogue - Dialogue to start when tween is started.
+/// @extends struct.BaseTween
+function TweenDialogue(_dialogue) : BaseTween() constructor {
+	
+	dialogue = _dialogue
+	
+	static start = function() {
+		controller.add(self)
+		oDialogues.startDialogueEx(dialogue)
+		progress = Progress.IN_PROGRESS
+		return self
+	}
+	
+	static step = function() {
+		if (!oDialogues.talking){
+			progress = Progress.FINISHED
+			stop();
+			destroy()
+		}
+	}
+}
+
 /// @struct TweenProperty
 /// @desc Tween structure. It handles animation of property based on _getter and _setter provided when instanced.
 /// @param {real} _to - Target property

@@ -44,6 +44,9 @@ function DialogueSystem() constructor
 	ds_map_add(dlgs, CHARACTER_TYPE.passenger1, [new Dialogue(
 									[
 										new DialogueLine("Nečum.", [], [])
+									]), new Dialogue(
+									[
+										new DialogueLine("Uh.", [], [])
 									])])
 	ds_map_add(dlgs, CHARACTER_TYPE.playerCleaner, [new Dialogue(
 									[
@@ -58,14 +61,28 @@ function DialogueSystem() constructor
 									])])
 }
 
+function SelectDlg(_NPCType)
+{
+	switch (_NPCType){
+		case CHARACTER_TYPE.passenger1:
+			return irandom(array_length(dialogues.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
+		default:
+			return 0
+	}
+}
+
 function StartDlg(_NPCType)
 {
 	if (!ds_map_exists(dialogues.dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue - T.N. IMO this does not work
 		_NPCType = noone
-	current_dialogue = dialogues.dlgs[? _NPCType][0]
+		
+	current_dialogue = dialogues.dlgs[? _NPCType][SelectDlg(_NPCType)]
+	
 	SetCurrentLine(0)
 	talking = true
-	global.inputState = INPUT_STATE.dialogue
+	if (global.inputState != INPUT_STATE.cutscene){
+		global.inputState = INPUT_STATE.dialogue
+	}
 }
 
 function StartDlgEx(_dialogue)
@@ -73,7 +90,9 @@ function StartDlgEx(_dialogue)
 	current_dialogue = _dialogue
 	SetCurrentLine(0)
 	talking = true
-	global.inputState = INPUT_STATE.dialogue
+	if (global.inputState != INPUT_STATE.cutscene){
+		global.inputState = INPUT_STATE.dialogue
+	}
 }
 
 function EndDlg()
@@ -81,6 +100,7 @@ function EndDlg()
 	talking = false
 	global.inputState = INPUT_STATE.playing
 	waiting_for_answer = false
+	current_dialogue.seen = true
 	current_dialogue = noone
 	
 	DisableDlgOptions()

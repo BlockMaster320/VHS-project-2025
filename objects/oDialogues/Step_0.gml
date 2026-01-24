@@ -23,20 +23,12 @@ if (!talking) {
 	StartDlg(closest_NPC.characterType)
 } else {
 	DlgTimerTick()
-	if (waiting_for_answer){
-		var _x = device_mouse_x_to_gui(0) * guiToCamera
-		var _y = device_mouse_y_to_gui(0) * guiToCamera
-		StepDlgOptions(_x, _y)
-		if (oController.next){
-			if (!DlgTimerSkip() && oController.clicked){
-				var _optIdx = GetSelectedDlgOptionIdx(_x, _y)
-				if (_optIdx != undefined && !GetNextDlgLine(_optIdx)){
-					EndDlg()
-					exit
-				}
-			}
+	
+	var skipClicked = current_dialogue.seen && oController.clicked && mouseOnSkip
+	if (skipClicked || (!waiting_for_answer && oController.next && !DlgTimerSkip())){
+		if (!skipClicked && GetNextDlgLine()){
+			exit
 		}
-	} else if (oController.next && !DlgTimerSkip() && !GetNextDlgLine()){
 		debug("Ending dialogue for character")
 		EndDlg()
 		
@@ -60,5 +52,18 @@ if (!talking) {
 			onComplete()
 		}
 		onComplete = DO NOTHING
+	} else if (waiting_for_answer){
+		var _x = device_mouse_x_to_gui(0) * guiToCamera
+		var _y = device_mouse_y_to_gui(0) * guiToCamera
+		StepDlgOptions(_x, _y)
+		if (oController.next){
+			if (!DlgTimerSkip() && oController.clicked){
+				var _optIdx = GetSelectedDlgOptionIdx(_x, _y)
+				if (_optIdx != undefined && !GetNextDlgLine(_optIdx)){
+					EndDlg()
+					exit
+				}
+			}
+		}
 	}
 }
