@@ -5,7 +5,7 @@ function DlgConstants(){
 	#macro TEXTBOX_HEIGHT 64
 
 	// Options
-	#macro PADDING_OPTION 5
+	#macro PADDING_OPTION 3
 	
 	// NPC interaction
 	#macro INTERACTION_DISTANCE 32
