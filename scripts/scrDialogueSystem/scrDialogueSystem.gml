@@ -37,7 +37,7 @@ function DialogueSystem() constructor
 										new DialogueLine("Man, I failed it twice already and I was about to fail it again...", [], [3]),
 										new DialogueLine("but I guess those manifesting classes finally paid off.", ["What do you mean?"], [4]),
 										new DialogueLine("The metro is stuck or something, idk.", [], [5]),
-										new DialogueLine("Ask the guy in yellow, I'm going home.", [], [6]),
+										new DialogueLine("Ask the tech guy with a mustache, I'm going home.", [], [6]),
 										new DialogueLine("Silver league's calling, I can feel it!", [], [])
 									])])
 									
@@ -68,11 +68,20 @@ function StartDlg(_NPCType)
 	global.inputState = INPUT_STATE.dialogue
 }
 
+function StartDlgEx(_dialogue)
+{
+	current_dialogue = _dialogue
+	SetCurrentLine(0)
+	talking = true
+	global.inputState = INPUT_STATE.dialogue
+}
+
 function EndDlg()
 {
 	talking = false
 	global.inputState = INPUT_STATE.playing
 	waiting_for_answer = false
+	current_dialogue = noone
 	
 	DisableDlgOptions()
 }
@@ -91,8 +100,12 @@ function SetCurrentLine(_lineIdx)
 
 function DlgTimerTick()
 {
-	if (timer <= 2*string_length(current_line.text)) 
+	if (timer <= 2*string_length(current_line.text))
+	{
 		timer++
+		var pitch = random_range(.98, 1.02)
+		audio_play_sound(sndDialogue, 0, false, 1, 0, pitch)
+	}
 }
 
 function DlgTimerSkip()

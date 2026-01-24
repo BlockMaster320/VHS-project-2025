@@ -60,14 +60,23 @@ function HitFeedback(character, damageDealt)
 		oCamera.currentShakeAmount += damageDealt * .7
 }
 
-function DealDamage(character, damageDealt)
+function DealDamage(character, damageDealt, hitSoundGain=1)
 {
+	if (!instance_exists(character)) return
 	var charIsPlayer = character.object_index == oPlayer
 	var oldHp = character.hp
 	
 	character.hp -= damageDealt
 	if (damageDealt > 0)
+	{
+		var hitSound = choose(sndHit_001, sndHit_002, sndHit_003, sndHit_004, sndHit_005)
+		var gain = hitSoundGain*.8
+		if (!charIsPlayer) gain *= .6
+		var pitch = random_range(.7, 1.6)
+		audio_play_sound(hitSound, 0, false, gain, 0, pitch)
+		
 		HitFeedback(character, damageDealt)
+	}
 	
 	if (character.hp <= 0)
 	{

@@ -34,7 +34,7 @@ safeDraw(function() {
 	
 	draw_text_ext(left + PADDING_H, top + PADDING_V, text, textHeight, textboxWidth)
 	
-	draw_sprite_ext(closest_NPC.portrait, 0, right - 64, top + 1, 1, 1, 0, -1, 1);
+	if (!is_undefined(closest_NPC) && closest_NPC != noone) draw_sprite_ext(closest_NPC.portrait, 0, right - 64, top + 1, 1, 1, 0, -1, 1);
 
 	surface_reset_target()
 })

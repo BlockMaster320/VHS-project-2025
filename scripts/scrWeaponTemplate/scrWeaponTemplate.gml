@@ -19,6 +19,9 @@ function Weapon() constructor
 	drawOffsetX = 6
 	drawOffsetY = 3
 	
+	shootSound = sndShoot
+	shootSoundInstance = -1
+	
 	// Scene attributes
 	index = 0	// Index in the global weapon database
 	active = true
@@ -78,13 +81,14 @@ function Projectile() constructor
 	
 	// Scene attributes
 	lifetime = (5 * 60) / global.gameSpeed
+	srcWeapon = noone
 	dir = 0
 	drawRot = 0
 	color = c_white
 	hitboxActive = true
 	objDealNoDamage = false	// When true, the projectile object itself doesn't deal damage
 	skipFirstFrameDraw = false	// Collisions aren't detected on the first frame of create,
-						//  so it sometimes makes sense to hide the projectile
+								//  so it sometimes makes sense to hide the projectile
 	
 	// Behaviour
 	update = function(){show_debug_message("Unset projectile update!")}

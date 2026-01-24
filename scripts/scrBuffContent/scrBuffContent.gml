@@ -11,8 +11,8 @@ enum BUFF_TARGET
 enum BUFF
 {
 	// Common
-	blast, precision, rapidFire, cloner, meleeKnockback, noKnockback, sonicSpeed, aderral,
-	inventorySizeIncrease, fatBullets, hotReload,
+	blast, precision, rapidFire, cloner, sonicSpeed, aderral,
+	inventorySizeIncrease, fatBullets, hotReload, burn,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
@@ -20,7 +20,9 @@ enum BUFF
 	rareIndex,	// Dummy buff for rarity indexing
 	
 	// --------------
-	length
+	length,
+	
+	meleeKnockback, noKnockback	// Unused for now
 }
 
 function toPercent(val)
@@ -46,16 +48,13 @@ function BuffCreate(buffType_)
 			case BUFF.blast:
 			
 				rarity = RARITY.common
-				dmgMultRange = new Range(1.5, 2.5)
-				attackSpdMultRange = new Range(.4, .6)
+				dmgMultRange = new Range(2, 2)
+				attackSpdMultRange = new Range(.7, .8)
 		
-				buffRandomize = function()
-				{
-					dmgMultRange.rndmize()
-					attackSpdMultRange.rndmize()
-					descriptionBuff = $"{round(dmgMultRange.value*100)}% damage"
-					descriptionDebuff = $"{round(attackSpdMultRange.value*100)}% attack speed"
-				}
+				dmgMultRange.rndmize()
+				attackSpdMultRange.rndmize()
+				descriptionBuff = $"{round(dmgMultRange.value*100)}% damage"
+				descriptionDebuff = $"-1 inventory slot\n{round(attackSpdMultRange.value*100)}% attack speed"
 				
 				weaponBuffApply = function(weapon)
 				{
@@ -66,7 +65,18 @@ function BuffCreate(buffType_)
 				{
 					proj.damageMultiplier *= dmgMultRange.value
 				}
-			
+				
+				characterBuffApply = function(player)
+				{
+					var prevSize = player.inventorySize
+					if (prevSize > 0)
+					{
+						player.inventorySize--
+						if (player.activeInventorySlot == prevSize-1)
+							player.SwapSlot(player.inventorySize-1)
+					}
+				}
+				
 				break
 				
 				
@@ -77,16 +87,18 @@ function BuffCreate(buffType_)
 				newStats = [ new Range(.1, .15),	// - spread %
 							 new Range(.7, .8) ]	// - attack speed %
 		
-				buffRandomize = function()
-				{		
-					descriptionBuff = $"{round(newStats[0].value*100)}% spread"
-					descriptionDebuff = $"{round(newStats[1].value*100)}% attack speed"
-				}
+				descriptionBuff = $"{toPercent(1/newStats[0].value)}% accuracy"
+				descriptionDebuff = $"{toPercent(newStats[1].value)}% bullet size"
 		
 				weaponBuffApply = function(weapon)
 				{
 					weapon.spread *= newStats[0].value
-					weapon.attackSpeed *= newStats[1].value
+				}
+				
+				projectileBuffApply = function(proj)
+				{
+					if (proj.projType == PROJECTILE_TYPE.ranged)
+						proj.scale *= newStats[1].value
 				}
 			
 				break
@@ -96,14 +108,11 @@ function BuffCreate(buffType_)
 			
 				rarity = RARITY.common
 							
-				newStats = [ new Range(1.5, 2.5),		// + attack speed %
-							 new Range(1.5, 2) ]	// - accuracy
+				newStats = [ new Range(2.5, 3),		// + attack speed %
+							 new Range(2.5, 3.) ]	// - accuracy
 		
-				buffRandomize = function()
-				{		
-					descriptionBuff = $"{round(newStats[0].value*100)}% attack speed"
-					descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
-				}
+				descriptionBuff = $"{round(newStats[0].value*100)}% attack speed"
+				descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
 		
 				weaponBuffApply = function(weapon)
 				{
@@ -115,23 +124,25 @@ function BuffCreate(buffType_)
 				
 	
 			case BUFF.cloner:
-
+				
 				rarity = RARITY.common
-				projAmountMultRange = new Range(2, 4)
-				spreadMultRange = new Range(2, 3)
-		
-				buffRandomize = function()
-				{
-					projAmountMultRange.rndmizeInt()
-					spreadMultRange.rndmize()
-					descriptionBuff = $"{projAmountMultRange.value}x projectile amount"
-					descriptionDebuff = $"{toPercent(1/spreadMultRange.value)}% accuracy"
-				}
-		
+				
+				newStats = [ new iRange(2, 2), 		// + projectile amount
+							 new Range(1.5, 2.),	// - more spread
+							 new Range(.7, .7) ]	// - less % dmg
+												
+				descriptionBuff = $"{newStats[0].value}x projectile amount"
+				descriptionDebuff = $"{toPercent(newStats[2].value)}% damage\n{toPercent(1/newStats[1].value)}% accuracy"
+				
 				weaponBuffApply = function(weapon)
 				{
-					weapon.projectileAmount *= projAmountMultRange.value
-					weapon.spread *= spreadMultRange.value
+					weapon.projectileAmount *= newStats[0].value
+					weapon.spread *= newStats[1].value
+				}
+				
+				projectileBuffApply = function(proj)
+				{
+					proj.damageMultiplier *= newStats[2].value
 				}
 				
 				break
@@ -144,10 +155,7 @@ function BuffCreate(buffType_)
 				// + melee knockback (flat)
 				// negative ranged knockback ??
 				
-				buffRandomize = function()
-				{		
-					descriptionNeutralEffect = $"Big melee knockback"
-				}
+				descriptionNeutralEffect = $"Big melee knockback"
 		
 				projectileBuffApply = function(proj)
 				{	
@@ -164,10 +172,7 @@ function BuffCreate(buffType_)
 				
 				// no knockback
 				
-				buffRandomize = function()
-				{		
-					descriptionNeutralEffect = $"No knockback"
-				}
+				descriptionNeutralEffect = $"No knockback"
 		
 				projectileBuffApply = function(proj)
 				{	
@@ -183,10 +188,7 @@ function BuffCreate(buffType_)
 							
 				target = BUFF_TARGET.player
 		
-				buffRandomize = function()
-				{
-					descriptionNeutralEffect = $"Load of\nmovement speed"
-				}
+				descriptionNeutralEffect = $"Load of\nmovement speed"
 		
 				characterBuffApply = function(character)
 				{
@@ -202,13 +204,10 @@ function BuffCreate(buffType_)
 				rarity = RARITY.common
 							
 				newStats = [ new Range(30, 30),		// + flat damage
-							 new Range(1.2, 1.2) ]	// + game speed
+							 new Range(1.4, 1.4) ]	// + game speed
 		
-				buffRandomize = function()
-				{
-					descriptionBuff = $"+{newStats[0].value} flat damage"
-					descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"
-				}
+				descriptionBuff = $"+{newStats[0].value} damage"
+				descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"	
 				
 				projectileBuffApply = function(proj)
 				{
@@ -234,10 +233,7 @@ function BuffCreate(buffType_)
 							
 				target = BUFF_TARGET.player
 		
-				buffRandomize = function()
-				{
-					descriptionNeutralEffect = $"+1 inventory slot"
-				}
+				descriptionNeutralEffect = $"+1 inventory slot"
 		
 				characterBuffApply = function(player)
 				{
@@ -245,7 +241,10 @@ function BuffCreate(buffType_)
 					{
 						inventorySize++
 						if (array_length(weaponInventory) < inventorySize)
-							weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id)
+						{
+							weaponInventory[inventorySize-1] = acquireWeapon(WEAPON.fists, id, false)
+						}
+						if (inventorySize == 1) weaponInventory[activeInventorySlot].active = true
 					}
 				}
 			
@@ -259,12 +258,8 @@ function BuffCreate(buffType_)
 				newStats = [ new Range(1.4, 1.6),	// + projectile scale
 							 new Range(.6, .7) ]	// - bullet speed
 				
-				
-				buffRandomize = function()
-				{		
-					descriptionBuff = $"{toPercent(newStats[0].value)}% projectile scale"
-					descriptionDebuff = $"{toPercent(newStats[1].value)}% projectile speed"
-				}
+				descriptionBuff = $"{toPercent(newStats[0].value)}% projectile scale"
+				descriptionDebuff = $"{toPercent(newStats[1].value)}% projectile speed"
 		
 				projectileBuffApply = function(proj)
 				{	
@@ -282,17 +277,32 @@ function BuffCreate(buffType_)
 				newStats = [ new Range(.2, .3),		// - reload time
 							 new Range(1.3, 1.4) ]	// + spread
 				
-				
-				buffRandomize = function()
-				{		
-					descriptionBuff = $"{toPercent(newStats[0].value)}% reload time"
-					descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
-				}
+				descriptionBuff = $"{toPercent(newStats[0].value)}% reload time"
+				descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
 				
 				weaponBuffApply = function(weapon)
 				{
 					weapon.reloadTime *= newStats[0].value
 					weapon.spread *= newStats[1].value
+				}
+				
+				break
+				
+				
+			case BUFF.burn:
+			
+				rarity = RARITY.common
+				
+				newStats = [ new Range(.7,.8) ]		// + burn
+							 						// - % damage
+				
+				descriptionBuff = $"Projectile burn"
+				descriptionDebuff = $"{toPercent(newStats[0].value)}% damage"
+				
+				projectileBuffApply = function(proj)
+				{
+					array_push(proj.effects, EFFECT.burn)
+					proj.damageMultiplier *= newStats[0].value
 				}
 				
 				break
@@ -304,10 +314,7 @@ function BuffCreate(buffType_)
 
 				rarity = RARITY.rare
 		
-				buffRandomize = function()
-				{
-					descriptionNeutralEffect = $"DUAL WIELD"
-				}
+				descriptionNeutralEffect = $"DUAL WIELD"
 		
 				characterBuffApply = function(player)
 				{
@@ -321,10 +328,7 @@ function BuffCreate(buffType_)
 
 				rarity = RARITY.rare
 		
-				buffRandomize = function()
-				{
-					descriptionNeutralEffect = $"DOUBLE ALL EFFECTS"
-				}
+				descriptionNeutralEffect = $"DOUBLE ALL EFFECTS"
 		
 				characterBuffApply = function(player)
 				{

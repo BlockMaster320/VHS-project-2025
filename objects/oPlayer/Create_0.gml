@@ -12,6 +12,8 @@ function InitPlayerStats()
 	maxHp = 150
 	
 	inventorySize = 2
+	hp = maxHp
+	characterState = CharacterState.Idle
 	
 	// Buff specific
 	global.gameSpeed = oController.defaultGameSpeed
@@ -28,17 +30,27 @@ activeInventorySlot = 0
 showStats = true
 
 // Weapons
-weaponInventory = array_create(inventorySize, noone)
-for (var i = 0; i < inventorySize; i++)
+function InitPlayerWeapons()
 {
-	weaponInventory[i] = acquireWeapon(WEAPON.fists, id, i==activeInventorySlot) // Fists
-	weaponInventory[i].playerInventorySlot = i
+	weaponInventory = array_create(inventorySize, noone)
+	for (var i = 0; i < inventorySize; i++)
+	{
+		weaponInventory[i] = acquireWeapon(WEAPON.fists, id, i==activeInventorySlot) // Fists
+		weaponInventory[i].playerInventorySlot = i
+	}
+	tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
 }
-//weaponInventory[0] = acquireWeapon(WEAPON.sword, id)				// For testing
-//weaponInventory[1] = acquireWeapon(WEAPON.shotgun, id, false)	// For testing
-tempWeaponSlot = acquireWeapon(WEAPON.fists, id, false) // For one time use weapons
+InitPlayerWeapons()
 
 ignoreInputBuffer = new Cooldown(40)	// To prevent the player from shooting right away
 
 // Buffs
 buffs = []
+
+function ResetPlayerBuffs()
+{
+	buffs = []
+	EvaluatePlayerBuffs()	// Order is important!
+	EvaluateWeaponBuffs()
+	EvaluateOneTimeUseBuffs()
+}

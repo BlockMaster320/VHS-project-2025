@@ -6,6 +6,14 @@ function getLobby() {
     return global.__lobby;
 }
 
+function getDebugRoom() {
+    if (!variable_global_exists("__debugRoom") || is_undefined(global.__debugRoom)) {
+		if (room != rmDebug) error("Tried to create lobby structure outside of lobby room instanced.")
+        global.__debugRoom = new Lobby()
+    }
+    return global.__debugRoom;
+}
+
 function Lobby() constructor {
 	wallGrid = getWallGrid(["TilesWall"])
 	pfGrid = (!is_undefined(wallGrid)) 

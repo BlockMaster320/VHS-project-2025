@@ -8,6 +8,14 @@ surface_reset_target()
 gpu_set_tex_filter(true)
 
 var scale = window_get_width() / (cameraW * upscaleMult)
+if (surfaceDrawPositionX != 0)
+	scale = window_get_height() / (cameraH * upscaleMult)
+
 draw_surface_ext(guiUpscaledSurf, 0, 0, scale, scale, 0, c_white, 1)
 
 gpu_set_tex_filter(false)
+
+
+fullscreenPrev = window_get_fullscreen()
+appWindowXprev = window_get_x()
+appWindowYprev = window_get_y()

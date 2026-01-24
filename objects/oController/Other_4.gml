@@ -18,3 +18,28 @@ if (currentFloor = FLOORS) {
 	oPlayer.x = 775;
 	oPlayer.y = 850;
 }
+
+
+switch (room)
+{
+	case rmLobby:
+		audio_sound_gain(subwayAmbiance, 0, 0)
+		audio_resume_sound(subwayAmbiance)
+		audio_sound_gain(subwayAmbiance, 1, 4000)
+		
+		if (introCutscene)
+		{
+			oPlayer.x = 320
+			oPlayer.y = 490
+		}
+		introCutscene = false
+		
+		break		
+		
+	case rmGame:
+	
+		audio_resume_sound(actionMusic)
+		audio_sound_gain(actionMusic, actionMusicRestGain, 2000)
+	
+		break
+}

@@ -88,6 +88,7 @@ function coordinationUpdate()
 			reachedPathEnd = true
 			wantsToHide = 0
 			aimingAtPlayer = true
+			patienceToShoot.reset()
 			state = AI_STATE.reposition
 			activeCoordination = false
 			hidingCoordination = false
@@ -142,8 +143,11 @@ function repositionAiInit()
 	wantsToHideMult = 1
 	
 	// Become idle after not seeing the player for a while
-	patience = 1
-	patienceDec = 1/7
+	patienceToIdle = 1
+	patienceToIdleDec = 1/7
+	
+	// If I can't reach the optimal range and I see the player, just start shooting now
+	patienceToShoot = new Cooldown(120)
 	
 	// Accidentaly arrived at a good position, wait few frames
 	//	before swapping state to avoid getting stuck near wall edges
@@ -176,22 +180,32 @@ function repositionAiTransition()
 		reachedPathEnd = true
 		wantsToHide = 0
 	}
-	if (patience <= 0 and !seesPlayer)
+	if (patienceToIdle <= 0 and !seesPlayer)
 	{
-		patience = 1
+		patienceToIdle = 1
 		walkSpd = idleWalkSpd
 		state = AI_STATE.idle
+	}
+	
+	if (patienceToShoot.value <= 0)
+	{
+		walkSpd = shootingWalkSpd
+		shootAiSetupState()
+		state = AI_STATE.shoot
 	}
 }
 
 function repositionAiUpdate()
 {
 	// Run away if player is too close for too long
-	if (playerDist < optimalRange.min_ - reachTargetMargin)
-		wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_) * global.gameSpeed
-	else wantsToHide -= .01 * global.gameSpeed
+	//if (playerDist < optimalRange.min_ - reachTargetMargin)
+	//	wantsToHide += -.0002 * wantsToHide * (playerDist - optimalRange.min_) * global.gameSpeed
+	//else wantsToHide -= .01 * global.gameSpeed
 						
 	wantsToHide = max(wantsToHide, 0)
+	
+	if (seesPlayerWell and myWeapon.projectile.projType == PROJECTILE_TYPE.ranged) patienceToShoot.value -= global.gameSpeed
+	else patienceToShoot.reset()
 						
 	// Determine when to reposition
 	if (reachedPathEnd)
@@ -225,8 +239,8 @@ function repositionAiUpdate()
 		var dir2 = playerDir + 180 - 120
 							
 		var foundPath = FindValidPathTargetReposition(optimalRange, true, new Range(dir1, dir2))
-		if (!foundPath) patience -= patienceDec * global.gameSpeed
-		else patience = 1
+		if (!foundPath) patienceToIdle -= patienceToIdleDec * global.gameSpeed
+		else patienceToIdle = 1
 		updateRate.rndmize()
 	}
 }
@@ -242,7 +256,7 @@ function shootAiInit()
 	noTargetDurationMax = new Range(30, 180)
 	
 	inactiveTime = 0
-	inactiveThreshold = new Range(0, 30)	// Moment before shooting
+	inactiveThreshold = new Range(30, 30)	// Wait a bit before shooting
 	
 	noTargetDuration = 0
 	shootingDuration = 0
@@ -260,6 +274,10 @@ function shootAiSetupState()
 	lookDir = lookDirTarget
 	myWeapon.aimDirection = lookDir
 	
+	var pitch = random_range(.7, 1.5)
+	var windup = audio_play_sound(sndWindup, 0, false, 1, 0, pitch)
+	audio_sound_gain(windup, 0, inactiveThreshold.value / 60 * 1000 + 200)
+	
 	if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
 		aimingAtPlayer = false
 }
@@ -271,6 +289,7 @@ function shootAiTransition()
 		aimingAtPlayer = true
 		walkSpd = panickedWalkSpd
 		state = AI_STATE.reposition
+		patienceToShoot.reset()
 		reachedPathEnd = true
 		wantsToHide = 0
 	}
@@ -286,6 +305,7 @@ function shootAiTransition()
 		aimingAtPlayer = true
 		walkSpd = repositionWalkSpd
 		myWeapon.holdingTrigger = false
+		patienceToShoot.reset()
 		state = AI_STATE.reposition
 	}
 }
@@ -302,11 +322,11 @@ function shootAiUpdate()
 	if (inactiveTime < inactiveThreshold.value)
 	{
 		inactiveTime += global.gameSpeed
-		if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
-		{
-			myWeapon.flashFrequency = 10
-			myWeapon.roundFac = true
-		}
+		//if (myWeapon.projectile.projType == PROJECTILE_TYPE.melee)
+		//{
+		myWeapon.flashFrequency = 10	// "I will shoot!" telegraphing
+		myWeapon.roundFac = true
+		//}
 		return
 	}
 						
@@ -337,6 +357,7 @@ function reloadAiTransition()
 		walkSpd = repositionWalkSpd
 		myWeapon.reloading = false
 		aimingAtPlayer = true
+		patienceToShoot.reset()
 		state = AI_STATE.reposition
 		followingPath = false
 		reachedPathEnd = true
@@ -349,7 +370,7 @@ function reloadAiTransition()
 
 function hideAiInit()
 {
-	panickedWalkSpd = 2
+	panickedWalkSpd = 1.3
 	giveUpHidingTimer = new Range(120, 180)
 	isSafe = new Range(20, 30)	// I don't see the player, I might be already safe
 }
@@ -363,6 +384,13 @@ function hideAiTransition()
 		state = AI_STATE.reload
 		myWeapon.reloading = true
 		walkSpd = shootingWalkSpd
+		
+		if (myWeapon.magazineSize != -1)
+		{
+			var gain = .3
+			var reloadSound = audio_play_sound(sndReload, 0, false, gain)
+			audio_sound_gain(reloadSound, 0, myWeapon.reloadTime * 1000 + 200)
+		}
 	}
 	else giveUpHidingTimer.value -= global.gameSpeed
 	
@@ -402,6 +430,7 @@ function restAiTransition()
 		walkSpd = repositionWalkSpd
 		myWeapon.holdingTrigger = false
 		aimingAtPlayer = true
+		patienceToShoot.reset()
 		
 		state = AI_STATE.reposition
 		updateRate.value = 0
@@ -432,9 +461,9 @@ function genericAiDebugDraw()
 	draw_text_transformed(x, yy + offset * 0, $"{stateStrings[state]}", scale, scale, 0)
 	//draw_text(x, yy + offset * 1, $"Scared: {wantsToHide}")
 	//draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
-	//draw_text(x, yy + offset * 3, $"Patience: {patience}")
 	//draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
-	draw_text_transformed(x, yy + offset * 1, $"Path end: {reachedPathEnd}", scale, scale, 0)
+	//draw_text_transformed(x, yy + offset * 1, $"Path end: {reachedPathEnd}", scale, scale, 0)
+	draw_text_transformed(x, yy + offset * 1, $"Patience: {patienceToShoot.value}", scale, scale, 0)
 	//draw_text(x, yy + offset * 2, $"Sees player well: {LineOfSightObject(oPlayer)}")
 	//draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
 	draw_set_halign(halign)

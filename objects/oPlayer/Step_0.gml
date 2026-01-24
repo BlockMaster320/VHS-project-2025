@@ -17,9 +17,15 @@ event_inherited()
 // Swap active inventory slot
 if (oController.swapSlot or oController.scrollSlot != 0)
 {
+	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
+	SwapSlot(newSlot)
+}
+	
+function SwapSlot(newSlot)
+{
 	weaponInventory[activeInventorySlot].active = false
-	activeInventorySlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
-	if (tempWeaponSlot.active != true)
+	activeInventorySlot = clamp(newSlot, 0, inventorySize)
+	if (tempWeaponSlot.active != true and inventorySize > 0)
 		weaponInventory[activeInventorySlot].active = true
 }
 
@@ -29,6 +35,9 @@ if (oController.interact)
 	var weaponPickup = instanceInRange(oWeaponPickup, PICKUP_DISTANCE)
 	if (weaponPickup and weaponPickup.myWeapon != -1)
 	{
+		var pitch = random_range(.7, 1.6)
+		audio_play_sound(sndPickup, 0, false, 1, 0, pitch)
+		
 		if (weaponPickup.myWeapon.oneTimeUse)	// One time use weapons
 		{
 			// Deactivate current slot
@@ -42,6 +51,7 @@ if (oController.interact)
 		else									// Inventory slot weapons
 		{
 			// Drop current weapon
+			weaponInventory[activeInventorySlot].destroy()
 			var myWeaponID = weaponInventory[activeInventorySlot].index
 			if (myWeaponID != WEAPON.fists and room != rmDebug)
 				dropWeapon(myWeaponID, weaponInventory[activeInventorySlot].remainingDurability)
@@ -65,9 +75,14 @@ if (oController.interact)
 			array_insert(buffs, 0, buffPickup.myBuff)
 		else
 			array_push(buffs, buffPickup.myBuff)
-		EvaluatePlayerBuffs()	// Order here might matter!
+			
+		oCamera.currentShakeAmount += 10
+		audio_play_sound(sndBuffPickup, 0, false)
+			
+		EvaluatePlayerBuffs()	// Order matters here!
 		EvaluateWeaponBuffs()
 		EvaluateOneTimeUseBuffs()
+		
 		instance_destroy(buffPickup)
 	}
 }
@@ -81,6 +96,7 @@ if (interactable)
 	if (oController.interact)
 	{
 		interactable.interactFunc()
+		audio_play_sound(sndClick, 0, false, 1, 0, random_range(.8, 1.2))
 		interactable.hitFlash()
 	}
 }
@@ -95,7 +111,7 @@ if (dualWield)
 }
 if (global.gameSpeed > .0001)
 {
-	for (var i = 0; i < inventorySize; i++)
+	for (var i = 0; i < max(inventorySize,1); i++)
 		weaponInventory[i].update()
 	tempWeaponSlot.update()
 }

@@ -14,7 +14,9 @@ function projectileHitDetectionArea(includeWalls=false)
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
-			//if !(!is_undefined(oRoomManager.tileMapWall) and projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+			if (projType == PROJECTILE_TYPE.melee and !LineOfSightPoint(colliding.x, colliding.y))
+				continue
+				
 			GetHit(colliding, id)
 			hit = true
 		}
@@ -143,6 +145,9 @@ function explosiveDestroy()
 	explosion.image_xscale = explosion.scale * explosion.xScaleMult
 	explosion.image_yscale = explosion.scale * explosion.yScaleMult
 	oCamera.currentShakeAmount += 25
+	
+	var pitch = random_range(.7, 1.5)
+	audio_play_sound(sndGarbageExplosion, 0, false, 1, 0, pitch)
 	
 	instance_destroy()
 }

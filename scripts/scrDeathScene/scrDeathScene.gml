@@ -45,8 +45,13 @@ function DeathScene(_deadCharacter) {
 	
 		global.inputState = INPUT_STATE.cutscene
 		new TweenSequence([
+			new TweenAction(function() {
+				audio_sound_gain(oController.actionMusic, 0, 0)
+				audio_sound_gain(oController.subwayAmbiance, 0, 0)
+			}),
 			// start cinema borders
-			oCinemaBorders.cinema.Set(CinemaBordersState.CINEMA).GetTween(),
+			getCinemaBorders().Set(CinemaBordersState.CINEMA).GetTween(),
+			TweenWait(500),
 			// animate cleaner to playerF
 			new TweenAction(function() {
 				cleaner.showCharacter.start()
@@ -64,13 +69,16 @@ function DeathScene(_deadCharacter) {
 			}),
 			cleaner.withPlayer,
 			// hide scene
-			oCinemaBorders.cinema.Set(CinemaBordersState.WHOLE).GetTween(),
+			getCinemaBorders().Set(CinemaBordersState.WHOLE).GetTween(),
 			// move to new scene
 			new TweenAction(function() {
 				room_goto(rmLobby);
 				alpha = 1
 				weaponAlpha = 1
 				handsAlpha = 1
+				InitPlayerStats()
+				// Reset player buffs
+				// Init player weapons
 			}),
 			// lobby & dialog
 			new TweenAction(function() {
@@ -79,7 +87,7 @@ function DeathScene(_deadCharacter) {
 					controller = new PlayerCleanerController(id, "Cleaner", false)
 					dir = -1
 				}
-				oCinemaBorders.cinema.Set(CinemaBordersState.NONE, DO {
+				getCinemaBorders().Set(CinemaBordersState.NONE, DO {
 					oDialogues.startDialogue(
 						CHARACTER_TYPE.playerCleaner, 
 						function() { 

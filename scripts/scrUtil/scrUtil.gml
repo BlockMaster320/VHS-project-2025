@@ -62,6 +62,20 @@ function drawHitbox(xx, yy, spr, scaleX=1, scaleY=1, rot=0, thickness=1)
 	draw_set_color(c_white)
 }
 
+function Alarm(time, func_, considerGameSpeed=false) constructor
+{
+	counter = time
+	func = func_
+	
+	function update()
+	{
+		if (considerGameSpeed)
+			counter -= global.gameSpeed
+		else
+			counter--
+	}
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)
@@ -75,6 +89,7 @@ function updateUpscaleFactor()
 	// Get nearest integer multiple of camera width
 	var smallestError = infinity
 	var targetW = window_get_width()
+	var targetH = window_get_height()
 	var safetyMargin = 30
 
 	for (var mult = 1; mult < 10; mult++) // Set a limit, just to be safe
@@ -84,11 +99,23 @@ function updateUpscaleFactor()
 	
 		if (error < smallestError) smallestError = error*/
 		
-		if (targetW < cameraW * mult + safetyMargin)
+		if (targetW < cameraW * mult + safetyMargin or targetH < cameraH * mult + safetyMargin)
 		{
 			oController.upscaleMult = mult
 			surface_resize(application_surface, cameraW * oController.upscaleMult, cameraH * oController.upscaleMult)
-			display_set_gui_size(window_get_width(), window_get_height())
+			//display_set_gui_size(window_get_width(), window_get_height())
+			if (targetW > targetH*(16/9))
+			{
+				display_set_gui_size(targetH*(16/9), targetH)
+				surfaceDrawPositionX = (targetW - targetH*(16/9)) / 2
+				surfaceDrawPositionY = 0
+			}
+			else
+			{
+				display_set_gui_size(targetW, targetW*(9/16))
+				surfaceDrawPositionY = (targetH - targetW*(9/16)) / 2
+				surfaceDrawPositionX = 0
+			}
 			//display_set_gui_size(cameraW * oController.upscaleMult, cameraH * oController.upscaleMult)
 			break
 		}
@@ -96,6 +123,9 @@ function updateUpscaleFactor()
 	
 	if (surface_exists(guiUpscaledSurf)) surface_free(guiUpscaledSurf)
 	guiUpscaledSurf = surface_create(cameraW * upscaleMult, cameraH * upscaleMult)
+	
+	// Buff pickups cache drawing constants, recalculate them
+	with (oBuffPickup) { setupDrawing() }
 	
 	show_debug_message($"Resized application surface to {cameraW * oController.upscaleMult}x{cameraH * oController.upscaleMult}")
 }

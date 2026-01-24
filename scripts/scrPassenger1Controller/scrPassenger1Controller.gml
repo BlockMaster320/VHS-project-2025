@@ -18,8 +18,8 @@ function Passenger1Controller(
 		characterType = CHARACTER_TYPE.passenger1;
 		
 		// graphics
-		portrait = sNPCPortrait;
-		sprite_index = sCharacters;
+		portrait = sPassenger1Portrait;
+		drawnSprite = sCharacters;
 		characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
 		anim = characterAnimation.getAnimation;
 
@@ -101,7 +101,7 @@ function Passenger1Controller(
 				followPathStep()
 				// Is stuck ?
 				if (tracer.isStuck()) {//(oldPosition.x == x && oldPosition.y == y) {
-					debugIf(stuckTimer > 0, string(name) + " is stuck for " + string(stuckTimer) + " frames")
+					//debugIf(stuckTimer > 0, string(name) + " is stuck for " + string(stuckTimer) + " frames")
 					stuckTimer++	
 				} else {
 					stuckTimer = 0	

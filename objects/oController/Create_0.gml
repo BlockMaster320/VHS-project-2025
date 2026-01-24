@@ -26,9 +26,22 @@ show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
 
+// Custom alarm system
+alarms = []	// Array of "Alarm" structs
+
 // Procedural pathfinding
 wallGrid = undefined
 pfGrid = undefined
+
+// Lighting -------------------------------------
+lightSurface = -1
+draw_set_circle_precision(32)
+texelSizeLoc = shader_get_uniform(shLightFilter, "texSize")
+lightTexW = -1
+lightTexH = -1
+timeLocLight = shader_get_uniform(shLightFilter, "time")
+safetyMargin = 10
+//timeLocShadow = shader_get_uniform(shShadowFilter, "time")
 
 // Pixel art upscaling --------------------------------
 application_surface_draw_enable(false)
@@ -38,9 +51,25 @@ windowHeightPrev = window_get_height()
 guiSurf = surface_create(cameraW, cameraH)
 guiUpscaledSurf = -1
 updateUpscaleFactor()
+surfaceDrawPositionX = 0
+surfaceDrawPositionY = 0
+fullscreenPrev = window_get_fullscreen()
+appWindowXprev = window_get_x()
+appWindowYprev = window_get_y()
 
-// Set default window scale to nice multiple
-//window_set_size(cameraW * 3, cameraH * 3)
+// Sound ----------------------------------------------
+
+// Music
+#macro actionMusicFightGain 1
+#macro actionMusicRestGain .4
+actionMusic = audio_play_sound(sndActionMusic, 0, true, 0)
+audio_pause_sound(actionMusic)
+
+// Ambiance
+openingAmbiance = audio_play_sound(sndOpeningAmbiance, 0, true)
+audio_pause_sound(openingAmbiance)
+subwayAmbiance = audio_play_sound(sndSubwayAmbiance, 0, true)
+audio_pause_sound(subwayAmbiance)
 
 // Particle systems ----------------------------
 walkDustSys = part_system_create()
@@ -53,8 +82,14 @@ part_type_alpha2(walkDust, .5, 0)
 //part_type_gravity(walkDust,.002,90)
 part_type_sprite(walkDust,sDust,false,false,true)
 
+// Highlight if there is a new interaction
+questNPC = CHARACTER_TYPE.student
 
 prevRoom = rmLobby
-room_goto(rmLobby)
-//room_goto(rmDebug)
-//room_goto(rmGame)
+
+//
+instance_create_layer(-50,-50,"Instances", oPlayer)
+
+// Custscenes
+introCutscene = true
+IntroScene()
