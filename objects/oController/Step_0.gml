@@ -14,6 +14,10 @@ for (var i = array_length(alarms)-1; i >= 0; i--)
 
 // Fullscreen switching
 if (fullscreenButton) window_set_fullscreen(!window_get_fullscreen())
+
+// Soundtrack
+if (room == rmGame and !audio_is_playing(actionMusic))	// Prevent an unknown bug that stops the soundtrack from playing
+	audio_sound_gain(actionMusic, actionMusicRestGain, 2000)
 	
 // Change refresh rate based on the active display
 //if (gameFPS != display_get_frequency())
