@@ -22,7 +22,7 @@ function PlayerCleanerController(
 			
 		// Graphics
 		drawnSprite = sCharacters;
-		characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner1);
+		characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
 		anim = characterAnimation.getAnimation;
 		
 		// Movement
