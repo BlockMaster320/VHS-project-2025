@@ -218,6 +218,7 @@
     {"id":{"name":"sndReload","path":"sounds/sndReload/sndReload.yy",},},
     {"id":{"name":"sndShoot","path":"sounds/sndShoot/sndShoot.yy",},},
     {"id":{"name":"sndSubwayAmbiance","path":"sounds/sndSubwayAmbiance/sndSubwayAmbiance.yy",},},
+    {"id":{"name":"sndWallHit","path":"sounds/sndWallHit/sndWallHit.yy",},},
     {"id":{"name":"sndWeaponBreak","path":"sounds/sndWeaponBreak/sndWeaponBreak.yy",},},
     {"id":{"name":"sndWindup","path":"sounds/sndWindup/sndWindup.yy",},},
     {"id":{"name":"Empty","path":"sprites/Empty/Empty.yy",},},
