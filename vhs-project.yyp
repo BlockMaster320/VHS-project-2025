@@ -236,6 +236,7 @@
     {"id":{"name":"sChairSide","path":"sprites/sChairSide/sChairSide.yy",},},
     {"id":{"name":"sCharacters","path":"sprites/sCharacters/sCharacters.yy",},},
     {"id":{"name":"sCharactersResource","path":"sprites/sCharactersResource/sCharactersResource.yy",},},
+    {"id":{"name":"sCleanerPortrait","path":"sprites/sCleanerPortrait/sCleanerPortrait.yy",},},
     {"id":{"name":"sCollider","path":"sprites/sCollider/sCollider.yy",},},
     {"id":{"name":"sCollider16","path":"sprites/sCollider16/sCollider16.yy",},},
     {"id":{"name":"sCursor","path":"sprites/sCursor/sCursor.yy",},},
