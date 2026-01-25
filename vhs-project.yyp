@@ -276,6 +276,7 @@
     {"id":{"name":"spr_slot","path":"sprites/spr_slot/spr_slot.yy",},},
     {"id":{"name":"sQuest","path":"sprites/sQuest/sQuest.yy",},},
     {"id":{"name":"sShopkeeper","path":"sprites/sShopkeeper/sShopkeeper.yy",},},
+    {"id":{"name":"sShopkeeperPortrait","path":"sprites/sShopkeeperPortrait/sShopkeeperPortrait.yy",},},
     {"id":{"name":"sStudentPortrait","path":"sprites/sStudentPortrait/sStudentPortrait.yy",},},
     {"id":{"name":"sSword","path":"sprites/sSword/sSword.yy",},},
     {"id":{"name":"sTable","path":"sprites/sTable/sTable.yy",},},
