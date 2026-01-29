@@ -15,7 +15,7 @@ event_inherited()
 #region Weapon interaction
 
 // Swap active inventory slot
-if (oController.swapSlot or oController.scrollSlot != 0)
+if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0)
 {
 	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
 	SwapSlot(newSlot)
@@ -48,7 +48,7 @@ if (oController.interact)
 			EvaluateOneTimeUseBuffs()
 			instance_destroy(weaponPickup)
 		}
-		else									// Inventory slot weapons
+		else if (inventorySize > 0)				// Inventory slot weapons
 		{
 			// Drop current weapon
 			weaponInventory[activeInventorySlot].destroy()
