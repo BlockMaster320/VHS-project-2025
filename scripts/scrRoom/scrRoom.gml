@@ -94,15 +94,26 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			var yOff = 1 * TILE_SIZE
 			var xx = _roomX * TILE_SIZE + ROOM_SIZE_PX/2
 			var yy = _roomY * TILE_SIZE + ROOM_SIZE_PX/2 + yOff
+			var _pedestalOffset = 12;
+			
+			var _ped1 = instance_create_layer(xx, yy + _pedestalOffset, "Instances", oPedestal);
+			var _ped2 = instance_create_layer(xx - xOff, yy + _pedestalOffset, "Instances", oPedestal);
+			var _ped3 = instance_create_layer(xx + xOff, yy + _pedestalOffset, "Instances", oPedestal);
 			
 			var buff1 = instance_create_layer(xx, yy, "Instances", oBuffPickup)
 			var buff1ID = buff1.setupBuffPickupRarity(RARITY.common)
+			buff1.image_index = 0;
+			buff1.depth -= 20;
 			
 			var buff2 = instance_create_layer(xx - xOff, yy, "Instances", oBuffPickup)
 			var buff2ID = buff2.setupBuffPickupRarity(RARITY.common, [buff1ID])
+			buff2.image_index = 1;
+			buff2.depth -= 20;
 			
 			var buff3 = instance_create_layer(xx + xOff, yy, "Instances", oBuffPickup)
 			buff3.setupBuffPickupRarity(RARITY.common, [buff1ID, buff2ID])
+			buff3.image_index = 2;
+			buff3.depth -= 20;
 			
 			// Delete other choices on pickup
 			buff1.connectedInstances = [buff2, buff3]
@@ -426,7 +437,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
 			{
 				var _gun = instance_create_layer(_gunX, _gunY, "Instances", oWeaponPickup);
-				var weaponType = choose(WEAPON.garbage, WEAPON.sword)
+				var weaponType = choose(WEAPON.rat, WEAPON.crowbar)
 				_gun.setupWeaponPickup(weaponType);
 				
 				spawnGuns--;

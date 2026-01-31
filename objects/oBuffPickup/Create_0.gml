@@ -1,4 +1,6 @@
 myBuff = -1
+animationOffset = random(1) * 2 * 3.14;
+depth = -y;
 
 function setupBuffPickupRarity(rarity, forbiddenBuffs=[])
 {

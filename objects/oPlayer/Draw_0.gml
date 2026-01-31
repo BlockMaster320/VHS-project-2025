@@ -88,7 +88,11 @@ for (var i = 0; i < inventorySize; i++)
 	
 	drawReloadState(weaponInventory[i], xx, yy+5, 1)
 	
-	draw_sprite_ext(weaponInventory[i].sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
+	var _sprite = weaponInventory[i].sprite;
+	xx = xx + sprite_get_xoffset(_sprite) - sprite_get_width(_sprite) / 2 + 1;	// center the weapon sprite
+	yy = yy + sprite_get_yoffset(_sprite) - sprite_get_height(_sprite) / 2;
+	
+	draw_sprite_ext(_sprite, 0, xx, yy, 1, 1, 0, c_white, 1)
 }
 
 var holdingTempWeapon = tempWeaponSlot.index != WEAPON.fists

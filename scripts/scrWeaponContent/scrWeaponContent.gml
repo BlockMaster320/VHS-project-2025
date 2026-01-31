@@ -9,6 +9,11 @@ enum PROJECTILE_TYPE
 	ranged, melee, explosion
 }
 
+enum WEAPON_ANIM_TYPE
+{
+	recoil, swing
+}
+
 #macro durabilityInSeconds 10	// By default, the weapon is durable of this
 								//	amount of seconds of non-stop shooting
 								
@@ -23,7 +28,9 @@ function WeaponsInit()
 		fists,
 		
 		// Player focused (droppable?)
-		shotgun, sword, fan, sniper, machineGun, garbage,
+		pigeon, fan, paperPlane, ticketMachine,
+		crowbar, groanTube,
+		rat,
 		
 		// Monsters focused
 		ghosterGun,
@@ -41,17 +48,19 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 
-	with (weaponDatabase[WEAPON.shotgun])
+	with (weaponDatabase[WEAPON.pigeon])
 	{
 		// Generic attributes
-		sprite = sPlaceholderGun
-		name = "Shotgun"
+		type = WEAPON.pigeon;
+		sprite = sPigeon
+		name = "Pigeon"
 		description = "PPPeeewww"
 	
 		// Modifiable attributes
 		attackSpeed = 2			// shots/damage amount per second
 		spread = 25				// weapon accuracy in degrees
 		projectileAmount = 3	// number of projectile to be shot in the shoot frame
+		drawAngle = 90;
 		
 		magazineSize = 4
 		reloadTime = 1
@@ -70,8 +79,8 @@ function WeaponsInit()
 			effects = []
 	
 			// Generic attributes
-			sprite = sPlayerProjectile
-			color = playerProjectileCol
+			sprite = sPigeonBullet
+			//color = playerProjectileCol
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
@@ -90,106 +99,14 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 	
-	with (weaponDatabase[WEAPON.fists]) // Empty weapon slot
-	{
-		// Generic attributes
-		sprite = sFists
-		name = "Fists"
-		description = "Dont' talk about it..."
-	
-		// Modifiable attributes
-		projectile = noone
-		attackSpeed = 1			// shots/damage amount per second
-		spread = 4				// weapon accuracy in degrees
-		projectileAmount = 1	// number of projectile to be shot in the shoot frame
-		durabilityMult = 0
-		shootOnHold = false
-		
-		// Weapon projectile/hurtbox
-		projectile = new Projectile()
-		with (projectile)
-		{
-			// Modifiable attributes
-			damage = 35
-			projectileSpeed = 3
-			targetKnockback = 5
-			effects = []
-			lifetime = 5
-			scale = 2
-	
-			// Generic attributes
-			sprite = sMeleeHitbox
-			projType = PROJECTILE_TYPE.melee
-			
-			// Behaviour
-			update = genericMeleeHitUpdate
-			draw = genericProjectileDraw
-		}
-	
-		// Weapon actions
-		primaryAction = meleeWeaponShoot
-		secondaryAction = nothingFunction
-	
-		// Weapon functions
-		update = genericWeaponUpdate
-		draw = nothingFunction
-	}
-		
-	// -----------------------------------------------------------------------------
-	
-	with (weaponDatabase[WEAPON.sword])
-	{
-		// Generic attributes
-		sprite = sSword
-		name = "Sword"
-		description = "Slashes things"
-	
-		// Modifiable attributes
-		projectile = noone
-		attackSpeed = 1.8			// shots/damage amount per second
-		spread = 10				// weapon accuracy in degrees
-		projectileAmount = 1	// number of projectile to be shot in the shoot frame
-		shootOnHold = false
-		
-		// Weapon projectile/hurtbox
-		projectile = new Projectile()
-		with (projectile)
-		{
-			// Modifiable attributes
-			damage = 40
-			projectileSpeed = 3
-			targetKnockback = 10
-			effects = []
-			scale = 4
-	
-			// Generic attributes
-			sprite = sMeleeHitbox
-			lifetime = 5
-			projType = PROJECTILE_TYPE.melee
-			
-			// Behaviour
-			update = genericMeleeHitUpdate
-			draw = genericProjectileDraw
-		}
-	
-		// Weapon actions
-		primaryAction = meleeWeaponShoot
-		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
-	
-		// Weapon functions
-		update = genericWeaponUpdate
-		draw = genericWeaponDraw
-	}
-		
-	// -----------------------------------------------------------------------------
-	
 	with (weaponDatabase[WEAPON.fan])
 	{
 		// Generic attributes
-		sprite = sPlaceholderGun
+		type = WEAPON.fan;
+		sprite = sFan
 		name = "Fan"
 		description = "Wheeeeeeeeee"
-		shootSound = sndFanClick
+		shootSound = [sndFanClick]
 	
 		// Modifiable attributes
 		projectile = noone
@@ -214,10 +131,11 @@ function WeaponsInit()
 			effects = [ EFFECT.fanAreaDmg ]
 			scale = 2
 			xScaleMult = 4
+			rotateInDirection = false;
 	
 			// Generic attributes
-			sprite = sMeleeHitbox
-			lifetime = 1
+			sprite = sFanAir
+			lifetime = 30
 			projType = PROJECTILE_TYPE.melee
 			objDealNoDamage = true
 			
@@ -242,17 +160,19 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 
-	with (weaponDatabase[WEAPON.sniper])
+	with (weaponDatabase[WEAPON.paperPlane])
 	{
 		// Generic attributes
-		sprite = sPlaceholderGun
-		name = "Sniper"
+		type = WEAPON.paperPlane;
+		sprite = sPaperPlane
+		name = "Paper Plane"
 		description = "Pew"
+		shootAnim = WEAPON_ANIM_TYPE.swing
 	
 		// Modifiable attributes
 		projectile = noone
 		attackSpeed = 3			// shots/damage amount per second
-		spread = 2				// weapon accuracy in degrees
+		spread = 1				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		magazineSize = 1
 		reloadTime = 1
@@ -264,18 +184,20 @@ function WeaponsInit()
 		{
 			// Modifiable attributes
 			damage = 50
-			projectileSpeed = 9
+			projectileSpeed = 5
 			targetKnockback = 5
 			effects = [ ]
 			scale = 1
+			rotationOffset = -10;
+			dirOffset = -5;
 	
 			// Generic attributes
-			sprite = sPlayerProjectile
-			color = #FFD665
+			sprite = sPaperPlane
+			//color = #FFD665
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
-			update = genericBulletUpdate
+			update = paperPlaneUpdate
 			draw = genericProjectileDraw
 		}
 		
@@ -290,11 +212,12 @@ function WeaponsInit()
 		
 	// -----------------------------------------------------------------------------
 
-	with (weaponDatabase[WEAPON.machineGun])
+	with (weaponDatabase[WEAPON.ticketMachine])
 	{
 		// Generic attributes
-		sprite = sPlaceholderGun
-		name = "Machine Gun"
+		type = WEAPON.ticketMachine;
+		sprite = sTicketMachine
+		name = "Ticket Machine"
 		description = "PewPewPewPew"
 	
 		// Modifiable attributes
@@ -318,8 +241,8 @@ function WeaponsInit()
 			scale = 1
 	
 			// Generic attributes
-			sprite = sPlayerProjectile
-			color = #FFD665
+			sprite = sTicketMahineBullet
+			//color = #FFD665
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour
@@ -335,12 +258,159 @@ function WeaponsInit()
 		update = genericWeaponUpdate
 		draw = genericWeaponDraw
 	}
+	
+	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.fists]) // Empty weapon slot
+	{
+		// Generic attributes
+		type = WEAPON.fists;
+		sprite = sFist
+		name = "Fists"
+		description = "Dont' talk about it..."
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 1			// shots/damage amount per second
+		spread = 4				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		durabilityMult = 0
+		shootOnHold = false
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 35
+			projectileSpeed = 3
+			targetKnockback = 5
+			effects = []
+			lifetime = 20
+			scale = 2
+	
+			// Generic attributes
+			sprite = sMeleeSlash
+			projType = PROJECTILE_TYPE.melee
+			
+			// Behaviour
+			update = genericMeleeHitUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
+		secondaryAction = nothingFunction
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = nothingFunction
+	}
+	
+	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.groanTube])
+	{
+		// Generic attributes
+		type = WEAPON.groanTube;
+		sprite = sGroanTube
+		name = "Groan Tube"
+		description = "Groans"
+		shootAnim = WEAPON_ANIM_TYPE.swing
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 1.8			// shots/damage amount per second
+		spread = 10				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		shootOnHold = false
+		shootPitchMax = 1.2;
+		shootPitchMin = 0.9;
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 40
+			projectileSpeed = 3
+			targetKnockback = 10
+			effects = []
+			scale = 3
+	
+			// Generic attributes
+			sprite = sMeleeSlash
+			lifetime = 20
+			projType = PROJECTILE_TYPE.melee
+			
+			// Behaviour
+			update = genericMeleeHitUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = groanTubeWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
+	}
+	
+	// -----------------------------------------------------------------------------
+	
+	with (weaponDatabase[WEAPON.crowbar])
+	{
+		// Generic attributes
+		type = WEAPON.crowbar;
+		sprite = sCrowBar
+		name = "Crowbar"
+		description = "HL3 tomorrow!!!"
+		shootAnim = WEAPON_ANIM_TYPE.swing
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 1.8			// shots/damage amount per second
+		spread = 10				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		shootOnHold = false
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 40
+			projectileSpeed = 3
+			targetKnockback = 10
+			effects = []
+			scale = 3
+	
+			// Generic attributes
+			sprite = sMeleeSlash
+			lifetime = 20
+			projType = PROJECTILE_TYPE.melee
+			
+			// Behaviour
+			update = genericMeleeHitUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
+	}
 		
 	// -----------------------------------------------------------------------------
 
 	with (weaponDatabase[WEAPON.ghosterGun])
 	{
 		// Generic attributes
+		type = WEAPON.ghosterGun;
 		sprite = sPlaceholderGun
 	
 		// Modifiable attributes
@@ -385,14 +455,15 @@ function WeaponsInit()
 	
 	// -----------------------------------------------------------------------------
 	
-	with (weaponDatabase[WEAPON.garbage])
+	with (weaponDatabase[WEAPON.rat])
 	{
 		// Generic attributes
-		sprite = sTrashBag
-		name = "Garbage"
-		description = "This weapon is garbage"
+		type = WEAPON.rat;
+		sprite = sRat
+		name = "Rat"
+		description = "This weapon is sqeaky"
 		durabilityMult = 1
-		shootSound = sndGarbageThrow
+		shootSound = [sndGarbageThrow]
 	
 		// Modifiable attributes
 		projectile = noone
@@ -417,6 +488,7 @@ function WeaponsInit()
 			projectileSpeed = 3
 			targetKnockback = 3
 			effects = []
+			rotateInDirection = false;
 			
 			projectileChild = new Projectile()
 			with (projectileChild)
@@ -436,7 +508,7 @@ function WeaponsInit()
 			}
 	
 			// Generic attributes
-			sprite = sTrashBag
+			sprite = sRat
 			projType = PROJECTILE_TYPE.ranged
 			
 			// Behaviour

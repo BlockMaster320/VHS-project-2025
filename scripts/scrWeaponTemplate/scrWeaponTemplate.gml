@@ -1,6 +1,7 @@
 function Weapon() constructor
 {
 	// Modifiable attributes
+	type = noone;
 	projectile = noone
 	attackSpeed = 2		// shots/damage amount per second
 	spread = 0			// weapon accuracy in degrees
@@ -18,9 +19,13 @@ function Weapon() constructor
 	description = "This weapon is a weapon"
 	drawOffsetX = 6
 	drawOffsetY = 3
+	drawAngle = 0;
 	
-	shootSound = sndShoot
+	shootSound = [sndShoot]
+	reloadSound = [sndReload]
 	shootSoundInstance = -1
+	shootPitchMax = 1.5;
+	shootPitchMin = 0.7;
 	
 	// Scene attributes
 	index = 0	// Index in the global weapon database
@@ -33,6 +38,10 @@ function Weapon() constructor
 	reloading = false
 	holdingTrigger = false	// Wether the weapon owner is trying to shoot
 							// Resets at the end of every frame
+	shootAnim = WEAPON_ANIM_TYPE.recoil;
+	shootAnimState = 0;
+	shootAnimRot = 0;
+	
 	remainingDurability = 1
 	magazineAmmo = magazineSize	// Remaining bullets before reloading
 	reloadProgress = 0
@@ -45,6 +54,10 @@ function Weapon() constructor
 	flashFacLoc = shader_get_uniform(shFlash, "flashFac")
 	roundFac = false
 	flashFac = 0
+	
+	// Gun sprite animation (used just for fan at the moment)
+	frame = 0;
+	animationSpeed = 20 / 60;	// fps / 60
 	
 	// Weapon actions
 	primaryAction = rangedWeaponShoot
@@ -72,6 +85,9 @@ function Projectile() constructor
 	xScaleMult = 1
 	yScaleMult = 1
 	projectileChild = noone
+	rotateInDirection = true;
+	rotationOffset = 0;
+	dirOffset = 0;
 	
 	// Generic attributes
 	sprite = sEnemyProjectile
@@ -81,6 +97,9 @@ function Projectile() constructor
 	
 	// Scene attributes
 	lifetime = (5 * 60) / global.gameSpeed
+	existanceTime = 0;
+	frame = 0;
+	animationSpeed = 20 / 60;	// fps / 60
 	srcWeapon = noone
 	dir = 0
 	drawRot = 0

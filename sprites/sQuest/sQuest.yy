@@ -4,7 +4,7 @@
   "bboxMode":0,
   "bbox_bottom":14,
   "bbox_left":3,
-  "bbox_right":12,
+  "bbox_right":11,
   "bbox_top":1,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -19,6 +19,8 @@
   "height":16,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"527df733-2e9e-4064-8af2-eebd511cf363","blendMode":0,"displayName":"Layer 2","isLocked":true,"name":"527df733-2e9e-4064-8af2-eebd511cf363","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
+    {"$GMImageLayer":"","%Name":"accd748e-7ca1-4580-aedc-3c7ca7b1366d","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"accd748e-7ca1-4580-aedc-3c7ca7b1366d","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
     {"$GMImageLayer":"","%Name":"48d21779-c6b2-4d4b-9b40-4f6107cdd239","blendMode":0,"displayName":"default","isLocked":false,"name":"48d21779-c6b2-4d4b-9b40-4f6107cdd239","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"sQuest",

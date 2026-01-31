@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPlaceholderBuff",
-    "path":"sprites/sPlaceholderBuff/sPlaceholderBuff.yy",
+    "name":"sBuff",
+    "path":"sprites/sBuff/sBuff.yy",
   },
   "spriteMaskId":null,
   "visible":true,

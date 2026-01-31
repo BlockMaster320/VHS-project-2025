@@ -8,3 +8,6 @@ function setupWeaponPickup(weaponID, remainingDurability_=-1)
 		remainingDurability = remainingDurability_
 	sprite_index = myWeapon.sprite
 }
+
+// Rat
+animIndex = 0;

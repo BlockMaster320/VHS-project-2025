@@ -29,7 +29,7 @@ function Cooldown(defaultVal_) constructor
 
 function Buff() constructor
 {
-	sprite = sPlaceholderBuff
+	sprite = sBuff
 	descriptionBuff = ""	// Don't change the default unless you have a good reason to
 	descriptionDebuff = ""
 	descriptionNeutralEffect = ""
