@@ -2,7 +2,7 @@ if (point_distance(x,y,oPlayer.x,oPlayer.y) > cameraW) return;
 
 var alpha = 1
 if (!instanceInRange(oPlayer, PICKUP_DISTANCE))
-	alpha = 0.7
+	alpha = 0.6
 
 // Show buff description
 	

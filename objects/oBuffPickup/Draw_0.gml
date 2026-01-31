@@ -1,1 +1,1 @@
-draw_self()
+draw_sprite(sprite_index, image_index, x, y + sin(current_time * 0.003 + animationOffset) * 1.5);

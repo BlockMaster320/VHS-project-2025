@@ -59,6 +59,7 @@ function accuracyToSpread(accuracy)
 ///@return instance of spawned bullet
 function spawnBullet()
 {
+	projectile.color = (projectile.ownerID.object_index == oPlayer) ? c_white : enemyProjectileCol;
 	var bullet = instance_create_layer(xPos, yPos, "Instances", oProjectile, projectile)
 	bullet.x = xPos
 	bullet.y = yPos
@@ -104,6 +105,35 @@ function weaponUpdatePosition()	// Called by every weapon
 	
 	flip = (abs(drawDirection % 360) > 90 && abs(drawDirection % 360) < 270) ? -1 : 1;
 	if (flip < 0) drawDirection += 180;
+	
+	
+	// Weapon shoot animation
+	if (shootAnim == WEAPON_ANIM_TYPE.recoil) {
+		if (shootAnimState == 1) {
+			shootAnimRot = 30;
+			shootAnimState = 2;
+		}
+		else if (shootAnimState == 2) {
+			shootAnimRot = max(0, shootAnimRot - 3);
+			if (shootAnimRot == 0) shootAnimState = 0;
+		}
+	}
+	else if (shootAnim == WEAPON_ANIM_TYPE.swing) {
+		
+		if (shootAnimState == 1) {
+			shootAnimRot -= 15;
+			if (shootAnimRot <= -50) shootAnimState = 2;
+		}
+		else if (shootAnimState == 2) {
+			shootAnimRot += 3;
+			if (shootAnimRot >= 0) {
+				shootAnimState = 0;
+				shootAnimRot = 0;
+			}
+		}
+	}
+	drawDirection += shootAnimRot * flip;
+	
 	
 	xPos = projectile.ownerID.x + (drawOffsetX * flip)
 	yPos = projectile.ownerID.y + drawOffsetY
@@ -153,8 +183,9 @@ function weaponPlayerUpdateLogic()
 		holdingTrigger = false
 		magazineAmmo = 0
 		
-		var reloadSound = audio_play_sound(sndReload, 0, false, 1)
-		audio_sound_gain(reloadSound, 0, reloadTime * 1000 + 200)
+		var _reloadSound = reloadSound[irandom(array_length(reloadSound) - 1)]
+		var reloadSoundInstance = audio_play_sound(_reloadSound, 0, false, 1)
+		audio_sound_gain(reloadSoundInstance, 0, reloadTime * 1000 + 200)
 	}
 }
 
@@ -192,9 +223,11 @@ function genericWeaponShoot()
 {
 	primaryAction()
 	var gain = 1
-	var pitch = random_range(.7, 1.6)
+	var pitch = random_range(shootPitchMin, shootPitchMax)
 	if (projectile.ownerID != oPlayer) gain = .3
-	audio_play_sound(shootSound, 0, false, 1 ,0 , pitch)
+	var _shootSound = shootSound[irandom(array_length(shootSound) - 1)]
+	audio_play_sound(_shootSound, 0, false, 1 ,0 , pitch)
+	shootAnimState = 1;
 }
 
 // Calculate durability, reduce ammo from magazine
@@ -271,7 +304,7 @@ function fanUpdate()
 		primaryAction()
 		if (holdingTriggerPrev == false or !audio_is_playing(loopingFanSound))
 		{
-			shootSoundInstance = audio_play_sound(shootSound, 0, false)
+			shootSoundInstance = audio_play_sound(shootSound[0], 0, false)
 			
 			if (audio_is_playing(loopingFanSound)) audio_stop_sound(loopingFanSound)
 			loopingFanSound = audio_play_sound(sndFanBlast, 0, true, 0)
@@ -281,18 +314,23 @@ function fanUpdate()
 	
 		remainingDurability -= durabilityMult / (oController.gameFPS * durabilityInSeconds)
 		if (magazineAmmo > 0) magazineAmmo = max(magazineAmmo - global.gameSpeed, 0)
+		
+		frame = min(frame + animationSpeed, sprite_get_number(projectile.sprite) - 1);
+		if (frame == sprite_get_number(projectile.sprite) - 1) frame = 0;
+		projectile.frame = frame;
+		
 	}
 	else if (audio_exists(loopingFanSound))
 	{
 		if (audio_sound_get_gain(loopingFanSound) == 1)
 			audio_sound_gain(loopingFanSound, 0, 500)
-			
+		
 		if (audio_exists(shootSoundInstance) and audio_is_playing(shootSoundInstance))
 			audio_sound_gain(shootSoundInstance, 0, 100)
-			
+		
 		if (audio_is_playing(loopingFanSound))
 			audio_sound_pitch(loopingFanSound, audio_sound_get_pitch(loopingFanSound)-.05)
-			
+		
 		if (audio_sound_get_gain(loopingFanSound) == 0)
 			audio_stop_sound(loopingFanSound)
 	}
@@ -316,7 +354,7 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 		else flashFac = sin(flashFac * 2 * pi) * .5 + .5
 		if (flashFrequency <= .0001) flashFac = 0
 		shader_set_uniform_f(flashFacLoc, flashFac)
-		draw_sprite_ext(sprite, 0, roundPixelPos(xx), roundPixelPos(yy), flip, 1, drawDirection, c_white, _alpha)	
+		draw_sprite_ext(sprite, 0, roundPixelPos(xx), roundPixelPos(yy), flip, 1, drawDirection + drawAngle * flip, c_white, _alpha)	
 	shader_reset()
 	
 	if (index != WEAPON.fists)	// draw a hand holding the gun
@@ -372,4 +410,19 @@ function drawReloadState(weapon, xx=x, yy=y, magazineStateAlpha=0)
 	draw_rectangle(sliderX - w/2, top - h/2, sliderX + w/2, bott + h/2, false)
 	
 	draw_set_alpha(1)
+}
+
+// Groan tube
+function groanTubeWeaponShoot()
+{
+	var gain = 1
+	var pitch = random_range(shootPitchMin, shootPitchMax)
+	if (projectile.ownerID != oPlayer) gain = .3
+	var _shootSound = shootSound[irandom(array_length(shootSound) - 1)]
+	audio_play_sound(_shootSound, 0, false, 1 ,0 , pitch)
+	var _groanSound = choose(sndGroanTube1, sndGroanTube2);
+	audio_play_sound(_groanSound, 0, false, 1 ,0 , 1.)
+	shootAnimState = 1;
+	
+	meleeWeaponShoot()
 }

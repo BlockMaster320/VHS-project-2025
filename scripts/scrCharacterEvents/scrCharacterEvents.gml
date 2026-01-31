@@ -297,7 +297,7 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			var weaponID = choose(WEAPON.sword, WEAPON.shotgun, WEAPON.fan, WEAPON.sniper, WEAPON.machineGun)
+			var weaponID = choose(WEAPON.crowbar, WEAPON.pigeon, WEAPON.fan, WEAPON.paperPlane, WEAPON.ticketMachine)
 			myWeapon = acquireWeapon(weaponID, id)
 			myWeapon.projectile.damage *= .5
 			myWeapon.projectile.projectileSpeed *= .5
@@ -346,7 +346,7 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			myWeapon = acquireWeapon(WEAPON.sword, id)
+			myWeapon = acquireWeapon(WEAPON.crowbar, id)
 			
 			// AI
 			slasherAiInit()

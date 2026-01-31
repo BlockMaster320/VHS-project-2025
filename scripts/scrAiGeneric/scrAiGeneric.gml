@@ -274,7 +274,7 @@ function shootAiSetupState()
 	lookDir = lookDirTarget
 	myWeapon.aimDirection = lookDir
 	
-	var pitch = random_range(.7, 1.5)
+	var pitch = random_range(myWeapon.shootPitchMin, myWeapon.shootPitchMax)
 	var windup = audio_play_sound(sndWindup, 0, false, 1, 0, pitch)
 	audio_sound_gain(windup, 0, inactiveThreshold.value / 60 * 1000 + 200)
 	
@@ -388,7 +388,8 @@ function hideAiTransition()
 		if (myWeapon.magazineSize != -1)
 		{
 			var gain = .3
-			var reloadSound = audio_play_sound(sndReload, 0, false, gain)
+			var _reloadSound = myWeapon.reloadSound[irandom(array_length(myWeapon.reloadSound) - 1)]
+			var reloadSound = audio_play_sound(_reloadSound, 0, false, gain)
 			audio_sound_gain(reloadSound, 0, myWeapon.reloadTime * 1000 + 200)
 		}
 	}

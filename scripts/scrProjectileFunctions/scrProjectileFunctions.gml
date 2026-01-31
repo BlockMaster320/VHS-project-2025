@@ -79,8 +79,11 @@ function genericProjectileDestroy()
 function genericBulletLifespan()
 {
 	lifetime -= global.gameSpeed
-	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir)
-	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir)
+	existanceTime += global.gameSpeed;
+	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir + dirOffset)
+	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir + dirOffset)
+	
+	if (rotateInDirection) drawRot = dir;
 }
 
 function genericBulletUpdate()
@@ -165,7 +168,7 @@ function explosiveDestroy()
 	explosion.image_yscale = explosion.scale * explosion.yScaleMult
 	oCamera.currentShakeAmount += 25
 	
-	var pitch = random_range(.7, 1.5)
+	var pitch = random_range(0.7, 1.5)
 	audio_play_sound(sndGarbageExplosion, 0, false, 1, 0, pitch)
 	
 	instance_destroy()
@@ -178,15 +181,27 @@ function garbageUpdate()
 	explosiveUpdate()
 }
 
+// Paper Plane
+function paperPlaneUpdate()
+{
+	dir += cos(existanceTime * 0.2) * 4;
+	genericBulletUpdate()
+}
+
 // Projectile draw ----------------------------------------
 
 function genericProjectileDraw()
 {	
+	var _flip = (drawRot > 90 && drawRot <= 270) ? -1 : 1;
+	var _scaleX = (projType == PROJECTILE_TYPE.ranged) ? scale : 1;	// projectile scaling needs a rework
+	var _scaleY = _scaleX;
+
 	draw_sprite_ext (
-		sprite, 0, roundPixelPos(x), roundPixelPos(y),
-		scale * xScaleMult, scale * yScaleMult,
-		drawRot, color, 1
+		sprite, frame, roundPixelPos(x), roundPixelPos(y),
+		_scaleX, _scaleY * _flip,
+		drawRot + rotationOffset, color, 1
 	)
+	frame = min(frame + animationSpeed, sprite_get_number(sprite) - 1);
 	//draw_self()
 }
 
