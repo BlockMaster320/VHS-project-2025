@@ -8,7 +8,6 @@
   "instanceCreationOrder":[
     {"name":"inst_1311375","path":"rooms/rmGame/rmGame.yy",},
     {"name":"inst_30F42EE8","path":"rooms/rmGame/rmGame.yy",},
-    {"name":"inst_7BAE0E11","path":"rooms/rmGame/rmGame.yy",},
     {"name":"inst_47B4FC2A","path":"rooms/rmGame/rmGame.yy",},
     {"name":"inst_33ECFCDF","path":"rooms/rmGame/rmGame.yy",},
     {"name":"inst_6BDC4D10","path":"rooms/rmGame/rmGame.yy",},
@@ -163,6 +162,7 @@
     {"name":"inst_7CEA2E16","path":"rooms/rmGame/rmGame.yy",},
     {"name":"inst_7E9D6D67","path":"rooms/rmGame/rmGame.yy",},
     {"name":"inst_29C886B","path":"rooms/rmGame/rmGame.yy",},
+    {"name":"inst_7BAE0E11","path":"rooms/rmGame/rmGame.yy",},
   ],
   "isDnd":false,
   "layers":[

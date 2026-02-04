@@ -22,7 +22,7 @@ function instanceInRange(object, distance)
 {
 	var inst = instance_nearest(x, y, object)
 	if (!inst) return noone
-	return point_distance(x, y, inst.x, inst.y) <= PICKUP_DISTANCE ? inst : noone
+	return point_distance(x, y, inst.x, inst.y) <= distance ? inst : noone
 }
 
 function collisionMargin(xx, yy, margin)

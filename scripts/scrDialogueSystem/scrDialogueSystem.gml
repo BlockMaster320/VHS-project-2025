@@ -122,8 +122,10 @@ function SelectDlg(_NPCType)
 		case CHARACTER_TYPE.passenger1:
 			return irandom(array_length(dialogues.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
 		case CHARACTER_TYPE.playerCleaner:
-			//TODO
-			return 0
+			if (room == rmBossFight){
+				return 0
+			}
+			return 1
 		default:
 			return 0
 	}
