@@ -186,7 +186,7 @@ function garbageUpdate()
 // Paper Plane
 function paperPlaneUpdate()
 {
-	dir += cos(existanceTime * 0.2) * 4;
+	dir += cos(existanceTime * 0.2) * 2;
 	genericBulletUpdate()
 }
 
