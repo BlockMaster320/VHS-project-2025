@@ -1,11 +1,10 @@
-if (!talked){
+if (!activated){
 	var NPCInRange = noone
 	with(oPlayer){
 		NPCInRange = instanceInRange(oNPC, INTERACTION_DISTANCE * 2)
-		
-		if (NPCInRange != noone){
-			other.talked = true
-			oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner, function(){})
-		}
+	}
+	if (NPCInRange != noone){
+		bossRoomSequence.start()
+		activated = true
 	}
 }

@@ -1,6 +1,15 @@
 oPlayer.x = 775;
 oPlayer.y = 850;
 
-instance_deactivate_object(oEnemy)
+activated = false
 
-talked = false
+cleanerEnemy = noone
+
+bossRoomSequence = new TweenSequence([
+	new TweenDialogue(CHARACTER_TYPE.playerCleaner),
+	new TweenAction(function() {
+		instance_deactivate_object(oNPC)
+		cleanerEnemy = instance_create_layer(768, 192, "Instances", oEnemy)
+		with(cleanerEnemy) { characterCreate(CHARACTER_TYPE.playerCleaner); }
+	})
+])
