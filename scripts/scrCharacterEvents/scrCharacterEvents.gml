@@ -368,6 +368,49 @@ function characterCreate(_characterType) {
 			
 		} break;
 		
+		case CHARACTER_TYPE.cleanerEnemy: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.cleanerEnemy;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Player cleaner";
+			portrait = sCleanerPortrait;
+			
+			// Animation
+			drawnSprite = sCharacters;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
+			anim = characterAnimation.getAnimation;
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.crowbar, id)
+			
+			// AI
+			slasherAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				slasherAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				slasherAiDraw()	// AI visualization
+			}
+			
+		} break;
+		
 		// --------------------------------------------------------------------------------
 		
 		default:
