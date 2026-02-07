@@ -20,6 +20,7 @@ function Passenger1Controller(
 		// graphics
 		portrait = sPassenger1Portrait;
 		drawnSprite = sCharacters;
+		imageOffset = 11;
 		characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
 		anim = characterAnimation.getAnimation;
 
