@@ -431,13 +431,16 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.enemy;
 			characterType = CHARACTER_TYPE.cleanerEnemy;
 			walkSpd = .5
+			maxHp = 1500
+			hp = maxHp
 			
 			// Dialogues
-			name = "Player cleaner";
+			name = "Cleaner enemy";
 			portrait = sCleanerPortrait;
 			
 			// Animation
 			drawnSprite = sCharacters;
+			imageOffset = 44;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
 			anim = characterAnimation.getAnimation;
 			
@@ -481,6 +484,7 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			drawnSprite = sCharacters;
+			imageOffset = 44;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
 			anim = characterAnimation.getAnimation;
 			

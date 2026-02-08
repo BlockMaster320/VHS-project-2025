@@ -98,7 +98,11 @@ function cleanerAiUpdate()
 		case AI_STATE.clone:
 			for (var i = 0; i < 3; ++i) {
 				var clone = instance_create_layer(x, y, "Instances", oEnemy)
-				with(clone){ characterCreate(CHARACTER_TYPE.cleanerClone)}
+				with(clone){ 
+					characterCreate(CHARACTER_TYPE.cleanerClone)
+					maxHp = other.hp / 3
+					hp = maxHp
+				}
 			}
 			break
 						
