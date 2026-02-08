@@ -27,7 +27,7 @@ function cleanerAiInit()
 	// Rest
 	restAiInit()
 	
-	cloneCD = new Cooldown(10*60)
+	cloneCD = new Cooldown(5*60)
 }
 
 function cleanerAiUpdate()
@@ -96,7 +96,10 @@ function cleanerAiUpdate()
 			break
 			
 		case AI_STATE.clone:
-			debug("clonuju")
+			for (var i = 0; i < 3; ++i) {
+				var clone = instance_create_layer(x, y, "Instances", oEnemy)
+				with(clone){ characterCreate(CHARACTER_TYPE.cleanerClone)}
+			}
 			break
 						
 		case AI_STATE.shoot:
