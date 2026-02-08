@@ -153,7 +153,7 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.shopkeeper;
 			name = "Shopkeeper";
-			portrait = sNPCPortrait;
+			portrait = sShopkeeperPortrait;
 			
 			drawnSprite = sShopkeeper;
 			imageOffset = 0;
