@@ -31,6 +31,7 @@ function genericAiUpdate()
 	playerDist = point_distance(x, y, oPlayer.x, oPlayer.y)
 	walkDir = point_direction(x, y, x + whsp, y + wvsp)
 
+
 	// Look direction
 	if (seesPlayer and aimingAtPlayer)
 	{
@@ -46,6 +47,10 @@ function genericAiUpdate()
 	lookDir = lerpDirection(lookDir, lookDirTarget, lookLerpFac)
 	if (is_struct(myWeapon))
 		myWeapon.aimDirection = lookDir
+		
+	// Set animation flip
+	if (whsp !=0 || wvsp != 0)
+		dir = (lookDir > 90 && lookDir < 270) ? -1 : 1;
 }
 
 #endregion

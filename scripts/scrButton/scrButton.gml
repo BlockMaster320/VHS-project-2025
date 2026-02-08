@@ -1,4 +1,4 @@
-/// @param {string} _name - The button name
+ /// @param {string} _name - The button name
 /// @param {any} _group - UI group
 /// @param {real} [_x=0] - The X position
 /// @param {real} [_y=0] - The Y position

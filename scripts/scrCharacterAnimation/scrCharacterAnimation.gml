@@ -1,5 +1,5 @@
 // Default = Player
-function GetAnimationFramesDefault(characterState) {
+function GetAnimationFramesDefault(characterState, _offset = 0) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: [0,3], speeds: [.08, .08, .08, .08]}
 	    case CharacterState.Run:  return {range: [4,9], speeds: [.3, .3, .15, .3, .3, .3]}
@@ -9,7 +9,7 @@ function GetAnimationFramesDefault(characterState) {
 }
 
 // Mechanic
-function GetAnimationFramesMechanic(characterState, _offset = 66) {
+function GetAnimationFramesMechanic(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
 	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
@@ -18,31 +18,22 @@ function GetAnimationFramesMechanic(characterState, _offset = 66) {
 	};
 }
 
-// Red NPC
-function GetAnimationFramesLatin(characterState, _offset = 22) {
-	switch(characterState) {
-	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
-	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	};
-}
-
-// Purple player
-function GetAnimationFramesCompanion(characterState, _offset = 55) {
-	switch(characterState) {
-	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
-	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	};
-}
-
-// Pink NPC
-function GetAnimationFramesMsJigglytits(characterState, _offset = 11) {
+// Passanger NPC
+function GetAnimationFramesPassenger(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
 	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
+	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
+	};
+}
+
+
+// Purple player
+function GetAnimationFramesCompanion(characterState, _offset) {
+	switch(characterState) {
+	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
+	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
 	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
 	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
 	};
@@ -59,7 +50,7 @@ function GetAnimationFramesCleaner1(characterState, _offset = 33) {
 }
 
 // Cleaner 2 NPC
-function GetAnimationFramesCleaner2(characterState, _offset = 44) {
+function GetAnimationFramesCleaner2(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
 	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
@@ -69,7 +60,7 @@ function GetAnimationFramesCleaner2(characterState, _offset = 44) {
 }
 
 // Player
-function GetAnimationFramesPlayer(characterState, _offset = 0) {
+function GetAnimationFramesPlayer(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
 		case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
@@ -78,8 +69,8 @@ function GetAnimationFramesPlayer(characterState, _offset = 0) {
 	};
 }
 
-// Basic enemy
-function GetAnimationFramesBasicEnemy(characterState, _offset = 77) {
+// Eenemy
+function GetAnimationFramesEnemy(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
 	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
@@ -88,35 +79,6 @@ function GetAnimationFramesBasicEnemy(characterState, _offset = 77) {
 	};
 }
 
-// Runner enemy
-function GetAnimationFramesRunnerEnemy(characterState, _offset = 88) {
-	switch(characterState) {
-	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
-	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	};
-}
-
-// Ranged enemy
-function GetAnimationFramesRangedEnemy(characterState, _offset = 99) {
-	switch(characterState) {
-	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
-	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	};
-}
-
-// Panic enemy
-function GetAnimationFramesPanicEnemy(characterState, _offset = 110) {
-	switch(characterState) {
-	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
-	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	};
-}
 
 function GetAnimationFramesHands(characterState) {
 	switch(characterState) {

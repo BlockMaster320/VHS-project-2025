@@ -49,7 +49,8 @@ if (harmed_duration > 0) {
 }
 
 // Animation
-var animationFrames = anim(characterState);
+var animationFrames = anim(characterState, imageOffset);
+
 var start = animationFrames.range[0];
 var ended = animationFrames.range[1];
 
@@ -118,8 +119,9 @@ if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
 	//show_debug_message(gain)
 }
 
-if (x != xprevious or y != yprevious)
+if (x != xprevious or y != yprevious) {
 	walkDustTimeCounter -= 1/60 * global.gameSpeed
+}
 else walkDustTimeCounter = 0
 
 #endregion
