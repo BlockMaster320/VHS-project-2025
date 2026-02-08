@@ -143,6 +143,7 @@
     {"id":{"name":"scrCharacterGeneric","path":"scripts/scrCharacterGeneric/scrCharacterGeneric.yy",},},
     {"id":{"name":"scrCheckbox","path":"scripts/scrCheckbox/scrCheckbox.yy",},},
     {"id":{"name":"scrCinemaBorders","path":"scripts/scrCinemaBorders/scrCinemaBorders.yy",},},
+    {"id":{"name":"scrCleaner","path":"scripts/scrCleaner/scrCleaner.yy",},},
     {"id":{"name":"scrCollision","path":"scripts/scrCollision/scrCollision.yy",},},
     {"id":{"name":"scrColumn","path":"scripts/scrColumn/scrColumn.yy",},},
     {"id":{"name":"scrConstants","path":"scripts/scrConstants/scrConstants.yy",},},

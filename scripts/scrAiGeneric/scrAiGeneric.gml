@@ -1,6 +1,6 @@
 enum AI_STATE
 {
-	idle, hide, reposition, shoot, reload, rest
+	idle, hide, reposition, shoot, reload, rest, clone
 }
 
 #region Generic

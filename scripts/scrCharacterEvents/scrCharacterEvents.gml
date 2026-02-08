@@ -392,13 +392,13 @@ function characterCreate(_characterType) {
 			myWeapon = acquireWeapon(WEAPON.crowbar, id)
 			
 			// AI
-			slasherAiInit()
+			cleanerAiInit()
 			
 			// Behaviour
 			stepEvent = function()
 			{
 				pathfindingStep()
-				slasherAiUpdate()
+				cleanerAiUpdate()
 				myWeapon.update()
 			}
 			
@@ -406,7 +406,7 @@ function characterCreate(_characterType) {
 			{
 				pathfindingDraw()
 				myWeapon.draw()
-				slasherAiDraw()	// AI visualization
+				cleanerAiDraw()	// AI visualization
 			}
 			
 		} break;

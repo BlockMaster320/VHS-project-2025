@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrCleaner",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrCleaner",
+  "parent":{
+    "name":"Enemies",
+    "path":"folders/Objects/Content/Enemies.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
