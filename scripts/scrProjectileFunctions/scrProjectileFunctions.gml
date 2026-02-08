@@ -83,6 +83,8 @@ function genericBulletLifespan()
 	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir + dirOffset)
 	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir + dirOffset)
 	
+	image_angle = dir
+	
 	if (rotateInDirection) drawRot = dir;
 }
 
