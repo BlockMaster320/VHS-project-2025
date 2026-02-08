@@ -285,7 +285,6 @@
     {"id":{"name":"spr_mask_rycb","path":"sprites/spr_mask_rycb/spr_mask_rycb.yy",},},
     {"id":{"name":"spr_mask_yb","path":"sprites/spr_mask_yb/spr_mask_yb.yy",},},
     {"id":{"name":"spr_slot","path":"sprites/spr_slot/spr_slot.yy",},},
-    {"id":{"name":"Sprite80","path":"sprites/Sprite80/Sprite80.yy",},},
     {"id":{"name":"sQuest","path":"sprites/sQuest/sQuest.yy",},},
     {"id":{"name":"sRat","path":"sprites/sRat/sRat.yy",},},
     {"id":{"name":"sShopkeeper","path":"sprites/sShopkeeper/sShopkeeper.yy",},},
