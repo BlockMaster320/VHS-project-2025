@@ -91,6 +91,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			drawnSprite = sCharacters;
+			imageOffset = 0;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
 			anim = characterAnimation.getAnimation;
 			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
@@ -119,6 +120,7 @@ function characterCreate(_characterType) {
 			portrait = sNPCPortrait;
 			
 			drawnSprite = sCharacters;
+			imageOffset = 0;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesPlayer);
 			anim = characterAnimation.getAnimation;
 			handsAnimation = new CharacterAnimation(GetAnimationFramesHands);
@@ -139,6 +141,7 @@ function characterCreate(_characterType) {
 			portrait = sMechanicPortrait;
 			
 			drawnSprite = sCharacters;
+			imageOffset = 66;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesMechanic);
 			anim = characterAnimation.getAnimation;
 			
@@ -153,6 +156,7 @@ function characterCreate(_characterType) {
 			portrait = sShopkeeperPortrait;
 			
 			drawnSprite = sShopkeeper;
+			imageOffset = 0;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesDefault);
 			anim = characterAnimation.getAnimation;
 			
@@ -161,20 +165,23 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {
-			controller = new Passenger1Controller(
+			controller = new PassengerController(
 				id, 
+				11,
 				"Passanger 1"
 			)
 		} break;
 		case CHARACTER_TYPE.passenger2: {
-			controller = new Passenger1Controller(
+			controller = new PassengerController(
 				id, 
+				22,
 				"Passanger 2"
 			)
 		} break;
 		case CHARACTER_TYPE.passenger3: {
-			controller = new Passenger1Controller(
+			controller = new PassengerController(
 				id, 
+				44,
 				"Passanger 3"
 			)
 		} break;
@@ -190,6 +197,7 @@ function characterCreate(_characterType) {
 			portrait = sStudentPortrait;
 			
 			drawnSprite = sCharacters;
+			imageOffset = 55;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesCompanion);
 			anim = characterAnimation.getAnimation;
 			dir = -1;
@@ -212,7 +220,8 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			drawnSprite = sEnemy;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesPanicEnemy);
+			imageOffset = 110;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Weapon
@@ -232,6 +241,7 @@ function characterCreate(_characterType) {
 			}
 			break
 		
+		/*
 		case CHARACTER_TYPE.ghoster: {
 			// Character attributes
 			characterClass = CHARACTER_CLASS.enemy;
@@ -244,7 +254,53 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			drawnSprite = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesRangedEnemy);
+			imageOffset = 99;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
+			anim = characterAnimation.getAnimation(imageOffset);
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.ghosterGun, id)
+			
+			// AI
+			ghosterAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				ghosterAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				ghosterAiDraw()	// AI visualization
+			}
+			
+		} break;
+		*/
+		
+		case CHARACTER_TYPE.ghoster: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.ghoster;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Ghoster";
+			portrait = sNPCPortrait;
+			
+			// Animation
+			drawnSprite = sCharacters
+			imageOffset = 122;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
@@ -288,7 +344,8 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			drawnSprite = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesBasicEnemy);
+			imageOffset = 77;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
@@ -297,7 +354,7 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			var weaponID = choose(WEAPON.crowbar, WEAPON.pigeon, WEAPON.fan, WEAPON.paperPlane, WEAPON.ticketMachine)
+			var weaponID = choose(WEAPON.pigeon, WEAPON.fan, WEAPON.paperPlane, WEAPON.ticketMachine, WEAPON.crowbar, WEAPON.groanTube)
 			myWeapon = acquireWeapon(weaponID, id)
 			myWeapon.projectile.damage *= .5
 			myWeapon.projectile.projectileSpeed *= .5
@@ -337,7 +394,8 @@ function characterCreate(_characterType) {
 			
 			// Animation
 			drawnSprite = sCharacters;
-			characterAnimation = new CharacterAnimation(GetAnimationFramesRunnerEnemy);
+			imageOffset = 88;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
 			
 			// Pathfinding
