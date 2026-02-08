@@ -43,7 +43,6 @@ if (myWeapon.type == WEAPON.rat) {
 	}
 	else {
 		_flip = (_dir > 90 && _dir < 270) ? 1 : -1;
-		show_debug_message(_dir);
 	}
 	
 	animIndex += _animSpeed;

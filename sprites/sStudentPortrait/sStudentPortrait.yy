@@ -19,6 +19,7 @@
   "height":64,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"477f4862-d868-4c83-9243-add1fac4cde7","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"477f4862-d868-4c83-9243-add1fac4cde7","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
     {"$GMImageLayer":"","%Name":"2b9cae0b-118e-4cfd-9a55-c64590197935","blendMode":0,"displayName":"default","isLocked":false,"name":"2b9cae0b-118e-4cfd-9a55-c64590197935","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"sStudentPortrait",

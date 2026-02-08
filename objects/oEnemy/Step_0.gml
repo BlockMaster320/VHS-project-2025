@@ -9,5 +9,13 @@ if (place_meeting(x, y, oEnemy))
 	mvsp += lengthdir_y(pushForce, dir)
 }
 
+
 // Character code
 event_inherited()
+
+// Enemy animation
+if (x != xprevious or y != yprevious) {
+	characterState = CharacterState.Run;
+}
+else
+	characterState = CharacterState.Idle;

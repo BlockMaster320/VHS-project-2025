@@ -22,6 +22,7 @@ function PlayerCleanerController(
 			
 		// Graphics
 		drawnSprite = sCharacters;
+		imageOffset = 44;
 		characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
 		anim = characterAnimation.getAnimation;
 		

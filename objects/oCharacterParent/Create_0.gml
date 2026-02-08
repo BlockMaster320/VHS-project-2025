@@ -55,6 +55,7 @@ inRange = false
 // animation control
 characterAnimation = noone;
 anim = noone;
+imageOffset = 0;
 sprite_index = noone;	// Used for hitbox
 drawnSprite = noone		// Used for drawing
 sprite_frame = 0;
