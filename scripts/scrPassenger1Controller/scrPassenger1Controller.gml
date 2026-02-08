@@ -6,8 +6,9 @@
  * @param {Asset.GMObject|Id.Instance} _gameObject - Game object referenced for NPC.
  * @param {String} [_name] [undefined] - Name of the NPC
  */
-function Passenger1Controller(
+function PassengerController(
 	_gameObject,
+	_imageOffset,
 	_name = undefined
 ) : NpcController(_gameObject, _name) constructor {
 
@@ -20,8 +21,8 @@ function Passenger1Controller(
 		// graphics
 		portrait = sPassenger1Portrait;
 		drawnSprite = sCharacters;
-		imageOffset = 11;
-		characterAnimation = new CharacterAnimation(GetAnimationFramesMsJigglytits);
+		imageOffset = _imageOffset;
+		characterAnimation = new CharacterAnimation(GetAnimationFramesPassenger);
 		anim = characterAnimation.getAnimation;
 
 		// logic

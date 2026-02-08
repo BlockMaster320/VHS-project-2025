@@ -18,31 +18,22 @@ function GetAnimationFramesMechanic(characterState, _offset) {
 	};
 }
 
-// Red NPC
-function GetAnimationFramesLatin(characterState, _offset = 22) {
+// Passanger NPC
+function GetAnimationFramesPassenger(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
+	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
 	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
 	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
 	};
 }
+
 
 // Purple player
 function GetAnimationFramesCompanion(characterState, _offset) {
 	switch(characterState) {
 	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
 	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .3]}
-	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
-	};
-}
-
-// Pink NPC
-function GetAnimationFramesMsJigglytits(characterState, _offset) {
-	switch(characterState) {
-	    case CharacterState.Idle: return {range: GetAnimationRange(_offset, characterState), speeds: [.08, .08, .08, .08]}
-	    case CharacterState.Run:  return {range: GetAnimationRange(_offset, characterState), speeds: [.3, .3, .15, .3, .3, .1]}
 	    case CharacterState.Harm: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
 	    case CharacterState.Dead: return {range: GetAnimationRange(_offset, characterState), speeds: [.1]}
 	};

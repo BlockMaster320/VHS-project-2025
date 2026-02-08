@@ -165,20 +165,23 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.passenger1: {
-			controller = new Passenger1Controller(
+			controller = new PassengerController(
 				id, 
+				11,
 				"Passanger 1"
 			)
 		} break;
 		case CHARACTER_TYPE.passenger2: {
-			controller = new Passenger1Controller(
+			controller = new PassengerController(
 				id, 
+				22,
 				"Passanger 2"
 			)
 		} break;
 		case CHARACTER_TYPE.passenger3: {
-			controller = new Passenger1Controller(
+			controller = new PassengerController(
 				id, 
+				44,
 				"Passanger 3"
 			)
 		} break;
