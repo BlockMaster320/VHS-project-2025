@@ -28,6 +28,7 @@ function cleanerAiInit()
 	restAiInit()
 	
 	cloneCD = new Cooldown(5*60)
+	prevState = noone
 }
 
 function cleanerAiUpdate()
@@ -47,17 +48,15 @@ function cleanerAiUpdate()
 						
 			case AI_STATE.reposition:
 				repositionAiTransition()
+				cleanerAiTryCloning()
 				break
 				
 			case AI_STATE.clone:
 				cloneCD.reset()
-				state = AI_STATE.shoot
+				state = prevState
 				break
 						
 			case AI_STATE.shoot:
-				if (cloneCD.value <= 0){
-					state = AI_STATE.clone
-				} else{
 					shootAiTransition()
 					if (shootingDuration >= 2)
 					{
@@ -65,7 +64,6 @@ function cleanerAiUpdate()
 						myWeapon.holdingTrigger = false
 						state = AI_STATE.rest
 					}
-				}
 				break
 						
 			case AI_STATE.reload:
@@ -78,6 +76,7 @@ function cleanerAiUpdate()
 				
 			case AI_STATE.rest:
 				restAiTransition()
+				cleanerAiTryCloning()
 				break
 		}
 	}
@@ -96,7 +95,6 @@ function cleanerAiUpdate()
 			break
 			
 		case AI_STATE.clone:
-			for (var i = 0; i < 3; ++i) {
 				var clone = instance_create_layer(x, y, "Instances", oEnemy)
 				with(clone){ 
 					characterCreate(CHARACTER_TYPE.cleanerClone)
@@ -125,6 +123,7 @@ function cleanerAiUpdate()
 
 function cleanerAiDraw()
 {
+	draw_text(x, y - 20, $"Health: {hp}")
 	if (global.AI_DEBUG)
 	{
 		genericAiDebugDraw()
@@ -132,3 +131,16 @@ function cleanerAiDraw()
 		debugAiLineDraw()
 	}
 }
+
+
+// cleaner ai ---------------------------------------------------------------------- 
+
+function cleanerAiTryCloning()
+{
+	if (cloneCD.value <= 0){
+		prevState = state
+		state = AI_STATE.clone
+	}
+}
+
+function cleanerAiCloneUpdate()
