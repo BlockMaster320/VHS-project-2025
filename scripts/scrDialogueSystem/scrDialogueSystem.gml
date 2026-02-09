@@ -125,9 +125,15 @@ function SelectDlg(_NPCType)
 			return irandom(array_length(dialogues.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
 		case CHARACTER_TYPE.playerCleaner:
 			if (room == rmBossFight){
-				if(!dialogues.dlgs[? _NPCType][0].seen)
-					return 0
-				return 1
+				if (oBossFight.state == BOSSFIGHT_STATE.startedTalking){
+					if(!dialogues.dlgs[? _NPCType][0].seen)
+						return 0
+					return 1
+				}
+				if (oBossFight.state == BOSSFIGHT_STATE.defeated){
+					return 2
+				}
+				return 9 // SHOULDN'T HAPPEN
 			}
 			if (room == rmLobby){
 				if (irandom(99) == 0) return 9

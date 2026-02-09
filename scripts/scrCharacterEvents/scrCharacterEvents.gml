@@ -529,6 +529,13 @@ function characterCreate(_characterType) {
 				cleanerAiDraw()	// AI visualization
 			}
 			
+			onDeathEvent = function()
+			{
+				oBossFight.removeClones()
+				oBossFight.cleanerEnemy = noone
+				instance_destroy()
+			}
+			
 		} break;
 		
 		case CHARACTER_TYPE.cleanerClone: {
