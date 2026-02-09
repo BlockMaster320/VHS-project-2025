@@ -394,31 +394,41 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			tilemap_set(oRoomManager.tileMapWall, 5, _roomX + (ROOM_SIZE div 2) - 1, _roomY);
 		}
 		
-		// Spawn enemies
+		// Spawn enemies --------------------------------------
 		var mapWidth  = tilemap_get_width(global.tilemapCollision);
 		var mapHeight = tilemap_get_height(global.tilemapCollision);
-		var spawnEnemies = 10
+		
+		// Progressively spawn more enemies
+		var spawnEnemyCount = 2
+		spawnEnemyCount += min(oController.roomsCleared * .5, 2)
+		spawnEnemyCount += min(oController.roomsCleared * .25, 6)
+		spawnEnemyCount += oController.buffsObtained * 1.5
+		spawnEnemyCount = round(spawnEnemyCount)
 		
 		audio_resume_sound(oController.actionMusic)
 		audio_sound_gain(oController.actionMusic, actionMusicFightGain, 3000)
 		
-		while (spawnEnemies > 0) {
+		while (spawnEnemyCount > 0) {
 			var _enemyX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			var _enemyY = (_roomY + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
 			
-			//var tileX = clamp(floor(_enemyX / TILE_SIZE), 0, mapWidth - 1);
-			//var tileY = clamp(floor(_enemyY / TILE_SIZE), 0, mapHeight - 1);
-			//var tileId = tilemap_get_at_pixel(global.tilemapCollision, _enemyX, _enemyY)
-			var colliding = collision_rectangle(_enemyX - TILE_SIZE/2, _enemyY - TILE_SIZE/2, _enemyX + TILE_SIZE/2, _enemyY + TILE_SIZE/2, global.tilemapCollision, false, true)
+			// Tilemap collision
+			var collidingTile = collision_rectangle(_enemyX - TILE_SIZE/2, _enemyY - TILE_SIZE/2, _enemyX + TILE_SIZE/2, _enemyY + TILE_SIZE/2, global.tilemapCollision, false, true)
+			var colliding = collidingTile != noone
 			
-			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
+			// Non-tilemap collision
+			var nearestCollider = instance_nearest(_enemyX, _enemyY, oCollider)
+			if (instance_exists(nearestCollider))
+				colliding |= point_distance(_enemyX, _enemyY, nearestCollider.x, nearestCollider.y) < TILE_SIZE
+			
+			if (!colliding)
 			{
 				var _enemy = instance_create_layer(_enemyX, _enemyY, "Instances", oEnemy);
-				var enemyType = choose(CHARACTER_TYPE.dropper, CHARACTER_TYPE.ghoster)
+				var enemyType = chooseEnemyType()
 				with(_enemy) { characterCreate(enemyType); }
 				
 				ds_list_add(enemies, _enemy);
-				spawnEnemies--
+				spawnEnemyCount--
 			}
 		}
 		
@@ -487,6 +497,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
 		oPlayer.showStats = true
 		audio_sound_gain(oController.actionMusic, actionMusicRestGain, 3000)
+		
+		oController.roomsCleared++
 		
 		// Start door opening animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {

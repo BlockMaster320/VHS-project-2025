@@ -102,6 +102,10 @@ function characterCreate(_characterType) {
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
 			onDeathEvent = function() {
+				
+				oController.roomsCleared = 0
+				oController.buffsObtained = 0
+				
 				debug("player has died")
 				if (instance_exists(oRoomManager)) {
 					oRoomManager.killAllEnemies()
@@ -296,6 +300,8 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.ghoster;
 			walkSpd = .5
 			
+			hp = 200
+			
 			// Dialogues
 			name = "Ghoster";
 			portrait = sNPCPortrait;
@@ -331,8 +337,56 @@ function characterCreate(_characterType) {
 				myWeapon.draw()
 				ghosterAiDraw()	// AI visualization
 			}
-			
 		} break;
+		
+		case CHARACTER_TYPE.fanner: {
+			
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.fanner;
+			walkSpd = .5
+			
+			hp = 200
+			
+			// Dialogues
+			name = "Fanner";
+			portrait = sNPCPortrait;
+			
+			// Animation
+			drawnSprite = sCharacters
+			imageOffset = 77;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
+			anim = characterAnimation.getAnimation;
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.enemyFan, id)
+			
+			// AI
+			slasherAiInit()
+			optimalRange = new Range(1*TILE_SIZE, 6*TILE_SIZE)
+			restTime = new Cooldown(120)
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				slasherAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				slasherAiDraw()	// AI visualization
+			}
+		} break;
+		
 		
 		// Dropper - can carry any gun and drops it on death
 		case CHARACTER_TYPE.dropper: {
@@ -391,6 +445,8 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.meleeSlasher;
 			walkSpd = .5
 			
+			hp = 300
+			
 			// Dialogues
 			name = "Melee slasher";
 			portrait = sNPCPortrait;
@@ -407,7 +463,7 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			myWeapon = acquireWeapon(WEAPON.crowbar, id)
+			myWeapon = acquireWeapon(WEAPON.enemyCrowbar, id)
 			
 			// AI
 			slasherAiInit()

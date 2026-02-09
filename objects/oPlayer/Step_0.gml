@@ -15,11 +15,13 @@ event_inherited()
 #region Weapon interaction
 
 // Swap active inventory slot
-if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0)
+if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0 and activeSlotSwapCooldown.value <= 0)
 {
+	activeSlotSwapCooldown.reset()
 	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
 	SwapSlot(newSlot)
 }
+else if (activeSlotSwapCooldown.value > -1) activeSlotSwapCooldown.value--
 	
 function SwapSlot(newSlot)
 {
@@ -75,10 +77,11 @@ if (oController.interact)
 			array_insert(buffs, 0, buffPickup.myBuff)
 		else
 			array_push(buffs, buffPickup.myBuff)
-			
+		
+		oController.buffsObtained++
 		oCamera.currentShakeAmount += 10
 		audio_play_sound(sndBuffPickup, 0, false)
-			
+		
 		EvaluatePlayerBuffs()	// Order matters here!
 		EvaluateWeaponBuffs()
 		EvaluateOneTimeUseBuffs()

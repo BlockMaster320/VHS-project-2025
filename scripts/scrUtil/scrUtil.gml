@@ -76,6 +76,26 @@ function Alarm(time, func_, considerGameSpeed=false) constructor
 	}
 }
 
+// Enemy spawning -------------------------------------
+
+function chooseEnemyType()
+{	
+	// These should add up to 100 (for readibility)
+	var ghosterDistr = 50
+	var slasherDistr = 35
+	var fannerDistr = 15
+
+
+	var rnd = random(ghosterDistr+slasherDistr+fannerDistr)
+	
+	if		(rnd < ghosterDistr)							return CHARACTER_TYPE.ghoster
+	else if (rnd < ghosterDistr+slasherDistr)				return CHARACTER_TYPE.meleeSlasher
+	else if (rnd < ghosterDistr+slasherDistr+fannerDistr)	return CHARACTER_TYPE.fanner
+	
+	show_debug_message("Something went wrong when choosing an enemy type.")
+	return CHARACTER_TYPE.ghoster	// This should never be reacher
+}
+
 // Pixel art upscaling -----------------------------------------------------------
 
 function roundPixelPos(pos)

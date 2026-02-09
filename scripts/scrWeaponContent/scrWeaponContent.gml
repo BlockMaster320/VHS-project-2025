@@ -33,7 +33,7 @@ function WeaponsInit()
 		rat,
 		
 		// Monsters focused
-		ghosterGun,
+		ghosterGun, enemyFan, enemyCrowbar,
 		
 		// --------------
 		length
@@ -129,7 +129,7 @@ function WeaponsInit()
 			projectileSpeed = 3
 			targetKnockback = 4.5
 			effects = [ EFFECT.fanAreaDmg ]
-			scale = 2
+			scale = 1
 			xScaleMult = 4
 			rotateInDirection = false;
 	
@@ -140,7 +140,6 @@ function WeaponsInit()
 			objDealNoDamage = true
 			
 			// Scene attributes
-			attackSpeed = other.attackSpeed // Cruel hack
 			skipFirstFrameDraw = true
 			
 			// Behaviour
@@ -234,7 +233,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
+			damage = 15
 			projectileSpeed = 2.5
 			targetKnockback = 1
 			effects = [ ]
@@ -287,7 +286,7 @@ function WeaponsInit()
 			targetKnockback = 5
 			effects = []
 			lifetime = 20
-			scale = 2
+			scale = .7
 	
 			// Generic attributes
 			sprite = sMeleeSlash
@@ -333,11 +332,11 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 40
+			damage = 45
 			projectileSpeed = 3
 			targetKnockback = 10
 			effects = []
-			scale = 3
+			scale = 1.2
 	
 			// Generic attributes
 			sprite = sMeleeSlash
@@ -385,7 +384,7 @@ function WeaponsInit()
 			projectileSpeed = 3
 			targetKnockback = 10
 			effects = []
-			scale = 3
+			scale = 1.2
 	
 			// Generic attributes
 			sprite = sMeleeSlash
@@ -430,7 +429,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
+			damage = 20
 			projectileSpeed = 1
 			targetKnockback = 2
 			effects = []
@@ -447,6 +446,114 @@ function WeaponsInit()
 	
 		// Weapon actions
 		primaryAction = rangedWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
+	}
+		
+	// -----------------------------------------------------------------------------
+
+	with (weaponDatabase[WEAPON.enemyFan])
+	{
+		// Generic attributes
+		type = WEAPON.fan;
+		sprite = sFan
+		name = "Fan"
+		description = "Wheeeeeeeeee"
+		shootSound = [sndFanClick]
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 2			// shots/damage amount per second
+		spread = 5				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		magazineSize = 120 * global.gameSpeed
+		reloadTime = 2
+		
+		// Scene attributes
+		holdingTriggerPrev = false
+		loopingFanSound = -1
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 5
+			projectileSpeed = 3
+			targetKnockback = 4.5
+			effects = [ EFFECT.fanAreaDmg ]
+			scale = 1
+			xScaleMult = 4
+			rotateInDirection = false;
+	
+			// Generic attributes
+			sprite = sFanAir
+			lifetime = 30
+			projType = PROJECTILE_TYPE.melee
+			objDealNoDamage = true
+			
+			// Scene attributes
+			skipFirstFrameDraw = true
+			
+			// Behaviour
+			update = fanProjUpdate
+			draw = fanProjDraw
+		}
+		
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = fanUpdate
+		draw = genericWeaponDraw
+		destroy = fanDestroy
+	}
+	
+	// -----------------------------------------------------------------------------
+
+	with (weaponDatabase[WEAPON.enemyCrowbar])
+	{
+		// Generic attributes
+		type = WEAPON.crowbar;
+		sprite = sCrowBar
+		name = "Crowbar"
+		description = "HL3 tomorrow!!!"
+		shootAnim = WEAPON_ANIM_TYPE.swing
+	
+		// Modifiable attributes
+		projectile = noone
+		attackSpeed = 1.8			// shots/damage amount per second
+		spread = 10				// weapon accuracy in degrees
+		projectileAmount = 1	// number of projectile to be shot in the shoot frame
+		shootOnHold = false
+		
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 30
+			projectileSpeed = 3
+			targetKnockback = 10
+			effects = []
+			scale = 1.2
+	
+			// Generic attributes
+			sprite = sMeleeSlash
+			lifetime = 20
+			projType = PROJECTILE_TYPE.melee
+			
+			// Behaviour
+			update = genericMeleeHitUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = meleeWeaponShoot
 		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
 	
 		// Weapon functions
@@ -527,7 +634,6 @@ function WeaponsInit()
 		draw = genericWeaponDraw;
 	}
 		
-	
 	// ----------------------------------------------------------
 	
 	// Compile into JSON for easy copying
