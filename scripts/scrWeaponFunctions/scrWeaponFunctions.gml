@@ -65,6 +65,8 @@ function spawnBullet()
 	bullet.y = yPos
 	bullet.dir = aimDirection
 	bullet.dir += random_range(-spread/2, spread/2)
+	bullet.image_xscale = projectile.scale * projectile.xScaleMult
+	bullet.image_yscale = projectile.scale * projectile.yScaleMult
 	
 	return bullet
 }
@@ -88,8 +90,6 @@ function meleeWeaponShoot()
 		bullet.image_angle = bullet.dir
 		bullet.drawRot = bullet.dir
 		bullet.sprite_index = sMeleeHitbox
-		bullet.image_xscale = projectile.scale * projectile.xScaleMult
-		bullet.image_yscale = projectile.scale * projectile.yScaleMult
 	}
 }
 
@@ -176,7 +176,7 @@ function weaponPlayerUpdateLogic()
 		oPlayer.ignoreInputBuffer.value--
 		
 	// Reloading
-	if ( !reloading and	
+	if ( !reloading and	active and
 	   ( (oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0))
 	{
 		reloading = true
@@ -198,12 +198,15 @@ function weaponReloading()
 	}
 	else if (reloading and magazineAmmo != magazineSize)
 	{
-		if (reloadProgress > reloadTime * 60)
+		if (reloadProgress > reloadTime * 60) // Reload finished
 		{
 			reloadProgress = 0
 			reloading = false
 			magazineAmmo = magazineSize
 			flashFrameCounter = 0
+			
+			if (index == WEAPON.fan or index == WEAPON.enemyFan)
+				audio_stop_sound(loopingFanSound)
 		}
 		reloadProgress += global.gameSpeed
 		flashFrequency = 3
@@ -259,7 +262,8 @@ function genericWeaponUpdate()
 	{
 		while (primaryActionCooldown <= 0)	// "while" instead of "if" for very high attack speeds
 		{
-			if (oPlayer.dualWield and random(1) < .8) break	// Spread out different weapons
+			if (shootOnHold and projectile.projType == PROJECTILE_TYPE.melee)
+				if (oPlayer.dualWield and random(1) < .8) break	// Spread out different weapons
 			primaryActionCooldown += 60 / attackSpeed
 			evaluateWeaponShoot()
 			
@@ -329,7 +333,11 @@ function fanUpdate()
 			audio_sound_gain(shootSoundInstance, 0, 100)
 		
 		if (audio_is_playing(loopingFanSound))
-			audio_sound_pitch(loopingFanSound, audio_sound_get_pitch(loopingFanSound)-.05)
+		{
+			var pitch = audio_sound_get_pitch(loopingFanSound)-.05
+			pitch = max(pitch, .005)
+			audio_sound_pitch(loopingFanSound, pitch)
+		}
 		
 		if (audio_sound_get_gain(loopingFanSound) == 0)
 			audio_stop_sound(loopingFanSound)

@@ -3,10 +3,14 @@ Constants()
 // Floor state ----------------------------
 currentFloor = 0;
 
+roomsCleared = 0
+buffsObtained = 0
+// -----------------------------------------
+
 //gameFPS = display_get_frequency()
 gameFPS = 60
 //gameFPS = 500
-game_set_speed(gameFPS, gamespeed_fps)	// Experimental
+//game_set_speed(gameFPS, gamespeed_fps)	// Experimental
 defaultGameSpeed = 60 / gameFPS
 global.gameSpeed = defaultGameSpeed
 
@@ -17,12 +21,12 @@ display_set_timing_method(tm_sleep)		// Turn off vsync
 
 global.inputState = INPUT_STATE.playing
 
-//projectilePool = []
 
 WeaponsInit()
 buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 
-show_debug_overlay(true)
+if (debug_mode)
+	show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
 
@@ -81,6 +85,17 @@ part_type_speed(walkDust,.4,.8,-.01,0)
 part_type_alpha2(walkDust, .5, 0)
 //part_type_gravity(walkDust,.002,90)
 part_type_sprite(walkDust,sDust,false,false,true)
+
+cloneDustSys = part_system_create()
+cloneDust = part_type_create()
+cloneDustSpawnCooldown = new Cooldown(2)	// in frames
+part_type_alpha3(cloneDust, 0, .7, 0)
+part_type_size(cloneDust,1,2,0,0)
+part_type_life(cloneDust,100,320)
+part_type_speed(cloneDust,.1,.8,0,.02)
+part_type_orientation(cloneDust, 0, 0, 0, 0, true)
+part_type_sprite(cloneDust,sCloneParticle,false,false,true)
+// ---------------------------------------------
 
 // Highlight if there is a new interaction
 questNPC = CHARACTER_TYPE.student

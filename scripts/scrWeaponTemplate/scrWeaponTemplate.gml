@@ -85,15 +85,15 @@ function Projectile() constructor
 	xScaleMult = 1
 	yScaleMult = 1
 	projectileChild = noone
-	rotateInDirection = true;
-	rotationOffset = 0;
-	dirOffset = 0;
 	
 	// Generic attributes
 	sprite = sEnemyProjectile
 	projectileAuthority = PROJECTILE_AUTHORITY.self
 	projType = PROJECTILE_TYPE.ranged
 	ownerID = -1
+	rotateInDirection = true;
+	rotationOffset = 0;
+	dirOffset = 0;
 	
 	// Scene attributes
 	lifetime = (5 * 60) / global.gameSpeed

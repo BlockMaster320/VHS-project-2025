@@ -19,6 +19,7 @@ function InitPlayerStats()
 	global.gameSpeed = oController.defaultGameSpeed
 	dualWield = false
 	buffApplyAmount = 1
+
 }
 InitPlayerStats()	// Do this, so we can reset player stats to default later
 
@@ -27,6 +28,7 @@ hp = maxHp
 // Inventory --------------------------
 
 activeInventorySlot = 0
+activeSlotSwapCooldown = new Cooldown(30)	// In frames
 showStats = true
 
 // Weapons

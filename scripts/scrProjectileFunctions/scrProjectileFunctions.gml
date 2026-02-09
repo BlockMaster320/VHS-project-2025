@@ -1,5 +1,21 @@
 // Projectile update ------------------------------------
 
+function projWallCollision()
+{
+	var minWallThickness = 1.3 * TILE_SIZE
+	if (place_meeting(x, y, global.tilemapCollision))
+		if (place_meeting(x + lengthdir_x(minWallThickness, dir), y + lengthdir_y(minWallThickness, dir), global.tilemapCollision))
+		{
+			//var wallhit = choose(sndWallHit_001, sndWallHit_002, sndWallHit_003, sndWallHit_004, sndWallHit_005)
+			var pitch = random_range(.9, 1.1)
+			audio_play_sound(sndWallHit, 0, false, .2, 0, pitch)
+			
+			return true
+		}
+			
+	return false
+}
+
 /// Detects all of the colliding enemies
 ///@return true/false wether the bullet hit something
 function projectileHitDetectionArea(includeWalls=false)
@@ -10,7 +26,8 @@ function projectileHitDetectionArea(includeWalls=false)
 	for (var i = 0; i < ds_list_size(collidingList); i++)
 	{
 		var colliding = collidingList[| i]
-		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+		if (instance_exists(colliding) and
+			projectileAuthority == PROJECTILE_AUTHORITY.self and
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{
@@ -23,13 +40,16 @@ function projectileHitDetectionArea(includeWalls=false)
 	}
 	ds_list_destroy(collidingList)
 	
-	if (lifetime <= 0 or (includeWalls and place_meeting(x, y, global.tilemapCollision)))
+	if (lifetime <= 0)
+		hit = true
+		
+	if (includeWalls and projWallCollision())
 		hit = true
 	
 	return hit
 }
 
-/// Detects one of the colliding enemies - faster variant of projectileHitDetectArea
+/// Detects one of the colliding enemies - faster variant of projectileHitDetectArea (no list allocation)
 ///@return true/false wether the bullet hit something
 function projectileHitDetection()
 {
@@ -46,8 +66,8 @@ function projectileHitDetection()
 		}
 	}
 	
-	if (place_meeting(x, y, global.tilemapCollision) or lifetime <= 0)
-		return true
+	if (lifetime <= 0) return true
+	if (projWallCollision()) return true
 	
 	return false
 }
@@ -63,6 +83,8 @@ function genericBulletLifespan()
 	existanceTime += global.gameSpeed;
 	x += lengthdir_x(projectileSpeed * global.gameSpeed, dir + dirOffset)
 	y += lengthdir_y(projectileSpeed * global.gameSpeed, dir + dirOffset)
+	
+	image_angle = dir
 	
 	if (rotateInDirection) drawRot = dir;
 }
@@ -165,7 +187,7 @@ function garbageUpdate()
 // Paper Plane
 function paperPlaneUpdate()
 {
-	dir += cos(existanceTime * 0.2) * 4;
+	dir += cos(existanceTime * 0.2) * 2;
 	genericBulletUpdate()
 }
 
@@ -174,8 +196,9 @@ function paperPlaneUpdate()
 function genericProjectileDraw()
 {	
 	var _flip = (drawRot > 90 && drawRot <= 270) ? -1 : 1;
-	var _scaleX = (projType == PROJECTILE_TYPE.ranged) ? scale : 1;	// projectile scaling needs a rework
-	var _scaleY = _scaleX;
+	//var _scaleX = (projType == PROJECTILE_TYPE.ranged) ? scale : 1;	// projectile scaling needs a rework
+	var _scaleX = scale;	// projectile scaling needs a rework
+	var _scaleY = scale;
 
 	draw_sprite_ext (
 		sprite, frame, roundPixelPos(x), roundPixelPos(y),

@@ -12,7 +12,7 @@ function RoomTransition(_room){
 	if (getCinemaBorders().currentHeight == CinemaBordersState.WHOLE) {
 		debug("Moving to " + string(nextRoom))
 		oController.prevRoom = room
-		//room_goto(nextRoom);
+		room_goto(nextRoom);
 		debug("Starting opening borders...")
 		getCinemaBorders().Set(CinemaBordersState.NONE).Start()
 		global.inputState = INPUT_STATE.playing

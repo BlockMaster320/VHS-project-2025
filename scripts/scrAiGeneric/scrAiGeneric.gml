@@ -425,7 +425,7 @@ function hideAiUpdate()
 
 function restAiInit()
 {
-	restTime = new Cooldown(120)
+	restTime = new Cooldown(70)
 }
 
 function restAiTransition()
