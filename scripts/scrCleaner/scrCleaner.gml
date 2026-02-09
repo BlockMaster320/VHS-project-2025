@@ -95,13 +95,7 @@ function cleanerAiUpdate()
 			break
 			
 		case AI_STATE.clone:
-				var clone = instance_create_layer(x, y, "Instances", oEnemy)
-				with(clone){ 
-					characterCreate(CHARACTER_TYPE.cleanerClone)
-					maxHp = other.hp / 3
-					hp = maxHp
-				}
-			}
+			cleanerAiCloneUpdate()
 			break
 						
 		case AI_STATE.shoot:
@@ -144,3 +138,14 @@ function cleanerAiTryCloning()
 }
 
 function cleanerAiCloneUpdate()
+{
+	// TODO flash + pause
+	for (var i = 0; i < 3; ++i) {
+		var clone = instance_create_layer(x, y, "Instances", oEnemy)
+		with(clone){ 
+			characterCreate(CHARACTER_TYPE.cleanerClone)
+			maxHp = other.hp / 3
+			hp = maxHp
+		}
+	}
+}
