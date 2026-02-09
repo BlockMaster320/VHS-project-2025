@@ -13,10 +13,10 @@ enum BUFF
 	// Common
 	blast, precision, rapidFire, cloner, sonicSpeed, aderral,
 	inventorySizeIncrease, fatBullets, hotReload, burn,
+	dualWield, doubleBuff,
 	commonIndex,	// Dummy buff for rarity indexing
 
 	// Rare
-	dualWield, doubleBuff,
 	rareIndex,	// Dummy buff for rarity indexing
 	
 	// --------------

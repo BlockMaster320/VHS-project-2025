@@ -195,8 +195,9 @@ function paperPlaneUpdate()
 function genericProjectileDraw()
 {	
 	var _flip = (drawRot > 90 && drawRot <= 270) ? -1 : 1;
-	var _scaleX = (projType == PROJECTILE_TYPE.ranged) ? scale : 1;	// projectile scaling needs a rework
-	var _scaleY = _scaleX;
+	//var _scaleX = (projType == PROJECTILE_TYPE.ranged) ? scale : 1;	// projectile scaling needs a rework
+	var _scaleX = scale;	// projectile scaling needs a rework
+	var _scaleY = scale;
 
 	draw_sprite_ext (
 		sprite, frame, roundPixelPos(x), roundPixelPos(y),
