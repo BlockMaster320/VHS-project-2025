@@ -242,6 +242,7 @@
     {"id":{"name":"sCharacters","path":"sprites/sCharacters/sCharacters.yy",},},
     {"id":{"name":"sCharactersResource","path":"sprites/sCharactersResource/sCharactersResource.yy",},},
     {"id":{"name":"sCleanerPortrait","path":"sprites/sCleanerPortrait/sCleanerPortrait.yy",},},
+    {"id":{"name":"sCloneParticle","path":"sprites/sCloneParticle/sCloneParticle.yy",},},
     {"id":{"name":"sCollider","path":"sprites/sCollider/sCollider.yy",},},
     {"id":{"name":"sCollider16","path":"sprites/sCollider16/sCollider16.yy",},},
     {"id":{"name":"sCrowBar","path":"sprites/sCrowBar/sCrowBar.yy",},},

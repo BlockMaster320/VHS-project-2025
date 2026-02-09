@@ -26,7 +26,8 @@ function projectileHitDetectionArea(includeWalls=false)
 	for (var i = 0; i < ds_list_size(collidingList); i++)
 	{
 		var colliding = collidingList[| i]
-		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+		if (instance_exists(colliding) and
+			projectileAuthority == PROJECTILE_AUTHORITY.self and
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{

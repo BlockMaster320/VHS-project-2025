@@ -102,6 +102,10 @@ function characterCreate(_characterType) {
 			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.player);
 			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.player);
 			onDeathEvent = function() {
+				
+				oController.roomsCleared = 0
+				oController.buffsObtained = 0
+				
 				debug("player has died")
 				if (instance_exists(oRoomManager)) {
 					oRoomManager.killAllEnemies()
@@ -293,6 +297,8 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.ghoster;
 			walkSpd = .5
 			
+			hp = 200
+			
 			// Dialogues
 			name = "Ghoster";
 			portrait = sNPCPortrait;
@@ -337,6 +343,8 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.fanner;
 			walkSpd = .5
 			
+			hp = 200
+			
 			// Dialogues
 			name = "Fanner";
 			portrait = sNPCPortrait;
@@ -358,6 +366,7 @@ function characterCreate(_characterType) {
 			// AI
 			slasherAiInit()
 			optimalRange = new Range(1*TILE_SIZE, 6*TILE_SIZE)
+			restTime = new Cooldown(120)
 			
 			// Behaviour
 			stepEvent = function()
@@ -432,6 +441,8 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.enemy;
 			characterType = CHARACTER_TYPE.meleeSlasher;
 			walkSpd = .5
+			
+			hp = 300
 			
 			// Dialogues
 			name = "Melee slasher";
