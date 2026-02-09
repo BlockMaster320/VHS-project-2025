@@ -97,15 +97,11 @@ for (var i = 0; i < inventorySize; i++)
 
 var holdingTempWeapon = tempWeaponSlot.index != WEAPON.fists
 
-if (inventorySize > 0)
-{
-	// Bright outline for active item
-	var xx = rightX - (size * (inventorySize-1 - activeInventorySlot)) - center
-	var yy = bottomY - center
-	if (holdingTempWeapon) draw_set_alpha(.7)
-	draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
-	draw_set_alpha(1)
-}
+var xx = rightX - (size * (inventorySize-1 - activeInventorySlot)) - center
+var yy = bottomY - center
+if (holdingTempWeapon) draw_set_alpha(.7)
+draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
+draw_set_alpha(1)
 
 // Temp slot
 var tempSlotRightX = rightX - size*inventorySize - size*.5

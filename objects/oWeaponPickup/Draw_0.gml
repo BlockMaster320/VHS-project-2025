@@ -1,11 +1,7 @@
 var xx = x + sprite_get_xoffset(sprite_index) - sprite_get_width(sprite_index) / 2 + 1;	// center the weapon sprite
 var yy = y + sprite_get_yoffset(sprite_index) - sprite_get_height(sprite_index) / 2;
 
-var alpha = .4
-if (instanceInRange(oPlayer, PICKUP_DISTANCE))	// Make text brighter when in range
-	if (instance_nearest(oPlayer.x, oPlayer.y, oWeaponPickup) == id)	// Only affect the nearest pickup
-		alpha = 1
-
+var alpha = instanceInRange(oPlayer, PICKUP_DISTANCE) ? 1 : .4
 draw_set_alpha(alpha)
 draw_set_halign(fa_center);
 draw_text(x, y - 25, "[E]")

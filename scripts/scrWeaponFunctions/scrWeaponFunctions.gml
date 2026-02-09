@@ -176,7 +176,7 @@ function weaponPlayerUpdateLogic()
 		oPlayer.ignoreInputBuffer.value--
 		
 	// Reloading
-	if ( !reloading and	active and
+	if ( !reloading and	
 	   ( (oController.reload and magazineAmmo != magazineSize) or magazineAmmo == 0))
 	{
 		reloading = true
