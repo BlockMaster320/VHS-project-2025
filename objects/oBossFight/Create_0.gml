@@ -4,6 +4,7 @@ oPlayer.y = 850;
 activated = false
 
 cleanerEnemy = noone
+clones = ds_list_create()
 
 bossRoomSequence = new TweenSequence([
 	//new TweenDialogue(CHARACTER_TYPE.playerCleaner),
@@ -18,3 +19,19 @@ bossRoomSequence = new TweenSequence([
 			: undefined
 	})
 ])
+
+removeClones = function(){
+	with (oEnemy) {
+		var _index = ds_list_find_index(oBossFight.clones, id);
+		if (_index != -1) {
+			ds_list_delete(oBossFight.clones, _index)
+			id.onDeathEvent()
+		}
+	}
+}
+
+deactivateCleaner = function(){
+	if (cleanerEnemy != noone){
+		instance_deactivate_object(oEnemy)
+	}
+}

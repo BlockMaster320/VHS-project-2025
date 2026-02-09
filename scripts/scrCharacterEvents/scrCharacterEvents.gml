@@ -106,6 +106,9 @@ function characterCreate(_characterType) {
 				if (instance_exists(oRoomManager)) {
 					oRoomManager.killAllEnemies()
 					oRoomManager.killAllEnemyProjectiles()
+				} else if (instance_exists(oBossFight)) {
+					oBossFight.removeClones()
+					oBossFight.deactivateCleaner()
 				}
 				DeathScene(self)
 			}

@@ -27,6 +27,7 @@ function projectileHitDetectionArea(includeWalls=false)
 	{
 		var colliding = collidingList[| i]
 		if (projectileAuthority == PROJECTILE_AUTHORITY.self and
+			instance_exists(colliding) and
 			colliding != ownerID and
 			colliding.characterClass != CHARACTER_CLASS.NPC)
 		{

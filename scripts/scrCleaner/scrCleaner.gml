@@ -117,7 +117,7 @@ function cleanerAiUpdate()
 
 function cleanerAiDraw()
 {
-	draw_text(x, y - 20, $"Health: {hp}")
+	//draw_text(x, y - 20, $"Health: {hp}")
 	if (global.AI_DEBUG)
 	{
 		genericAiDebugDraw()
@@ -147,5 +147,6 @@ function cleanerAiCloneUpdate()
 			maxHp = other.hp / 3
 			hp = maxHp
 		}
+		ds_list_add(oBossFight.clones, clone)
 	}
 }
