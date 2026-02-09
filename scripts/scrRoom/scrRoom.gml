@@ -7,8 +7,9 @@ enum RoomCategory {
 }
 
 enum ScannedObjectType {
-	INTERACTABLE,
-	NPC
+	NPC,
+	COLLIDER,
+	WEAPON_PICKUP
 }
 
 // Contains IDs of tiles in the position of the tile in all the tileset layers
@@ -58,6 +59,9 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 
 	// Generates the room (sets the tiles and creates adjacent rooms)
 	Generate = function() {
+		//show_debug_message("x: " + string(roomX))
+		//show_debug_message("y: " + string(roomY))
+		
 		var _roomX = floor(FLOOR_CENTER_X / TILE_SIZE - ROOM_SIZE / 2) + roomX * ROOM_SIZE;	// room position in tiles
 		var _roomY = floor(FLOOR_CENTER_Y / TILE_SIZE - ROOM_SIZE / 2) + roomY * ROOM_SIZE;
 		var _roomType = oRoomManager.roomTypes[roomTypeIndex];
@@ -81,13 +85,19 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			var _y = _roomY * TILE_SIZE + _scannedObject.roomY - TILE_SIZE;
 			var _instance = instance_create_layer(_x, _y, "Instances", _scannedObject.instanceID.object_index);
 			
-			if (_scannedObject.objectType = ScannedObjectType.NPC) {	// setup the NPC
+			if (_scannedObject.objectType == ScannedObjectType.NPC) {	// setup the NPC
 				with (_instance)
 					characterCreate(_scannedObject.instanceID.characterType);
 			}
+			
+			if (_scannedObject.objectType == ScannedObjectType.WEAPON_PICKUP) {	// setup the weapon pickup
+				with (_instance)
+					setupWeaponPickup(_scannedObject.instanceID.myWeapon.index);
+				instance_destroy(_scannedObject.instanceID);
+			}
 		}
 		
-		// Spawn weapon and buff pickups
+		// Spawn weapon and buff pickups in shop
 		if (roomTypeIndex == RoomCategory.SHOP)
 		{
 			var xOff = 7 * TILE_SIZE
@@ -544,20 +554,29 @@ function ScanRooms() {
 	    _roomY += ROOM_SIZE + ROOM_OFFSET;
 	}
 
-	// Scan room interactables
-	with (oObject) {
-		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.INTERACTABLE);
-		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
-	}
-	
 	// Scan NPCs
 	with (oNPC) {
 		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.NPC);
+		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
+	}
+
+	// Scan room objects with collision
+	with (oCollider) {
+		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.COLLIDER);
+		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
+	}
+	
+	// Scan weapon pickups
+	with (oWeaponPickup) {
+		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.WEAPON_PICKUP);
 		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
 	}
