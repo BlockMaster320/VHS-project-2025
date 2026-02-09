@@ -7,7 +7,7 @@ cleanerEnemy = noone
 clones = ds_list_create()
 
 bossRoomSequence = new TweenSequence([
-	//new TweenDialogue(CHARACTER_TYPE.playerCleaner),
+	new TweenDialogue(CHARACTER_TYPE.playerCleaner),
 	new TweenAction(function() {
 		instance_deactivate_object(oNPC)
 		cleanerEnemy = instance_create_layer(768, 192, "Instances", oEnemy)

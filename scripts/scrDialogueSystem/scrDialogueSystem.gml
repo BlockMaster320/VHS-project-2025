@@ -108,7 +108,9 @@ function DialogueSystem() constructor
 										])
 										
 										])
-	ds_map_add(dlgs, CHARACTER_TYPE.shopkeeper, [new Dialogue(
+	ds_map_add(dlgs, CHARACTER_TYPE.shopkeeper, [
+									new Dialogue([new DialogueLine("...", [], [])]),
+									new Dialogue(
 									[
 										new DialogueLine("Found these laying around. I will let you take one if you ask nicely.", ["Can i please take one?", "Haha make me."], [1, 2]),
 										new DialogueLine("Of course :)", [], []),
@@ -123,8 +125,19 @@ function SelectDlg(_NPCType)
 			return irandom(array_length(dialogues.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
 		case CHARACTER_TYPE.playerCleaner:
 			if (room == rmBossFight){
-				return 0
+				if(!dialogues.dlgs[? _NPCType][0].seen)
+					return 0
+				return 1
 			}
+			if (room == rmLobby){
+				if (irandom(99) == 0) return 9
+				if(!dialogues.dlgs[? _NPCType][0].seen)
+					return irandom_range(3, 5)
+				return irandom_range(6, 8)
+			}
+		case CHARACTER_TYPE.shopkeeper:
+			if (room == rmLobby)
+				return 0
 			return 1
 		default:
 			return 0
