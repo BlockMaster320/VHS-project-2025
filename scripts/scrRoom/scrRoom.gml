@@ -7,7 +7,8 @@ enum RoomCategory {
 }
 
 enum ScannedObjectType {
-	INTERACTABLE,
+	COLLIDER,
+	WEAPON_PICKUP,
 	NPC
 }
 
@@ -84,6 +85,12 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			if (_scannedObject.objectType = ScannedObjectType.NPC) {	// setup the NPC
 				with (_instance)
 					characterCreate(_scannedObject.instanceID.characterType);
+			}
+			
+			if (_scannedObject.objectType == ScannedObjectType.WEAPON_PICKUP) {	// setup the weapon pickup
+				with (_instance)
+					setupWeaponPickup(_scannedObject.instanceID.myWeapon.index);
+				instance_destroy(_scannedObject.instanceID);
 			}
 		}
 		
@@ -433,7 +440,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		}
 		
 		// Spawn weapons
-		var spawnGuns = 5
+		var spawnGuns = irandom_range(0, 4)
 		
 		while (spawnGuns > 0) {
 			var _gunX = (_roomX + random_range(1, ROOM_SIZE - 1)) * TILE_SIZE;
@@ -447,7 +454,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			if (!colliding) //_enemy.controller.setState(CharacterState.Dead)
 			{
 				var _gun = instance_create_layer(_gunX, _gunY, "Instances", oWeaponPickup);
-				var weaponType = choose(WEAPON.rat, WEAPON.crowbar)
+				var weaponType = WEAPON.rat
 				_gun.setupWeaponPickup(weaponType);
 				
 				spawnGuns--;
@@ -556,11 +563,17 @@ function ScanRooms() {
 	    _roomY += ROOM_SIZE + ROOM_OFFSET;
 	}
 
-	// Scan room interactables
+	// Scan room Objects
 	with (oObject) {
 		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.INTERACTABLE);
+		
+		var _scannedObject = noone
+		if (object_index == oWeaponPickup)
+			_scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.WEAPON_PICKUP);
+		else
+			_scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.COLLIDER);
+			
 		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
 		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
 	}

@@ -19,6 +19,7 @@
   "height":16,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"46156500-be3e-490d-b9fb-c7970e038290","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"46156500-be3e-490d-b9fb-c7970e038290","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
     {"$GMImageLayer":"","%Name":"6ae618a7-a1be-4163-9e99-283309f8315f","blendMode":0,"displayName":"default","isLocked":false,"name":"6ae618a7-a1be-4163-9e99-283309f8315f","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"sEnemyProjectile",
