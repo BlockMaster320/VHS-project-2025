@@ -15,8 +15,8 @@
     "path":"folders/Objects/RoomObjects.yy",
   },
   "parentObjectId":{
-    "name":"oObject",
-    "path":"objects/oObject/oObject.yy",
+    "name":"oPassiveInteractable",
+    "path":"objects/oPassiveInteractable/oPassiveInteractable.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

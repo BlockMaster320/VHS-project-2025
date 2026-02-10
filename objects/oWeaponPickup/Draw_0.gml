@@ -6,16 +6,31 @@ if (point_distance(screenCenterX, screenCenterY, x, y) > cameraHalfDiagonal) ret
 var xx = x + sprite_get_xoffset(sprite_index) - sprite_get_width(sprite_index) / 2 + 1;	// center the weapon sprite
 var yy = y + sprite_get_yoffset(sprite_index) - sprite_get_height(sprite_index) / 2;
 
-var alpha = .4
-if (instanceInRange(oPlayer, PICKUP_DISTANCE))	// Make text brighter when in range
+/*var _playerDistance = distance_to_object(oPlayer);
+if (_playerDistance < 30) {
+	var alpha = .4
+	if (instanceInRange(oPlayer, PICKUP_DISTANCE))	// Make text brighter when in range
+		if (instance_nearest(oPlayer.x, oPlayer.y, oWeaponPickup) == id)	// Only affect the nearest pickup
+			alpha = 1
+
+		draw_set_alpha(alpha)
+		draw_set_halign(fa_center);
+		draw_text(x, y - 25, "[E]")
+		draw_set_halign(fa_left);
+		draw_set_alpha(1)
+}*/
+
+var alpha = 0.4;
+if (instanceInRange(oPlayer, PICKUP_DISTANCE)) {
 	if (instance_nearest(oPlayer.x, oPlayer.y, oWeaponPickup) == id)	// Only affect the nearest pickup
 		alpha = 1
 
-draw_set_alpha(alpha)
-draw_set_halign(fa_center);
-draw_text(x, y - 25, "[E]")
-draw_set_halign(fa_left);
-draw_set_alpha(1)
+	draw_set_alpha(alpha)
+	draw_set_halign(fa_center);
+	draw_text(x, y - 25, "[E]")
+	draw_set_halign(fa_left);
+	draw_set_alpha(1)
+}
 
 if (global.SHOW_HITBOXES)
 {

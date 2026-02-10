@@ -136,6 +136,7 @@ function SelectDlg(_NPCType)
 				return 9 // SHOULDN'T HAPPEN
 			}
 			if (room == rmLobby){
+				if (global.inputState != INPUT_STATE.cutscene) return noone
 				if (irandom(99) == 0) return 9
 				if(!dialogues.dlgs[? _NPCType][0].seen)
 					return irandom_range(3, 5)
@@ -154,8 +155,10 @@ function StartDlg(_NPCType)
 {
 	if (!ds_map_exists(dialogues.dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue - T.N. IMO this does not work
 		_NPCType = noone
-		
-	current_dialogue = dialogues.dlgs[? _NPCType][SelectDlg(_NPCType)]
+	
+	var dlgIdx = SelectDlg(_NPCType)
+	if (dlgIdx == noone) {return}
+	current_dialogue = dialogues.dlgs[? _NPCType][dlgIdx]
 	
 	SetCurrentLine(0)
 	talking = true

@@ -8,6 +8,8 @@ enum RoomCategory {
 
 enum ScannedObjectType {
 	COLLIDER,
+	DESTRUCTIBLE,
+	PASSIVE_INTERACTABLE,
 	WEAPON_PICKUP,
 	NPC
 }
@@ -38,8 +40,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	// Set room attributes
 	roomX = _x; roomY = _y;
 	roomTypeIndex = _typeIndex;
-	//if (roomTypeIndex = noone) roomTypeIndex = irandom_range(4, ROOM_COUNT - 1);
-	if (roomTypeIndex = noone) roomTypeIndex = 4;
+	if (roomTypeIndex = noone) roomTypeIndex = irandom_range(4, ROOM_COUNT - 1);
+	//if (roomTypeIndex = noone) roomTypeIndex = 4;
 	roomDepth = _depth;
 	nextRooms = ds_list_create();
 	
@@ -76,6 +78,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		}
 		
 	    // Spawn the room's scanned objects
+		var _weaponCap = 3;
+		var _weaponCount = 0;
 		for (var _i = 0; _i < ds_list_size(_roomType.scannedObjects); _i++) {
 			var _scannedObject = _roomType.scannedObjects[| _i];
 			var _x = _roomX * TILE_SIZE + _scannedObject.roomX - TILE_SIZE;	// that "- TILE_SIZE" is a magic offset which corrects the position
@@ -88,8 +92,13 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			}
 			
 			if (_scannedObject.objectType == ScannedObjectType.WEAPON_PICKUP) {	// setup the weapon pickup
+				if (_weaponCount > _weaponCap || random(1) < 0.7) {
+					instance_destroy(_instance)
+					continue;
+				}
 				with (_instance)
 					setupWeaponPickup(_scannedObject.instanceID.myWeapon.index);
+				_weaponCount++;
 			}
 		}
 		
@@ -309,7 +318,12 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	// Renders the room (and its adjacent room) on the minimap
 	RenderMinimap = function(_surf) {
-		//if (!discovered) return;
+		// Draw adjacent rooms
+		for (var _i = 0; _i < ds_list_size(nextRooms); _i++) {
+			nextRooms[| _i].RenderMinimap(_surf);
+		}
+		
+		if (roomTypeIndex >= RoomCategory.SHOP && !discovered) return;
 		
 		var _playerMinimapX = (oPlayer.x - FLOOR_CENTER_X) * ((MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING) / (ROOM_SIZE * TILE_SIZE));
 		var _playerMinimapY = (oPlayer.y - FLOOR_CENTER_Y) * ((MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING) / (ROOM_SIZE * TILE_SIZE));
@@ -362,10 +376,6 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			draw_sprite_ext(sMinimapIcons, 1, _x, _y, 2, 2, 0, c_white, 1);
 
 		draw_circle_color(MINIMAP_SURF_W * 0.5,  MINIMAP_SURF_H * 0.5, 5, c_red, c_red, false);
-		
-		for (var _i = 0; _i < ds_list_size(nextRooms); _i++) {
-			nextRooms[| _i].RenderMinimap(_surf);
-		}
 	}
 	
 	// Locks the room and spawns enemies
@@ -540,6 +550,16 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	}
 }
 
+function AddScannedObject(objectType) {
+	_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+	_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+		
+	var _scannedObject = new ScannedObject(id, _roomX, _roomY, objectType);
+			
+	var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
+	ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
+}
+
 
 // Scans and saves all room types (their tiles and objects)
 function ScanRooms() {
@@ -566,26 +586,9 @@ function ScanRooms() {
 	}
 
 	// Scan room Objects
-	with (oObject) {
-		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		
-		var _scannedObject = noone
-		if (object_index == oWeaponPickup)
-			_scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.WEAPON_PICKUP);
-		else
-			_scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.COLLIDER);
-			
-		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
-	}
-	
-	// Scan NPCs
-	with (oNPC) {
-		_roomX = x mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		_roomY = y mod ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		var _scannedObject = new ScannedObject(id, _roomX, _roomY, ScannedObjectType.NPC);
-		var roomTypeIndex = y div ((ROOM_SIZE + ROOM_OFFSET) * TILE_SIZE);
-		ds_list_add(oRoomManager.roomTypes[roomTypeIndex].scannedObjects, _scannedObject);
-	}
+	with (oCollider) AddScannedObject(ScannedObjectType.COLLIDER)
+	with (oDestructible) AddScannedObject(ScannedObjectType.DESTRUCTIBLE)
+	with (oPassiveInteractable) AddScannedObject(ScannedObjectType.PASSIVE_INTERACTABLE)
+	with (oWeaponPickup) AddScannedObject(ScannedObjectType.WEAPON_PICKUP)
+	with (oNPC) AddScannedObject(ScannedObjectType.NPC)
 }

@@ -108,6 +108,7 @@
     {"id":{"name":"oLobby","path":"objects/oLobby/oLobby.yy",},},
     {"id":{"name":"oNPC","path":"objects/oNPC/oNPC.yy",},},
     {"id":{"name":"oObject","path":"objects/oObject/oObject.yy",},},
+    {"id":{"name":"oPassiveInteractable","path":"objects/oPassiveInteractable/oPassiveInteractable.yy",},},
     {"id":{"name":"oPedestal","path":"objects/oPedestal/oPedestal.yy",},},
     {"id":{"name":"oPlant","path":"objects/oPlant/oPlant.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
