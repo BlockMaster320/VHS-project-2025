@@ -25,6 +25,9 @@ global.inputState = INPUT_STATE.playing
 WeaponsInit()
 buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 
+// Intro
+introTextAlpha = 0
+
 if (debug_mode)
 	show_debug_overlay(true)
 
@@ -68,6 +71,8 @@ appWindowYprev = window_get_y()
 #macro actionMusicRestGain .4
 actionMusic = audio_play_sound(sndActionMusic, 0, true, 0)
 audio_pause_sound(actionMusic)
+lobbyMusic = audio_play_sound(sndLobbyMusic, 0, true, 0)
+audio_pause_sound(lobbyMusic)
 
 // Ambiance
 openingAmbiance = audio_play_sound(sndOpeningAmbiance, 0, true)
@@ -83,7 +88,6 @@ part_type_size(walkDust,1,2,0,0)
 part_type_life(walkDust,30,60)
 part_type_speed(walkDust,.4,.8,-.01,0)
 part_type_alpha2(walkDust, .5, 0)
-//part_type_gravity(walkDust,.002,90)
 part_type_sprite(walkDust,sDust,false,false,true)
 
 cloneDustSys = part_system_create()
@@ -95,6 +99,24 @@ part_type_life(cloneDust,100,320)
 part_type_speed(cloneDust,.1,.8,0,.02)
 part_type_orientation(cloneDust, 0, 0, 0, 0, true)
 part_type_sprite(cloneDust,sCloneParticle,false,false,true)
+
+explosionDustSys = part_system_create()
+explosionDust = part_type_create()
+part_type_size(explosionDust,1,3,0,0)
+part_type_life(explosionDust,30,110)
+part_type_speed(explosionDust,2.,11.,-.3,0)
+part_type_alpha2(explosionDust, .7, 0)
+part_type_direction(explosionDust, 0, 360, 0, 0)
+part_type_sprite(explosionDust,sDust,false,false,true)
+
+bulletImpactSys = part_system_create()
+bulletImpact = part_type_create()
+part_type_size(bulletImpact,1,2,0,0)
+part_type_life(bulletImpact,15,30)
+part_type_speed(bulletImpact,1.,2.,-.1,0)
+part_type_alpha2(bulletImpact, .7, 0)
+part_type_direction(bulletImpact, 0, 360, 0, 0)
+part_type_sprite(bulletImpact,sDust,false,false,true)
 // ---------------------------------------------
 
 // Highlight if there is a new interaction

@@ -10,6 +10,9 @@ function DeathScene(_deadCharacter) {
 		// this code spawns NPC
 		cleaner = instance_create_layer(xx + 32, yy, "Instances", oNPC)
 		player = instance_create_layer(xx, yy, "Instances", oNPC)
+		
+		audio_play_sound(sndGameOver, 0, false)
+		audio_play_sound(sndHeartbrake, 0, false)
 	
 		
 		with(cleaner) { 

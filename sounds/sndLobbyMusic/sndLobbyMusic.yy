@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sndActionMusic",
+  "%Name":"sndLobbyMusic",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":177.77777,
-  "name":"sndActionMusic",
+  "duration":49.384624,
+  "name":"sndLobbyMusic",
   "parent":{
     "name":"Music",
     "path":"folders/Sound/Music.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sndActionMusic.ogg",
+  "soundFile":"sndLobbyMusic.ogg",
   "type":1,
-  "volume":0.2,
+  "volume":0.3,
 }

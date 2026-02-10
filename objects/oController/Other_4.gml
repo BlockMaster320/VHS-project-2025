@@ -27,6 +27,8 @@ switch (room)
 		audio_resume_sound(subwayAmbiance)
 		audio_sound_gain(subwayAmbiance, 1, 4000)
 		
+		if (audio_is_playing(lobbyMusic)) audio_stop_sound(lobbyMusic)
+		
 		if (introCutscene)
 		{
 			oPlayer.x = 320

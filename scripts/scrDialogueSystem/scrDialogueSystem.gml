@@ -97,6 +97,8 @@ function StartDlgEx(_dialogue)
 
 function EndDlg()
 {
+	interactDelay.reset()
+	
 	talking = false
 	global.inputState = INPUT_STATE.playing
 	waiting_for_answer = false
