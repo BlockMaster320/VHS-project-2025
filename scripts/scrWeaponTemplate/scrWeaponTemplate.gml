@@ -9,7 +9,7 @@ function Weapon() constructor
 	
 	reloadTime = .5		// in seconds
 	magazineSize = -1	// number of bullets before reloading, -1 for infinite size
-	durabilityMult = 1	// Multiplier of how fast durability decreases
+	durabilityMult = 2	// Multiplier of how fast durability decreases
 	shootOnHold = true		// Wether to keep shooting when the player holds down fire
 	oneTimeUse = false
 

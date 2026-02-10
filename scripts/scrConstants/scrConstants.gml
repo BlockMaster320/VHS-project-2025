@@ -10,6 +10,7 @@ function Constants()
 	
 	// Gameplay
 	#macro PICKUP_DISTANCE 25
+	#macro DESTRUCTIBLE_WEAPON_CHANCE 0.2
 	
 	// Map generation settings
 	#macro FLOORS 2			// number of floors (exluding the boss fight floor)

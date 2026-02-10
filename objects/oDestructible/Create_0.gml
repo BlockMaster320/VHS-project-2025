@@ -8,7 +8,11 @@ function DestroyOnContact(_obj) {
 		var _sound = choose(sndCrateDestruction1, sndCrateDestruction2, sndCrateDestruction3);
 		audio_play_sound(_sound, 0, false);
 		
-		
+		if (random(1) < DESTRUCTIBLE_WEAPON_CHANCE) {
+			var _weaponID = choose(WEAPON.crowbar, WEAPON.groanTube, WEAPON.paperPlane, WEAPON.fan)
+			var _weapon = instance_create_layer(x, y, "Instances", oWeaponPickup);
+			_weapon.setupWeaponPickup(_weaponID);
+		}
 		
 		instance_destroy(self);
 	}

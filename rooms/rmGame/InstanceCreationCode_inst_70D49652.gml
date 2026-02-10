@@ -1,0 +1,1 @@
+setupWeaponPickup(WEAPON.paperPlane)
