@@ -38,3 +38,7 @@ startDialogueEx = function(_dialogue, _onComplete = function() {}) {
 	onComplete = _onComplete
 	StartDlgEx(_dialogue)	
 }
+
+canStartDialogue = function(_NPCType) {
+	return SelectDlg(_NPCType) != noone
+}
