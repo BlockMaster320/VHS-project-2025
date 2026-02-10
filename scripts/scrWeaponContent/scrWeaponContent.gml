@@ -234,7 +234,7 @@ function WeaponsInit()
 		{
 			// Modifiable attributes
 			damage = 15
-			projectileSpeed = 2.5
+			projectileSpeed = 3.5
 			targetKnockback = 1
 			effects = [ ]
 			scale = 1
@@ -374,6 +374,8 @@ function WeaponsInit()
 		spread = 10				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false
+		
+		shootSound = [ sndCrowbarHit ]
 		
 		// Weapon projectile/hurtbox
 		projectile = new Projectile()
@@ -593,7 +595,7 @@ function WeaponsInit()
 	
 			// Generic attributes
 			sprite = sMeleeSlash
-			lifetime = 20
+			lifetime = 10
 			projType = PROJECTILE_TYPE.melee
 			
 			// Behaviour

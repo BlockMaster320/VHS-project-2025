@@ -383,6 +383,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		
 		oPlayer.walkSpd = oPlayer.walkSpdDef
 		oPlayer.showStats = false
+		audio_play_sound(sndRoomClose, 0, false)
 		
 		// Start door closing animation
 		for (var _i = 0; _i < ds_list_size(doors); _i++) {
@@ -516,6 +517,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
 		oPlayer.showStats = true
 		audio_sound_gain(oController.actionMusic, actionMusicRestGain, 3000)
+		audio_play_sound(sndRoomOpen, 0, false)
 		
 		oController.roomsCleared++
 		

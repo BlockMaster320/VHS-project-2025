@@ -12,7 +12,7 @@ function cleanerAiInit()
 			
 	// Reposition
 	repositionAiInit()
-	optimalRange = new Range(20, 60)
+	optimalRange = new Range(0, 30)
 	wantsToHideMult = 0
 	repositionSuddenStopDelay = new Range(5, 15)
 			

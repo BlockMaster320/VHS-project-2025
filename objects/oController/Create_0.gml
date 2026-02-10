@@ -104,13 +104,13 @@ destructibleParticlesSys = part_system_create()
 destructibleParticles = part_type_create()
 destructibleParticlesSpawnCooldown = new Cooldown(2)	// in frames
 part_type_size(destructibleParticles, 0.5, 1.5, 0, 0)
-part_type_life(destructibleParticles, 30, 60)
-part_type_speed(destructibleParticles, 1.0, 1.8, 0, 0)
+part_type_life(destructibleParticles, 30, 120)
+part_type_speed(destructibleParticles, .5, 3.8, -.1, 0)
 var _dir = 90;
 var _spread = 70;
 part_type_direction(destructibleParticles, _dir - _spread, _dir + _spread, random_range(-1, 1), 4)
 part_type_alpha3(destructibleParticles, 1, 1, 0.5)
-part_type_gravity(destructibleParticles, .1, 270)
+//part_type_gravity(destructibleParticles, .1, 270)
 part_type_sprite(destructibleParticles, sDestructibleParticle, false, false, true)
 
 explosionDustSys = part_system_create()

@@ -20,10 +20,14 @@ if (_playerDistance < 30) {
 		draw_set_alpha(1)
 }*/
 
-var alpha = 0.4;
-if (instanceInRange(oPlayer, PICKUP_DISTANCE)) {
-	if (instance_nearest(oPlayer.x, oPlayer.y, oWeaponPickup) == id)	// Only affect the nearest pickup
-		alpha = 1
+var distToPlayer = point_distance(oPlayer.x, oPlayer.y, x, y)
+
+if (distToPlayer < 50)
+{
+	var alpha = 0.2;
+	if (distToPlayer <= PICKUP_DISTANCE)
+		if (instance_nearest(oPlayer.x, oPlayer.y, oWeaponPickup) == id)	// Only affect the nearest pickup
+			alpha = 1
 
 	draw_set_alpha(alpha)
 	draw_set_halign(fa_center);

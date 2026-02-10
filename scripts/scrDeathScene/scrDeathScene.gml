@@ -84,9 +84,6 @@ function DeathScene(_deadCharacter) {
 				alpha = 1
 				weaponAlpha = 1
 				handsAlpha = 1
-				InitPlayerStats()
-				// Reset player buffs
-				// Init player weapons
 			}),
 			// lobby & dialog
 			new TweenAction(function() {

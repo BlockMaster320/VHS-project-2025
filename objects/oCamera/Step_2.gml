@@ -48,6 +48,7 @@ if (!point_in_rectangle(viewCenterX, viewCenterY, regionLeft, regionTop, regionR
 	var time = get_timer()
 	
 	instance_deactivate_object(oCollider)
+	instance_deactivate_object(oDestructible)
 	instance_deactivate_object(oWeaponPickup)
 	instance_deactivate_object(oBuffPickup)
 	
