@@ -1,3 +1,6 @@
+if (keyboard_check_pressed(ord("K")))
+	room_goto(rmGame)
+
 if (instance_exists(oRoomManager))
 	pfGrid = oRoomManager.pathfindingGrid
 

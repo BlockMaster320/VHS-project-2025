@@ -19,7 +19,7 @@
   "height":176,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"9c983ca4-1d8b-43dc-a9c9-fe92eedc9a7a","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"9c983ca4-1d8b-43dc-a9c9-fe92eedc9a7a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
+    {"$GMImageLayer":"","%Name":"9c983ca4-1d8b-43dc-a9c9-fe92eedc9a7a","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"9c983ca4-1d8b-43dc-a9c9-fe92eedc9a7a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
     {"$GMImageLayer":"","%Name":"569baf40-6ef6-4fde-ade2-385e9b15bbea","blendMode":0,"displayName":"default","isLocked":false,"name":"569baf40-6ef6-4fde-ade2-385e9b15bbea","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"sTileSetLobby",

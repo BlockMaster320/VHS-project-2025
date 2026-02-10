@@ -24,15 +24,15 @@ function evaluateCollision(hsp, vsp)
 
 
 	// Vertical
-	if (place_meeting(x, y + vsp * global.gameSpeed, oCollider))				// tile collision
+	if (place_meeting(x, y + vsp * global.gameSpeed, global.tilemapCollision))	// tile collision
 	{
-		while (!place_meeting(x, y + sign(vsp),oCollider)) y += sign(vsp)
+		while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
 		y = round(y)
 		vsp = 0;
 	}
-	if (place_meeting(x, y + vsp * global.gameSpeed, global.tilemapCollision))	// object collision
+	if (place_meeting(x, y + vsp * global.gameSpeed, oCollider))				// object collision
 	{
-		while (!place_meeting(x, y + sign(vsp), global.tilemapCollision)) y += sign(vsp)
+		while (!place_meeting(x, y + sign(vsp),oCollider)) y += sign(vsp)
 		y = round(y)
 		vsp = 0;
 	}

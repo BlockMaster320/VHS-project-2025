@@ -38,8 +38,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	// Set room attributes
 	roomX = _x; roomY = _y;
 	roomTypeIndex = _typeIndex;
-	if (roomTypeIndex = noone) roomTypeIndex = irandom_range(4, ROOM_COUNT - 1);
-	//if (roomTypeIndex = noone) roomTypeIndex = irandom_range(0, 2);
+	//if (roomTypeIndex = noone) roomTypeIndex = irandom_range(4, ROOM_COUNT - 1);
+	if (roomTypeIndex = noone) roomTypeIndex = 4;
 	roomDepth = _depth;
 	nextRooms = ds_list_create();
 	
@@ -90,7 +90,6 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			if (_scannedObject.objectType == ScannedObjectType.WEAPON_PICKUP) {	// setup the weapon pickup
 				with (_instance)
 					setupWeaponPickup(_scannedObject.instanceID.myWeapon.index);
-				instance_destroy(_scannedObject.instanceID);
 			}
 		}
 		
@@ -473,8 +472,11 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			
 			var _scannedObjects = roomTypes[other.roomTypeIndex].scannedObjects
 			for (var _i = 0; _i < ds_list_size(_scannedObjects); _i++) {
-				var _x = _scannedObjects[| _i].roomX div TILE_SIZE - 1;
-				var _y = _scannedObjects[| _i].roomY div TILE_SIZE - 1;
+				var _scannedObject = _scannedObjects[| _i];
+				if (_scannedObject.objectType != ScannedObjectType.COLLIDER)
+					continue;
+				var _x = _scannedObject.roomX div TILE_SIZE - 1;
+				var _y = _scannedObject.roomY div TILE_SIZE - 1;
 				wallGrid[# _x, _y] = 1;
 			}
 			

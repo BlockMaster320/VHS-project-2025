@@ -1,6 +1,8 @@
 myWeapon = -1
 remainingDurability = -1
 
+depth = -y - 20;
+
 function setupWeaponPickup(weaponID, remainingDurability_=-1)
 {
 	myWeapon = json_parse(global.weaponDatabaseJSON[weaponID])

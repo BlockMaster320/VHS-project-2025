@@ -10,8 +10,8 @@
     "path":"folders/Objects/RoomObjects.yy",
   },
   "parentObjectId":{
-    "name":"oCollider",
-    "path":"objects/oCollider/oCollider.yy",
+    "name":"oDestructible",
+    "path":"objects/oDestructible/oDestructible.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
