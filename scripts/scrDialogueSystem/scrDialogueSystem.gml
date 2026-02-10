@@ -157,7 +157,7 @@ function StartDlg(_NPCType)
 		_NPCType = noone
 	
 	var dlgIdx = SelectDlg(_NPCType)
-	if (dlgIdx == noone) return
+	if (dlgIdx == noone) {return}
 	current_dialogue = dialogues.dlgs[? _NPCType][dlgIdx]
 	
 	SetCurrentLine(0)
