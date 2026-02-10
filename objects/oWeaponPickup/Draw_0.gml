@@ -1,3 +1,8 @@
+var screenCenterX = oCamera.x + cameraW/2
+var screenCenterY = oCamera.y + cameraH/2
+	
+if (point_distance(screenCenterX, screenCenterY, x, y) > cameraHalfDiagonal) return;
+
 var xx = x + sprite_get_xoffset(sprite_index) - sprite_get_width(sprite_index) / 2 + 1;	// center the weapon sprite
 var yy = y + sprite_get_yoffset(sprite_index) - sprite_get_height(sprite_index) / 2;
 
@@ -33,7 +38,7 @@ if (myWeapon.type == WEAPON.rat and room != rmDebug) {
 	if (_distToPlayer < 60) {
 		_animSpeed = 0.25;
 		_imageIndexClamp = 5;
-		var _speed = 1.2;
+		var _speed = .9;
 		var _hsp = lengthdir_x(_speed, _dir);
 		var _vsp = lengthdir_y(_speed, _dir);
 		

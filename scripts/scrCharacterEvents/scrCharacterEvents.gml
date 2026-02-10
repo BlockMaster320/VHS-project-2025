@@ -215,7 +215,7 @@ function characterCreate(_characterType) {
 		
 		// Enemies ---------------------------------------------------------------
 		
-		case CHARACTER_TYPE.targetDummy:
+		case CHARACTER_TYPE.targetDummy: {
 			// Character attributes
 			characterClass = CHARACTER_CLASS.enemy;
 			characterType = CHARACTER_TYPE.targetDummy;
@@ -247,6 +247,7 @@ function characterCreate(_characterType) {
 				myWeapon.draw()
 			}
 			break
+		}
 		
 		/*
 		case CHARACTER_TYPE.ghoster: {
@@ -300,7 +301,7 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.ghoster;
 			walkSpd = .5
 			
-			hp = 200
+			hp = 150
 			
 			// Dialogues
 			name = "Ghoster";
@@ -318,7 +319,19 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			myWeapon = acquireWeapon(WEAPON.ghosterGun, id)
+			var weaponID = choose(WEAPON.ghosterGun, WEAPON.ghosterShotgun)
+			myWeapon = acquireWeapon(weaponID, id)
+			switch (weaponID)
+			{
+				case WEAPON.ghosterGun:
+					myWeapon.attackSpeed += oController.currentFloor * 1
+					myWeapon.magazineSize += oController.currentFloor * 6
+					break
+				case WEAPON.ghosterShotgun:
+					myWeapon.attackSpeed += oController.currentFloor * .3
+					myWeapon.projectileAmount += oController.currentFloor * 2
+					break
+			}
 			
 			// AI
 			ghosterAiInit()
@@ -365,6 +378,7 @@ function characterCreate(_characterType) {
 			lookDir = 0
 			lookDirTarget = 0
 			myWeapon = acquireWeapon(WEAPON.enemyFan, id)
+			myWeapon.magazineSize += oController.currentFloor * 200
 			
 			// AI
 			slasherAiInit()
@@ -445,7 +459,7 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.meleeSlasher;
 			walkSpd = .5
 			
-			hp = 300
+			hp = 250
 			
 			// Dialogues
 			name = "Melee slasher";
@@ -464,6 +478,7 @@ function characterCreate(_characterType) {
 			lookDir = 0
 			lookDirTarget = 0
 			myWeapon = acquireWeapon(WEAPON.enemyCrowbar, id)
+			myWeapon.projectile.damage += oController.currentFloor * 10
 			
 			// AI
 			slasherAiInit()
@@ -544,6 +559,8 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.cleanerClone;
 			walkSpd = .5
 			
+			hp = 100
+			
 			// Dialogues
 			name = "Cleaner clone";
 			portrait = sNPCPortrait;
@@ -560,16 +577,21 @@ function characterCreate(_characterType) {
 			// Weapon
 			lookDir = 0
 			lookDirTarget = 0
-			myWeapon = acquireWeapon(WEAPON.crowbar, id)
+			var weaponID = choose(WEAPON.pigeon, WEAPON.fan, WEAPON.paperPlane, WEAPON.ticketMachine, WEAPON.crowbar, WEAPON.groanTube)
+			myWeapon = acquireWeapon(weaponID, id)
+			myWeapon.projectile.projectileSpeed *= .5
+			myWeapon.projectile.damage *= .4
+			myWeapon.spread = 35
 			
 			// AI
-			slasherAiInit()
+			dropperAiInit()
+			coordinationParticipant = false
 			
 			// Behaviour
 			stepEvent = function()
 			{
 				pathfindingStep()
-				slasherAiUpdate()
+				dropperAiUpdate()
 				myWeapon.update()
 			}
 			
@@ -577,7 +599,7 @@ function characterCreate(_characterType) {
 			{
 				pathfindingDraw()
 				myWeapon.draw()
-				slasherAiDraw()	// AI visualization
+				dropperAiDraw()	// AI visualization
 			}
 			
 		} break;

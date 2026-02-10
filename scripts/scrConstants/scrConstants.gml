@@ -44,6 +44,7 @@ function Constants()
 	#macro guiH display_get_gui_height()
 	#macro cameraToGui guiW / cameraW
 	#macro guiToCamera cameraW / guiW
+	#macro cameraHalfDiagonal 275.37+10 //.574 * cameraW
 	
 	// Pathfinding
 	global.enemyMaxIndex = 0

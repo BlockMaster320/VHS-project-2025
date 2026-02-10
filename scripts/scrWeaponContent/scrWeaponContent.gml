@@ -33,7 +33,7 @@ function WeaponsInit()
 		rat,
 		
 		// Monsters focused
-		ghosterGun, enemyFan, enemyCrowbar,
+		ghosterGun, ghosterShotgun, enemyFan, enemyCrowbar,
 		
 		// --------------
 		length
@@ -418,8 +418,57 @@ function WeaponsInit()
 		spread = 30				// weapon accuracy in degrees
 		
 		// Non-modifiable attributes
-		magazineSize = 6
+		magazineSize = 8
 		reloadTime = 4
+		
+		// Update some scene attributes
+		magazineAmmo = magazineSize	// Remaining bullets before reloading
+	
+		// Weapon projectile/hurtbox
+		projectile = new Projectile()
+		with (projectile)
+		{
+			// Modifiable attributes
+			damage = 20
+			projectileSpeed = 1
+			targetKnockback = 2
+			effects = []
+	
+			// Generic attributes
+			sprite = sEnemyProjectile
+			color = enemyProjectileCol
+			projType = PROJECTILE_TYPE.ranged
+			
+			// Behaviour
+			update = genericBulletUpdate
+			draw = genericProjectileDraw
+		}
+	
+		// Weapon actions
+		primaryAction = rangedWeaponShoot
+		secondaryAction = function() { show_debug_message("Secondary function is undefined!") }
+	
+		// Weapon functions
+		update = genericWeaponUpdate
+		draw = genericWeaponDraw
+	}
+	
+	// -----------------------------------------------------------------------------
+
+	with (weaponDatabase[WEAPON.ghosterShotgun])
+	{
+		// Generic attributes
+		type = WEAPON.ghosterGun;
+		sprite = sPlaceholderGun
+	
+		// Modifiable attributes
+		attackSpeed = .7		// shots/damage amount per second
+		spread = 50				// weapon accuracy in degrees
+		projectileAmount = 3
+		
+		// Non-modifiable attributes
+		magazineSize = 3
+		reloadTime = 2
 		
 		// Update some scene attributes
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
@@ -526,7 +575,7 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 1.8			// shots/damage amount per second
+		attackSpeed = 1.8		// shots/damage amount per second
 		spread = 10				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		shootOnHold = false

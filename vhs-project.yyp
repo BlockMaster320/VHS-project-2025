@@ -197,6 +197,7 @@
     {"id":{"name":"shLightFilter","path":"shaders/shLightFilter/shLightFilter.yy",},},
     {"id":{"name":"sndActionMusic","path":"sounds/sndActionMusic/sndActionMusic.yy",},},
     {"id":{"name":"sndAlarmClock","path":"sounds/sndAlarmClock/sndAlarmClock.yy",},},
+    {"id":{"name":"sndBigReveal","path":"sounds/sndBigReveal/sndBigReveal.yy",},},
     {"id":{"name":"sndBuffPickup","path":"sounds/sndBuffPickup/sndBuffPickup.yy",},},
     {"id":{"name":"sndClick","path":"sounds/sndClick/sndClick.yy",},},
     {"id":{"name":"sndCrateDestruction1","path":"sounds/sndCrateDestruction1/sndCrateDestruction1.yy",},},

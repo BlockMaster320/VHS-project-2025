@@ -1,5 +1,10 @@
-if (keyboard_check_pressed(ord("K")))
-	room_goto(rmGame)
+if (debug_mode)
+{
+	if (keyboard_check_pressed(ord("K")))
+		room_goto(rmGame)
+	if (keyboard_check_pressed(ord("B")))
+		room_goto(rmBossFight)
+}
 
 if (instance_exists(oRoomManager))
 	pfGrid = oRoomManager.pathfindingGrid
@@ -37,8 +42,9 @@ else cloneDustSpawnCooldown.value--
 
 if (room == rmLobby)
 {
-	if (!audio_is_playing(sndGameOver) and !audio_is_playing(lobbyMusic))
+	if (!audio_is_playing(sndGameOver) and audio_sound_get_gain(lobbyMusic) == 0)// !audio_is_playing(lobbyMusic))
 	{
+		audio_stop_sound(lobbyMusic)
 		lobbyMusic = audio_play_sound(sndLobbyMusic, 0, true, 0)
 		audio_sound_gain(lobbyMusic, 1, 4000)
 	}

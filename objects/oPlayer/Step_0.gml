@@ -18,7 +18,7 @@ event_inherited()
 if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0 /*and activeSlotSwapCooldown.value <= 0*/)
 {
 	//activeSlotSwapCooldown.reset()
-	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
+	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot - oController.scrollSlot) mod inventorySize
 	SwapSlot(newSlot)
 }
 //else if (activeSlotSwapCooldown.value > -1) activeSlotSwapCooldown.value--

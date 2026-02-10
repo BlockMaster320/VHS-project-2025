@@ -10,6 +10,9 @@ state = BOSSFIGHT_STATE.entered
 cleanerEnemy = noone
 clones = ds_list_create()
 
+revealSound = audio_play_sound(sndBigReveal, 0, false)
+audio_stop_sound(revealSound)
+
 removeClones = function(){
 	with (oEnemy) {
 		var _index = ds_list_find_index(oBossFight.clones, id);

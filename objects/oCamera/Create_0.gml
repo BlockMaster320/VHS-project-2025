@@ -19,3 +19,10 @@ currentShakeAmount = 0
 screenShakeRotAmount = 0
 camRot = 0
 screenshakeDecay = 0.15
+
+
+// Instance activation
+regionLeft = 0
+regionRight = 0
+regionTop = 0
+regionBottom = 0

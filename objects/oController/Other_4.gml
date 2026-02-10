@@ -19,7 +19,7 @@ if (currentFloor = FLOORS) {
 	oPlayer.y = 850;
 }
 
-if (audio_is_playing(lobbyMusic) and room != rmDebug) audio_stop_sound(lobbyMusic)
+if (audio_is_playing(lobbyMusic) and room != rmDebug and room != rmLobby) audio_sound_gain(lobbyMusic, 0, 2000)
 
 switch (room)
 {
@@ -44,5 +44,11 @@ switch (room)
 		audio_resume_sound(actionMusic)
 		audio_sound_gain(actionMusic, actionMusicRestGain, 2000)
 	
+		break
+		
+	case rmBossFight:
+	
+		audio_sound_gain(actionMusic, 0, 2000)
+		
 		break
 }

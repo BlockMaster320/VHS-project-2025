@@ -1,7 +1,8 @@
 // Destroys the object if the given object is colliding with it has a chance of dropping a weapon
 function DestroyOnContact(_obj) {
 	if (_obj == noone) return;
-	if (distance_to_object(_obj) > 50) return;
+	//if (distance_to_object(_obj) > 50) return;	// This is an anti-optimization
+	//if (point_distance(x, y, _obj.x, _obj.y) > 50) return;
 	
 	if (place_meeting(x, y, _obj)) {
 		part_particles_create(oController.destructibleParticlesSys, random_range(x-12,x+12), random_range(y-15, y+15), oController.destructibleParticles, 8)

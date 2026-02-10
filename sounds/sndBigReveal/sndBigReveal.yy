@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sndBigReveal",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":3,
+  "conversionMode":0,
+  "duration":22.153854,
+  "name":"sndBigReveal",
+  "parent":{
+    "name":"Music",
+    "path":"folders/Sound/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sndBigReveal.ogg",
+  "type":1,
+  "volume":1.0,
+}

@@ -25,6 +25,16 @@ function instanceInRange(object, distance)
 	return point_distance(x, y, inst.x, inst.y) <= distance ? inst : noone
 }
 
+function pointOutsideView(xx, yy)
+{
+	// Assume existance of oCamera for optimization
+	var screenCenterX = oCamera.x + cameraW/2
+	var screenCenterY = oCamera.y + cameraH/2
+	
+	return point_distance(screenCenterX, screenCenterY, x, y) > cameraHalfDiagonal
+	//return dist > cameraHalfDiagonal
+}
+
 function collisionMargin(xx, yy, margin)
 {
 	return collision_circle(xx, yy, margin, global.tilemapCollision, false, false)

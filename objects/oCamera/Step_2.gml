@@ -36,3 +36,51 @@ y = clamp(y, 0, room_height - viewH)
 camera_set_view_size(cam, viewW, viewH)
 camera_set_view_pos(cam, roundPixelPos(x), roundPixelPos(y))
 camera_set_view_angle(cam, camRot)
+
+
+// Instance deactivation -----------------------------------------
+
+var viewCenterX = x + cameraW/2
+var viewCenterY = y + cameraH/2
+
+if (!point_in_rectangle(viewCenterX, viewCenterY, regionLeft, regionTop, regionRight, regionBottom))
+{
+	var time = get_timer()
+	
+	instance_deactivate_object(oCollider)
+	instance_deactivate_object(oWeaponPickup)
+	instance_deactivate_object(oBuffPickup)
+	
+	instance_activate_object(oPower)
+	instance_activate_object(oDoorEscalator)
+	instance_activate_object(oEscalatorBarrier)
+	
+	var activateLeft = viewCenterX - cameraW
+	var activateTop = viewCenterY - cameraH
+	var activateWidth = cameraW*2
+	var activateHeigth = cameraH*2	
+	instance_activate_region(activateLeft, activateTop, activateWidth, activateHeigth, true)
+	
+	regionLeft = activateLeft + cameraW*.7
+	regionTop = activateTop + cameraH*.7
+	regionRight = activateLeft + activateWidth - cameraW*.7
+	regionBottom = activateTop + activateHeigth - cameraH*.7
+	
+	show_debug_message($"Recalculating active objects (finished in {(get_timer() - time) / 1000} ms)")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
