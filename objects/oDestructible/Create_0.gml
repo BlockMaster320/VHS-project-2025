@@ -7,6 +7,9 @@ function DestroyOnContact(_obj) {
 		part_particles_create(oController.destructibleParticlesSys, random_range(x-12,x+12), random_range(y-15, y+15), oController.destructibleParticles, 8)
 		var _sound = choose(sndCrateDestruction1, sndCrateDestruction2, sndCrateDestruction3);
 		audio_play_sound(_sound, 0, false);
+		
+		
+		
 		instance_destroy(self);
 	}
 }
