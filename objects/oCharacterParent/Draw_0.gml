@@ -19,7 +19,7 @@ if (hitFlashCooldown.value > 0)
 }
 else draw_sprite_ext(drawnSprite, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
 
-if (inRange)
+if (inRange && global.inputState != INPUT_STATE.cutscene)
 	draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 10, "[E]")
 else if (characterType == oController.questNPC)
 {

@@ -110,6 +110,9 @@ function characterCreate(_characterType) {
 				if (instance_exists(oRoomManager)) {
 					oRoomManager.killAllEnemies()
 					oRoomManager.killAllEnemyProjectiles()
+				} else if (instance_exists(oBossFight)) {
+					oBossFight.removeClones()
+					oBossFight.deactivateCleaner()
 				}
 				DeathScene(self)
 			}
@@ -461,6 +464,103 @@ function characterCreate(_characterType) {
 			lookDir = 0
 			lookDirTarget = 0
 			myWeapon = acquireWeapon(WEAPON.enemyCrowbar, id)
+			
+			// AI
+			slasherAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				slasherAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				slasherAiDraw()	// AI visualization
+			}
+			
+		} break;
+		
+		case CHARACTER_TYPE.cleanerEnemy: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.cleanerEnemy;
+			walkSpd = .5
+			maxHp = 1500
+			hp = maxHp
+			
+			// Dialogues
+			name = "Cleaner enemy";
+			portrait = sCleanerPortrait;
+			
+			// Animation
+			drawnSprite = sCharacters;
+			imageOffset = 44;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
+			anim = characterAnimation.getAnimation;
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.crowbar, id)
+			
+			// AI
+			cleanerAiInit()
+			
+			// Behaviour
+			stepEvent = function()
+			{
+				pathfindingStep()
+				cleanerAiUpdate()
+				myWeapon.update()
+			}
+			
+			drawEvent = function()
+			{
+				pathfindingDraw()
+				myWeapon.draw()
+				cleanerAiDraw()	// AI visualization
+			}
+			
+			onDeathEvent = function()
+			{
+				oBossFight.removeClones()
+				oBossFight.cleanerEnemy = noone
+				instance_destroy()
+			}
+			
+		} break;
+		
+		case CHARACTER_TYPE.cleanerClone: {
+			// Character attributes
+			characterClass = CHARACTER_CLASS.enemy;
+			characterType = CHARACTER_TYPE.cleanerClone;
+			walkSpd = .5
+			
+			// Dialogues
+			name = "Cleaner clone";
+			portrait = sNPCPortrait;
+			
+			// Animation
+			drawnSprite = sCharacters;
+			imageOffset = 44;
+			characterAnimation = new CharacterAnimation(GetAnimationFramesCleaner2);
+			anim = characterAnimation.getAnimation;
+			
+			// Pathfinding
+			pathfindingInit()
+			
+			// Weapon
+			lookDir = 0
+			lookDirTarget = 0
+			myWeapon = acquireWeapon(WEAPON.crowbar, id)
 			
 			// AI
 			slasherAiInit()

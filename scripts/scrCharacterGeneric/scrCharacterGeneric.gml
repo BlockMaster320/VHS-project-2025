@@ -12,7 +12,7 @@ enum CHARACTER_TYPE
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,
 	enemyStartID /*dummy const*/, targetDummy, ghoster, meleeSlasher, fanner, dropper, enemyEndID /*dummy const*/,
-	playerCleaner
+	playerCleaner, cleanerEnemy, cleanerClone
 }
 
 enum CharacterState {
@@ -81,7 +81,7 @@ function DealDamage(character, damageDealt, hitSoundGain=1)
 	if (character.hp <= 0)
 	{
 		character.hp = 0
-		if (room != rmLobby and room != rmDebug and character.characterClass == CHARACTER_CLASS.enemy)
+		if (room != rmLobby and room != rmDebug and room != rmBossFight and character.characterClass == CHARACTER_CLASS.enemy)
 		{
 			oRoomManager.currentRoom.KillEnemy(character);
 		}

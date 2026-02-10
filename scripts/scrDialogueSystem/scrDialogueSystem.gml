@@ -23,22 +23,24 @@ function DialogueSystem() constructor
 									
 	ds_map_add(dlgs, CHARACTER_TYPE.mechanic, [new Dialogue(
 									[
-										new DialogueLine("Čau kámo.", [], [1]),
-										new DialogueLine("Pěkné plíce.", [], [2]),
-										new DialogueLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", [], [3]),
-										new DialogueLine("Půjčíš mi svou botu?", ["Jasně, tady ji máš.", "Ne."], [4, 5]),
-										new DialogueLine("Dík moc, jsi frajer", [], []),
-										new DialogueLine("Tak doufám, že se ti rozvážou tkaničky.", [], [])
+										new DialogueLine("G-g-g... G-good morning! S-sorry... is th-th-there... I mean, is there s-something I c-c-can help you with?", ["Hello, I heard the metro isn't operating?"], [1]),
+										new DialogueLine("Y-yes, I'm a-a-afraid so. The p-p-power has been off... s-since this m-m-morning and we d-d-don't know... why...", [], [2]),
+										new DialogueLine("We t-t-tried s-switching it b-b-b... b-back on, but nothing h-happened.", [], [3]),
+										new DialogueLine("It's p-probably c-c-connected to that... h-h-hole, that appeared out of n-no-n-nowhere in the wall a-across the p-platform.", [], [4]),
+										new DialogueLine("We tried s-ssending a t-technician there... b-b-b-but he c-c-came back p-p-pale and i-i-immeadiately q-q-quit his job.", [], [5]),
+										new DialogueLine("It will p-p-p-probably t-take another 3 hours u-u-until another t-team reaches us.", ["What about you? You're a technician as well, aren't you?"], [6]),
+										new DialogueLine("M-m-me? I-I-I... d-don't want t-t-to... I-I'm... s-s-scared...", ["But I really need to go to school! Can I take a look then?"], [7]),
+										new DialogueLine("Y-y-you? I-I-I mean... It m-m-might b-be d-dangerous... B-b-but I c-cannot sstop you... Soo...", [], [])
+
 									])])
 	ds_map_add(dlgs, CHARACTER_TYPE.student, [new Dialogue(
 									[
-										new DialogueLine("Yo, bro! Heading to the academy?", ["Yeah, cloning exam. Last shot or I'm out."], [1]),
-										new DialogueLine("No way, me too!", [], [2]),
-										new DialogueLine("Man, I failed it twice already and I was about to fail it again...", [], [3]),
-										new DialogueLine("but I guess those manifesting classes finally paid off.", ["What do you mean?"], [4]),
-										new DialogueLine("The metro is stuck or something, idk.", [], [5]),
-										new DialogueLine("Ask the tech guy with a mustache, I'm going home.", [], [6]),
-										new DialogueLine("Silver league's calling, I can feel it!", [], [])
+										new DialogueLine("Yo, bro! Heading to the academy?", ["Yeah, cloning exam. So far I haven't even passed the first part."], [1]),
+										new DialogueLine("No way, I was supposed to take it today too!", [], [2]),
+										new DialogueLine("Last time I failed the second part because I forgot my wand and those spare ones at school suck.", ["...! You need a wand? I left mine at home!"], [3]),
+										new DialogueLine("Well, lucky you, the metro is stuck anyway.", ["What do you mean?"], [4]),
+										new DialogueLine("I dunno, ask the tech guy with a mustache. Imma hit the gym now!", [], [5]),
+										new DialogueLine("Oh yeah, gym!", [], [])
 									])])
 									
 	ds_map_add(dlgs, CHARACTER_TYPE.passenger1, [new Dialogue(
@@ -48,12 +50,67 @@ function DialogueSystem() constructor
 									[
 										new DialogueLine("Uh.", [], [])
 									])])
-	ds_map_add(dlgs, CHARACTER_TYPE.playerCleaner, [new Dialogue(
-									[
-										new DialogueLine("You messed it down there a bit. Be careful, I may not be there next time.", ["I'll be careful.", "Okay"], [1, 1]),
-										new DialogueLine("I hope I won't see you down again anymore. And now more cleaning again...", [], [])
-									])])
-	ds_map_add(dlgs, CHARACTER_TYPE.shopkeeper, [new Dialogue(
+	ds_map_add(dlgs, CHARACTER_TYPE.playerCleaner, [//not the best data type for this, but oh well, i'm not changing it now - maybe next time
+										//0, first time seeing the boss
+										new Dialogue([
+											new DialogueLine("Think, think... What could have possibly gone wrong...", [], [1]),
+											new DialogueLine("Let A and B be closed sets and let F: A -> B be a mapping. We say that F is a cloning if—", ["Excuse me, would you mind if I swi—"], [2]),
+											new DialogueLine("AH, YOU!", [], [3]),
+											new DialogueLine("I have tolerated your little adventurous soul for far too long.", [], [4]),
+											new DialogueLine("You want to turn this on, huh?", [], [5]),
+											new DialogueLine("HOW ABOUT I TURN YOU INTO DUST INSTEAD?", [], [])
+										]),
+										
+										//new DialogueLine("", [], [])
+										//1, 2nd+ time seeing the boss
+										new Dialogue([
+												new DialogueLine("I KNEW YOU WOULD COME BACK.", [], [])
+											]),
+										
+										//2, boss defeated
+										new Dialogue([
+											new DialogueLine("I guess now I'll have to come clean about this...", [], [1]),
+											new DialogueLine("I was once a sorcery student too, but this was the only job I could get.", [], [2]),
+											new DialogueLine("I wanted to make things easier today by cloning myself to clean faster.", [], [3]),
+											new DialogueLine("But it's been a long time, and I guess I messed it up.", [], [4]),
+											new DialogueLine("I was trying to fix it secretly, but you kept turning on the cameras.", [], [5]),
+											new DialogueLine("Now I'll lose my job...", ["Maybe I can help you? But could you lend me your wand?"], [])
+										]),
+										
+										//3,4,5, death
+										new Dialogue([
+											new DialogueLine("I found you unconscious!", [], [1]),
+											new DialogueLine("It's dangerous downstairs, stay here!", [], [])
+										]),
+										new Dialogue([
+											new DialogueLine("You probably got lost, but it's alright. I got you back to safety.", [], [1]),
+											new DialogueLine("Don't be reckless again.", [], [])
+										]),
+										new Dialogue([
+											new DialogueLine("Are you alright? You could have been hurt!", [], [1]),
+											new DialogueLine("Please be more careful!", [], [])
+										]),
+										
+										//6,7,8, death after seeing the boss
+										new Dialogue([
+											new DialogueLine("You youngsters... I hope you've learned your lesson.", [], [])
+										]),
+										new Dialogue([
+											new DialogueLine("Stick to your notes, little boy.", [], [])
+										]),
+										new Dialogue([
+											new DialogueLine("Stop meddling in things that are none of your business.", [], [])
+										]),
+										
+										//9, easter egg death
+										new Dialogue([
+											new DialogueLine("What a sigma.", [], [])
+										])
+										
+										])
+	ds_map_add(dlgs, CHARACTER_TYPE.shopkeeper, [
+									new Dialogue([new DialogueLine("...", [], [])]),
+									new Dialogue(
 									[
 										new DialogueLine("Found these laying around. I will let you take one if you ask nicely.", ["Can i please take one?", "Haha make me."], [1, 2]),
 										new DialogueLine("Of course :)", [], []),
@@ -66,6 +123,28 @@ function SelectDlg(_NPCType)
 	switch (_NPCType){
 		case CHARACTER_TYPE.passenger1:
 			return irandom(array_length(dialogues.dlgs[? CHARACTER_TYPE.passenger1]) - 1)
+		case CHARACTER_TYPE.playerCleaner:
+			if (room == rmBossFight){
+				if (oBossFight.state == BOSSFIGHT_STATE.startedTalking){
+					if(!dialogues.dlgs[? _NPCType][0].seen)
+						return 0
+					return 1
+				}
+				if (oBossFight.state == BOSSFIGHT_STATE.defeated){
+					return 2
+				}
+				return 9 // SHOULDN'T HAPPEN
+			}
+			if (room == rmLobby){
+				if (irandom(99) == 0) return 9
+				if(!dialogues.dlgs[? _NPCType][0].seen)
+					return irandom_range(3, 5)
+				return irandom_range(6, 8)
+			}
+		case CHARACTER_TYPE.shopkeeper:
+			if (room == rmLobby)
+				return 0
+			return 1
 		default:
 			return 0
 	}

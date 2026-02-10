@@ -17,11 +17,11 @@ function IntroScene() {
 			audio_play_sound(sndAlarmClock, 0, false)
 		}),
 		TweenWait(audio_sound_length(sndAlarmClock)*1000 + 200),
-		new TweenDialogue(new Dialogue([
+		new TweenDialogueEx(new Dialogue([
 			new DialogueLine("...", [], []),
 		])),
 		TweenWait(2000),
-		new TweenDialogue(new Dialogue([
+		new TweenDialogueEx(new Dialogue([
 			new DialogueLine("Uhh...", [], [1]),
 			new DialogueLine("Wait...", [], [2]),
 			new DialogueLine("THE CLONING TECHNIQUES EXAM IS IN 2 HOURS", [], [3]),
