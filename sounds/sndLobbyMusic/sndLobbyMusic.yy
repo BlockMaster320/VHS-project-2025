@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":49.384624,
+  "duration":48.504807,
   "name":"sndLobbyMusic",
   "parent":{
     "name":"Music",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndLobbyMusic.ogg",
   "type":1,
-  "volume":0.3,
+  "volume":0.42,
 }

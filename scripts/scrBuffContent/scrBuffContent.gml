@@ -129,7 +129,7 @@ function BuffCreate(buffType_)
 				
 				newStats = [ new iRange(2, 2), 		// + projectile amount
 							 new Range(1.5, 2.),	// - more spread
-							 new Range(.7, .7) ]	// - less % dmg
+							 new Range(.8, .8) ]	// - less % dmg
 												
 				descriptionBuff = $"{newStats[0].value}x projectile amount"
 				descriptionDebuff = $"{toPercent(newStats[2].value)}% damage\n{toPercent(1/newStats[1].value)}% accuracy"
@@ -312,7 +312,7 @@ function BuffCreate(buffType_)
 	
 			case BUFF.dualWield:
 
-				rarity = RARITY.rare
+				rarity = RARITY.common
 		
 				descriptionNeutralEffect = $"DUAL WIELD"
 		
@@ -326,7 +326,7 @@ function BuffCreate(buffType_)
 				
 			case BUFF.doubleBuff:
 
-				rarity = RARITY.rare
+				rarity = RARITY.common
 		
 				descriptionNeutralEffect = $"DOUBLE ALL EFFECTS"
 		

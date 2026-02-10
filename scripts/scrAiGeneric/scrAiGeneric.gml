@@ -459,7 +459,7 @@ function restAiUpdate()
 function genericAiDebugDraw()
 {
 	var offset = 4
-	var yy = y + 8
+	var yy = y + 12
 	var halign = draw_get_halign()
 	var scale = .5
 				
@@ -469,9 +469,10 @@ function genericAiDebugDraw()
 	//draw_text(x, yy + offset * 2, $"PlayerDist: {point_distance(x, y, oPlayer.x, oPlayer.y)}")
 	//draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
 	//draw_text_transformed(x, yy + offset * 1, $"Path end: {reachedPathEnd}", scale, scale, 0)
-	draw_text_transformed(x, yy + offset * 1, $"Patience: {patienceToShoot.value}", scale, scale, 0)
+	draw_text_transformed(x, yy + offset * 2, $"Ammo: {myWeapon.magazineAmmo}", scale, scale, 0)
+	//draw_text_transformed(x, yy + offset * 2, $"Patience: {patienceToShoot.value}", scale, scale, 0)
+	draw_text_transformed(x, yy + offset * 1, $"Coordinating: {activeCoordination}", scale, scale, 0)
 	//draw_text(x, yy + offset * 2, $"Sees player well: {LineOfSightObject(oPlayer)}")
-	//draw_text(x, yy + offset * 5, $"Ammo: {myWeapon.magazineAmmo}")
 	draw_set_halign(halign)
 }
 

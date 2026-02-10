@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndDialogue.ogg",
   "type":0,
-  "volume":0.77,
+  "volume":0.43,
 }

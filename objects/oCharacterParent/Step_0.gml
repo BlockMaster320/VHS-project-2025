@@ -120,7 +120,8 @@ if ((x != xprevious or y != yprevious) and walkDustTimeCounter <= 0)
 }
 
 if (x != xprevious or y != yprevious) {
-	walkDustTimeCounter -= 1/60 * global.gameSpeed
+	//walkDustTimeCounter -= 1/60 * global.gameSpeed
+	walkDustTimeCounter -= 1/60	// Since the animation system ignores the gameSpeed, ignore it here as well
 }
 else walkDustTimeCounter = 0
 

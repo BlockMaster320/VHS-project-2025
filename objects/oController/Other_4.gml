@@ -19,6 +19,7 @@ if (currentFloor = FLOORS) {
 	oPlayer.y = 850;
 }
 
+if (audio_is_playing(lobbyMusic) and room != rmDebug) audio_stop_sound(lobbyMusic)
 
 switch (room)
 {
@@ -27,7 +28,7 @@ switch (room)
 		audio_resume_sound(subwayAmbiance)
 		audio_sound_gain(subwayAmbiance, 1, 4000)
 		
-		if (audio_is_playing(lobbyMusic)) audio_stop_sound(lobbyMusic)
+		//if (audio_is_playing(lobbyMusic)) audio_stop_sound(lobbyMusic)
 		
 		if (introCutscene)
 		{

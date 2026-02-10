@@ -15,13 +15,13 @@ event_inherited()
 #region Weapon interaction
 
 // Swap active inventory slot
-if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0 and activeSlotSwapCooldown.value <= 0)
+if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0 /*and activeSlotSwapCooldown.value <= 0*/)
 {
-	activeSlotSwapCooldown.reset()
+	//activeSlotSwapCooldown.reset()
 	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot + oController.scrollSlot) mod inventorySize
 	SwapSlot(newSlot)
 }
-else if (activeSlotSwapCooldown.value > -1) activeSlotSwapCooldown.value--
+//else if (activeSlotSwapCooldown.value > -1) activeSlotSwapCooldown.value--
 	
 function SwapSlot(newSlot)
 {
@@ -122,8 +122,8 @@ if (global.gameSpeed > .0001)
 #endregion
 
 // Debug
-if (keyboard_check_pressed(ord("K"))) {
+if (debug_mode and keyboard_check_pressed(ord("L"))) {
 	hp = 0
 	onDeathEvent()
 }
-if (keyboard_check(ord("T"))) game_restart()
+//if (keyboard_check(ord("T"))) game_restart()

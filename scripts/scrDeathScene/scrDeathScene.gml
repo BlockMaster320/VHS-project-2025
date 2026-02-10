@@ -13,6 +13,11 @@ function DeathScene(_deadCharacter) {
 		
 		audio_play_sound(sndGameOver, 0, false)
 		audio_play_sound(sndHeartbrake, 0, false)
+		with (oPlayer)
+		{
+			ResetPlayerBuffs()
+			InitPlayerWeapons()
+		}
 	
 		
 		with(cleaner) { 
