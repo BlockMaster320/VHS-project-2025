@@ -74,6 +74,17 @@ function projectileHitDetection()
 
 function genericProjectileDestroy()
 {
+	// Particles
+	if (projType == PROJECTILE_TYPE.ranged)
+	{
+		//part_type_direction(oController.bulletImpact, dir-15, dir+15, 0, 0)
+		//part_particles_create(oController.bulletImpactSys, x, y, oController.bulletImpact, 5)
+		var spread = 30
+		part_type_direction(oController.bulletImpact, dir+180-spread , dir+180+spread , 0, 0)
+		part_type_speed(oController.bulletImpact,projectileSpeed*.8,projectileSpeed*1.2,-(projectileSpeed*.04),0)
+		part_particles_create(oController.bulletImpactSys, x, y, oController.bulletImpact, 4)
+	}
+	
 	instance_destroy()
 }
 
@@ -170,6 +181,13 @@ function explosiveDestroy()
 	explosion.image_xscale = explosion.scale * explosion.xScaleMult
 	explosion.image_yscale = explosion.scale * explosion.yScaleMult
 	oCamera.currentShakeAmount += 25
+	
+	part_type_direction(oController.explosionDust, dir-15, dir+15, 0, 0)
+	part_particles_create(oController.explosionDustSys, x, y, oController.explosionDust, 30)
+	part_type_direction(oController.explosionDust, dir-100, dir+100, 0, 0)
+	part_particles_create(oController.explosionDustSys, x, y, oController.explosionDust, 20)
+	part_type_direction(oController.explosionDust, 0, 360, 0, 0)
+	part_particles_create(oController.explosionDustSys, x, y, oController.explosionDust, 10)
 	
 	var pitch = random_range(0.7, 1.5)
 	audio_play_sound(sndGarbageExplosion, 0, false, 1, 0, pitch)

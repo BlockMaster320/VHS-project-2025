@@ -27,3 +27,13 @@ if (instance_exists(oCamera))
 	
 	//draw_surface(lightSurface, surfaceDrawPositionX, surfaceDrawPositionY)
 }
+
+
+if (room == rmMenu)
+{
+	introTextAlpha = lerp(introTextAlpha, .6, .001)
+	draw_set_alpha(introTextAlpha)
+	var scale = 2
+	draw_text_transformed(60, 60, "Press Enter to skip intro", scale, scale, 0)
+	draw_set_alpha(1)
+}

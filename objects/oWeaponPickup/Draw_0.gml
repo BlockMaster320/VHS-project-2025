@@ -23,7 +23,7 @@ if (global.SHOW_HITBOXES)
 
 // Rat
 var _flip = 1;
-if (myWeapon.type == WEAPON.rat) {
+if (myWeapon.type == WEAPON.rat and room != rmDebug) {
 	var _animSpeed = 0.03;
 	var _imageIndexClamp = 2;
 	

@@ -12,7 +12,9 @@ if (!talking) {
 	}
 	closest_NPC.inRange = true
 	
-	if (!oController.interact) exit
+	if (interactDelay.value > 0) interactDelay.value--
+	
+	if (!oController.interact or interactDelay.value > 0) exit
 
 	/*
 	with (oPlayer){

@@ -34,6 +34,15 @@ if ((room == rmGame or room == rmBossFight or room == rmDebug) and currentFloor 
 	part_particles_create(cloneDustSys, xx, yy, cloneDust, 1)
 }
 else cloneDustSpawnCooldown.value--
+
+if (room == rmLobby)
+{
+	if (!audio_is_playing(sndGameOver) and !audio_is_playing(lobbyMusic))
+	{
+		lobbyMusic = audio_play_sound(sndLobbyMusic, 0, true, 0)
+		audio_sound_gain(lobbyMusic, 1, 4000)
+	}
+}
 	
 // Change refresh rate based on the active display
 //if (gameFPS != display_get_frequency())

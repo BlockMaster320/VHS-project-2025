@@ -11,6 +11,9 @@ waiting_for_answer = false
 current_line = noone
 timer = 0
 
+interactDelay = new Cooldown(60) // When spamming the interact button, prevent repeated dialogue selection
+interactDelay.value = 0
+
 // options - maximum of 2 options just to give the illusion of choice
 highlighted = 0
 for (var i = 0; i < 2; ++i){

@@ -91,7 +91,7 @@ if (oController.interact)
 }
 
 
-// Custom interactable interact
+// Custom interactable button interact
 var interactable = instanceInRange(oCustomInteractable, PICKUP_DISTANCE)
 if (interactable)
 {

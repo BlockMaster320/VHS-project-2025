@@ -26,7 +26,7 @@ else if (characterType == oController.questNPC)
 	var questAlpha = sin((current_time*2*pi)/2000)*.25+.75
 	var yOff = sin((current_time*2*pi)/1500) * 1.5
 	draw_set_alpha(questAlpha)
-	draw_sprite(sQuest, 0, roundPixelPos(x) , roundPixelPos(y - sprite_yoffset - 5 + yOff))
+	draw_sprite(sQuest, 0, roundPixelPos(x) , roundPixelPos(y - sprite_yoffset - 7 + yOff))
 	draw_set_alpha(1)
 }
 		

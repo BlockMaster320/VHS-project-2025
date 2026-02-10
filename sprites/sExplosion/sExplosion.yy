@@ -19,7 +19,8 @@
   "height":32,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"eb6db8ab-7cc0-4ee9-ba13-24ab4b20faba","blendMode":0,"displayName":"default","isLocked":false,"name":"eb6db8ab-7cc0-4ee9-ba13-24ab4b20faba","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"7055937a-14b4-4811-9168-1a06c627d031","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"7055937a-14b4-4811-9168-1a06c627d031","opacity":86.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"eb6db8ab-7cc0-4ee9-ba13-24ab4b20faba","blendMode":0,"displayName":"default","isLocked":false,"name":"eb6db8ab-7cc0-4ee9-ba13-24ab4b20faba","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
   ],
   "name":"sExplosion",
   "nineSlice":null,
