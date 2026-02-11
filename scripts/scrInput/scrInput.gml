@@ -72,7 +72,7 @@ function Input()
 			break
 			
 		case INPUT_STATE.cutscene:
-			skipCutScene = keyboard_check_pressed(vk_enter)
+			skipCutScene = keyboard_check_pressed(vk_escape)
 			
 			// NO BREAK ON PURPOSE
 			
