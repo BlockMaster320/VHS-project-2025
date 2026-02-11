@@ -64,6 +64,13 @@ depth = -y;
 alpha = 1
 weaponAlpha = 1
 handsAlpha = 1
+
+// Info flash (copy pasted from weapons)
+flashFrameCounter = 0
+flashFrequency = 0	// Flash the weapon amount/s when something is happening to it
+flashFacLoc = shader_get_uniform(shFlash, "flashFac")
+roundFac = true
+flashFac = 0
 	
 // Event functions
 stepEvent = noone

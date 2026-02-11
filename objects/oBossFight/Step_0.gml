@@ -9,6 +9,7 @@ switch (state){
 			oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner)
 			
 			revealSound = audio_play_sound(sndBigReveal, 0, false)
+			oPlayer.showStats = false
 		}
 		break
 		

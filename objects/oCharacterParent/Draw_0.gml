@@ -17,6 +17,17 @@ if (hitFlashCooldown.value > 0)
 	flashFac = lerp(flashFac, 1, flashFacMixFac)
 	hitFlashCooldown.value -= global.gameSpeed
 }
+else if (flashFrequency > 0)
+{
+	shader_set(shFlash)
+		flashFac = ((flashFrameCounter/global.gameSpeed) mod (60 / flashFrequency)) / (60 / flashFrequency)
+		if (roundFac) flashFac = round(flashFac)
+		else flashFac = sin(flashFac * 2 * pi) * .5 + .5
+		if (flashFrequency <= .0001) flashFac = 0
+		shader_set_uniform_f(flashFacLoc, flashFac)
+		draw_sprite_ext(drawnSprite, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
+	shader_reset()
+}
 else draw_sprite_ext(drawnSprite, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
 
 if (inRange && global.inputState != INPUT_STATE.cutscene && oDialogues.canStartDialogue(characterType))

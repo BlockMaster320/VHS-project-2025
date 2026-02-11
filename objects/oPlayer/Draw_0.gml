@@ -73,6 +73,9 @@ draw_rectangle(rightX - size*inventorySize, bottomY - size, rightX, bottomY + 1.
 draw_set_alpha(1)
 draw_set_color(c_white)
 
+
+draw_set_halign(fa_center)
+
 for (var i = 0; i < inventorySize; i++)
 {
 	var xx = rightX - (size * (inventorySize-1 - i)) - center
@@ -82,7 +85,7 @@ for (var i = 0; i < inventorySize; i++)
 	{
 		var weaponDurFac = weaponInventory[i].remainingDurability / 1
 		draw_set_alpha(.8)
-		draw_rectangle(xx - center, yy - center, lerp(xx-center, xx+center, weaponDurFac), yy + center + 1., false)
+		draw_rectangle(xx - center + .5, yy - center, lerp(xx-center, xx+center, weaponDurFac), yy + center + 1., false)
 		draw_set_alpha(1)
 	}
 	
@@ -102,7 +105,7 @@ if (inventorySize > 0)
 	// Bright outline for active item
 	var xx = rightX - (size * (inventorySize-1 - activeInventorySlot)) - center
 	var yy = bottomY - center
-	if (holdingTempWeapon) draw_set_alpha(.7)
+	if (holdingTempWeapon) draw_set_alpha(.9)
 	draw_rectangle(xx - center, yy - center, xx + center, yy + center, true)
 	draw_set_alpha(1)
 }
@@ -127,8 +130,7 @@ if (holdingTempWeapon)
 }
 
 draw_set_alpha(.9)
-draw_set_halign(fa_center)
-draw_text_transformed(tempSlotRightX - center, bottomY+1, "Carry", 1, 1, 0)
+draw_text_transformed(tempSlotRightX - center, bottomY+5, "Carry", 1, 1, 0)
 draw_set_halign(fa_left)
 draw_set_alpha(1)
 

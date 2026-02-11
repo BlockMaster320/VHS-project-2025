@@ -13,11 +13,6 @@ function DeathScene(_deadCharacter) {
 		
 		audio_play_sound(sndGameOver, 0, false)
 		audio_play_sound(sndHeartbrake, 0, false)
-		with (oPlayer)
-		{
-			ResetPlayerBuffs()
-			InitPlayerWeapons()
-		}
 	
 		
 		with(cleaner) { 
@@ -84,6 +79,14 @@ function DeathScene(_deadCharacter) {
 				alpha = 1
 				weaponAlpha = 1
 				handsAlpha = 1
+				
+				// Reset player
+				with (oPlayer)
+				{
+					ResetPlayerBuffs()
+					InitPlayerWeapons()
+					InitPlayerStats()	// Keep this line, it is not redundant (for some reason)
+				}
 			}),
 			// lobby & dialog
 			new TweenAction(function() {
