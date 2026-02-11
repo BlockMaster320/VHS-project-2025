@@ -51,6 +51,7 @@ function DialogueSystem() constructor
 										{
 											findPathPosition(320, 500)
 											exiting = true
+											oController.studentLeft = true
 										}
 									})
 									])

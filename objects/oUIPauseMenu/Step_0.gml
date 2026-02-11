@@ -1,5 +1,5 @@
 if (oController.pause) {
-	if (global.inputState != INPUT_STATE.menu) {
+	if (global.inputState == INPUT_STATE.playing /*global.inputState != INPUT_STATE.menu*/) {
 		global.gameSpeed = 0
 		lowerState = global.inputState
 		global.inputState = INPUT_STATE.menu

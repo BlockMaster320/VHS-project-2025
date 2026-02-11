@@ -29,6 +29,7 @@ switch (room)
 		audio_sound_gain(subwayAmbiance, 1, 4000)
 		
 		//if (audio_is_playing(lobbyMusic)) audio_stop_sound(lobbyMusic)
+		audio_sound_gain(actionMusic, 0, 2000)
 		
 		if (introCutscene)
 		{
@@ -45,6 +46,7 @@ switch (room)
 	
 		audio_resume_sound(actionMusic)
 		audio_sound_gain(actionMusic, actionMusicRestGain, 2000)
+		if (audio_is_playing(gameOverMusic)) audio_sound_gain(gameOverMusic, 0, 4000)
 	
 		break
 		

@@ -42,7 +42,7 @@ else cloneDustSpawnCooldown.value--
 
 if (room == rmLobby)
 {
-	if (!audio_is_playing(sndGameOver) and audio_sound_get_gain(lobbyMusic) == 0)// !audio_is_playing(lobbyMusic))
+	if (!audio_is_playing(gameOverMusic) and audio_sound_get_gain(lobbyMusic) == 0)// !audio_is_playing(lobbyMusic))
 	{
 		audio_stop_sound(lobbyMusic)
 		lobbyMusic = audio_play_sound(sndLobbyMusic, 0, true, 0)

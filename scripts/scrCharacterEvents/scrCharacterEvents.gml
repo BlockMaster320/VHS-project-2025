@@ -198,6 +198,9 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.student: {
+			
+			if (oController.studentLeft) instance_destroy()
+			
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.student;
 			name = "Mechanic";
@@ -577,7 +580,7 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.cleanerClone;
 			walkSpd = .5
 			
-			maxHp = 80
+			maxHp = 150
 			hp = maxHp
 			
 			// Dialogues

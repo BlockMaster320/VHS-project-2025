@@ -73,6 +73,8 @@ actionMusic = audio_play_sound(sndActionMusic, 0, true, 0)
 audio_pause_sound(actionMusic)
 lobbyMusic = audio_play_sound(sndLobbyMusic, 0, true, 0)
 audio_pause_sound(lobbyMusic)
+gameOverMusic = audio_play_sound(sndGameOver, 0, false, 0)
+audio_stop_sound(gameOverMusic)
 
 // Ambiance
 openingAmbiance = audio_play_sound(sndOpeningAmbiance, 0, true)
@@ -144,6 +146,7 @@ part_type_blend(cloneExplosion, true)
 
 // Highlight if there is a new interaction
 questNPC = CHARACTER_TYPE.student
+studentLeft = false
 
 prevRoom = rmLobby
 
