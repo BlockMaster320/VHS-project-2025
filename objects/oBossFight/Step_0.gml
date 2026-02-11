@@ -23,7 +23,7 @@ switch (state){
 			if (!audio_is_playing(oController.actionMusic)) oController.actionMusic = audio_play_sound(sndActionMusic, 0, true)
 			audio_sound_gain(oController.actionMusic, actionMusicFightGain, 2000)
 			
-			instance_deactivate_object(oNPC)
+			instance_destroy(oNPC)
 			cleanerEnemy = instance_create_layer(768, 192, "Instances", oEnemy)
 			with(cleanerEnemy) { characterCreate(CHARACTER_TYPE.cleanerEnemy); }
 		
