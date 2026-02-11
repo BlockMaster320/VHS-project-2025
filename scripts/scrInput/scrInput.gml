@@ -7,6 +7,7 @@ function Input()
 	primaryButton = 0
 	primaryButtonPress = 0
 	secondaryButton = 0	
+	selectSlot = 0
 	scrollSlot = 0
 	swapSlot = 0
 	interact = 0
@@ -48,9 +49,9 @@ function Input()
 			}
 	
 			// Weapon slots
-			//for (var i = 1; i <= inventorySize; i++)
-			//	if (keyboard_check_pressed(ord(string(i))))
-			//		selectSlot = i
+			for (var i = 1; i <= 9; i++)
+				if (keyboard_check_pressed(ord(string(i))))
+					selectSlot = i
 			swapSlot = keyboard_check_pressed(vk_space)	
 			scrollSlot = mouse_wheel_up() - mouse_wheel_down()
 			

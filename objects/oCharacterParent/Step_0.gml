@@ -132,3 +132,6 @@ else walkDustTimeCounter = 0
 // This is useful for pathfinding
 whsp = 0
 wvsp = 0
+
+// Other
+flashFrameCounter++

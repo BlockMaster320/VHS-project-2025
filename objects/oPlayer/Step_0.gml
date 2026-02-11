@@ -15,10 +15,13 @@ event_inherited()
 #region Weapon interaction
 
 // Swap active inventory slot
-if ((oController.swapSlot or oController.scrollSlot != 0) and inventorySize > 0 /*and activeSlotSwapCooldown.value <= 0*/)
+if ((oController.swapSlot or oController.scrollSlot != 0 or oController.selectSlot != 0) and inventorySize > 0 /*and activeSlotSwapCooldown.value <= 0*/)
 {
 	//activeSlotSwapCooldown.reset()
 	var newSlot = (activeInventorySlot + inventorySize + oController.swapSlot - oController.scrollSlot) mod inventorySize
+	if (oController.selectSlot > 0 and oController.selectSlot <= inventorySize)
+		newSlot = oController.selectSlot-1
+		
 	SwapSlot(newSlot)
 }
 //else if (activeSlotSwapCooldown.value > -1) activeSlotSwapCooldown.value--

@@ -587,9 +587,18 @@ function characterCreate(_characterType) {
 			dropperAiInit()
 			coordinationParticipant = false
 			
+			cloneFadeInCD = new Range(30, 100)
+			cloneFadeInCD.rndmize()
+			
 			// Behaviour
 			stepEvent = function()
 			{
+				if (cloneFadeInCD.value > 0)
+				{
+					cloneFadeInCD.value--
+					return;
+				}
+				
 				pathfindingStep()
 				dropperAiUpdate()
 				myWeapon.update()
@@ -598,6 +607,14 @@ function characterCreate(_characterType) {
 			drawEvent = function()
 			{
 				pathfindingDraw()
+				
+				if (cloneFadeInCD.value > 0)
+				{
+					draw_set_alpha(cloneFadeInCD.value / cloneFadeInCD.max_)
+					draw_sprite(sCleanerCloneParticle, 0, x, y)
+					draw_set_alpha(1)
+				}
+				
 				myWeapon.draw()
 				dropperAiDraw()	// AI visualization
 			}

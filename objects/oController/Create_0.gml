@@ -28,8 +28,8 @@ buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 // Intro
 introTextAlpha = 0
 
-if (debug_mode)
-	show_debug_overlay(true)
+//if (debug_mode)
+//	show_debug_overlay(true)
 
 draw_set_font(fntGeneric)
 
@@ -130,6 +130,15 @@ part_type_speed(bulletImpact,1.,2.,-.1,0)
 part_type_alpha2(bulletImpact, .7, 0)
 part_type_direction(bulletImpact, 0, 360, 0, 0)
 part_type_sprite(bulletImpact,sDust,false,false,true)
+
+cloneExplosionSys = part_system_create()
+cloneExplosion = part_type_create()
+part_type_alpha3(cloneExplosion, 0, 1, 0)
+part_type_life(cloneExplosion,30,100)
+part_type_direction(cloneExplosion, 0, 360, 0, 0)
+part_type_speed(cloneExplosion,.8,5.,-.15,0)
+part_type_sprite(cloneExplosion,sCleanerCloneParticle,false,false,false)
+part_type_blend(cloneExplosion, true)
 
 // ---------------------------------------------
 

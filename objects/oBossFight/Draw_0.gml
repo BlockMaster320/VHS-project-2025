@@ -8,7 +8,7 @@ if (cleanerEnemy != noone){
 	var h = 13
 	
 	var x1 = margin
-	var y1 = margin
+	var y1 = margin/2
 	var x2 = x1 + w
 	var y2 = y1 + h
 
