@@ -1,8 +1,11 @@
-function Dialogue(_lines, _cond = function(){ return true }) constructor
+function Dialogue(_lines, _cond = function(){ return true }, _endDlgFunc = function(instance){}) constructor
 {
 	lines = _lines
 	condition = _cond
 	seen = false
+	
+	endDlgFunc = _endDlgFunc
+	interactingInstance = noone
 }
 
 function DialogueLine(_text, _answers, _next) constructor
@@ -41,7 +44,16 @@ function DialogueSystem() constructor
 										new DialogueLine("Well, lucky you, the metro is stuck anyway.", ["What do you mean?"], [4]),
 										new DialogueLine("I dunno, ask the tech guy with a mustache. Imma hit the gym now!", [], [5]),
 										new DialogueLine("Oh yeah, gym!", [], [])
-									])])
+									],,
+									function(instance)
+									{
+										with(instance) 
+										{
+											findPathPosition(320, 500)
+											exiting = true
+										}
+									})
+									])
 									
 	ds_map_add(dlgs, CHARACTER_TYPE.passenger1, [new Dialogue(
 									[
@@ -118,6 +130,7 @@ function DialogueSystem() constructor
 									])])
 }
 
+// @return index from the dialogue array for the current character, noone for no dialogue
 function SelectDlg(_NPCType)
 {
 	switch (_NPCType){
@@ -146,19 +159,24 @@ function SelectDlg(_NPCType)
 			if (room == rmLobby)
 				return 0
 			return 1
+		case CHARACTER_TYPE.student:
+			if (!dialogues.dlgs[? _NPCType][0].seen)
+				return 0
+			return noone
 		default:
 			return 0
 	}
 }
 
-function StartDlg(_NPCType)
-{
+function StartDlg(_NPCType, _npcInstance = noone)
+{	
 	if (!ds_map_exists(dialogues.dlgs, _NPCType)) // Unknown NPC name, show placeholder dialogue - T.N. IMO this does not work
 		_NPCType = noone
 	
 	var dlgIdx = SelectDlg(_NPCType)
 	if (dlgIdx == noone) {return}
 	current_dialogue = dialogues.dlgs[? _NPCType][dlgIdx]
+	current_dialogue.interactingInstance = _npcInstance
 	
 	SetCurrentLine(0)
 	talking = true
@@ -182,10 +200,17 @@ function EndDlg()
 	interactDelay.reset()
 	
 	talking = false
-	global.inputState = INPUT_STATE.playing
+	if (room != rmMenu) // Hotfix
+		global.inputState = INPUT_STATE.playing
 	waiting_for_answer = false
 	current_dialogue.seen = true
+	
+	if (instance_exists(current_dialogue.interactingInstance))
+		current_dialogue.endDlgFunc(current_dialogue.interactingInstance)
 	current_dialogue = noone
+	interactingInstance = noone
+	
+	oPlayer.ignoreInputBuffer.reset() // Don't shoot right after exiting dialogue when clicking with LMB
 	
 	DisableDlgOptions()
 }

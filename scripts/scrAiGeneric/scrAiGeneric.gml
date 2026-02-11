@@ -1,5 +1,6 @@
 enum AI_STATE
 {
+	// When adding states here, add them also to the "stateStrings" variable bellow for debugging!
 	idle, hide, reposition, shoot, reload, rest, clone
 }
 
@@ -7,7 +8,7 @@ enum AI_STATE
 
 function genericAiInit()
 {
-	stateStrings = ["idle", "hide", "reposition", "shoot", "reload", "rest"]
+	stateStrings = ["idle", "hide", "reposition", "shoot", "reload", "rest", "clone"]
 	state = AI_STATE.idle
 	
 	lookAtPlayerTimer = new Range(40, 180)
@@ -470,7 +471,7 @@ function genericAiDebugDraw()
 	//draw_text(x, yy + offset * 1, $"Danger: {wantsToHide}")
 	//draw_text_transformed(x, yy + offset * 1, $"Path end: {reachedPathEnd}", scale, scale, 0)
 	draw_text_transformed(x, yy + offset * 2, $"Ammo: {myWeapon.magazineAmmo}", scale, scale, 0)
-	//draw_text_transformed(x, yy + offset * 2, $"Patience: {patienceToShoot.value}", scale, scale, 0)
+	draw_text_transformed(x, yy + offset * 3, $"Scared: {wantsToHide}", scale, scale, 0)
 	draw_text_transformed(x, yy + offset * 1, $"Coordinating: {activeCoordination}", scale, scale, 0)
 	//draw_text(x, yy + offset * 2, $"Sees player well: {LineOfSightObject(oPlayer)}")
 	draw_set_halign(halign)

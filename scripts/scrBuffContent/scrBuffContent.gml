@@ -108,8 +108,8 @@ function BuffCreate(buffType_)
 			
 				rarity = RARITY.common
 							
-				newStats = [ new Range(2.5, 3),		// + attack speed %
-							 new Range(2.5, 3.) ]	// - accuracy
+				newStats = [ new Range(1.8, 2.3),		// + attack speed %
+							 new Range(1.8, 2.3) ]	// - accuracy
 		
 				descriptionBuff = $"{round(newStats[0].value*100)}% attack speed"
 				descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
@@ -128,7 +128,7 @@ function BuffCreate(buffType_)
 				rarity = RARITY.common
 				
 				newStats = [ new iRange(2, 2), 		// + projectile amount
-							 new Range(1.5, 2.),	// - more spread
+							 new Range(1.3, 1.7),	// - more spread
 							 new Range(.8, .8) ]	// - less % dmg
 												
 				descriptionBuff = $"{newStats[0].value}x projectile amount"
@@ -203,8 +203,8 @@ function BuffCreate(buffType_)
 		
 				rarity = RARITY.common
 							
-				newStats = [ new Range(30, 30),		// + flat damage
-							 new Range(1.4, 1.4) ]	// + game speed
+				newStats = [ new Range(25, 25),		// + flat damage
+							 new Range(1.3, 1.3) ]	// + game speed
 		
 				descriptionBuff = $"+{newStats[0].value} damage"
 				descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"	

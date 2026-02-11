@@ -44,7 +44,7 @@ function InitPlayerWeapons()
 }
 InitPlayerWeapons()
 
-ignoreInputBuffer = new Cooldown(40)	// To prevent the player from shooting right away
+ignoreInputBuffer = new Cooldown(60)	// To prevent the player from shooting right away
 
 // Buffs
 buffs = []
@@ -55,4 +55,11 @@ function ResetPlayerBuffs()
 	EvaluatePlayerBuffs()	// Order is important!
 	EvaluateWeaponBuffs()
 	EvaluateOneTimeUseBuffs()
+}
+
+function ResetPlayer()
+{
+	ResetPlayerBuffs()
+	InitPlayerWeapons()
+	InitPlayerStats()	// Keep this line, it is not redundant (for some reason)
 }

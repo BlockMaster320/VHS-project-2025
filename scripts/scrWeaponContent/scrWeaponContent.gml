@@ -270,7 +270,7 @@ function WeaponsInit()
 	
 		// Modifiable attributes
 		projectile = noone
-		attackSpeed = 1			// shots/damage amount per second
+		attackSpeed = .8		// shots/damage amount per second
 		spread = 4				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		durabilityMult = 0

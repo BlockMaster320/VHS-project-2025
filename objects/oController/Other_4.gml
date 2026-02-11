@@ -5,7 +5,7 @@ pfGrid = undefined
 if (!instance_exists(oRoomManager))
 	global.tilemapCollision = layer_tilemap_get_id("TilesWall")
 
-if (room = rmDebug)
+if (room == rmDebug or room == rmLobby)
 {
 	wallGrid = getWallGrid(["TilesWall"])
 	pfGrid = (!is_undefined(wallGrid)) 
@@ -37,6 +37,8 @@ switch (room)
 		}
 		introCutscene = false
 		
+		currentFloor = 0
+		
 		break		
 		
 	case rmGame:
@@ -49,6 +51,7 @@ switch (room)
 	case rmBossFight:
 	
 		audio_sound_gain(actionMusic, 0, 2000)
+		currentFloor = 3
 		
 		break
 }

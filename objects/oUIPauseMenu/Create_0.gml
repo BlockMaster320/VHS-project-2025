@@ -20,7 +20,11 @@ restart_button = new Button(
 	UIGroups.PAUSE,
 	0, 0,
 	"Restart", 
-	game_restart
+	function()
+	{
+		oPlayer.ResetPlayer()
+		room_goto(rmLobby)
+	}
 ); 
 restart_button.padding = {x: 16, y:8}
 

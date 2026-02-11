@@ -83,9 +83,7 @@ function DeathScene(_deadCharacter) {
 				// Reset player
 				with (oPlayer)
 				{
-					ResetPlayerBuffs()
-					InitPlayerWeapons()
-					InitPlayerStats()	// Keep this line, it is not redundant (for some reason)
+					ResetPlayer()
 				}
 			}),
 			// lobby & dialog

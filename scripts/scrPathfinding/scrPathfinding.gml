@@ -27,6 +27,16 @@ function findNewPath()
 	return false
 }
 
+function findPathPosition(xx, yy)
+{
+	pathTargetX = xx
+	pathTargetY = yy
+	
+	reachedPathEnd = false
+	
+	return findNewPath()
+}
+
 function LineOfSightPoint(posX, posY)
 {
 	return !collision_line(x, y, posX, posY, global.tilemapCollision, false, true)

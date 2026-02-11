@@ -209,8 +209,22 @@ function characterCreate(_characterType) {
 			anim = characterAnimation.getAnimation;
 			dir = -1;
 			
-			stepEvent = getCharacterStepEvent(CHARACTER_TYPE.mechanic);
-			drawEvent = getCharacterDrawEvent(CHARACTER_TYPE.mechanic);
+			exiting = false
+			
+			FollowPathInit()
+			
+			stepEvent = function()
+			{
+				if (!reachedPathEnd) followPathStep()
+				if (exiting and alpha <= .001) instance_destroy()
+			}
+			
+			drawEvent = function()
+			{
+				followPathDraw()
+				if (exiting and reachedPathEnd) alpha = lerp(alpha, 0, .1)
+			}
+			
 		} break;
 		
 		// Enemies ---------------------------------------------------------------
@@ -507,6 +521,7 @@ function characterCreate(_characterType) {
 			walkSpd = .5
 			maxHp = 1500
 			hp = maxHp
+			recDmgMult = .3
 			
 			// Dialogues
 			name = "Cleaner enemy";
@@ -535,6 +550,9 @@ function characterCreate(_characterType) {
 				pathfindingStep()
 				cleanerAiUpdate()
 				myWeapon.update()
+				if (recDmgMult < 1) recDmgMult += 1/60 / 30
+				else if (recDmgMult < 2) recDmgMult += 1/60 / 100
+				show_debug_message(recDmgMult)
 			}
 			
 			drawEvent = function()
@@ -559,7 +577,8 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.cleanerClone;
 			walkSpd = .5
 			
-			hp = 100
+			maxHp = 80
+			hp = maxHp
 			
 			// Dialogues
 			name = "Cleaner clone";
@@ -579,13 +598,13 @@ function characterCreate(_characterType) {
 			lookDirTarget = 0
 			var weaponID = choose(WEAPON.pigeon, WEAPON.fan, WEAPON.paperPlane, WEAPON.ticketMachine, WEAPON.crowbar, WEAPON.groanTube)
 			myWeapon = acquireWeapon(weaponID, id)
-			myWeapon.projectile.projectileSpeed *= .5
+			myWeapon.projectile.projectileSpeed *= .4
 			myWeapon.projectile.damage *= .4
-			myWeapon.spread = 35
+			myWeapon.spread = 45
 			
 			// AI
 			dropperAiInit()
-			coordinationParticipant = false
+			//coordinationParticipant = false
 			
 			cloneFadeInCD = new Range(30, 100)
 			cloneFadeInCD.rndmize()

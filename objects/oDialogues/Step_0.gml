@@ -22,7 +22,7 @@ if (!talking) {
 		if (other.closest_NPC == noone) exit
 	}*/
 	
-	StartDlg(closest_NPC.characterType)
+	StartDlg(closest_NPC.characterType, closest_NPC)
 } else {
 	DlgTimerTick()
 	

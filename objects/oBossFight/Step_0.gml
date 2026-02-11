@@ -38,6 +38,7 @@ switch (state){
 		if (cleanerEnemy == noone){
 			state = BOSSFIGHT_STATE.defeated
 			instance_activate_object(oNPC)
+			audio_sound_gain(oController.actionMusic, 0, 2000)
 			oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner)
 		}
 		
