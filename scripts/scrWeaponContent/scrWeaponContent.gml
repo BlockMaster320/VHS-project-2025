@@ -73,7 +73,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 15
+			damage = 20
 			projectileSpeed = 4
 			targetKnockback = 5
 			effects = []
@@ -125,7 +125,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 10
+			damage = 7
 			projectileSpeed = 3
 			targetKnockback = 4.5
 			effects = [ EFFECT.fanAreaDmg ]
