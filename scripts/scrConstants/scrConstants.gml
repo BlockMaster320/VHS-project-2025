@@ -32,7 +32,7 @@ function Constants()
 	#macro MINIMAP_BRIDGE_SIZE 15
 	#macro MINIMAP_ROOM_SPACING 6
 	#macro MINIMAP_SURF_W 300
-	#macro MINIMAP_SURF_H 200
+	#macro MINIMAP_SURF_H 300
 	
 	#macro FLOOR_CENTER_X room_width / 2
 	#macro FLOOR_CENTER_Y room_height / 2

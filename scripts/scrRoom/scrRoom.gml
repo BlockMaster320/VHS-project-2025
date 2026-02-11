@@ -323,7 +323,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			nextRooms[| _i].RenderMinimap(_surf);
 		}
 		
-		if (roomTypeIndex >= RoomCategory.SHOP && !discovered) return;
+		if (roomTypeIndex >= RoomCategory.ENEMIES && !discovered) return;
 		
 		var _playerMinimapX = (oPlayer.x - FLOOR_CENTER_X) * ((MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING) / (ROOM_SIZE * TILE_SIZE));
 		var _playerMinimapY = (oPlayer.y - FLOOR_CENTER_Y) * ((MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING) / (ROOM_SIZE * TILE_SIZE));
@@ -332,50 +332,50 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		var _x = _centerX + roomX * (MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING);
 		var _y = _centerY + roomY * (MINIMAP_ROOM_SIZE + MINIMAP_ROOM_SPACING);
 		
-		draw_rectangle_color(_x - MINIMAP_ROOM_SIZE * 0.5, _y - MINIMAP_ROOM_SIZE * 0.5,
-							 _x + MINIMAP_ROOM_SIZE * 0.5, _y + MINIMAP_ROOM_SIZE * 0.5,
-							 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+		if (discovered) {
+			draw_rectangle_color(_x - MINIMAP_ROOM_SIZE * 0.5, _y - MINIMAP_ROOM_SIZE * 0.5,
+								 _x + MINIMAP_ROOM_SIZE * 0.5, _y + MINIMAP_ROOM_SIZE * 0.5,
+								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
 		
-		// Draw bridges between the rooms
-		if (entrySides[0]) {
-			draw_rectangle_color(_x,
-								 _y - MINIMAP_BRIDGE_SIZE * 0.5,
-								 _x + (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
-								 _y + MINIMAP_BRIDGE_SIZE * 0.5,
-								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
-		}
-		if (entrySides[1]) {
-			draw_rectangle_color(_x,
-								 _y - MINIMAP_BRIDGE_SIZE * 0.5,
-								 _x - (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
-								 _y + MINIMAP_BRIDGE_SIZE * 0.5,
-								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
-		}
-		if (entrySides[2]) {
-			draw_rectangle_color(_x - MINIMAP_BRIDGE_SIZE * 0.5, _y,
-								 _x + MINIMAP_BRIDGE_SIZE * 0.5, _y + (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
-								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
-		}
-		if (entrySides[3]) {
-			draw_rectangle_color(_x - MINIMAP_BRIDGE_SIZE * 0.5, _y,
-								 _x + MINIMAP_BRIDGE_SIZE * 0.5, _y - (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
-								 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+			// Draw bridges between the rooms
+			if (entrySides[0]) {
+				draw_rectangle_color(_x,
+									 _y - MINIMAP_BRIDGE_SIZE * 0.5,
+									 _x + (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+									 _y + MINIMAP_BRIDGE_SIZE * 0.5,
+									 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+			}
+			if (entrySides[1]) {
+				draw_rectangle_color(_x,
+									 _y - MINIMAP_BRIDGE_SIZE * 0.5,
+									 _x - (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+									 _y + MINIMAP_BRIDGE_SIZE * 0.5,
+									 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+			}
+			if (entrySides[2]) {
+				draw_rectangle_color(_x - MINIMAP_BRIDGE_SIZE * 0.5, _y,
+									 _x + MINIMAP_BRIDGE_SIZE * 0.5, _y + (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+									 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+			}
+			if (entrySides[3]) {
+				draw_rectangle_color(_x - MINIMAP_BRIDGE_SIZE * 0.5, _y,
+									 _x + MINIMAP_BRIDGE_SIZE * 0.5, _y - (MINIMAP_ROOM_SIZE * 0.5 + MINIMAP_ROOM_SPACING),
+									 c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+			}
 		}
 		
+		// Draw room icon
 		if (roomTypeIndex == RoomCategory.ENTRANCE)
-			//draw_circle_color(_x, _y, 10, c_green, c_green, false);
 			draw_sprite_ext(sMinimapIcons, 0, _x, _y, 2, 2, 0, c_white, 1);
 		if (roomTypeIndex == RoomCategory.EXIT)
-			//draw_circle_color(_x, _y, 10, c_blue, c_blue, false);
 			draw_sprite_ext(sMinimapIcons, 3, _x, _y, 2, 2, 0, c_white, 1);
 		if (roomTypeIndex == RoomCategory.CIRCUITS)
-			//draw_circle_color(_x, _y, 10, c_orange, c_orange, false);
 			draw_sprite_ext(sMinimapIcons, 2, _x, _y, 2, 2, 0, c_white, 1);
 		if (roomTypeIndex == RoomCategory.SHOP)
-			//draw_circle_color(_x, _y, 10, c_fuchsia, c_fuchsia, false);
 			draw_sprite_ext(sMinimapIcons, 1, _x, _y, 2, 2, 0, c_white, 1);
 
-		draw_circle_color(MINIMAP_SURF_W * 0.5,  MINIMAP_SURF_H * 0.5, 5, c_red, c_red, false);
+		draw_circle_color(MINIMAP_SURF_W * 0.5,  MINIMAP_SURF_H * 0.5, 6, c_black, c_black, false);
+		draw_circle_color(MINIMAP_SURF_W * 0.5,  MINIMAP_SURF_H * 0.5, 4, c_white, c_white, false);
 	}
 	
 	// Locks the room and spawns enemies

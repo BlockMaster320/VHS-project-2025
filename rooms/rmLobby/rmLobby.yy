@@ -165,7 +165,7 @@
           -5,20,1,36,-7,0,2,68,58,-11,0,2,68,58,-7,0,1,16,-6,47,1,24,-29,0,1,16,-6,47,1,24,-29,0,1,16,-6,47,1,
           2,-4,20,1,36,-24,0,1,16,-11,47,1,24,-24,0,1,16,-11,47,1,24,-24,0,1,16,-11,47,1,2,-5,20,1,36,-4,0,1,34,
           -13,20,1,1,
-        ],"TileDataFormat":1,},"tilesetId":{"name":"tlLobby","path":"tilesets/tlLobby/tlLobby.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
+        ],"TileDataFormat":1,},"tilesetId":{"name":"tlWalls","path":"tilesets/tlWalls/tlWalls.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRTileLayer":"","%Name":"TilesDec1","depth":500,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"TilesDec1","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":32,"SerialiseWidth":37,"TileCompressedData":[
           -37,0,-305,1,1,5,-5,1,1,5,-4,1,1,5,-7,1,-2,5,-3,1,1,6,-3,7,-17,1,1,7,-5,1,1,6,-7,1,1,5,-3,1,-2,7,-2,
           1,-4,0,-4,1,-4,0,-2,1,2,7,1,-4,0,-4,1,3,5,1,1,-4,0,-2,1,4,6,7,1,1,-4,0,-5,1,-3,0,-7,1,1,0,-3,1,1,6,-62,

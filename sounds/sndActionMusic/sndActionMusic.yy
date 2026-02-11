@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndActionMusic.ogg",
   "type":1,
-  "volume":0.2,
+  "volume":0.3,
 }
