@@ -131,7 +131,6 @@ function WeaponsInit()
 			effects = [ EFFECT.fanAreaDmg ]
 			scale = 1
 			xScaleMult = 4
-			rotateInDirection = false;
 	
 			// Generic attributes
 			sprite = sFanAir
@@ -413,7 +412,7 @@ function WeaponsInit()
 	{
 		// Generic attributes
 		type = WEAPON.ghosterGun;
-		sprite = sPlaceholderGun
+		sprite = sGhosterGun
 	
 		// Modifiable attributes
 		attackSpeed = 1			// shots/damage amount per second
@@ -440,6 +439,7 @@ function WeaponsInit()
 			sprite = sEnemyProjectile
 			color = enemyProjectileCol
 			projType = PROJECTILE_TYPE.ranged
+			rotateInDirection = false;
 			
 			// Behaviour
 			update = genericBulletUpdate
@@ -461,7 +461,7 @@ function WeaponsInit()
 	{
 		// Generic attributes
 		type = WEAPON.ghosterGun;
-		sprite = sPlaceholderGun
+		sprite = sGhosterShotgun
 	
 		// Modifiable attributes
 		attackSpeed = .7		// shots/damage amount per second
@@ -538,7 +538,6 @@ function WeaponsInit()
 			effects = [ EFFECT.fanAreaDmg ]
 			scale = 1
 			xScaleMult = 4
-			rotateInDirection = false;
 	
 			// Generic attributes
 			sprite = sFanAir

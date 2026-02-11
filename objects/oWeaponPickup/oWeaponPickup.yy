@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sPlaceholderGun",
-    "path":"sprites/sPlaceholderGun/sPlaceholderGun.yy",
+    "name":"sGhosterGun",
+    "path":"sprites/sGhosterGun/sGhosterGun.yy",
   },
   "spriteMaskId":null,
   "visible":true,
