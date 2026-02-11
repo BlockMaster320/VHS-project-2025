@@ -14,7 +14,7 @@ function Weapon() constructor
 	oneTimeUse = false
 
 	// Generic attributes
-	sprite = sPlaceholderGun
+	sprite = sGhosterGun
 	name = "Generic weapon"
 	description = "This weapon is a weapon"
 	drawOffsetX = 6

@@ -64,6 +64,7 @@ depth = -y;
 alpha = 1
 weaponAlpha = 1
 handsAlpha = 1
+handImage = 0
 
 // Info flash (copy pasted from weapons)
 flashFrameCounter = 0

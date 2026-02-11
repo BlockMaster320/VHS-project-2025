@@ -1,1 +1,0 @@
-setupWeaponPickup(WEAPON.crowbar)
