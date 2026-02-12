@@ -29,12 +29,86 @@ if (instance_exists(oCamera))
 }
 
 
-if (room == rmMenu && prevRoom != rmBossFight)
+if (room == rmMenu && introCutscene)
 {
 	draw_sprite_ext(sFullscreenButton, 0, 1321, 117, 3.44, 3.44, 0, c_white, 1)
 	introTextAlpha = lerp(introTextAlpha, .6, .001)
 	draw_set_alpha(introTextAlpha)
 	var scale = 2
-	draw_text_transformed(60, 60, "Press Backspace to skip intro", scale, scale, 0)
+	draw_text_transformed(60, 60, "Press Backspace to skip cutscene", scale, scale, 0)
 	draw_set_alpha(1)
 }
+else if (room == rmMenu)
+{
+	var centerX = room_width/2
+	var centerY = room_height/2
+	
+	var lerpFac = .005
+	
+	if (menuShowCredits1)
+	{
+		menuShowCredits1Alpha = lerp(menuShowCredits1Alpha, 1, lerpFac)
+		draw_set_halign(fa_center)
+		draw_set_valign(fa_middle)
+		
+		draw_set_alpha(menuShowCredits1Alpha)
+		var scale = 15
+		draw_text_transformed(centerX, centerY-80, "Wandless", scale, scale, 0)
+		
+	}
+	if (menuShowCredits2)
+	{
+		menuShowCredits2Alpha = lerp(menuShowCredits2Alpha, 1, lerpFac)
+		draw_set_alpha(menuShowCredits2Alpha)
+		var scale = 2
+		draw_text_transformed(	centerX, centerY+60,
+								"made by Ondřej Václavík, Jakub Rybář, Viet Hoa Nguyenová, Tomáš Němeček",
+								scale, scale, 0)
+	}
+	if (menuShowCredits3)
+	{
+		menuShowCredits3Alpha = lerp(menuShowCredits3Alpha, 1, lerpFac)
+		draw_set_alpha(menuShowCredits3Alpha)
+		var scale = 2
+		draw_text_transformed(	centerX, centerY+110,
+								"Press backspace to return to lobby.\n(Try holding Ctrl+Shift+T to discover a secret.)",
+								scale, scale, 0)
+								
+		if (keyboard_check_pressed(vk_backspace))
+		{
+			menuShowCredits1 = false
+			menuShowCredits2 = false
+			menuShowCredits3 = false
+			menuShowCredits1Alpha = 0
+			menuShowCredits2Alpha = 0
+			menuShowCredits3Alpha = 0
+			
+			with (oPlayer) ResetPlayer()
+			RoomTransition(rmLobby)
+		}
+	}
+	
+	
+	draw_set_halign(fa_left)
+	draw_set_valign(fa_top)
+	
+	draw_set_alpha(1)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

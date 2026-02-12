@@ -159,3 +159,10 @@ instance_create_layer(-50,-50,"Instances", oPlayer)
 // Custscenes
 introCutscene = true
 IntroScene()
+
+menuShowCredits1 = false
+menuShowCredits1Alpha = 0
+menuShowCredits2 = false
+menuShowCredits2Alpha = 0
+menuShowCredits3 = false
+menuShowCredits3Alpha = 0

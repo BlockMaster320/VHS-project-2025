@@ -38,6 +38,8 @@ switch (state){
 		if (cleanerEnemy == noone){
 			state = BOSSFIGHT_STATE.defeated
 			audio_sound_gain(oController.actionMusic, 0, 2000)
+			audio_play_sound(sndHit_001, 0, false)
+			audio_play_sound(sndHeartbrake, 0, false)
 			
 			endgameScene.start()
 		}
