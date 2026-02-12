@@ -8,6 +8,8 @@ enum BOSSFIGHT_STATE{
 state = BOSSFIGHT_STATE.entered
 
 cleanerEnemy = noone
+cleanerX = 768
+cleanerY = 192
 clones = ds_list_create()
 
 revealSound = audio_play_sound(sndBigReveal, 0, false)
@@ -28,3 +30,36 @@ deactivateCleaner = function(){
 		instance_deactivate_object(oEnemy)
 	}
 }
+
+endgameScene = new TweenSequence([
+	new TweenAction(function(){
+		var cleanerNPC = instance_create_layer(cleanerX, cleanerY, "Instances", oNPC)
+		with (cleanerNPC){ characterCreate(CHARACTER_TYPE.playerCleaner) }
+	}),
+	TweenWait(1000),
+	new TweenDialogue(CHARACTER_TYPE.playerCleaner),
+	getCinemaBorders().Set(CinemaBordersState.WHOLE, function(){
+		room_goto(rmMenu)
+		oPlayer.x = -1000
+		oPlayer.y = -1000
+		part_particles_clear(oController.cloneDustSys)
+		getCinemaBorders().Set(CinemaBordersState.NONE).Start()
+	}).GetTween(),
+	TweenWait(1000),
+	new TweenDialogueEx(new Dialogue([
+		new DialogueLine("...and so I have conquered chaos, restored peace and brought back the electricity.", [], [1]),
+		new DialogueLine("Cloning is, indeed, much like life:", [], [2]),
+		new DialogueLine("The harder you try to erase every flaw, the more you forget that imperfection is what makes the original real.", [], [3]),
+		new DialogueLine("Anyways, here I am, surprisingly on time. Moment of truth...", [], [])		
+	])),
+	TweenWait(1000),
+	new TweenDialogueEx(new Dialogue([
+		new DialogueLine("Huh?", [], [1]),
+		new DialogueLine("The exam starts in a minute, why is no one there?", [], [2]),
+		new DialogueLine("Let's check the email then... Of course I was logged out.", [], [3]),
+		new DialogueLine("My password... To hell with MFA... Authenticator... 67...", [], [4]),
+		new DialogueLine("AH! New email, delivered 40 minutes ago!", [], [5]),
+		new DialogueLine("\"Hey everyone! My cat is sick and I heard the metro is not working anyway,\"", [], [6]),
+		new DialogueLine("\"so I'm moving the exam to next week. See you on Tuesday, your teacher :)\"", [], []),
+	])),
+])
