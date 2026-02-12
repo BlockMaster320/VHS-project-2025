@@ -566,6 +566,8 @@ function characterCreate(_characterType) {
 			{
 				oBossFight.removeClones()
 				oBossFight.cleanerEnemy = noone
+				oBossFight.cleanerX = x
+				oBossFight.cleanerY = y
 				instance_destroy()
 			}
 			

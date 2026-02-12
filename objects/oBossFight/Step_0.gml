@@ -37,17 +37,14 @@ switch (state){
 	case BOSSFIGHT_STATE.fighting:
 		if (cleanerEnemy == noone){
 			state = BOSSFIGHT_STATE.defeated
-			instance_activate_object(oNPC)
 			audio_sound_gain(oController.actionMusic, 0, 2000)
-			oDialogues.startDialogue(CHARACTER_TYPE.playerCleaner)
+			
+			endgameScene.start()
 		}
 		
 		break
 		
 	case BOSSFIGHT_STATE.defeated:
-		if (global.inputState != INPUT_STATE.dialogue){
-			RoomTransition(rmLobby)
-		}
 		break
 	
 }
