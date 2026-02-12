@@ -25,7 +25,7 @@ function DestroyOnContact(_obj) {
 		audio_play_sound(_sound, 0, false, 1, 0, pitch);
 		
 		if (containsWeapon) {
-			var _weaponID = choose(WEAPON.crowbar, WEAPON.groanTube, WEAPON.paperPlane, WEAPON.fan)
+			var _weaponID = choose(WEAPON.crowbar, WEAPON.groanTube, WEAPON.paperPlane, WEAPON.fan, WEAPON.rat)
 			var _weapon = instance_create_layer(x, y, "Instances", oWeaponPickup);
 			_weapon.setupWeaponPickup(_weaponID);
 		}

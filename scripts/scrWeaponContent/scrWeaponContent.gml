@@ -489,6 +489,7 @@ function WeaponsInit()
 			sprite = sEnemyProjectile
 			color = enemyProjectileCol
 			projType = PROJECTILE_TYPE.ranged
+			rotateInDirection = false;
 			
 			// Behaviour
 			update = genericBulletUpdate

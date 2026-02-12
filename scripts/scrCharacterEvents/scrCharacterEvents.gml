@@ -312,7 +312,7 @@ function characterCreate(_characterType) {
 			imageOffset = 122;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
-			handImage = 1
+			handImage = 2
 			
 			// Pathfinding
 			pathfindingInit()
