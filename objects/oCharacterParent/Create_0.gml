@@ -23,6 +23,7 @@ vsp = 0		// Total horizontal speed
 
 maxHp = 150
 hp = maxHp
+recDmgMult = 1
 effects = []
 
 // Hit flash

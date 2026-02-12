@@ -522,7 +522,7 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.enemy;
 			characterType = CHARACTER_TYPE.cleanerEnemy;
 			walkSpd = .5
-			maxHp = 1500
+			maxHp = 1700
 			hp = maxHp
 			recDmgMult = .3
 			
@@ -553,8 +553,8 @@ function characterCreate(_characterType) {
 				pathfindingStep()
 				cleanerAiUpdate()
 				myWeapon.update()
-				if (recDmgMult < 1) recDmgMult += 1/60 / 30
-				else if (recDmgMult < 2) recDmgMult += 1/60 / 100
+				if (recDmgMult < 1) recDmgMult += 1/60 / 120
+				else if (recDmgMult < 2) recDmgMult += 1/60 / 360
 				show_debug_message(recDmgMult)
 			}
 			

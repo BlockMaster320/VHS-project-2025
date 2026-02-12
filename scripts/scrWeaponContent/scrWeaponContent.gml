@@ -233,7 +233,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 15
+			damage = 13
 			projectileSpeed = 3.5
 			targetKnockback = 1
 			effects = [ ]
