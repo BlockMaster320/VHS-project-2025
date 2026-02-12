@@ -39,10 +39,11 @@ endgameScene = new TweenSequence([
 	new TweenAction(function() {
 		audio_sound_gain(oController.actionMusic, 0, 2000)
 	}),
-	TweenWait(1000),
+	TweenWait(4000),
 	new TweenDialogue(CHARACTER_TYPE.playerCleaner),
 	getCinemaBorders().Set(CinemaBordersState.WHOLE, function(){
 		with (oPlayer) ResetPlayer()
+		global.inputState = INPUT_STATE.cutscene
 		room_goto(rmMenu)
 		oPlayer.x = -1000
 		oPlayer.y = -1000

@@ -91,8 +91,8 @@ function Alarm(time, func_, considerGameSpeed=false) constructor
 function chooseEnemyType()
 {	
 	// These should add up to 100 (for readibility)
-	var ghosterDistr = 50
-	var slasherDistr = 35
+	var ghosterDistr = 60
+	var slasherDistr = 25
 	var fannerDistr = 15
 
 

@@ -10,6 +10,7 @@ switch (state){
 			
 			revealSound = audio_play_sound(sndBigReveal, 0, false)
 			oPlayer.notInCombat = false
+			oPlayer.walkSpd = oPlayer.walkSpdDef
 		}
 		break
 		

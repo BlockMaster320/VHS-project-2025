@@ -62,7 +62,7 @@ else if (room == rmMenu)
 		draw_set_alpha(menuShowCredits2Alpha)
 		var scale = 2
 		draw_text_transformed(	centerX, centerY+60,
-								"made by Ondřej Václavík, Jakub Rybář, Viet Hoa Nguyenová, Tomáš Němeček",
+								"Ondřej Václavík, Jakub Rybář, Viet Hoa Nguyenová, Tomáš Němeček",
 								scale, scale, 0)
 	}
 	if (menuShowCredits3)
@@ -70,9 +70,19 @@ else if (room == rmMenu)
 		menuShowCredits3Alpha = lerp(menuShowCredits3Alpha, 1, lerpFac)
 		draw_set_alpha(menuShowCredits3Alpha)
 		var scale = 2
-		draw_text_transformed(	centerX, centerY+110,
+		draw_text_transformed(	centerX, centerY+130,
 								"Press backspace to return to lobby.\n(Try holding Ctrl+Shift+T to discover a secret.)",
 								scale, scale, 0)
+			
+		if (keyboard_check(vk_shift) and keyboard_check(vk_control) and keyboard_check(ord("T")))
+		{
+			if (debugRoomHoldCd.value <= 0)
+			{
+				debugRoomHoldCd.reset()
+				gameReset(rmDebug)
+			}
+			else debugRoomHoldCd.value--
+		} else debugRoomHoldCd.reset()
 								
 		if (keyboard_check_pressed(vk_backspace))
 		{
@@ -83,8 +93,7 @@ else if (room == rmMenu)
 			menuShowCredits2Alpha = 0
 			menuShowCredits3Alpha = 0
 			
-			with (oPlayer) ResetPlayer()
-			RoomTransition(rmLobby)
+			gameReset()
 		}
 	}
 	

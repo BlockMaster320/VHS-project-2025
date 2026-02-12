@@ -22,8 +22,7 @@ restart_button = new Button(
 	"Restart", 
 	function()
 	{
-		oPlayer.ResetPlayer()
-		room_goto(rmLobby)
+		oController.gameReset()
 	}
 ); 
 restart_button.padding = {x: 16, y:8}

@@ -125,7 +125,7 @@ function WeaponsInit()
 		with (projectile)
 		{
 			// Modifiable attributes
-			damage = 7
+			damage = 5
 			projectileSpeed = 3
 			targetKnockback = 4.5
 			effects = [ EFFECT.fanAreaDmg ]
@@ -419,8 +419,8 @@ function WeaponsInit()
 		spread = 30				// weapon accuracy in degrees
 		
 		// Non-modifiable attributes
-		magazineSize = 8
-		reloadTime = 4
+		magazineSize = 12
+		reloadTime = 2
 		
 		// Update some scene attributes
 		magazineAmmo = magazineSize	// Remaining bullets before reloading
@@ -521,7 +521,7 @@ function WeaponsInit()
 		spread = 5				// weapon accuracy in degrees
 		projectileAmount = 1	// number of projectile to be shot in the shoot frame
 		magazineSize = 120 * global.gameSpeed
-		reloadTime = 2
+		reloadTime = 1
 		
 		// Scene attributes
 		holdingTriggerPrev = false

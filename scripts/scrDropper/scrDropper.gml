@@ -19,17 +19,17 @@ function dropperAiInit()
 	{
 		optimalRange = new Range(20, 60)
 		wantsToHideMult = 0
-		//repositionSuddenStopDelay = new Range(5, 15)
+		repositionSuddenStopDelay = new Range(5, 15)
 	}
 	else if (projType == PROJECTILE_TYPE.ranged)
 		optimalRange = new Range(80, 180)
 
-	repositionSuddenStopDelay = new Range(10, 100)
+	repositionSuddenStopDelay = new Range(5, 40)
 			
 	// Shoot
 	shootAiInit()
 	
-	inactiveThreshold = new Range(100, 100)	// Windup frames	
+	inactiveThreshold = new Range(50, 50)	// Windup frames	
 	if (projType == PROJECTILE_TYPE.melee)
 	{
 		shootingWalkSpd = 0

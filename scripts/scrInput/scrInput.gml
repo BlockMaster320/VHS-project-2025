@@ -71,7 +71,7 @@ function Input()
 				if (debugRoomHoldCd.value <= 0)
 				{
 					debugRoomHoldCd.reset()
-					room_goto(rmDebug)
+					RoomTransition(rmDebug)
 				}
 				else debugRoomHoldCd.value--
 			} else debugRoomHoldCd.reset()

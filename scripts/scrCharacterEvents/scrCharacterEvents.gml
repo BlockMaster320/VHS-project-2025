@@ -584,7 +584,7 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.cleanerClone;
 			walkSpd = .5
 			
-			maxHp = 150
+			maxHp = 200
 			hp = maxHp
 			
 			// Dialogues

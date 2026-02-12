@@ -166,3 +166,16 @@ menuShowCredits2 = false
 menuShowCredits2Alpha = 0
 menuShowCredits3 = false
 menuShowCredits3Alpha = 0
+
+function gameReset(outRoom = rmLobby)
+{
+	if (instance_exists(oPlayer))
+	{
+		oPlayer.ResetPlayer()
+	}
+	currentFloor = 0
+	roomsCleared = 0
+	buffsObtained = 0
+	global.inputState = INPUT_STATE.playing
+	room_goto(outRoom)
+}

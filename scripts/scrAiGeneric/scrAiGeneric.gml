@@ -68,7 +68,7 @@ function coordinationInit()
 
 function coordinationUpdate()
 {
-	if (callHideCooldown.value <= 0)
+	if (instance_number(oEnemy) >= 4 and callHideCooldown.value <= 0)
 	{
 		show_debug_message("Hide coordination!")
 		with (oEnemy)
@@ -229,7 +229,7 @@ function repositionAiUpdate()
 	}
 						
 	if (//angle_difference(playerDir, point_direction(x, y, targetPointX, targetPointY)) < 75 and	
-		playerDist > optimalRange.min_ and playerDist < optimalRange.max_ and seesPlayerWell)
+		/*playerDist > optimalRange.min_ and*/ playerDist < optimalRange.max_ and seesPlayerWell)
 	{
 		if (repositionSuddenStopDelay.value <= 0)
 		{

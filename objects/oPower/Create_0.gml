@@ -7,6 +7,9 @@ imageIndex = 0;
 global.powerOn = false
 
 interactionFunction = function() {
+	
+	if (room == rmBossFight) return;
+	
 	with (oDoorEscalator) {
 		image_index = sprite_get_number(sDoorFront) - 1;
 		with (oEscalatorBarrier) instance_destroy(self);

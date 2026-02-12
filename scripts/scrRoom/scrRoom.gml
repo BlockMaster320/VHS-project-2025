@@ -417,10 +417,10 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		
 		// Progressively spawn more enemies
 		var spawnEnemyCount = 2
-		spawnEnemyCount += min(oController.roomsCleared * .75, 3)
+		spawnEnemyCount += min(oController.roomsCleared * 1., 3)
 		spawnEnemyCount += min(oController.roomsCleared * .3, 6)
 		spawnEnemyCount += oController.buffsObtained * .5
-		if (oController.currentFloor > 0) spawnEnemyCount *= .5
+		if (oController.currentFloor > 0) spawnEnemyCount *= .7
 		spawnEnemyCount = round(spawnEnemyCount)
 		
 		audio_resume_sound(oController.actionMusic)
