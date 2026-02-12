@@ -198,6 +198,9 @@ function characterCreate(_characterType) {
 		} break;
 		
 		case CHARACTER_TYPE.student: {
+			
+			if (oController.studentLeft) instance_destroy()
+			
 			characterClass = CHARACTER_CLASS.NPC;
 			characterType = CHARACTER_TYPE.student;
 			name = "Mechanic";
@@ -326,6 +329,7 @@ function characterCreate(_characterType) {
 			imageOffset = 122;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
+			handImage = 1
 			
 			// Pathfinding
 			pathfindingInit()
@@ -384,6 +388,7 @@ function characterCreate(_characterType) {
 			imageOffset = 77;
 			characterAnimation = new CharacterAnimation(GetAnimationFramesEnemy);
 			anim = characterAnimation.getAnimation;
+			handImage = 1
 			
 			// Pathfinding
 			pathfindingInit()
@@ -519,7 +524,7 @@ function characterCreate(_characterType) {
 			characterClass = CHARACTER_CLASS.enemy;
 			characterType = CHARACTER_TYPE.cleanerEnemy;
 			walkSpd = .5
-			maxHp = 1500
+			maxHp = 1700
 			hp = maxHp
 			recDmgMult = .3
 			
@@ -550,8 +555,8 @@ function characterCreate(_characterType) {
 				pathfindingStep()
 				cleanerAiUpdate()
 				myWeapon.update()
-				if (recDmgMult < 1) recDmgMult += 1/60 / 30
-				else if (recDmgMult < 2) recDmgMult += 1/60 / 100
+				if (recDmgMult < 1) recDmgMult += 1/60 / 120
+				else if (recDmgMult < 2) recDmgMult += 1/60 / 360
 				show_debug_message(recDmgMult)
 			}
 			
@@ -579,7 +584,7 @@ function characterCreate(_characterType) {
 			characterType = CHARACTER_TYPE.cleanerClone;
 			walkSpd = .5
 			
-			maxHp = 80
+			maxHp = 150
 			hp = maxHp
 			
 			// Dialogues

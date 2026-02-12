@@ -26,6 +26,8 @@ function Input()
 	gui_y = 0
 	gui_pressed = 0
 	
+	pause = 0
+	
 	// General
 	aimDir = instance_exists(oPlayer) ? point_direction(oPlayer.x, oPlayer.y, device_mouse_x(0), device_mouse_y(0)) : point_direction(0,0,0,0);
 	//aimDir = point_direction(oPlayer.x, oPlayer.y, mouse_x, mouse_y);
@@ -60,6 +62,8 @@ function Input()
 			
 			//if (instance_exists(oPlayer))
 			
+			pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
+			
 			break
 			
 			
@@ -84,6 +88,5 @@ function Input()
 			break
 	}
 
-	pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
 	fullscreenButton = keyboard_check_pressed(vk_f11)
 }

@@ -51,6 +51,7 @@ function DialogueSystem() constructor
 										{
 											findPathPosition(320, 500)
 											exiting = true
+											oController.studentLeft = true
 										}
 									})
 									])
@@ -262,7 +263,10 @@ function GetSelectedDlgOptionIdx(_x, _y)
 {
 	for (var i = 0; i < array_length(current_line.answers); ++i){
 		if (options[i].isClicked(_x, _y))
+		{
+			audio_play_sound(sndClick, 0, false)
 			return i
+		}
 	}
 }
 

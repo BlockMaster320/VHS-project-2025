@@ -1,14 +1,14 @@
 enum AI_STATE
 {
 	// When adding states here, add them also to the "stateStrings" variable bellow for debugging!
-	idle, hide, reposition, shoot, reload, rest, clone
+	idle, hide, reposition, shoot, reload, rest, clone, scatter
 }
 
 #region Generic
 
 function genericAiInit()
 {
-	stateStrings = ["idle", "hide", "reposition", "shoot", "reload", "rest", "clone"]
+	stateStrings = ["idle", "hide", "reposition", "shoot", "reload", "rest", "clone", "scatter"]
 	state = AI_STATE.idle
 	
 	lookAtPlayerTimer = new Range(40, 180)
@@ -50,7 +50,7 @@ function genericAiUpdate()
 		myWeapon.aimDirection = lookDir
 		
 	// Set animation flip
-	if (whsp !=0 || wvsp != 0)
+	if (whsp != 0 || wvsp != 0)
 		dir = (lookDir > 90 && lookDir < 270) ? -1 : 1;
 }
 
@@ -63,6 +63,7 @@ function coordinationInit()
 	coordinationParticipant = true
 	activeCoordination = false
 	hidingCoordination = false
+	randomizeCoordination = false
 }
 
 function coordinationUpdate()
@@ -119,9 +120,15 @@ function idleAiTransition()
 {
 	if (seesPlayer)
 	{
-		aimingAtPlayer = true
-		state = AI_STATE.reposition
-		walkSpd = repositionWalkSpd
+		with (oEnemy)	// Notify all other enemies
+		{
+			if (variable_instance_exists(id, "state") and state == AI_STATE.idle)
+			{
+				aimingAtPlayer = true
+				state = AI_STATE.reposition
+				walkSpd = repositionWalkSpd
+			}
+		}
 	}
 }
 
@@ -412,11 +419,37 @@ function hideAiUpdate()
 		var dir1 = playerDir + 180 + 90
 		var dir2 = playerDir + 180 - 90
 							
-		var foundPath = FindValidPathTargetReposition(new Range(playerDist, 999), false, new Range(dir1, dir2))
+		var foundPath = FindValidPathTargetReposition(new Range(playerDist, playerDist+300), false, new Range(dir1, dir2))
 		if (!foundPath)
 		{
 			FindValidPathTarget(new Range(playerDist, playerDist + 100), new Range(dir1, dir2))
 		}
+	}
+}
+
+#endregion
+
+#region Scatter
+
+function scatterAiInit()
+{
+	scatterCooldown = new Range(5*60, 15*60)
+}
+
+function scatterAiSetupState()
+{
+	scatterCooldown.rndmize()
+	walkSpd = panickedWalkSpd
+	var foundPath = FindValidPathTarget(new Range(40, 500))
+	if (foundPath) state = AI_STATE.scatter
+}
+
+function scatterAiTransition()
+{
+	followingPath = true
+	if (reachedPathEnd)
+	{
+		state = AI_STATE.reposition
 	}
 }
 

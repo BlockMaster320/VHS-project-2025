@@ -48,7 +48,7 @@ function BuffCreate(buffType_)
 			case BUFF.blast:
 			
 				rarity = RARITY.common
-				dmgMultRange = new Range(2, 2)
+				dmgMultRange = new Range(1.5, 2)
 				attackSpdMultRange = new Range(.7, .8)
 		
 				dmgMultRange.rndmize()
@@ -109,7 +109,7 @@ function BuffCreate(buffType_)
 				rarity = RARITY.common
 							
 				newStats = [ new Range(1.8, 2.3),		// + attack speed %
-							 new Range(1.8, 2.3) ]	// - accuracy
+							 new Range(1.8, 2.3) ]		// - accuracy
 		
 				descriptionBuff = $"{round(newStats[0].value*100)}% attack speed"
 				descriptionDebuff = $"{toPercent(1/newStats[1].value)}% accuracy"
@@ -129,7 +129,7 @@ function BuffCreate(buffType_)
 				
 				newStats = [ new iRange(2, 2), 		// + projectile amount
 							 new Range(1.3, 1.7),	// - more spread
-							 new Range(.8, .8) ]	// - less % dmg
+							 new Range(.7, .75) ]	// - less % dmg
 												
 				descriptionBuff = $"{newStats[0].value}x projectile amount"
 				descriptionDebuff = $"{toPercent(newStats[2].value)}% damage\n{toPercent(1/newStats[1].value)}% accuracy"
@@ -203,8 +203,8 @@ function BuffCreate(buffType_)
 		
 				rarity = RARITY.common
 							
-				newStats = [ new Range(25, 25),		// + flat damage
-							 new Range(1.3, 1.3) ]	// + game speed
+				newStats = [ new Range(20, 20),		// + flat damage
+							 new Range(1.4, 1.4) ]	// + game speed
 		
 				descriptionBuff = $"+{newStats[0].value} damage"
 				descriptionDebuff = $"{toPercent(newStats[1].value)}% game speed"	
@@ -217,11 +217,11 @@ function BuffCreate(buffType_)
 				characterBuffApply = function(character)
 				{
 					global.gameSpeed *= newStats[1].value
-					with (character)
-					{
-						walkSpdDef *= 1/other.newStats[1].value
-						walkSpdSprint *= 1/other.newStats[1].value
-					}
+					//with (character)
+					//{
+					//	walkSpdDef *= 1/other.newStats[1].value
+					//	walkSpdSprint *= 1/other.newStats[1].value
+					//}
 				}
 			
 				break
@@ -293,7 +293,7 @@ function BuffCreate(buffType_)
 			
 				rarity = RARITY.common
 				
-				newStats = [ new Range(.7,.8) ]		// + burn
+				newStats = [ new Range(.8,.8) ]		// + burn
 							 						// - % damage
 				
 				descriptionBuff = $"Projectile burn"
@@ -314,7 +314,7 @@ function BuffCreate(buffType_)
 
 				rarity = RARITY.common
 		
-				descriptionNeutralEffect = $"DUAL WIELD"
+				descriptionNeutralEffect = $"Dual wield!"
 		
 				characterBuffApply = function(player)
 				{
@@ -327,12 +327,16 @@ function BuffCreate(buffType_)
 			case BUFF.doubleBuff:
 
 				rarity = RARITY.common
+				
+				newStats = [ new Range(1.5,1.5) ]		// - movement speed
 		
-				descriptionNeutralEffect = $"DOUBLE ALL EFFECTS"
+				descriptionBuff = $"DOUBLE ALL EFFECTS"
+				descriptionDebuff = $"Recieve {toPercent(newStats[0].value)-100}% more damage"
 		
 				characterBuffApply = function(player)
 				{
 					player.buffApplyAmount++	// Do not multiply this, this is already exponential!
+					player.recDmgMult = newStats[0].value
 				}
 				
 				break

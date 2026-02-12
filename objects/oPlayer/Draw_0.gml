@@ -163,7 +163,7 @@ if (showStats and inventorySize > 0)
 	
 	margin *= oController.upscaleMult
 	
-	var textScale = round(oController.upscaleMult * .5)
+	var textScale = floor(oController.upscaleMult * .5)
 	var textSpacing = 12 * textScale
 
 	var topY = (bottomY - center*2)*oController.upscaleMult
@@ -188,10 +188,8 @@ if (showStats and inventorySize > 0)
 		$"Damage: {proj.damage}",
 		$"Damage multiplier: {proj.damageMultiplier}x",
 		$"Attack speed: {currentWeapon.attackSpeed}/s",
-		$"Spread: {currentWeapon.spread} deg",
 		$"Projectile amount: {currentWeapon.projectileAmount}",
-		$"Knockback: {proj.targetKnockback}",
-		$"Movement speed: {oPlayer.walkSpdDef}",
+		$"Spread: {currentWeapon.spread} deg",
 	]
 
 	var height = textSpacing * (array_length(weaponStats)+1)

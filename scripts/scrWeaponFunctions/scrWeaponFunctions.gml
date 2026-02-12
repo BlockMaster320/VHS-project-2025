@@ -87,8 +87,10 @@ function meleeWeaponShoot()
 		var bullet = spawnBullet()
 		//bullet.x = bullet.ownerID.x
 		//bullet.y = bullet.ownerID.y
-		bullet.image_angle = bullet.dir
-		bullet.drawRot = bullet.dir
+		if (bullet.rotateInDirection) {
+			bullet.image_angle = bullet.dir
+			bullet.drawRot = bullet.dir
+		}
 		bullet.sprite_index = sMeleeHitbox
 	}
 }
@@ -366,7 +368,7 @@ function genericWeaponDraw(_alpha = 1, posOff=0)
 	shader_reset()
 	
 	if (index != WEAPON.fists)	// draw a hand holding the gun
-		draw_sprite_ext(sHands, 7, roundPixelPos(xPos) - 2 * flip, roundPixelPos(yPos) - 4, flip, 1, 0, c_white, _alpha)
+		draw_sprite_ext(sHand, projectile.ownerID.handImage, roundPixelPos(xPos) - 2 * flip, roundPixelPos(yPos) - 4, flip, 1, 0, c_white, _alpha)
 		
 	weaponPostDraw()
 }

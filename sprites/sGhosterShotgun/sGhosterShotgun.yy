@@ -1,10 +1,10 @@
 {
   "$GMSprite":"",
-  "%Name":"sPlaceholderGun",
+  "%Name":"sGhosterShotgun",
   "bboxMode":0,
   "bbox_bottom":13,
-  "bbox_left":3,
-  "bbox_right":15,
+  "bbox_left":4,
+  "bbox_right":23,
   "bbox_top":6,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -19,10 +19,11 @@
   "height":16,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"3038fc55-6cdc-4cbe-afa0-c86f2b45d0dc","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"3038fc55-6cdc-4cbe-afa0-c86f2b45d0dc","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"e03b9f3f-4f87-4ef1-a7c4-a860b6a74dab","blendMode":0,"displayName":"Layer 2","isLocked":false,"name":"e03b9f3f-4f87-4ef1-a7c4-a860b6a74dab","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"3038fc55-6cdc-4cbe-afa0-c86f2b45d0dc","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"3038fc55-6cdc-4cbe-afa0-c86f2b45d0dc","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
     {"$GMImageLayer":"","%Name":"d78482d5-7975-47a2-8590-8134b49a8cf5","blendMode":0,"displayName":"default","isLocked":false,"name":"d78482d5-7975-47a2-8590-8134b49a8cf5","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
   ],
-  "name":"sPlaceholderGun",
+  "name":"sGhosterShotgun",
   "nineSlice":null,
   "origin":9,
   "parent":{
@@ -34,7 +35,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"sPlaceholderGun",
+    "%Name":"sGhosterShotgun",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -58,21 +59,21 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"sPlaceholderGun",
+    "name":"sGhosterShotgun",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
     "seqHeight":16.0,
-    "seqWidth":16.0,
+    "seqWidth":25.0,
     "showBackdrop":true,
     "showBackdropImage":false,
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"000b38cc-ba4b-4b3f-aca8-e3a834db6186","path":"sprites/sPlaceholderGun/sPlaceholderGun.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"000b38cc-ba4b-4b3f-aca8-e3a834db6186","path":"sprites/sGhosterShotgun/sGhosterShotgun.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"b2e5a489-f3fb-4811-8879-6365e5c85f14","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
@@ -89,5 +90,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":16,
+  "width":25,
 }

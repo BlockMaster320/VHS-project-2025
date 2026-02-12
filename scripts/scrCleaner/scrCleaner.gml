@@ -43,6 +43,7 @@ function cleanerAiUpdate()
 	// State machine -----------------------------------------
 				
 	// State changes
+	
 	if (!activeCoordination)
 	{
 		switch (state)
@@ -97,6 +98,11 @@ function cleanerAiUpdate()
 				cleanerAiTryCloning()
 				break
 		}
+	}
+	
+	if (instance_number(oEnemy)-1 < 4 and cloneCD.value > 30)
+	{
+		cloneCD.value = 30
 	}
 				
 				
@@ -187,7 +193,7 @@ function cleanerAiCloneUpdate()
 	}
 	else if (instance_number(oEnemy)-1 < 6)
 	{
-		cloneCount = random_range(2,3)
+		cloneCount = random_range(1,3)
 		cloneCD.value *= .5
 	}
 	for (var i = 0; i < cloneCount; ++i) {

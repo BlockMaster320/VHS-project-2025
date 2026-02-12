@@ -23,6 +23,7 @@ vsp = 0		// Total horizontal speed
 
 maxHp = 150
 hp = maxHp
+recDmgMult = 1
 effects = []
 
 // Hit flash
@@ -64,6 +65,7 @@ depth = -y;
 alpha = 1
 weaponAlpha = 1
 handsAlpha = 1
+handImage = 0
 
 // Info flash (copy pasted from weapons)
 flashFrameCounter = 0
