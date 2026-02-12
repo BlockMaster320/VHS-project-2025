@@ -100,16 +100,13 @@ function GetHit(character, proj)
 	
 	// Stat changes
 	
-	var damageDealt = proj.damage * proj.damageMultiplier
+	var damageDealt = proj.damage * proj.damageMultiplier * character.recDmgMult
 	if (proj.objDealNoDamage) damageDealt = 0
 	
 	CalculateKnockback(character, proj)
 	
 	if (character.characterType == CHARACTER_TYPE.ghoster or character.characterType == CHARACTER_TYPE.cleanerEnemy)
 		character.wantsToHide += damageDealt * .02
-		
-	if (character.characterType == CHARACTER_TYPE.cleanerEnemy)
-		damageDealt *= character.recDmgMult
 	
 	// Add projectile effects
 	//character.effects = array_union(character.effects, proj.effects)

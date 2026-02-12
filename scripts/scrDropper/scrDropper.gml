@@ -19,7 +19,8 @@ function dropperAiInit()
 	{
 		optimalRange = new Range(20, 60)
 		wantsToHideMult = 0
-		repositionSuddenStopDelay = new Range(5, 15)
+		//repositionSuddenStopDelay = new Range(5, 15)
+		repositionSuddenStopDelay = new Range(20, 100)
 	}
 	else if (projType == PROJECTILE_TYPE.ranged)
 		optimalRange = new Range(80, 180)
@@ -38,6 +39,9 @@ function dropperAiInit()
 	
 	// Rest
 	restAiInit()
+	
+	// Scatter
+	scatterAiInit()
 }
 
 function dropperAiUpdate()
@@ -47,6 +51,10 @@ function dropperAiUpdate()
 	// State machine -----------------------------------------
 				
 	// State changes
+	if (scatterCooldown.value <= 0 and state != AI_STATE.shoot)
+		scatterAiSetupState()
+	else if (state != AI_STATE.scatter) scatterCooldown.value--
+	
 	if (!activeCoordination)
 	{
 		switch (state)
@@ -87,6 +95,10 @@ function dropperAiUpdate()
 				
 			case AI_STATE.rest:
 				restAiTransition()
+				break
+				
+			case AI_STATE.scatter:
+				scatterAiTransition()
 				break
 		}
 	}
