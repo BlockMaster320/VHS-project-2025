@@ -102,6 +102,7 @@
     {"id":{"name":"oEnemy","path":"objects/oEnemy/oEnemy.yy",},},
     {"id":{"name":"oEscalator","path":"objects/oEscalator/oEscalator.yy",},},
     {"id":{"name":"oEscalatorBarrier","path":"objects/oEscalatorBarrier/oEscalatorBarrier.yy",},},
+    {"id":{"name":"oEscalatorDialogue","path":"objects/oEscalatorDialogue/oEscalatorDialogue.yy",},},
     {"id":{"name":"oGameEnter","path":"objects/oGameEnter/oGameEnter.yy",},},
     {"id":{"name":"oInfoTable","path":"objects/oInfoTable/oInfoTable.yy",},},
     {"id":{"name":"oInteractable","path":"objects/oInteractable/oInteractable.yy",},},

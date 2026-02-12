@@ -1,8 +1,8 @@
 
 if (room != rmBossFight)
 {
-// Inherit the parent event
-event_inherited();
+	// Inherit the parent event
+	event_inherited();
 
 	imageIndex = (hasInteracted) ? imageIndex + 0.2 : 0;
 	if (imageIndex > sprite_get_number(sPower) - 1)

@@ -5,11 +5,18 @@ if (!talking) {
 	}
 	
     closest_NPC = instance_nearest(oPlayer.x, oPlayer.y, oNPC);
+		
 	if (!instance_exists(closest_NPC) || closest_NPC == noone) exit;
 	var _distToClosestNPC = point_distance(oPlayer.x, oPlayer.y, closest_NPC.x, closest_NPC.y);
-	if (_distToClosestNPC > INTERACTION_DISTANCE) {
+
+	
+	var maxDistance = 150	
+	if (_distToClosestNPC > maxDistance)
+		closest_NPC = noone
+		
+	if (_distToClosestNPC > INTERACTION_DISTANCE)
 		exit;
-	}
+
 	closest_NPC.inRange = true
 	
 	if (interactDelay.value > 0) interactDelay.value--
