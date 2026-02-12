@@ -42,6 +42,7 @@ endgameScene = new TweenSequence([
 		room_goto(rmMenu)
 		oPlayer.x = -1000
 		oPlayer.y = -1000
+		part_particles_clear(oController.cloneDustSys)
 		getCinemaBorders().Set(CinemaBordersState.NONE).Start()
 	}).GetTween(),
 	TweenWait(1000),
