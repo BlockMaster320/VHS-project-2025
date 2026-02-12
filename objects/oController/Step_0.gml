@@ -1,11 +1,3 @@
-if (debug_mode)
-{
-	if (keyboard_check_pressed(ord("K")))
-		room_goto(rmGame)
-	if (keyboard_check_pressed(ord("B")))
-		room_goto(rmBossFight)
-}
-
 if (instance_exists(oRoomManager))
 	pfGrid = oRoomManager.pathfindingGrid
 

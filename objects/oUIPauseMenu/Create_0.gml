@@ -29,20 +29,20 @@ restart_button = new Button(
 restart_button.padding = {x: 16, y:8}
 
 // Debug button
-debug_room_button = new Button(
-	"debug_room_game_button",
-	UIGroups.PAUSE,
-	0, 0,
-	"Debug Room", 
-	function() {
-		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
-		global.gameSpeed = oController.defaultGameSpeed
-		lowerState = INPUT_STATE.playing
-		if (room != rmDebug) oController.prevRoom = room
-		RoomTransition(rmDebug)
-	},
-); 
-debug_room_button.padding = {x: 16, y:8}
+//debug_room_button = new Button(
+//	"debug_room_game_button",
+//	UIGroups.PAUSE,
+//	0, 0,
+//	"Debug Room", 
+//	function() {
+//		ElementController().setGroupVisibility(UIGroups.PAUSE, ElementState.HIDDEN)
+//		global.gameSpeed = oController.defaultGameSpeed
+//		lowerState = INPUT_STATE.playing
+//		if (room != rmDebug) oController.prevRoom = room
+//		RoomTransition(rmDebug)
+//	},
+//); 
+//debug_room_button.padding = {x: 16, y:8}
 // -----------
 
 exit_button = new Button(
@@ -69,7 +69,7 @@ dynamic_column = new DynamicColumn(
 	screen.middle.x,
 	screen.middle.y,
 	0,
-	[resume_button, restart_button, debug_room_button, exit_button],
+	[resume_button, restart_button, exit_button],
 	Anchor.Center,
 	Anchor.Top,
 	function(width, height) {
