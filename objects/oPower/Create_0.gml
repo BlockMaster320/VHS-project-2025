@@ -15,6 +15,9 @@ interactionFunction = function() {
 		with (oEscalatorBarrier) instance_destroy(self);
 	}
 	
+	with(oEscalatorDialogue)
+		instance_destroy(self)
+	
 	audio_play_sound(sndPowerOn, 0, false)
 	oCamera.currentShakeAmount += 10
 	global.powerOn = true
