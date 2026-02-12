@@ -156,7 +156,6 @@ draw_set_color(c_white)
 surface_reset_target()
 
 // Weapon stats ----------------------------------------------
-/*
 if (showStats and inventorySize > 0)
 {
 
@@ -221,7 +220,7 @@ if (showStats and inventorySize > 0)
 
 	surface_reset_target()
 
-}*/
+}
 
 // --------------------------------------------
 }
