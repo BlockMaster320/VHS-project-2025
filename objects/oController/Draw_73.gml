@@ -29,8 +29,9 @@ if (instance_exists(oCamera))
 }
 
 
-if (room == rmMenu)
+if (room == rmMenu && prevRoom != rmBossFight)
 {
+	draw_sprite_ext(sFullscreenButton, 0, 1321, 117, 3.44, 3.44, 0, c_white, 1)
 	introTextAlpha = lerp(introTextAlpha, .6, .001)
 	draw_set_alpha(introTextAlpha)
 	var scale = 2
