@@ -555,7 +555,7 @@ function characterCreate(_characterType) {
 				myWeapon.update()
 				if (recDmgMult < 1) recDmgMult += 1/60 / 120
 				else if (recDmgMult < 2) recDmgMult += 1/60 / 360
-				show_debug_message(recDmgMult)
+				//show_debug_message(recDmgMult)
 			}
 			
 			drawEvent = function()
