@@ -54,6 +54,7 @@ if (!point_in_rectangle(viewCenterX, viewCenterY, regionLeft, regionTop, regionR
 	
 	instance_activate_object(oPower)
 	instance_activate_object(oDoorEscalator)
+	instance_activate_object(oEscalatorDialogue)
 	instance_activate_object(oEscalatorBarrier)
 	
 	var activateLeft = viewCenterX - cameraW

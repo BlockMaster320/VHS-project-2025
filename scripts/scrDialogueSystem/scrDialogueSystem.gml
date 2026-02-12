@@ -165,6 +165,14 @@ function DialogueSystem() constructor
 										new DialogueLine("Of course :)", [], []),
 										new DialogueLine("tady bude animace jak ho slapne", [], []),
 									])])
+	ds_map_add(dlgs, CHARACTER_TYPE.escalatorDialogue,
+								[
+									new Dialogue(
+									[
+										new DialogueLine("The escalator entry is powered off.", [], [1]),
+										new DialogueLine("There has to be a power switch somewhere.", [], [])
+									])
+								] )
 }
 
 // @return index from the dialogue array for the current character, noone for no dialogue

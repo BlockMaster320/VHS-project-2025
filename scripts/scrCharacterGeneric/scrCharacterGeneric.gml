@@ -12,7 +12,9 @@ enum CHARACTER_TYPE
 	mechanic, shopkeeper, 
 	passenger1, passenger2, passenger3,
 	enemyStartID /*dummy const*/, targetDummy, ghoster, meleeSlasher, fanner, dropper, enemyEndID /*dummy const*/,
-	playerCleaner, cleanerEnemy, cleanerClone
+	playerCleaner, cleanerEnemy, cleanerClone,
+	
+	escalatorDialogue,
 }
 
 enum CharacterState {

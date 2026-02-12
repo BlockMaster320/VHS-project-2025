@@ -71,7 +71,7 @@ else if (room == rmMenu)
 		draw_set_alpha(menuShowCredits3Alpha)
 		var scale = 2
 		draw_text_transformed(	centerX, centerY+130,
-								"Press backspace to return to lobby.\n(Try holding Ctrl+Shift+T to discover a secret.)",
+								"Press backspace for a new run.\n(Try holding Ctrl+Shift+T to discover a secret.)",
 								scale, scale, 0)
 			
 		if (keyboard_check(vk_shift) and keyboard_check(vk_control) and keyboard_check(ord("T")))

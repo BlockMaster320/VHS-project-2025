@@ -1,22 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"oEscalatorBarrier",
+  "%Name":"oEscalatorDialogue",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":1,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oEscalatorBarrier",
+  "name":"oEscalatorDialogue",
   "overriddenProperties":[],
   "parent":{
     "name":"RoomObjects",
     "path":"folders/Objects/RoomObjects.yy",
   },
   "parentObjectId":{
-    "name":"oCollider",
-    "path":"objects/oCollider/oCollider.yy",
+    "name":"oInteractable",
+    "path":"objects/oInteractable/oInteractable.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -35,10 +33,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"sCollider",
-    "path":"sprites/sCollider/sCollider.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
