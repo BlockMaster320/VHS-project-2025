@@ -1,3 +1,41 @@
+// DEBUG -------------------------------
+
+if (global.debugModeEnabled)
+{
+	if (keyboard_check_pressed(ord("G")))
+		room_goto(rmGame)
+	if (keyboard_check_pressed(ord("B")))
+		room_goto(rmBossFight)
+	if (keyboard_check_pressed(ord("L")))
+		room_goto(rmLobby)
+		
+	if (keyboard_check_pressed(ord("C")) and instance_exists(oRoomManager) and room == rmGame)    // clear all enemies
+	   oRoomManager.killAllEnemies()
+		
+	if (keyboard_check_pressed(ord("K"))) {
+		oPlayer.hp = 0
+		oPlayer.onDeathEvent()
+	}
+	if (keyboard_check(ord("O"))) game_restart()
+	
+	// DEBUG TELEPORT
+	if (mouse_check_button(mb_right))
+	{
+		//var off = 8
+		//draw_line(mouse_x-off,mouse_y,mouse_x+off,mouse_y)
+		//draw_line(mouse_x,mouse_y-off,mouse_x,mouse_y+off)
+		//draw_circle(mouse_x, mouse_y, 5, true)
+		draw_set_alpha(.5)
+		draw_sprite(oPlayer.sprite_index, 0, mouse_x, mouse_y)
+		draw_set_alpha(1)
+	}
+	if (mouse_check_button_released(mb_right))
+	{
+		oPlayer.x = mouse_x
+		oPlayer.y = mouse_y
+	}
+}
+
 // Lighting --------------------------
 
 if (!instance_exists(oCamera)) return;

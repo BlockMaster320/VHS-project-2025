@@ -1,23 +1,3 @@
-// DEBUG TELEPORT
-if (room = rmDebug)
-{
-	if (mouse_check_button(mb_right))
-	{
-		//var off = 8
-		//draw_line(mouse_x-off,mouse_y,mouse_x+off,mouse_y)
-		//draw_line(mouse_x,mouse_y-off,mouse_x,mouse_y+off)
-		//draw_circle(mouse_x, mouse_y, 5, true)
-		draw_set_alpha(.5)
-		draw_sprite(oPlayer.sprite_index, 0, mouse_x, mouse_y)
-		draw_set_alpha(1)
-	}
-	if (mouse_check_button_released(mb_right))
-	{
-		oPlayer.x = mouse_x
-		oPlayer.y = mouse_y
-	}
-}
-
 event_inherited();
 
 if (global.SHOW_PATH_GRID)
@@ -60,11 +40,18 @@ var margin = 2 * TILE_SIZE
 var rightX = cameraW - margin
 var bottomY = cameraH - margin
 
+var showStats = false
+var showStatsSlot = 0
+var mouseX = device_mouse_x_to_gui(0) * guiToCamera
+var mouseY = device_mouse_y_to_gui(0) * guiToCamera
+//draw_circle(mouseX, mouseY, 20, false)
+
 // Inventory ----------------------------------------
 
 var size = 1.6 * TILE_SIZE
 var center = size/2
 
+// Inventory dark background
 draw_set_color(c_black)
 draw_set_alpha(.9)
 
@@ -81,6 +68,7 @@ for (var i = 0; i < inventorySize; i++)
 	var xx = rightX - (size * (inventorySize-1 - i)) - center
 	var yy = bottomY - center
 	
+	// Show durability
 	if (weaponInventory[i].durabilityMult != 0)
 	{
 		var weaponDurFac = weaponInventory[i].remainingDurability / 1
@@ -89,8 +77,16 @@ for (var i = 0; i < inventorySize; i++)
 		draw_set_alpha(1)
 	}
 	
+	// Show weapon stats
+	if (point_in_rectangle(mouseX, mouseY, xx-center+.5, yy-center, xx+center, yy+center+1.))
+	{
+		showStats = true
+		showStatsSlot = i
+	}
+	
 	drawReloadState(weaponInventory[i], xx, yy+5, 1)
 	
+	//Show weapon sprite
 	var _sprite = weaponInventory[i].sprite;
 	xx = xx + sprite_get_xoffset(_sprite) - sprite_get_width(_sprite) / 2 + 1;	// center the weapon sprite
 	yy = yy + sprite_get_yoffset(_sprite) - sprite_get_height(_sprite) / 2;
@@ -127,6 +123,12 @@ if (holdingTempWeapon)
 {
 	draw_sprite_ext(tempWeaponSlot.sprite, 0, tempSlotRightX - center, bottomY - center, 1, 1, 0, c_white, 1)
 	draw_rectangle(tempSlotLeftX, bottomY - size, tempSlotRightX, bottomY, true)
+	
+	if (point_in_rectangle(mouseX, mouseY, tempSlotLeftX, bottomY - size, tempSlotRightX, bottomY))
+	{
+		showStats = true
+		showStatsSlot = -1
+	}
 }
 
 draw_set_alpha(.9)
@@ -156,14 +158,13 @@ draw_set_color(c_white)
 surface_reset_target()
 
 // Weapon stats ----------------------------------------------
-if (showStats and inventorySize > 0)
+if (notInCombat and showStats and inventorySize > 0)
 {
-
 	surface_set_target(oController.guiUpscaledSurf)
 	
 	margin *= oController.upscaleMult
 	
-	var textScale = floor(oController.upscaleMult * .5)
+	var textScale = round(oController.upscaleMult * .5)
 	var textSpacing = 12 * textScale
 
 	var topY = (bottomY - center*2)*oController.upscaleMult
@@ -172,9 +173,8 @@ if (showStats and inventorySize > 0)
 	var leftX = rightX - width
 	var centerX = leftX + (rightX-leftX)/2
 
-	var currentWeapon = weaponInventory[activeInventorySlot]
-	if (tempWeaponSlot.index != WEAPON.fists)
-		currentWeapon = tempWeaponSlot
+	var currentWeapon = tempWeaponSlot
+	if (showStatsSlot != -1) currentWeapon = weaponInventory[showStatsSlot]
 		
 	var proj = currentWeapon.projectile
 	while (proj.projectileChild != noone) // Check the stats of the last spawned

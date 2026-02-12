@@ -64,6 +64,18 @@ function Input()
 			
 			pause = keyboard_check_pressed(vk_escape) or keyboard_check_pressed(ord("P"))
 			
+			
+			// Debug
+			if (room != rmDebug and keyboard_check(vk_shift) and keyboard_check(vk_control) and keyboard_check(ord("T")))
+			{
+				if (debugRoomHoldCd.value <= 0)
+				{
+					debugRoomHoldCd.reset()
+					room_goto(rmDebug)
+				}
+				else debugRoomHoldCd.value--
+			} else debugRoomHoldCd.reset()
+			
 			break
 			
 			

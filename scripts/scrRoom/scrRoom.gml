@@ -382,7 +382,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	LockRoom = function() {
 		
 		oPlayer.walkSpd = oPlayer.walkSpdDef
-		oPlayer.showStats = false
+		oPlayer.notInCombat = false
 		audio_play_sound(sndRoomClose, 0, false)
 		
 		// Start door closing animation
@@ -516,7 +516,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		if (cleared || !ds_list_empty(enemies)) return;
 		
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
-		oPlayer.showStats = true
+		oPlayer.notInCombat = true
 		audio_sound_gain(oController.actionMusic, actionMusicRestGain, 3000)
 		audio_play_sound(sndRoomOpen, 0, false)
 		

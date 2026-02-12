@@ -123,10 +123,3 @@ if (global.gameSpeed > .0001)
 }
 
 #endregion
-
-// Debug
-if (debug_mode and keyboard_check_pressed(ord("L"))) {
-	hp = 0
-	onDeathEvent()
-}
-if (debug_mode and keyboard_check(ord("O"))) game_restart()

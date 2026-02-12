@@ -55,9 +55,6 @@ if (!is_undefined(currentRoom) && !currentRoom.discovered) {    // make the room
     }
 }
 
-if (debug_mode)
-	if (keyboard_check_pressed(ord("C")))    // clear all enemies
-	   killAllEnemies()
    
 
 /*

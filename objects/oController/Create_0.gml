@@ -14,12 +14,15 @@ gameFPS = 60
 defaultGameSpeed = 60 / gameFPS
 global.gameSpeed = defaultGameSpeed
 
+global.debugModeEnabled = debug_mode
+
 window_set_cursor(cr_cross)
 //window_set_cursor(cr_none)
 //cursor_sprite = sCursor
 display_set_timing_method(tm_sleep)		// Turn off vsync
 
 global.inputState = INPUT_STATE.playing
+debugRoomHoldCd = new Cooldown(60)
 
 
 WeaponsInit()
@@ -28,7 +31,7 @@ buffRarityIndexes = [BUFF.commonIndex, BUFF.rareIndex]
 // Intro
 introTextAlpha = 0
 
-//if (debug_mode)
+//if (global.debugModeEnabled)
 //	show_debug_overlay(true)
 
 draw_set_font(fntGeneric)

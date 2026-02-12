@@ -1,5 +1,5 @@
 function IntroScene() {
-	if (debug_mode)	// Skip intro for debugging
+	if (global.debugModeEnabled)	// Skip intro for debugging
 	{
 		RoomTransition(rmLobby)
 		return;

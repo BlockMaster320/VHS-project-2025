@@ -29,7 +29,7 @@ hp = maxHp
 
 activeInventorySlot = 0
 //activeSlotSwapCooldown = new Cooldown(30)	// In frames
-showStats = true
+notInCombat = true
 
 // Weapons
 function InitPlayerWeapons()
