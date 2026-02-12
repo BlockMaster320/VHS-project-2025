@@ -8,11 +8,12 @@ function Dialogue(_lines, _cond = function(){ return true }, _endDlgFunc = funct
 	interactingInstance = noone
 }
 
-function DialogueLine(_text, _answers, _next) constructor
+function DialogueLine(_text, _answers, _next, _endLineFunc = []) constructor
 {
 	text = _text
 	answers = _answers // more than 2 not supported
 	next = _next
+	endLineFunc = _endLineFunc
 }
 
 function DialogueSystem() constructor
@@ -24,17 +25,52 @@ function DialogueSystem() constructor
 										new DialogueLine("UNKNOWN CHARACTER NAME. PLZ FIX.", [], [])
 									])])
 									
-	ds_map_add(dlgs, CHARACTER_TYPE.mechanic, [new Dialogue(
-									[
-										new DialogueLine("G-g-g... G-good morning! S-sorry... is th-th-there... I mean, is there s-something I c-c-can help you with?", ["Hello, I heard the metro isn't operating?"], [1]),
-										new DialogueLine("Y-yes, I'm a-a-afraid so. The p-p-power has been off... s-since this m-m-morning and we d-d-don't know... why...", [], [2]),
-										new DialogueLine("We t-t-tried s-switching it b-b-b... b-back on, but nothing h-happened.", [], [3]),
-										new DialogueLine("It's p-probably c-c-connected to that... h-h-hole, that appeared out of n-no-n-nowhere in the wall a-across the p-platform.", [], [4]),
-										new DialogueLine("We tried s-ssending a t-technician there... b-b-b-but he c-c-came back p-p-pale and i-i-immeadiately q-q-quit his job.", [], [5]),
-										new DialogueLine("It will p-p-p-probably t-take another 3 hours u-u-until another t-team reaches us.", ["What about you? You're a technician as well, aren't you?"], [6]),
-										new DialogueLine("M-m-me? I-I-I... d-don't want t-t-to... I-I'm... s-s-scared...", ["But I really need to go to school! Can I take a look then?"], [7]),
-										new DialogueLine("Y-y-you? I-I-I mean... It m-m-might b-be d-dangerous... B-b-but I c-cannot sstop you... Soo...", [], [])
-
+	ds_map_add(dlgs, CHARACTER_TYPE.mechanic, [
+									//0, intro
+									new Dialogue([
+										/*0*/ new DialogueLine("G-g-g... G-good morning! S-sorry... is th-th-there... I mean, is there s-something I c-c-can help you with?", ["Hello, I heard the metro isn't operating?"], [1]),
+										/*1*/ new DialogueLine("Y-yes, I'm a-a-afraid so. The p-p-power has been off... s-since this m-m-morning and we d-d-don't know... why...", [], [2]),
+										/*2*/ new DialogueLine("We t-t-tried s-switching it b-b-b... b-back on, but nothing h-happened.", [], [3]),
+										/*3*/ new DialogueLine("It's p-probably c-c-connected to that... h-h-hole, that appeared out of n-no-n-nowhere in the wall a-across the p-platform.", [], [4]),
+										/*4*/ new DialogueLine("We tried s-ssending a t-technician there... b-b-b-but he c-c-came back p-p-pale and i-i-immeadiately q-q-quit his job.", [], [5]),
+										/*5*/ new DialogueLine("It will p-p-p-probably t-take another 3 hours u-u-until another t-team reaches us.", ["What about you? You're a technician as well, aren't you?"], [6]),
+										/*6*/ new DialogueLine("M-m-me? I-I-I... d-don't want t-t-to... I-I'm... s-s-scared...", 
+												[
+													"But I really need to go to school! Can I take a look then?",
+													"Ok, I understand... I definitely won't go."
+												], 
+												[
+													7,
+													10
+												],
+												[
+													function(){},
+													function(){}
+												]),
+										/*7*/ new DialogueLine("Y-y-you? I-I-I mean... It m-m-might b-be d-dangerous...", 
+												[
+													"You're right! I'm definitely staying there.", 
+													"Naah, I'll be fine, I'm a sorcery student, after all."
+												], 
+												[
+													8,
+													9
+												], 
+												[
+													function(){},
+													function(){ oLobby.techGuyWorries = true }
+												]),
+										/*8*/ new DialogueLine("Y-y-yes, y-you d-d-definitely should!", [], []),
+										/*9*/ new DialogueLine("I mean... I c-c-cannot s-stop you... B-but p-p-please be c-careful and d-don't t-t-tell anyone!", [], []),
+										/*10*/new DialogueLine("Y-y-yes, y-you d-d-definitely s-shouldn't!", [], [])
+									]),
+									//1, student will stay
+									new Dialogue([
+										new DialogueLine("T-thank you for y-your p-p-patience, the t-team is on their w-way and will b-b-be there shortly!", [], [])
+									]),
+									//2, student will go
+									new Dialogue([
+										new DialogueLine("Y-you're still alive?", [], [])
 									])])
 	ds_map_add(dlgs, CHARACTER_TYPE.student, [new Dialogue(
 									[
@@ -164,6 +200,12 @@ function SelectDlg(_NPCType)
 			if (!dialogues.dlgs[? _NPCType][0].seen)
 				return 0
 			return noone
+		case CHARACTER_TYPE.mechanic:
+			if (!dialogues.dlgs[? _NPCType][0].seen)
+				return 0
+			if (oLobby.techGuyWorries)
+				return 2
+			return 1
 		default:
 			return 0
 	}
@@ -285,5 +327,12 @@ function DisableDlgOptions()
 {
 	for (var i = 0; i < array_length(options); ++i){
 		options[i].active = false
+	}
+}
+
+function EndLineFunction(_optionIdx)
+{
+	if (array_length(current_line.endLineFunc) > 0){
+		current_line.endLineFunc[_optionIdx]()
 	}
 }

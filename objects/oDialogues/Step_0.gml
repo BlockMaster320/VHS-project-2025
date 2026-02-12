@@ -61,10 +61,17 @@ if (!talking) {
 		if (oController.next){
 			if (!DlgTimerSkip() && oController.clicked){
 				var _optIdx = GetSelectedDlgOptionIdx(_x, _y)
-				if (_optIdx != undefined && !GetNextDlgLine(_optIdx)){
+				if (_optIdx != undefined){
+					EndLineFunction(_optIdx)
+					if (!GetNextDlgLine(_optIdx)){
+						EndDlg()
+						exit
+					}
+				}
+				/*if (_optIdx != undefined && !GetNextDlgLine(_optIdx)){
 					EndDlg()
 					exit
-				}
+				}*/
 			}
 		}
 	}

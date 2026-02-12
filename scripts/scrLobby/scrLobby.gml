@@ -34,4 +34,6 @@ function Lobby() constructor {
 		platform_right: {x: 500, y: 160},
 		dungeon_entry: {x: 408, y:130}
 	}
+	
+	techGuyWorries = false
 }
