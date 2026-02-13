@@ -14,6 +14,9 @@ function Text(_name, _group, _text = "", _x = 0, _y = 0, _anchor = Anchor.Center
 	text		= _text;
 	anchor		= _anchor;
 	
+	width		= string_width(text);
+	height		= string_height(text);
+	
     /// @function   click()
     click = function() {
         set_focus();
@@ -24,6 +27,7 @@ function Text(_name, _group, _text = "", _x = 0, _y = 0, _anchor = Anchor.Center
 		safeDraw(function() {
 			setAnchorToAlign(anchor)
 			var old_color = draw_get_color();
+			draw_set_color(menuTextCol)
 	        draw_text(x, y, text);
 			draw_set_color(old_color);
 		})

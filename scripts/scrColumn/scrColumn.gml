@@ -139,4 +139,14 @@ function DynamicColumn(_name, _group, _x, _y, _spacing, _elements, _anchor = und
 			nextElementPositionY += spacing + elem.height
 		}
 	}
+	
+	static setVisibility = function(_elementState) {
+		debug("UI: " + string(name) + " is set to: " + string(_elementState))
+		elementState = _elementState
+		
+		for (var i = 0; i < array_length(elements); i++) {
+	        var elem = elements[i];
+			elem.setVisibility(_elementState)
+		}
+	}
 }
