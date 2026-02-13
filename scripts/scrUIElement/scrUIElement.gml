@@ -53,6 +53,7 @@ function GUIElement() constructor {
 	}
 	
 	static setVisibility = function(_elementState) {
+		debug("UI: " + string(name) + " is set to: " + string(_elementState))
 		elementState = _elementState
 	}
 }

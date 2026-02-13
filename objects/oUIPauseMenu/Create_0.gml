@@ -1,5 +1,23 @@
 var screen = new ScreenDefaults()
 lowerState = INPUT_STATE.playing
+setVisibility = function(uiElement, _bool) {
+	uiElement.setVisibility(
+		_bool ? elementState.ACTIVE :  ElementState.HIDDEN
+	)
+}
+
+controls_text = new Text(
+	"controls_text",
+	UIGroups.PAUSE,
+	"movement - WASD\n" + 
+	"shoot - L mouse\n" + 
+	"change inventory slot - space / scroll mouse / number\n" +
+	"pause - esc\n" + 
+	"interact - E\n" +
+	"debug room - hold ctrl+shift+t (LOSES PROGRESS!!)",
+	0, 0
+)
+controls_text.setVisibility(ElementState.HIDDEN)
 
 resume_button = new Button(
 	"resume_game_button",
@@ -53,7 +71,38 @@ exit_button = new Button(
 ); 
 exit_button.padding = {x: 16, y:8}
 
-my_canvas = new Canvas(
+
+controls_button = new Button(
+	"controls_button",
+	UIGroups.PAUSE,
+	0, 0,
+	"Controls", 
+	function() {
+		dynamic_column_controls.setVisibility(ElementState.ACTIVE)
+		dynamic_column.setVisibility(ElementState.HIDDEN)
+		dyn_column_canvas.setVisibility(ElementState.HIDDEN)
+		dyn_column_controls_canvas.setVisibility(ElementState.ACTIVE)
+	},
+); 
+controls_button.padding = {x: 16, y:8}
+
+controls_back_button = new Button(
+	"controls_back_button",
+	UIGroups.PAUSE,
+	0, 0,
+	"Back", 
+	function() {
+		dynamic_column_controls.setVisibility(ElementState.HIDDEN)
+		dynamic_column.setVisibility(ElementState.ACTIVE)
+		dyn_column_canvas.setVisibility(ElementState.ACTIVE)
+		dyn_column_controls_canvas.setVisibility(ElementState.HIDDEN)
+	},
+); 
+controls_back_button.padding = {x: 16, y:8}
+controls_back_button.setVisibility(ElementState.HIDDEN)
+
+
+dyn_column_canvas = new Canvas(
 	"pause_canvas",
 	UIGroups.PAUSE,
 	screen.middle.x, 
@@ -62,19 +111,49 @@ my_canvas = new Canvas(
 	sCanvas,
 );
 
+
+dyn_column_controls_canvas = new Canvas(
+	"pause_canvas",
+	UIGroups.PAUSE,
+	screen.middle.x, 
+	screen.middle.y,
+	0, 0,
+	sCanvas,
+);
+
+
+mainMenuElements = [resume_button, restart_button, controls_button, exit_button]
+controlsMenuElements = [controls_text, controls_back_button]
+
 dynamic_column = new DynamicColumn(
 	"dynamic_column",
 	UIGroups.PAUSE,
 	screen.middle.x,
 	screen.middle.y,
 	0,
-	[resume_button, restart_button, exit_button],
+	mainMenuElements,
 	Anchor.Center,
 	Anchor.Top,
 	function(width, height) {
 		var padding = 8 * 2
-		my_canvas.height = height + padding
-		my_canvas.width = width + padding
+		dyn_column_canvas.height = height + padding
+		dyn_column_canvas.width = width + padding
+	}
+);
+
+dynamic_column_controls = new DynamicColumn(
+	"dynamic_column_controls",
+	UIGroups.PAUSE,
+	screen.middle.x,
+	screen.middle.y,
+	0,
+	controlsMenuElements,
+	Anchor.Center,
+	Anchor.Top,
+	function(width, height) {
+		var padding = 8 * 2
+		dyn_column_controls_canvas.height = height + padding
+		dyn_column_controls_canvas.width = width + padding
 	}
 );
 
