@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sndDoorOpen",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":2.5401587,
+  "name":"sndDoorOpen",
+  "parent":{
+    "name":"Ambiance",
+    "path":"folders/Sound/Ambiance.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sndDoorOpen.ogg",
+  "type":0,
+  "volume":1.0,
+}

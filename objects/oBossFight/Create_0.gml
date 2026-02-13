@@ -62,6 +62,10 @@ endgameScene = new TweenSequence([
 		new DialogueLine("Anyways, here I am, surprisingly on time. Moment of truth...", [], [])		
 	])),
 	TweenWait(1000),
+	new TweenAction(function() {
+		audio_play_sound(sndDoorOpen, 0, false)
+	}),
+	TweenWait(3000),
 	new TweenDialogueEx(new Dialogue([
 		new DialogueLine("Huh?", [], [1]),
 		new DialogueLine("The exam starts in one minute, why is no one there?", [], [2]),

@@ -209,6 +209,7 @@
     {"id":{"name":"sndCrateDestruction3","path":"sounds/sndCrateDestruction3/sndCrateDestruction3.yy",},},
     {"id":{"name":"sndCrowbarHit","path":"sounds/sndCrowbarHit/sndCrowbarHit.yy",},},
     {"id":{"name":"sndDialogue","path":"sounds/sndDialogue/sndDialogue.yy",},},
+    {"id":{"name":"sndDoorOpen","path":"sounds/sndDoorOpen/sndDoorOpen.yy",},},
     {"id":{"name":"sndEscalator","path":"sounds/sndEscalator/sndEscalator.yy",},},
     {"id":{"name":"sndFanBlast","path":"sounds/sndFanBlast/sndFanBlast.yy",},},
     {"id":{"name":"sndFanClick","path":"sounds/sndFanClick/sndFanClick.yy",},},
