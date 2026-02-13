@@ -30,8 +30,13 @@ else if (flashFrequency > 0)
 }
 else draw_sprite_ext(drawnSprite, sprite_frame, roundPixelPos(x), roundPixelPos(y), dir, 1, 0, c_white, alpha)
 
-if (inRange && global.inputState != INPUT_STATE.cutscene && oDialogues.canStartDialogue(characterType) && room != rmBossFight)
-	draw_text(x - (string_width("[E]") / 2), y - sprite_yoffset - 10, "[E]")
+if (inRange && global.inputState != INPUT_STATE.cutscene && oDialogues.canStartDialogue(characterType) && room != rmBossFight) {
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_bottom);
+	draw_text(x, y - sprite_get_yoffset(drawnSprite), "[E]")
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
+}
 else if (characterType == oController.questNPC)
 {
 	var questAlpha = sin((current_time*2*pi)/2000)*.25+.75

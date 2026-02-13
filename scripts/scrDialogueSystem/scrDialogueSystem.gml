@@ -74,7 +74,7 @@ function DialogueSystem() constructor
 									])])
 	ds_map_add(dlgs, CHARACTER_TYPE.student, [new Dialogue(
 									[
-										new DialogueLine("Yo, bro! Heading to the academy?", ["Yeah, cloning exam. So far I haven't even passed the first part."], [1]),
+										new DialogueLine("Yo, bro! Heading to the academy?", ["Yep, cloning exam. I haven't even passed the first part yet."], [1]),
 										new DialogueLine("No way, I was supposed to take it today too!", [], [2]),
 										new DialogueLine("Last time I failed the second part because I forgot my wand and those spare ones at school suck.", ["...! You need a wand? I left mine at home!"], [3]),
 										new DialogueLine("Well, lucky you, the metro is stuck anyway.", ["What do you mean?"], [4]),

@@ -30,6 +30,7 @@ safeDraw(function() {
 	// NPC
 	var drawNPC = !is_undefined(closest_NPC) && closest_NPC != noone
 	var portraitWidth = drawNPC ? sprite_get_width(closest_NPC.portrait) : 0
+	var portraitHeight = drawNPC ? sprite_get_height(closest_NPC.portrait) : 0
 	
 	// Adjust top if it's a multiline text with options
 	if (waiting_for_answer){
@@ -44,12 +45,12 @@ safeDraw(function() {
 	
 	draw_text_ext(left + PADDING_H, top + PADDING_V, text, textHeight, textboxWidth - portraitWidth)
 	
-	if (drawNPC) draw_sprite_ext(closest_NPC.portrait, 0, textboxRight - portraitWidth + 5, bottom - portraitWidth, 1, 1, 0, -1, 1);
+	if (drawNPC) draw_sprite_ext(closest_NPC.portrait, 0, textboxRight - portraitWidth + 5, bottom - portraitHeight, 1, 1, 0, -1, 1);
 	
 	if (current_dialogue.seen){
 		var skipText = "skip >>"
-		var skipRight = textboxRight - portraitWidth - string_width(skipText) - 5
-		var skipTop =  bottom - string_height(skipText)
+		var skipRight = textboxRight - portraitWidth - string_width(skipText) - 7
+		var skipTop =  bottom - string_height(skipText) - 2
 		
 		var _x = device_mouse_x_to_gui(0) * guiToCamera
 		var _y = device_mouse_y_to_gui(0) * guiToCamera

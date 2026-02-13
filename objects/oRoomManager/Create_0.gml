@@ -1,5 +1,6 @@
 // Minimap
 minimapSurf = surface_create(MINIMAP_SURF_W, MINIMAP_SURF_H);
+statsAlpha = 1;
 
 // Get the tilemap
 var _layerWall = layer_get_id("TilesWall");	// wall collision tiles

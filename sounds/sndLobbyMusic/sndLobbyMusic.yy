@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sndLobbyMusic.ogg",
   "type":1,
-  "volume":0.42,
+  "volume":0.45,
 }
