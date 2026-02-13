@@ -161,9 +161,11 @@ function DialogueSystem() constructor
 									new Dialogue([new DialogueLine("...", [], [])]),
 									new Dialogue(
 									[
-										new DialogueLine("Found these laying around. I will let you take one if you ask nicely.", ["Can i please take one?", "Haha make me."], [1, 2]),
+										new DialogueLine("Found these laying around. I will let you take one if you ask nicely.",
+											["Can i please take one?", "Haha make me."],
+											[1],
+											[function(){}, ShopkeeperScene]),
 										new DialogueLine("Of course :)", [], []),
-										new DialogueLine("tady bude animace jak ho slapne", [], []),
 									])])
 	ds_map_add(dlgs, CHARACTER_TYPE.escalatorDialogue,
 								[

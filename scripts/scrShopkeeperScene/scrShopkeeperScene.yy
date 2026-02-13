@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrShopkeeperScene",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrShopkeeperScene",
+  "parent":{
+    "name":"CutScenes",
+    "path":"folders/Objects/CutScenes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
