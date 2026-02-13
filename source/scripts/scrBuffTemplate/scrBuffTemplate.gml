@@ -125,6 +125,8 @@ function EvaluatePlayerBuffs()
 			
 		if (inventorySize < 1)
 			weaponInventory[0] = acquireWeapon(WEAPON.fists, id, true)
+		if (activeInventorySlot >= inventorySize and inventorySize > 0)
+			activeInventorySlot = inventorySize-1
 			
 		walkSpdDef = min(walkSpdDef, TILE_SIZE)
 		walkSpdSprint = min(walkSpdSprint, TILE_SIZE)

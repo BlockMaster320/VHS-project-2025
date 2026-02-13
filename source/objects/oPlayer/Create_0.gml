@@ -53,6 +53,7 @@ buffs = []
 function ResetPlayerBuffs()
 {
 	buffs = []
+	activeInventorySlot = 0
 	EvaluatePlayerBuffs()	// Order is important!
 	EvaluateWeaponBuffs()
 	EvaluateOneTimeUseBuffs()
