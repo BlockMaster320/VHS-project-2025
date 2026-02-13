@@ -285,6 +285,7 @@
     {"id":{"name":"sGroanTube","path":"sprites/sGroanTube/sGroanTube.yy",},},
     {"id":{"name":"sHand","path":"sprites/sHand/sHand.yy",},},
     {"id":{"name":"sHands","path":"sprites/sHands/sHands.yy",},},
+    {"id":{"name":"sIcon","path":"sprites/sIcon/sIcon.yy",},},
     {"id":{"name":"sInfoTable","path":"sprites/sInfoTable/sInfoTable.yy",},},
     {"id":{"name":"sMechanicPortrait","path":"sprites/sMechanicPortrait/sMechanicPortrait.yy",},},
     {"id":{"name":"sMeleeHitbox","path":"sprites/sMeleeHitbox/sMeleeHitbox.yy",},},
