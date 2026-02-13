@@ -61,7 +61,10 @@ function Button(_name, _group, _x = 0, _y = 0, _text = "Button", _onClick = func
 			}
 	
 			draw_sprite_stretched(_sprite, 0, pos.x, pos.y, width, height);
+			
+			draw_set_color(menuTextCol)
 			draw_text(pos.x + width / 2, pos.y + height / 2, text);
+			draw_set_color(c_white)
 		})
     }
 }

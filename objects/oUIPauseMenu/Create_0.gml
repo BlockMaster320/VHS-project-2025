@@ -9,12 +9,12 @@ setVisibility = function(uiElement, _bool) {
 controls_text = new Text(
 	"controls_text",
 	UIGroups.PAUSE,
-	"movement - WASD\n" + 
-	"shoot - L mouse\n" + 
-	"change inventory slot - space / scroll mouse / number\n" +
-	"pause - esc\n" + 
-	"interact - E\n" +
-	"debug room - hold ctrl+shift+t (LOSES PROGRESS!!)",
+	"Movement – WASD\n" + 
+	"Shoot – L mouse\n" + 
+	"Interact – E\n" +
+	"Inventory slot – space / mouse scroll / number\n" +
+	"\n" +
+	"Debug room – hold Ctrl+Shift+T (Loses progress!)",
 	0, 0
 )
 controls_text.setVisibility(ElementState.HIDDEN)
@@ -122,7 +122,7 @@ dyn_column_controls_canvas = new Canvas(
 );
 
 
-mainMenuElements = [resume_button, restart_button, controls_button, exit_button]
+mainMenuElements = [resume_button, controls_button, restart_button, exit_button]
 controlsMenuElements = [controls_text, controls_back_button]
 
 dynamic_column = new DynamicColumn(

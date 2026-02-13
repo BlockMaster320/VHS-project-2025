@@ -41,6 +41,8 @@ function Constants()
 	#macro cameraW 480
 	#macro cameraH 270
 	
+	#macro menuTextCol make_color_rgb(206, 229, 219)
+	
 	#macro guiW display_get_gui_width()
 	#macro guiH display_get_gui_height()
 	#macro cameraToGui guiW / cameraW
