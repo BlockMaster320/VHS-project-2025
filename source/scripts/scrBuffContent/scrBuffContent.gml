@@ -328,7 +328,7 @@ function BuffCreate(buffType_)
 
 				rarity = RARITY.common
 				
-				newStats = [ new Range(1.5,1.5) ]		// - movement speed
+				newStats = [ new Range(1.5,1.5) ]		// + recieved damage
 		
 				descriptionBuff = $"DOUBLE ALL EFFECTS"
 				descriptionDebuff = $"Recieve {toPercent(newStats[0].value)-100}% more damage"
@@ -336,7 +336,7 @@ function BuffCreate(buffType_)
 				characterBuffApply = function(player)
 				{
 					player.buffApplyAmount++	// Do not multiply this, this is already exponential!
-					player.recDmgMult = newStats[0].value
+					player.recDmgMult *= newStats[0].value
 				}
 				
 				break

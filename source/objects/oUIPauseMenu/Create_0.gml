@@ -11,10 +11,9 @@ controls_text = new Text(
 	UIGroups.PAUSE,
 	"Movement – WASD\n" + 
 	"Shoot – L mouse\n" + 
+	"Reload – R\n" +
 	"Interact – E\n" +
-	"Inventory slot – space / mouse scroll / number\n" +
-	"\n" +
-	"Debug room – hold Ctrl+Shift+T (Loses progress!)",
+	"Inventory slot – space / mouse scroll / number\n",
 	0, 0
 )
 controls_text.setVisibility(ElementState.HIDDEN)

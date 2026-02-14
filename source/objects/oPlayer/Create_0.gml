@@ -10,6 +10,7 @@ function InitPlayerStats()
 	walkSpdSprint = 2.8	// Use when running between cleared rooms
 	walkSpd = walkSpdDef
 	maxHp = 150
+	recDmgMult = 1
 	
 	inventorySize = 2
 	hp = maxHp

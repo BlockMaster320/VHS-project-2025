@@ -34,6 +34,7 @@ stepFunc = function()
 	{
 		if (!instance_exists(buffs[i]))
 		{
+			instance_activate_object(oBuffPickup)
 			destroyBuffs()
 			buffs = []
 			spawnBuffs()
