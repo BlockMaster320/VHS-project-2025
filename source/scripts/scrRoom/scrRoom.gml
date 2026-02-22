@@ -499,11 +499,27 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	// Kills and removes specified enemy object from the room
 	KillEnemy = function(_enemyID) {
+		debug("Searching for enemy to kill... ID = " + string(_enemyID) + "\n" + 
+			"List size: " + string(ds_list_size(oRoomManager.currentRoom.enemies)) + "\n" + 
+			 string(ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID))
+			 )
+		    // Print entire list
+	    for (var i = 0; i < ds_list_size(oRoomManager.currentRoom.enemies); i++) {
+	        debug(
+	            "Index " + string(i) + 
+	            " -> ID: " + string(oRoomManager.currentRoom.enemies[| i])
+	        );
+	    }
+
+
 		var _index = ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID);
 		if (_index != -1) {
 			ds_list_delete(oRoomManager.currentRoom.enemies, _index);
+			debug("Calling onDeathEvent on enemy id = " + string(_enemyID) + ", calling CheckCleared()...")
 			_enemyID.onDeathEvent()
 			CheckCleared();
+		} else {
+			debug("Failed to find character to kill. ID = " + string(_enemyID))
 		}
 	}
 	
