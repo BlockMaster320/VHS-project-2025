@@ -47,7 +47,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	discovered = false;
 	cleared = false;
-	enemies = ds_list_create();
+	enemies = [] //ds_list_create();
 	doors = ds_list_create();
 	entrySides = [false, false, false, false];	// right, left, bottom, top
 	
@@ -445,7 +445,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 				var enemyType = chooseEnemyType()
 				with(_enemy) { characterCreate(enemyType); }
 				
-				ds_list_add(enemies, _enemy);
+				//ds_list_add(enemies, _enemy);
+				appendToList(enemies, _enemy)
 				spawnEnemyCount--
 			}
 		}
@@ -499,28 +500,45 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	// Kills and removes specified enemy object from the room
 	KillEnemy = function(_enemyID) {
-		debug("Searching for enemy to kill... ID = " + string(_enemyID) + "\n" + 
-			"List size: " + string(ds_list_size(oRoomManager.currentRoom.enemies)) + "\n" + 
-			 string(ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID))
+		enemyID = _enemyID
+		debug("Searching for enemy to kill... ID = " + string(enemyID.id) + "\n" + 
+			"List size: " + string(listSize(oRoomManager.currentRoom.enemies)) + "\n" + 
+			string(firstOrNull(oRoomManager.currentRoom.enemies, function (_item) { return _item.id == enemyID.id}))
+			// string(ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID.id))
 			 )
 		    // Print entire list
-	    for (var i = 0; i < ds_list_size(oRoomManager.currentRoom.enemies); i++) {
+	   /* for (var i = 0; i < ds_list_size(oRoomManager.currentRoom.enemies); i++) {
 	        debug(
 	            "Index " + string(i) + 
-	            " -> ID: " + string(oRoomManager.currentRoom.enemies[| i])
+	            " -> ID: " + string(oRoomManager.currentRoom.enemies[| i].id)
 	        );
-	    }
+	    }*/
+	
+		mapList(oRoomManager.currentRoom.enemies, function(_item) {
+		 debug(
+	            " -> ID: " + string(_item.id)
+	        );
+		})
 
+		var foundEnemy = firstOrNull(oRoomManager.currentRoom.enemies, function(_item){ return _item.id == enemyID.id })
+		if (foundEnemy == undefined) {
+			debug("Failed to find character to kill. ID = " + string(enemyID.id))
+		} else {
+			deleteFromListBy(oRoomManager.currentRoom.enemies, function(_item){return _item.id == enemyID.id})
+			debug("Calling onDeathEvent on enemy id = " + string(_enemyID.id) + ", calling CheckCleared()...")
+			foundEnemy.onDeathEvent()
+			CheckCleared();
+		}
 
-		var _index = ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID);
+		/*var _index = ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID.id);
 		if (_index != -1) {
 			ds_list_delete(oRoomManager.currentRoom.enemies, _index);
-			debug("Calling onDeathEvent on enemy id = " + string(_enemyID) + ", calling CheckCleared()...")
+			debug("Calling onDeathEvent on enemy id = " + string(_enemyID.id) + ", calling CheckCleared()...")
 			_enemyID.onDeathEvent()
 			CheckCleared();
 		} else {
-			debug("Failed to find character to kill. ID = " + string(_enemyID))
-		}
+			debug("Failed to find character to kill. ID = " + string(_enemyID.id))
+		}*/
 	}
 	
 	RemoveProjectiles = function(_objectId = oProjectile) {
@@ -529,7 +547,8 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
-		if (cleared || !ds_list_empty(enemies)) return;
+		if (listSize(enemies) > 0) return
+		//if (cleared || !ds_list_empty(enemies)) return;
 		
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
 		oPlayer.notInCombat = true
