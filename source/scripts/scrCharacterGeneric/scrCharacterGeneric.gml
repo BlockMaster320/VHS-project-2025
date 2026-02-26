@@ -85,12 +85,15 @@ function DealDamage(character, damageDealt, hitSoundGain=1)
 		character.hp = 0
 		if (room != rmLobby and room != rmDebug and room != rmBossFight and character.characterClass == CHARACTER_CLASS.enemy)
 		{
+			debug("Killing enemy (oRoomManager.currentRoom.KillEnemy)...")
 			oRoomManager.currentRoom.KillEnemy(character);
 		}
 		else
 		{
-			if ((room != rmDebug or !charIsPlayer) and oldHp > 0)
+			if ((room != rmDebug or !charIsPlayer) and oldHp > 0) {
+				debug("Calling onDeathEvent() on character...")
 				character.onDeathEvent()
+			}
 		}
 	}
 }
