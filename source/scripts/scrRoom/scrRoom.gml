@@ -504,16 +504,9 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 		debug("Searching for enemy to kill... ID = " + string(enemyID.id) + "\n" + 
 			"List size: " + string(listSize(oRoomManager.currentRoom.enemies)) + "\n" + 
 			string(firstOrNull(oRoomManager.currentRoom.enemies, function (_item) { return _item.id == enemyID.id}))
-			// string(ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID.id))
-			 )
-		    // Print entire list
-	   /* for (var i = 0; i < ds_list_size(oRoomManager.currentRoom.enemies); i++) {
-	        debug(
-	            "Index " + string(i) + 
-	            " -> ID: " + string(oRoomManager.currentRoom.enemies[| i].id)
-	        );
-	    }*/
-	
+		)
+		
+		// Print entire list
 		mapList(oRoomManager.currentRoom.enemies, function(_item) {
 		 debug(
 	            " -> ID: " + string(_item.id)
@@ -529,16 +522,6 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 			foundEnemy.onDeathEvent()
 			CheckCleared();
 		}
-
-		/*var _index = ds_list_find_index(oRoomManager.currentRoom.enemies, _enemyID.id);
-		if (_index != -1) {
-			ds_list_delete(oRoomManager.currentRoom.enemies, _index);
-			debug("Calling onDeathEvent on enemy id = " + string(_enemyID.id) + ", calling CheckCleared()...")
-			_enemyID.onDeathEvent()
-			CheckCleared();
-		} else {
-			debug("Failed to find character to kill. ID = " + string(_enemyID.id))
-		}*/
 	}
 	
 	RemoveProjectiles = function(_objectId = oProjectile) {
@@ -547,8 +530,7 @@ function Room(_x, _y, _depth, _typeIndex = noone) constructor {
 	
 	// Checks whether the room is cleared (no enemies) and if it is, opens the entries
 	CheckCleared = function() {
-		if (listSize(enemies) > 0) return
-		//if (cleared || !ds_list_empty(enemies)) return;
+		if (cleared || listSize(enemies) > 0) return
 		
 		oPlayer.walkSpd = oPlayer.walkSpdSprint
 		oPlayer.notInCombat = true
